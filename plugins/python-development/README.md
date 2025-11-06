@@ -14,6 +14,7 @@ This category contains agents focused on Python-specific development practices f
 
 ## Available Skills
 
+- **[pixi-package-manager](skills/pixi-package-manager/SKILL.md)**: Fast, reproducible scientific Python environments with pixi - conda and PyPI unified
 - **[python-packaging](skills/python-packaging/SKILL.md)**: Modern Python packaging with pyproject.toml, src layout, and Hatchling build backend
 - **[python-testing](skills/python-testing/SKILL.md)**: Writing robust tests with pytest following Scientific Python best practices
 
