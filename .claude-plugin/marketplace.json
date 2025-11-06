@@ -1,12 +1,44 @@
 {
-  "name": "rse-agents",
-  "owner": {
-    "name": "UW SSEC Team",
-    "url": "https://github.com/uw-ssec"
-  },
-  "metadata": {
-    "description": "Custom AI agents for Research Software Engineering (RSE) and Scientific Computing tasks",
-    "version": "0.1.0"
-  },
-  "plugins": []
+    "name": "rse-agents",
+    "owner": {
+        "name": "UW SSEC Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "metadata": {
+        "description": "Custom AI agents for Research Software Engineering (RSE) and Scientific Computing tasks",
+        "version": "0.1.0"
+    },
+    "plugins": [
+        {
+            "name": "python-development",
+            "source": "./plugins/python-development",
+            "description": "Agents and skills for Scientific Python development and best practices",
+            "version": "0.1.0",
+            "author": {
+                "name": "Landung Setiawan",
+                "url": "https://github.com/lsetiawan"
+            },
+            "homepage": "https://github.com/uw-ssec/rse-agents",
+            "repository": "https://github.com/uw-ssec/rse-agents",
+            "license": "MIT",
+            "keywords": [
+                "python",
+                "scientific-computing",
+                "research-software-engineering",
+                "rse",
+                "ai-agents",
+                "claude-plugins"
+            ],
+            "category": "development",
+            "strict": false,
+            "agents": [
+                "./agents/scientific-python-expert.md"
+            ],
+            "skills": [
+                "./skills/pixi-package-manager",
+                "./skills/python-packaging",
+                "./skills/python-testing"
+            ]
+        }
+    ]
 }
