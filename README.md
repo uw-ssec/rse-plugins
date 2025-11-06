@@ -27,21 +27,35 @@ Once installed, the agents will be available in your Claude Code environment and
 
 > **Note:** This repository is in active development. Agents will be added progressively to address various RSE and scientific computing needs.
 
-Agents are located in the `.github/agents/` directory. Each agent is a specialized assistant designed for specific scientific software engineering tasks.
+Agents are organized by scientific domain categories in the `plugins/` directory. Each category contains specialized agents designed for specific areas of scientific software engineering.
 
-<!-- Agents will be listed here as they are added -->
+### Agent Categories
+
+- **[scientific-computing/](plugins/scientific-computing/)** - HPC, numerical computing, and computational science
+- **[data-science/](plugins/data-science/)** - Data analysis, statistics, and machine learning
+- **[research-tools/](plugins/research-tools/)** - General RSE practices and tools
+- **[domain-specific/](plugins/domain-specific/)** - Discipline-specific scientific applications
+
+Browse the [plugins directory](plugins/) to explore all categories and available agents.
 
 ## 📁 Repository Structure
 
 ```
 rse-agents/
-├── .github/
-│   └── agents/          # Agent configuration files
-│       ├── README.md    # Agent development guide
-│       └── TEMPLATE.md  # Template for creating new agents
-├── LICENSE              # BSD 3-Clause License
-├── README.md            # This file
-└── CONTRIBUTING.md      # Guidelines for contributing agents
+├── plugins/                    # Plugin categories
+│   ├── scientific-computing/   # HPC & computational science agents
+│   │   ├── README.md
+│   │   └── agents/
+│   │       └── TEMPLATE.md
+│   ├── data-science/           # Data analysis & ML agents
+│   │   └── agents/
+│   ├── research-tools/         # General RSE agents
+│   │   └── agents/
+│   └── domain-specific/        # Domain-specific agents
+│       └── agents/
+├── LICENSE                     # BSD 3-Clause License
+├── README.md                   # This file
+└── CONTRIBUTING.md             # Guidelines for contributing agents
 ```
 
 ## 🤝 Contributing
@@ -57,8 +71,9 @@ We welcome contributions of new agents and improvements to existing ones! Please
 
 For detailed information about developing and using RSE agents, please refer to:
 
-- [Agent Development Guide](.github/agents/README.md) - How to create new agents
+- [Plugin Categories Overview](plugins/README.md) - Overview of all agent categories
 - [Contributing Guidelines](CONTRIBUTING.md) - How to contribute to this repository
+- Category-specific guides in each plugin directory
 
 ## 🔗 Related Resources
 

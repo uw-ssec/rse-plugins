@@ -14,13 +14,22 @@ We welcome various types of contributions:
 
 ## 🤖 Creating a New Agent
 
-### Agent File Structure
+### 1. Choose the Right Category
 
-Agents are stored in the `.github/agents/` directory as Markdown files. Each agent file should:
+Agents are organized by scientific domain in the `plugins/` directory:
+
+- **scientific-computing/** - HPC, numerical computing, simulations
+- **data-science/** - Data analysis, statistics, machine learning
+- **research-tools/** - General RSE practices and tools
+- **domain-specific/** - Discipline-specific applications
+
+### 2. Agent File Structure
+
+Agents are stored in `plugins/{category}/agents/` as Markdown files. Each agent file should:
 
 1. Have a descriptive, kebab-case filename (e.g., `scientific-python-expert.md`)
 2. Include a clear agent prompt that defines its expertise and behavior
-3. Follow the template structure provided below
+3. Follow the template structure provided in each category's `agents/TEMPLATE.md`
 
 ### Agent Template
 
@@ -53,9 +62,9 @@ Describe scenarios where this agent should be used, such as:
 - Use kebab-case for filenames: `domain-specific-expert.md`
 - Keep names concise but informative
 - Examples:
-  - `scientific-python-expert.md`
-  - `hpc-workflow-optimizer.md`
-  - `data-visualization-specialist.md`
+  - `plugins/scientific-computing/agents/hpc-workflow-optimizer.md`
+  - `plugins/data-science/agents/scientific-python-analyst.md`
+  - `plugins/research-tools/agents/reproducibility-specialist.md`
 
 ### Best Practices for Agent Prompts
 
@@ -86,11 +95,11 @@ Good agents for scientific software should:
    git checkout -b add-agent-name
    ```
 
-3. **Add Your Agent**: Create your agent file in `.github/agents/`
+3. **Add Your Agent**: Create your agent file in the appropriate `plugins/{category}/agents/` directory
 
 4. **Test Your Agent**: Test the agent with Claude Code to ensure it works as expected
 
-5. **Update Documentation**: If adding a new agent, update the main README.md to list it
+5. **Update Documentation**: If adding a new agent, update the category README to list it
 
 6. **Submit a Pull Request**: 
    - Provide a clear description of the agent and its purpose
@@ -101,7 +110,7 @@ Good agents for scientific software should:
 
 Before submitting your PR, ensure:
 
-- [ ] Agent file is in `.github/agents/` directory
+- [ ] Agent file is in the appropriate `plugins/{category}/agents/` directory
 - [ ] Filename follows kebab-case convention
 - [ ] Agent prompt is clear and well-documented
 - [ ] Agent has been tested with Claude Code (or equivalent)
@@ -113,7 +122,7 @@ Before submitting your PR, ensure:
 
 To test your agent:
 
-1. Add the agent file to your local `.github/agents/` directory
+1. Add the agent file to your local `plugins/{category}/agents/` directory
 2. Use Claude Code to invoke the agent on relevant tasks
 3. Verify that the agent provides appropriate guidance
 4. Check that the agent stays within its defined scope
