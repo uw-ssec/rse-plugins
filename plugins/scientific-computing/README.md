@@ -1,88 +1,182 @@
-# Scientific Computing Agents
+# Scientific Computing Plugin
 
-This category contains agents specialized in scientific computing, numerical methods, high-performance computing (HPC), and computational science.
+Agents and skills for high-performance computing, numerical methods, and computational science.
 
-## 🎯 Category Focus
+## Status
 
-Agents in this category help with:
+**Current Status:** Planned - Plugin structure in place, agents and skills coming soon
 
-- **High-Performance Computing (HPC)**
-  - Parallel computing (MPI, OpenMP, GPU computing)
-  - Job scheduling and resource management
-  - Performance optimization and profiling
-  - Cluster computing workflows
+This plugin will provide specialized agents and skills for researchers and developers working with:
+- High-performance computing (HPC) systems
+- Numerical algorithms and computational methods
+- Scientific simulations and modeling
+- Parallel and distributed computing
+- Performance optimization for scientific code
 
-- **Numerical Computing**
-  - Numerical algorithms and methods
-  - Scientific libraries (NumPy, SciPy, Julia)
-  - Precision and numerical stability
-  - Algorithm complexity and optimization
+## Planned Focus Areas
 
-- **Scientific Simulations**
-  - Physical simulations and modeling
-  - Computational fluid dynamics
-  - Monte Carlo methods
-  - Finite element methods
+### High-Performance Computing (HPC)
 
-- **Computational Science Best Practices**
-  - Reproducible computational workflows
-  - Version control for computational projects
-  - Testing numerical code
-  - Documentation for scientific computing
+- **Parallel Computing**
+  - MPI (Message Passing Interface) for distributed computing
+  - OpenMP for shared-memory parallelism
+  - GPU computing with CUDA and OpenCL
+  - Hybrid CPU-GPU workflows
 
-## 🤖 Available Agents
+- **Job Scheduling and Resource Management**
+  - SLURM, PBS, LSF job schedulers
+  - Resource allocation and optimization
+  - Queue management and priority scheduling
+  - Batch job scripting and automation
 
-> **Note:** Agents will be added progressively. Check back for updates or contribute your own!
+- **Performance Optimization**
+  - Profiling with Scalasca, TAU, Intel VTune, NVIDIA Nsight
+  - Identifying bottlenecks and hotspots
+  - Memory optimization and cache efficiency
+  - Vectorization and compiler optimization
 
-<!-- Agent list will be populated here as agents are added -->
+### Numerical Computing
 
-## 📝 Creating Agents for This Category
+- **Numerical Algorithms**
+  - Linear algebra (direct and iterative solvers)
+  - Optimization methods
+  - Integration and differentiation
+  - Root finding and equation solving
 
-When creating agents for scientific computing:
+- **Scientific Libraries**
+  - NumPy and SciPy for Python
+  - BLAS/LAPACK for linear algebra
+  - PETSc for parallel scientific computing
+  - Julia scientific computing ecosystem
 
-1. **Focus on Computational Aspects**: Emphasize performance, accuracy, and scalability
-2. **Consider HPC Environments**: Account for cluster computing, parallel processing
-3. **Promote Best Practices**: Reproducibility, testing, and validation
-4. **Use Standard Tools**: Reference established libraries and frameworks
+- **Numerical Stability**
+  - Floating-point arithmetic considerations
+  - Conditioning and error analysis
+  - Precision management
+  - Verification and validation
 
-### Example Agent Topics
+### Scientific Simulations
 
-Potential agents for this category include:
+- **Simulation Methods**
+  - Finite element methods (FEM)
+  - Finite difference methods (FDM)
+  - Monte Carlo simulations
+  - Molecular dynamics
+  - Computational fluid dynamics (CFD)
 
-- HPC workflow optimization expert
-- Scientific Python computing specialist
-- Parallel computing and MPI expert
-- GPU computing and CUDA specialist
-- Numerical methods and algorithms advisor
-- Performance profiling and optimization expert
-- Scientific simulation design consultant
+- **Workflow Management**
+  - Multi-scale simulations
+  - Uncertainty quantification
+  - Parameter sweeps and sensitivity analysis
+  - Data management for large simulations
 
-## 🏷️ Related Technologies
+### Computational Science Best Practices
 
-Agents in this category may work with:
+- **Reproducibility**
+  - Version control for computational code
+  - Environment management and containerization
+  - Workflow documentation
+  - Data provenance tracking
 
-- **Languages**: Python, C/C++, Fortran, Julia, MATLAB
-- **Libraries**: NumPy, SciPy, MPI4Py, CuPy, Numba, Dask
-- **HPC Tools**: SLURM, PBS, OpenMPI, Intel MPI
-- **GPU Computing**: CUDA, OpenCL, ROCm
-- **Profiling**: Scalasca, TAU, Intel VTune, NVIDIA Nsight
+- **Testing and Validation**
+  - Unit testing for numerical code
+  - Regression testing
+  - Verification against analytical solutions
+  - Code review for scientific accuracy
 
-## 📚 Resources
+## Planned Technologies
 
-- [Parallel Computing Best Practices](https://hpc.llnl.gov/training)
-- [Scientific Python Lectures](https://lectures.scientific-python.org/)
-- [XSEDE Training Materials](https://www.xsede.org/for-users/training)
+### Languages
+- Python (NumPy, SciPy, CuPy, Numba, Dask)
+- C/C++ (MPI, OpenMP, CUDA)
+- Fortran (legacy scientific code)
+- Julia (modern scientific computing)
+- MATLAB (prototyping and analysis)
+
+### HPC Tools
+- **Schedulers:** SLURM, PBS Pro, LSF, SGE
+- **MPI Implementations:** OpenMPI, Intel MPI, MPICH
+- **Compilers:** GCC, Intel, NVIDIA HPC SDK
+- **Profilers:** Scalasca, TAU, Intel VTune, NVIDIA Nsight
+
+### GPU Computing
+- CUDA (NVIDIA GPUs)
+- OpenCL (cross-platform GPUs)
+- ROCm (AMD GPUs)
+- cuPy (NumPy-compatible CUDA)
+- JAX (composable transformations)
+
+### Scientific Libraries
+- NumPy, SciPy, Pandas
+- MPI4Py (Python MPI bindings)
+- Dask (parallel computing)
+- PETSc (parallel solvers)
+- Trilinos (solver frameworks)
+
+## Example Use Cases
+
+Once agents and skills are available, they will help with:
+
+1. **Optimizing parallel algorithms** for HPC clusters
+2. **Implementing numerical methods** with appropriate precision and stability
+3. **Profiling and debugging** performance bottlenecks
+4. **Designing scientific simulation** workflows
+5. **Managing large-scale computations** across distributed systems
+6. **Migrating code to GPU** for acceleration
+7. **Setting up reproducible** computational environments
+8. **Implementing best practices** for numerical software
+
+## Contributing
+
+We welcome contributions of agents and skills for scientific computing! If you have expertise in HPC, numerical methods, or computational science, please consider contributing.
+
+See the main [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines on creating agents and skills.
+
+### Potential Agent Topics
+
+Ideas for agents in this category:
+
+- HPC Workflow Optimization Expert
+- Parallel Computing Specialist (MPI, OpenMP)
+- GPU Computing and CUDA Expert
+- Numerical Methods Advisor
+- Performance Profiling Specialist
+- Scientific Simulation Designer
+- Computational Reproducibility Expert
+
+### Potential Skill Topics
+
+Ideas for skills in this category:
+
+- SLURM Job Scheduling Patterns
+- MPI Programming Best Practices
+- GPU Acceleration with CUDA
+- Profiling Scientific Code
+- Numerical Stability Techniques
+- Finite Element Method Implementation
+- Reproducible HPC Workflows
+
+## Resources
+
+### HPC Training
 - [HPC Carpentry](https://www.hpc-carpentry.org/)
+- [LLNL HPC Tutorials](https://hpc.llnl.gov/training)
+- [ARCHER2 Training](https://www.archer2.ac.uk/training/)
+- [XSEDE Training](https://www.xsede.org/for-users/training)
 
-## 🤝 Contributing
+### Numerical Computing
+- [Numerical Recipes](http://numerical.recipes/)
+- [SciPy Lectures](https://lectures.scientific-python.org/)
+- [Numerical Methods for Engineers](https://www.numerical.engineering/)
 
-To contribute an agent to this category:
+### Performance Optimization
+- [Intel Optimization Guide](https://www.intel.com/content/www/us/en/developer/articles/guide/developer-guide-for-intel-oneapi-toolkits.html)
+- [NVIDIA CUDA Best Practices](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/)
+- [OpenMP Programming Guide](https://www.openmp.org/)
 
-1. Copy the `TEMPLATE.md` from the `agents/` directory
-2. Name your agent file descriptively (e.g., `hpc-optimization-expert.md`)
-3. Follow the agent creation guidelines in [CONTRIBUTING.md](../../CONTRIBUTING.md)
-4. Submit a pull request with your agent
+### Related Plugins
+- [Python Development Plugin](../python-development/) - For Scientific Python development
 
----
+## Questions or Ideas?
 
-**Looking for other categories?** See the [plugins directory](../README.md) for all available categories.
+If you have suggestions for agents or skills that should be included in this plugin, please open an issue on [GitHub](https://github.com/uw-ssec/rse-agents/issues) with the label `scientific-computing`.

@@ -1,126 +1,166 @@
-# RSE Agents Plugin Directory
+# RSE Agents Plugins
 
-This directory contains custom agent configurations for Research Software Engineering (RSE) and scientific computing tasks, organized by scientific domain categories.
+This directory contains Claude Code plugins for Research Software Engineering (RSE) and scientific computing tasks. Each plugin provides specialized agents and skills organized by domain.
 
-## 📂 Directory Structure
+## Plugin Architecture
 
-Agents are organized into scientific categories, each containing their own `agents/` subdirectory:
+Plugins are self-contained units that provide domain-specific agents and skills:
+
+- **Agents** - Comprehensive AI personas with deep expertise in specific areas, capable of guiding complete workflows
+- **Skills** - Focused knowledge modules providing detailed guidance on specific topics and techniques
+- **README** - Documentation for each plugin describing its contents and use cases
+
+## Directory Structure
 
 ```
 plugins/
-├── scientific-computing/     # Scientific computing & HPC agents
-│   └── agents/
-├── python-development/       # Scientific Python development agents
-│   └── agents/
-│       └── scientific-python-expert.md
-├── data-science/             # Data analysis & ML agents (coming soon)
-│   └── agents/
-├── research-tools/           # Research software tools agents (coming soon)
-│   └── agents/
-└── domain-specific/          # Domain-specific science agents (coming soon)
-    └── agents/
+├── python-development/           # Scientific Python development
+│   ├── agents/
+│   │   └── scientific-python-expert.md
+│   ├── skills/
+│   │   ├── pixi-package-manager/
+│   │   │   └── SKILL.md
+│   │   ├── python-packaging/
+│   │   │   └── SKILL.md
+│   │   └── python-testing/
+│   │       └── SKILL.md
+│   └── README.md
+├── scientific-computing/         # HPC & computational science
+│   ├── agents/                   # (planned)
+│   └── README.md
+└── README.md                     # This file
 ```
 
-## 🗂️ Agent Categories
+## Available Plugins
 
-### Scientific Computing (`scientific-computing/`)
-Agents for computational science, numerical computing, and high-performance computing:
-- High-performance computing (HPC) workflows
-- Parallel and distributed computing
-- Scientific simulations and modeling
-- Numerical algorithms and optimization
+### Python Development
 
-### Python Development (`python-development/`)
-Agents specialized in scientific Python development and modern Python practices:
-- Modern Python packaging and project structure
-- Reproducible environment management (pixi, venv)
-- Testing and quality assurance for scientific code
-- Documentation and publication workflows
-- Performance optimization for numerical Python code
+**Status:** Active (v0.1.0)
 
-### Data Science (`data-science/`)
-Agents for data analysis, statistics, and machine learning:
-- Data processing and cleaning
-- Statistical analysis
-- Machine learning for scientific applications
-- Data visualization and exploration
+**Location:** [python-development/](python-development/)
 
-### Research Tools (`research-tools/`)
-Agents for general research software engineering:
-- Version control and collaboration
-- Testing and validation of scientific code
-- Documentation and reproducibility
-- Software architecture for research
+**Description:** Comprehensive agents and skills for modern Scientific Python development following the [Scientific Python Development Guide](https://learn.scientific-python.org/development/) community best practices.
 
-### Domain-Specific (`domain-specific/`)
-Agents specialized for specific scientific domains:
-- Bioinformatics and computational biology
-- Climate and earth science computing
-- Physics and astronomy software
-- Chemistry and materials science
-- Social sciences and digital humanities
+**Contents:**
+- 1 Agent (Scientific Python Expert)
+- 3 Skills (pixi package manager, Python packaging, Python testing)
 
-## 🔨 Creating New Agents
+**Key capabilities:**
+- Reproducible environment management with pixi
+- Modern packaging with pyproject.toml and src layout
+- Comprehensive testing with pytest
+- Scientific computing with NumPy, Pandas, SciPy, Matplotlib, Xarray
+- Code quality tooling (ruff, mypy, pre-commit)
+- Documentation with Sphinx and NumPy-style docstrings
 
-### 1. Choose the Appropriate Category
+**When to use:**
+- Setting up scientific Python projects
+- Creating distributable Python packages
+- Implementing testing for numerical code
+- Managing dependencies for reproducibility
+- Data analysis and visualization workflows
+- Research software development
 
-Determine which category best fits your agent's primary focus:
-- **scientific-computing**: For HPC, numerical computing, simulations
-- **python-development**: For Python packaging, environments, testing, documentation
-- **data-science**: For data analysis, statistics, ML
-- **research-tools**: For general RSE practices and tools
-- **domain-specific**: For discipline-specific applications
+### Scientific Computing
 
-### 2. Follow Naming Conventions
+**Status:** Planned
 
-- Use kebab-case: `agent-name.md`
+**Location:** [scientific-computing/](scientific-computing/)
+
+**Description:** Agents and skills for high-performance computing, numerical methods, and computational science.
+
+**Planned capabilities:**
+- HPC workflow optimization
+- Parallel computing (MPI, OpenMP, GPU)
+- Numerical algorithms and methods
+- Scientific simulations
+- Performance profiling and optimization
+- Cluster computing and job scheduling
+
+**Target technologies:** SLURM, MPI, CUDA, OpenCL, Dask, Numba, JAX
+
+## Plugin Development
+
+### Creating New Plugins
+
+When creating a new plugin:
+
+1. **Choose a clear domain** - Plugins should focus on a cohesive set of related tasks
+2. **Create the directory structure** - Include `agents/`, `skills/`, and `README.md`
+3. **Write comprehensive documentation** - Explain what the plugin provides and when to use it
+4. **Follow naming conventions** - Use kebab-case for directory names
+5. **Update marketplace.json** - Register the plugin in `.claude-plugin/marketplace.json`
+
+### Plugin Structure
+
+```
+my-plugin/
+├── agents/
+│   ├── agent-name-1.md
+│   └── agent-name-2.md
+├── skills/
+│   ├── skill-name-1/
+│   │   └── SKILL.md
+│   └── skill-name-2/
+│       └── SKILL.md
+└── README.md
+```
+
+### Agents vs Skills
+
+**When to create an Agent:**
+- Need a comprehensive persona that handles complete workflows
+- Requires decision-making across multiple domains
+- Involves end-to-end guidance from problem definition to solution
+- Example: Scientific Python Expert agent
+
+**When to create a Skill:**
+- Focused expertise on a specific topic or technique
+- Reusable knowledge that multiple agents might need
+- Detailed how-to guidance or reference material
+- Example: pytest testing patterns skill
+
+### Naming Conventions
+
+**Agents:**
+- Use kebab-case: `scientific-python-expert.md`
 - Be descriptive and specific
-- Examples:
-  - `scientific-computing/agents/hpc-optimization-expert.md`
-  - `data-science/agents/scientific-python-analyst.md`
-  - `research-tools/agents/reproducibility-specialist.md`
+- Indicate expertise level or domain
 
-## 📋 Agent File Structure
+**Skills:**
+- Use kebab-case for directories: `pixi-package-manager/`
+- Include descriptive SKILL.md file
+- Focus on specific tools or techniques
 
-Each agent markdown file should include:
+## Quality Standards
 
-1. **Title and Description**: Clear explanation of the agent's purpose
-2. **Expertise Section**: List of specific capabilities
-3. **When to Use**: Guidelines for appropriate usage
-4. **Agent Prompt**: The instruction text for Claude Code
-5. **Examples** (optional): Sample use cases
-6. **Tags**: Relevant keywords for discovery
-
-## 🎯 Quality Standards
-
-All agents should:
-- Promote scientific rigor and reproducibility
-- Follow best practices for scientific computing
-- Provide accurate, up-to-date technical information
-- Stay within clearly defined scope
+All plugins should:
+- Follow Scientific Python community best practices
+- Promote reproducibility and scientific rigor
+- Provide accurate, up-to-date information
+- Include clear documentation and usage guidelines
 - Emphasize testing and validation
 - Support open science principles
+- Stay within clearly defined scope
 
-## 🧪 Testing Your Agent
+## Resources
 
-Before submitting:
+### Claude Code
+- [Claude Code Documentation](https://docs.anthropic.com/claude/docs)
+- [Claude Plugin Marketplace](https://code.claude.com/docs/en/plugins)
 
-1. **Functional Test**: Use with Claude Code on real tasks
-2. **Scope Test**: Verify it stays within defined expertise
-3. **Quality Test**: Ensure recommendations follow best practices
-4. **Documentation Test**: Check usage guidelines are clear
+### Scientific Python
+- [Scientific Python Development Guide](https://learn.scientific-python.org/development/)
+- [Scientific Python Lectures](https://lectures.scientific-python.org/)
+- [NumPy Documentation Style](https://numpydoc.readthedocs.io/)
 
-## 📚 Resources
-
-- [Claude Code Plugin Documentation](https://code.claude.com/docs/en/plugins)
-- [Agent Development Guide](../CONTRIBUTING.md)
-- [Scientific Python Best Practices](https://learn.scientific-python.org/development/)
+### Research Software Engineering
 - [The Turing Way](https://the-turing-way.netlify.app/)
+- [Best Practices for Scientific Computing](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745)
+- [Software Carpentry](https://software-carpentry.org/)
 
-## 🤝 Contributing
+## Contributing
 
-See the main [CONTRIBUTING.md](../CONTRIBUTING.md) file for detailed contribution guidelines and workflow.
+See the main [CONTRIBUTING.md](../CONTRIBUTING.md) file for detailed contribution guidelines, workflows, and requirements.
 
----
-
-**Ready to create an agent?** Choose your category and start building!
+Ready to create content? Choose a plugin or create a new one!
