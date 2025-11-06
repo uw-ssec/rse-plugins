@@ -10,7 +10,9 @@ Agents are organized into scientific categories, each containing their own `agen
 plugins/
 ├── scientific-computing/     # Scientific computing & HPC agents
 │   └── agents/
-│       └── TEMPLATE.md       # Template for creating new agents
+├── python-development/       # Scientific Python development agents
+│   └── agents/
+│       └── scientific-python-expert.md
 ├── data-science/             # Data analysis & ML agents (coming soon)
 │   └── agents/
 ├── research-tools/           # Research software tools agents (coming soon)
@@ -27,6 +29,14 @@ Agents for computational science, numerical computing, and high-performance comp
 - Parallel and distributed computing
 - Scientific simulations and modeling
 - Numerical algorithms and optimization
+
+### Python Development (`python-development/`)
+Agents specialized in scientific Python development and modern Python practices:
+- Modern Python packaging and project structure
+- Reproducible environment management (pixi, venv)
+- Testing and quality assurance for scientific code
+- Documentation and publication workflows
+- Performance optimization for numerical Python code
 
 ### Data Science (`data-science/`)
 Agents for data analysis, statistics, and machine learning:
@@ -56,19 +66,12 @@ Agents specialized for specific scientific domains:
 
 Determine which category best fits your agent's primary focus:
 - **scientific-computing**: For HPC, numerical computing, simulations
+- **python-development**: For Python packaging, environments, testing, documentation
 - **data-science**: For data analysis, statistics, ML
 - **research-tools**: For general RSE practices and tools
 - **domain-specific**: For discipline-specific applications
 
-### 2. Use the Template
-
-Copy the `TEMPLATE.md` file from any category's `agents/` directory:
-
-```bash
-cp plugins/scientific-computing/agents/TEMPLATE.md plugins/{category}/agents/your-agent.md
-```
-
-### 3. Follow Naming Conventions
+### 2. Follow Naming Conventions
 
 - Use kebab-case: `agent-name.md`
 - Be descriptive and specific
@@ -120,4 +123,4 @@ See the main [CONTRIBUTING.md](../CONTRIBUTING.md) file for detailed contributio
 
 ---
 
-**Ready to create an agent?** Choose your category, copy the template, and start building!
+**Ready to create an agent?** Choose your category and start building!
