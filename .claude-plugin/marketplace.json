@@ -40,6 +40,37 @@
                 "./skills/python-testing",
                 "./skills/code-quality-tools"
             ]
+        },
+        {
+            "name": "scientific-domain-applications",
+            "source": "./plugins/scientific-domain-applications",
+            "description": "Domain-specific scientific computing agents and skills for astronomy, geospatial analysis, climate science, and interactive visualization",
+            "version": "0.2.0",
+            "author": {
+                "name": "SSEC Research Team",
+                "url": "https://github.com/uw-ssec"
+            },
+            "homepage": "https://github.com/uw-ssec/rse-agents",
+            "repository": "https://github.com/uw-ssec/rse-agents",
+            "license": "MIT",
+            "keywords": [
+                "astronomy",
+                "astrophysics",
+                "astropy",
+                "xarray",
+                "geospatial",
+                "climate",
+                "visualization",
+                "scientific-computing"
+            ],
+            "category": "data-science",
+            "strict": false,
+            "agents": [
+                "./agents/astronomy-astrophysics-expert.md"
+            ],
+            "skills": [
+                "./skills/xarray-for-multidimensional-data"
+            ]
         }
     ]
 }
