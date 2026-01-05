@@ -6,30 +6,5 @@ channels = ["conda-forge"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
 [dependencies]
-docker-compose = "*"
-docker-cli = "*"
 
 [tasks]
-
-# LiteLLM environment
-[environments]
-data-collection = ["data-collection"]
-
-[feature.data-collection.tasks]
-# Start LiteLLM services
-up = { cmd = "docker-compose up -d", cwd = "data-collection" }
-
-# Stop LiteLLM services
-down = { cmd = "docker-compose down", cwd = "data-collection" }
-
-# View logs
-logs = { cmd = "docker-compose logs -f", cwd = "data-collection" }
-
-# Check service status
-status = { cmd = "docker-compose ps", cwd = "data-collection" }
-
-# Restart services
-restart = { cmd = "docker-compose restart", cwd = "data-collection" }
-
-# Clean up volumes (WARNING: This will delete all data)
-clean = { cmd = "docker-compose down -v", cwd = "data-collection" }
