@@ -1,6 +1,7 @@
 ---
 name: parameterization
 description: Master declarative parameter systems with Param for type-safe configuration. Use this skill when building parameterized classes with automatic validation, creating reactive dependencies with @param.depends, implementing watchers for side effects, auto-generating UIs from parameters, or organizing application configuration with hierarchical parameter structures.
+version: 2025-01-07
 compatibility: Requires param >= 2.0.0, panel >= 1.3.0 (for UI generation), numpy >= 1.15.0, pandas >= 1.0.0
 ---
 
