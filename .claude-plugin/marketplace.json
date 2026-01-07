@@ -69,7 +69,8 @@
                 "./agents/astronomy-astrophysics-expert.md"
             ],
             "skills": [
-                "./skills/xarray-for-multidimensional-data"
+                "./skills/xarray-for-multidimensional-data",
+                "./skills/astropy-fundamentals"
             ]
         }
     ]
