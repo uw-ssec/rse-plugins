@@ -1,6 +1,7 @@
 ---
 name: geospatial-visualization
 description: Master geographic and mapping visualizations with GeoViews. Use this skill when creating interactive maps, visualizing point/polygon/line geographic data, building choropleth maps, performing spatial analysis (joins, buffers, proximity), working with coordinate reference systems, or integrating tile providers and basemaps.
+version: 2025-01-07
 compatibility: Requires geoviews >= 1.11.0, geopandas >= 0.10.0, shapely >= 1.8.0, pyproj >= 3.0.0, cartopy >= 0.20.0 (optional)
 ---
 
