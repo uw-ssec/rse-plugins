@@ -72,6 +72,52 @@
                 "./skills/xarray-for-multidimensional-data",
                 "./skills/astropy-fundamentals"
             ]
+        },
+        {
+            "name": "holoviz-visualization",
+            "source": "./plugins",
+            "description": "Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen)",
+            "version": "0.1.0",
+            "author": {
+                "name": "SSEC Research Team",
+                "url": "https://github.com/uw-ssec"
+            },
+            "homepage": "https://github.com/uw-ssec/rse-agents",
+            "repository": "https://github.com/uw-ssec/rse-agents",
+            "license": "MIT",
+            "keywords": [
+                "holoviz",
+                "panel",
+                "hvplot",
+                "holoviews",
+                "datashader",
+                "geoviews",
+                "lumen",
+                "bokeh",
+                "visualization",
+                "interactive-dashboards",
+                "data-visualization",
+                "scientific-computing"
+            ],
+            "category": "data-science",
+            "strict": false,
+            "agents": [
+                "./agents/panel-specialist.md",
+                "./agents/visualization-designer.md",
+                "./agents/data-engineer.md",
+                "./agents/geo-spatial-expert.md"
+            ],
+            "skills": [
+                "./skills/panel-dashboards",
+                "./skills/plotting-fundamentals",
+                "./skills/data-visualization",
+                "./skills/advanced-rendering",
+                "./skills/geospatial-visualization",
+                "./skills/colormaps-styling",
+                "./skills/parameterization",
+                "./skills/lumen-dashboards",
+                "./skills/lumen-ai"
+            ]
         }
     ]
 }
