@@ -12,8 +12,9 @@ This repository provides specialized agents and skills that understand the uniqu
 - Comprehensive testing strategies with pytest
 - Scientific computing workflows and numerical methods
 - Research software engineering practices
-- High-performance computing (HPC) patterns
-- Scientific Python ecosystem (NumPy, Pandas, SciPy, Matplotlib, Xarray, etc.)
+- Domain-specific scientific computing (astronomy, geospatial analysis, climate science)
+- Interactive data visualization with the HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen)
+- Scientific Python ecosystem (NumPy, Pandas, SciPy, Matplotlib, Xarray, Astropy, etc.)
 
 ## Installation
 
@@ -33,8 +34,6 @@ The repository provides Claude Code plugins organized by domain. Each plugin con
 
 Expert agents and comprehensive skills for modern Scientific Python development.
 
-**Location:** [plugins/python-development/](plugins/python-development/)
-
 **Agents:**
 - **Scientific Python Expert** - Comprehensive agent for scientific Python development following [Scientific Python Development Guide](https://learn.scientific-python.org/development/) best practices
 
@@ -42,18 +41,45 @@ Expert agents and comprehensive skills for modern Scientific Python development.
 - **pixi-package-manager** - Fast, reproducible scientific Python environments with unified conda and PyPI management
 - **python-packaging** - Modern packaging with pyproject.toml, src layout, and Hatchling build backend
 - **python-testing** - Robust testing strategies with pytest following Scientific Python community guidelines
+- **code-quality-tools** - Linting, formatting, and type checking tools for Python code quality
 
 **When to use:** Scientific computing projects, data analysis pipelines, research software development, package creation, reproducible research workflows
 
-### Scientific Computing Plugin
+### Scientific Domain Applications Plugin
 
-Agents for computational science, numerical methods, and high-performance computing.
+Domain-specific scientific computing agents and skills for astronomy, geospatial analysis, climate science, and interactive visualization.
 
-**Location:** [plugins/scientific-computing/](plugins/scientific-computing/)
+**Agents:**
+- **Astronomy & Astrophysics Expert** - Expert in astronomical data analysis, FITS files, coordinate systems, and photometry/spectroscopy pipelines with Astropy
 
-**Status:** Plugin structure in place, agents coming soon
+**Skills:**
+- **xarray-for-multidimensional-data** - Work with labeled multidimensional arrays and NetCDF/Zarr datasets for climate and Earth science
+- **astropy-fundamentals** - Astronomical data formats, coordinate transformations, physical units, and time handling with Astropy
 
-**Planned focus areas:** HPC workflows, parallel computing, numerical algorithms, scientific simulations, performance optimization
+**When to use:** Astronomy research, telescope data processing, climate data analysis, Earth science workflows, geospatial analysis
+
+### HoloViz Visualization Plugin
+
+Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen).
+
+**Agents:**
+- **Panel Specialist** - Expert in building interactive dashboards, web applications, and component systems with Panel and Param
+- **Visualization Designer** - Strategic guide for multi-library visualization design using HoloViz ecosystem tools
+- **Data Engineer** - Specialist in large-scale data rendering and performance optimization with Datashader (100M+ points)
+- **Geo-Spatial Expert** - Expert in geographic and mapping visualizations with GeoViews and spatial data handling
+
+**Skills:**
+- **panel-dashboards** - Interactive dashboard and application development with Panel and Param
+- **plotting-fundamentals** - Quick plotting and interactive visualization with hvPlot
+- **data-visualization** - Advanced declarative visualization with HoloViews
+- **advanced-rendering** - High-performance rendering for large datasets with Datashader
+- **geospatial-visualization** - Geographic and mapping visualizations with GeoViews
+- **colormaps-styling** - Color management and visual styling with Colorcet
+- **parameterization** - Declarative parameter systems with Param for type-safe configuration
+- **lumen-dashboards** - Declarative, no-code data dashboards with Lumen YAML specifications
+- **lumen-ai** - AI-powered natural language data exploration with Lumen AI
+
+**When to use:** Interactive dashboards, web applications, large-scale data visualization, geographic mapping, real-time data streaming, exploratory data analysis, publication-quality visualizations
 
 Browse the [plugins directory](plugins/) to explore all available plugins.
 
@@ -62,26 +88,44 @@ Browse the [plugins directory](plugins/) to explore all available plugins.
 ```
 rse-agents/
 ├── .claude-plugin/
-│   └── marketplace.json        # Claude plugin marketplace configuration
+│   └── marketplace.json             # Claude plugin marketplace configuration
 ├── plugins/
-│   ├── python-development/     # Scientific Python development plugin
-│   │   ├── agents/
-│   │   │   └── scientific-python-expert.md
-│   │   ├── skills/
-│   │   │   ├── pixi-package-manager/
-│   │   │   │   └── SKILL.md
-│   │   │   ├── python-packaging/
-│   │   │   │   └── SKILL.md
-│   │   │   └── python-testing/
-│   │   │       └── SKILL.md
-│   │   └── README.md
-│   ├── scientific-computing/   # Scientific computing plugin (planned)
-│   │   ├── agents/
-│   │   └── README.md
-│   └── README.md               # Plugin directory overview
-├── CONTRIBUTING.md             # Contribution guidelines
-├── LICENSE                     # BSD 3-Clause License
-└── README.md                   # This file
+│   ├── agents/                      # All agent definitions
+│   │   ├── scientific-python-expert.md
+│   │   ├── astronomy-astrophysics-expert.md
+│   │   ├── panel-specialist.md
+│   │   ├── visualization-designer.md
+│   │   ├── data-engineer.md
+│   │   └── geo-spatial-expert.md
+│   ├── skills/                      # All skill modules
+│   │   ├── pixi-package-manager/
+│   │   ├── python-packaging/
+│   │   ├── python-testing/
+│   │   ├── code-quality-tools/
+│   │   ├── xarray-for-multidimensional-data/
+│   │   ├── astropy-fundamentals/
+│   │   ├── panel-dashboards/
+│   │   ├── plotting-fundamentals/
+│   │   ├── data-visualization/
+│   │   ├── advanced-rendering/
+│   │   ├── geospatial-visualization/
+│   │   ├── colormaps-styling/
+│   │   ├── parameterization/
+│   │   ├── lumen-dashboards/
+│   │   └── lumen-ai/
+│   └── resources/                   # Supporting resources
+│       └── holoviz/                 # HoloViz ecosystem documentation
+│           ├── holoviz-ecosystem.md
+│           ├── library-matrix.md
+│           ├── best-practices/
+│           ├── patterns/
+│           ├── troubleshooting/
+│           ├── lumen-dashboards/
+│           ├── lumen-ai/
+│           └── colormaps/
+├── CONTRIBUTING.md                  # Contribution guidelines
+├── LICENSE                          # BSD 3-Clause License
+└── README.md                        # This file
 ```
 
 ## Architecture
@@ -121,10 +165,9 @@ We welcome contributions of new agents, skills, and improvements! Please see [CO
 
 For detailed information about the plugins and their contents:
 
-- [Plugins Overview](plugins/README.md) - Complete overview of all plugins
-- [Python Development Plugin](plugins/python-development/README.md) - Scientific Python agents and skills
-- [Scientific Computing Plugin](plugins/scientific-computing/README.md) - HPC and computational science
-- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute
+- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute to this repository
+- [HoloViz Ecosystem Overview](plugins/resources/holoviz/holoviz-ecosystem.md) - Introduction to the HoloViz ecosystem
+- [HoloViz Library Matrix](plugins/resources/holoviz/library-matrix.md) - Comparison of HoloViz libraries and when to use each
 
 ## Related Resources
 
@@ -132,6 +175,21 @@ For detailed information about the plugins and their contents:
 - [Scientific Python Development Guide](https://learn.scientific-python.org/development/) - Community best practices
 - [Scientific Python Lectures](https://lectures.scientific-python.org/) - Educational materials
 - [NumPy](https://numpy.org/), [SciPy](https://scipy.org/), [Pandas](https://pandas.pydata.org/) - Core libraries
+
+### HoloViz Ecosystem
+- [HoloViz.org](https://holoviz.org/) - Main HoloViz ecosystem portal
+- [Panel](https://panel.holoviz.org/) - Build interactive dashboards and web applications
+- [hvPlot](https://hvplot.holoviz.org/) - High-level plotting API for pandas and xarray
+- [HoloViews](https://holoviews.org/) - Declarative data visualization
+- [Datashader](https://datashader.org/) - Render large datasets accurately
+- [GeoViews](https://geoviews.org/) - Geographic data visualization
+- [Lumen](https://lumen.holoviz.org/) - No-code dashboards with AI capabilities
+- [Param](https://param.holoviz.org/) - Declarative parameter management
+- [Colorcet](https://colorcet.holoviz.org/) - Perceptually uniform colormaps
+
+### Domain-Specific Libraries
+- [Astropy](https://www.astropy.org/) - Astronomy and astrophysics in Python
+- [Xarray](https://xarray.dev/) - Labeled multidimensional arrays for climate and Earth science
 
 ### Research Software Engineering
 - [UW Scientific Software Engineering Center](https://escience.washington.edu/software-engineering/)
