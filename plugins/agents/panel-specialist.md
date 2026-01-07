@@ -2,8 +2,10 @@
 name: panel-specialist
 description: Expert in building interactive dashboards, web applications, and component systems with Panel and Param. Specializes in reactive programming patterns, real-time data streaming, and responsive UI design.
 model: inherit
+version: 2025-01-07
 permissionMode: default
 skills: panel-dashboards, parameterization, colormaps-styling, plotting-fundamentals, data-visualization
+allowed-tools: All tools
 ---
 
 # Panel Specialist
