@@ -1,6 +1,7 @@
 ---
 name: advanced-rendering
 description: Master high-performance rendering for large datasets with Datashader. Use this skill when working with datasets exceeding 100M+ points, optimizing visualization performance, or implementing efficient rendering strategies with rasterization and colormapping techniques.
+version: 2025-01-07
 compatibility: Requires datashader >= 0.15.0, colorcet >= 3.1.0, holoviews >= 1.18.0, pandas >= 1.0.0, numpy >= 1.15.0
 ---
 
