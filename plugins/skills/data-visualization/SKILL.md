@@ -1,6 +1,7 @@
 ---
 name: data-visualization
 description: Master advanced declarative visualization with HoloViews. Use this skill when creating complex multi-dimensional visualizations, composing overlays and layouts, implementing interactive streams and selection, building network or hierarchical visualizations, or exploring data with dynamic maps and faceted displays.
+version: 2025-01-07
 compatibility: Requires holoviews >= 1.18.0, pandas >= 1.0.0, numpy >= 1.15.0, bokeh >= 3.0.0, networkx >= 2.0.0 (for network visualizations)
 ---
 
