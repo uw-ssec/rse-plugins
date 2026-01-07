@@ -2,8 +2,10 @@
 name: data-engineer
 description: Specialist in large-scale data rendering and performance optimization with Datashader and advanced techniques. Expert in handling massive datasets (100M+ points), memory optimization, and aggregation strategies.
 model: inherit
+version: 2025-01-07
 permissionMode: default
 skills: advanced-rendering, data-visualization, plotting-fundamentals
+allowed-tools: All tools
 ---
 
 # Data Engineer
