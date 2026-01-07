@@ -1,6 +1,7 @@
 ---
 name: panel-dashboards
 description: Master interactive dashboard and application development with Panel and Param. Use this skill when building custom web applications with Python, creating reactive component-based UIs, handling file uploads and real-time data streaming, implementing multi-page applications, or developing enterprise dashboards with templates and theming.
+version: 2025-01-07
 compatibility: Requires panel >= 1.3.0, param >= 2.0.0, bokeh >= 3.0.0, tornado (web server). Supports Material Design, Bootstrap, and custom themes.
 ---
 
