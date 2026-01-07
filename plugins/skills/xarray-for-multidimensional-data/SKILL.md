@@ -23,6 +23,11 @@ pip install xarray[complete]
 
 # Optional dependencies for specific formats
 pixi add zarr h5netcdf scipy bottleneck
+
+# Geospatial extensions (for raster data, CRS handling, reprojection)
+pixi add rioxarray xesmf
+
+# DataTree is built into Xarray (no separate installation needed)
 ```
 
 ### Essential Xarray Concepts
@@ -83,6 +88,14 @@ Working with multidimensional scientific data?
 Need to track coordinates and metadata?
 ├─ YES → Xarray keeps everything aligned
 └─ NO → Plain NumPy arrays work
+
+Working with geospatial raster data?
+├─ YES → Use rioxarray for CRS-aware operations
+└─ NO → Standard Xarray sufficient
+
+Data has natural hierarchical structure?
+├─ YES → Use DataTree for organization
+└─ NO → Dataset/DataArray sufficient
 
 Data too large for memory?
 ├─ YES → Use Xarray with Dask backend
@@ -221,6 +234,108 @@ ds.isel(location=[0, 2])
 ds.where(ds["temperature"] > 15, drop=True)
 ```
 
+### 5. DataTree: Hierarchical Data Organization
+
+**DataTree** is Xarray's class for organizing hierarchical (tree-structured) data. Think of it as a filesystem for datasets, where each node can contain a dataset and child nodes.
+
+**When to use DataTree:**
+
+- Data at different resolutions or scales (multi-resolution imagery)
+- Measurements from multiple sensor types on the same system
+- Multi-model ensemble outputs with varying configurations
+- Experimental data with multiple trials or parameter sweeps
+- Heterogeneous data combining different domains or data types
+
+**Creating a DataTree:**
+
+```python
+import xarray as xr
+
+# From a dictionary of datasets
+dt = xr.DataTree.from_dict({
+    "/": xr.Dataset({"description": "Root metadata"}),
+    "/observations": xr.Dataset({"temp": (["time"], [15.2, 16.1, 14.8])}),
+    "/observations/station_a": xr.Dataset({"location": "New York"}),
+    "/observations/station_b": xr.Dataset({"location": "Los Angeles"}),
+    "/model_outputs": xr.Dataset({"predicted_temp": (["time"], [15.0, 16.0, 15.0])})
+})
+
+# Access nodes using filesystem-like paths
+print(dt["/observations/station_a"])
+print(dt["observations"]["station_a"])  # Equivalent
+```
+
+**Key DataTree operations:**
+
+```python
+# Navigate the tree
+dt.parent  # Get parent node
+dt.children  # Get child nodes dict
+dt.subtree  # Iterate over all descendant nodes
+dt.leaves  # Get all leaf nodes
+
+# Apply operations across all datasets
+dt.mean(dim="time")  # Apply to all nodes
+
+# Map custom functions
+dt.map_over_datasets(lambda ds: ds + 273.15)
+
+# Filter nodes
+dt.match("*/station_*")  # Pattern matching
+dt.filter(lambda node: "temp" in node.ds.data_vars)  # Content-based filtering
+
+# Coordinate inheritance (child nodes inherit parent coordinates)
+# Define coordinates once at parent level, accessible in all children
+```
+
+**Combining DataTrees:**
+
+```python
+# Arithmetic operations on isomorphic trees
+dt1 + dt2  # Add corresponding datasets at each node
+
+# Check structure compatibility
+dt1.isomorphic(dt2)  # Returns True if same structure
+```
+
+### 6. Ecosystem Extensions
+
+Xarray has a rich ecosystem of extensions for domain-specific workflows. For geospatial data analysis, prioritize **rioxarray** over vanilla Xarray.
+
+**Key geospatial extensions:**
+
+**rioxarray** - Geospatial raster operations:
+```python
+import rioxarray
+
+# Open raster with CRS (Coordinate Reference System) awareness
+ds = rioxarray.open_rasterio("satellite_image.tif")
+
+# Reproject to different CRS
+ds_reprojected = ds.rio.reproject("EPSG:4326")
+
+# Clip to bounding box
+ds_clipped = ds.rio.clip_box(minx=-120, miny=35, maxx=-115, maxy=40)
+
+# Write with CRS metadata
+ds.rio.to_raster("output.tif")
+```
+
+**Other useful extensions:**
+
+- **xESMF**: Universal regridder for geospatial data (grid transformations)
+- **Geocube**: Convert vector data (GeoDataFrames) to raster (Xarray)
+- **xarray-spatial**: Numba-accelerated raster analytics (NDVI, terrain analysis)
+- **Salem**: Geolocation-based subsetting and masking
+
+**When to use which:**
+
+- **General geospatial rasters** → rioxarray
+- **Regridding between different grids** → xESMF
+- **Vector to raster conversion** → Geocube
+- **Fast raster computations** → xarray-spatial
+- **Geolocation operations** → Salem
+
 ## Patterns
 
 See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns including:
@@ -232,6 +347,8 @@ See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns inclu
 - Dask integration for large data
 - Interpolation and regridding
 - Custom functions with apply_ufunc
+- Working with DataTree (hierarchical data)
+- Geospatial operations with rioxarray
 
 ## Real-World Examples
 
@@ -241,6 +358,8 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for complete examples inclu
 - Oceanographic data analysis
 - Multi-model ensemble analysis
 - Time series decomposition
+- Hierarchical climate model data with DataTree
+- Geospatial satellite data processing with rioxarray
 
 ## Common Issues and Solutions
 
@@ -297,6 +416,8 @@ See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
 - **Xarray Documentation**: https://docs.xarray.dev/
 - **Xarray Tutorial**: https://tutorial.xarray.dev/
 - **API Reference**: https://docs.xarray.dev/en/stable/api.html
+- **Hierarchical Data (DataTree)**: https://docs.xarray.dev/en/latest/user-guide/hierarchical-data.html
+- **Ecosystem Extensions**: https://docs.xarray.dev/en/latest/user-guide/ecosystem.html
 
 ### File Formats
 - **NetCDF**: https://www.unidata.ucar.edu/software/netcdf/
@@ -308,10 +429,16 @@ See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
 - **Pandas**: https://pandas.pydata.org/ (tabular data)
 - **NumPy**: https://numpy.org/ (array operations)
 
+### Geospatial Extensions
+- **rioxarray**: https://corteva.github.io/rioxarray/ (geospatial raster operations)
+- **xESMF**: https://xesmf.readthedocs.io/ (regridding)
+- **Geocube**: https://corteva.github.io/geocube/ (vector to raster)
+- **xarray-spatial**: https://xarray-spatial.readthedocs.io (spatial analytics)
+- **Salem**: https://salem.readthedocs.io/ (geolocation operations)
+
 ### Domain-Specific Resources
 - **Climate Data Operators (CDO)**: https://code.mpimet.mpg.de/projects/cdo
 - **Pangeo**: https://pangeo.io/ (big data geoscience)
-- **Xarray-spatial**: https://xarray-spatial.org/ (spatial analytics)
 
 ### Tutorials and Examples
 - **Xarray Examples Gallery**: https://docs.xarray.dev/en/stable/gallery.html

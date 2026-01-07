@@ -11,7 +11,7 @@
     "plugins": [
         {
             "name": "python-development",
-            "source": "./plugins/python-development",
+            "source": "./plugins",
             "description": "Agents and skills for Scientific Python development and best practices",
             "version": "0.1.1",
             "author": {
@@ -32,18 +32,18 @@
             "category": "development",
             "strict": false,
             "agents": [
-                "../agents/scientific-python-expert.md"
+                "./agents/scientific-python-expert.md"
             ],
             "skills": [
-                "../skills/pixi-package-manager",
-                "../skills/python-packaging",
-                "../skills/python-testing",
-                "../skills/code-quality-tools"
+                "./skills/pixi-package-manager",
+                "./skills/python-packaging",
+                "./skills/python-testing",
+                "./skills/code-quality-tools"
             ]
         },
         {
             "name": "scientific-domain-applications",
-            "source": "./plugins/scientific-domain-applications",
+            "source": "./plugins",
             "description": "Domain-specific scientific computing agents and skills for astronomy, geospatial analysis, climate science, and interactive visualization",
             "version": "0.2.0",
             "author": {
@@ -66,11 +66,11 @@
             "category": "data-science",
             "strict": false,
             "agents": [
-                "../agents/astronomy-astrophysics-expert.md"
+                "./agents/astronomy-astrophysics-expert.md"
             ],
             "skills": [
-                "../skills/xarray-for-multidimensional-data",
-                "../skills/astropy-fundamentals"
+                "./skills/xarray-for-multidimensional-data",
+                "./skills/astropy-fundamentals"
             ]
         }
     ]
