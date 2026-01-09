@@ -5,8 +5,7 @@
         "url": "https://github.com/uw-ssec"
     },
     "metadata": {
-        "description": "Custom AI agents for Research Software Engineering (RSE) and Scientific Computing tasks",
-        "version": "0.1.0"
+        "description": "Custom Coding Agents Plugins for Research Software Engineering (RSE) and Scientific Computing tasks"
     },
     "plugins": [
         {
@@ -43,11 +42,11 @@
         },
         {
             "name": "holoviz-visualization",
-            "source": "./plugins/holoviz-visualization",
+            "source": "./community-plugins/holoviz-visualization",
             "description": "Development kit for working with HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen)",
             "homepage": "https://github.com/uw-ssec/rse-agents",
             "repository": "https://github.com/uw-ssec/rse-agents",
-            "license": "MIT",
+            "license": "BSD-3-Clause",
             "keywords": [
                 "holoviz",
                 "panel",
