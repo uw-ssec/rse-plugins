@@ -33,27 +33,35 @@ jobs:
       - name: Check plugin structure
         run: |
           echo "Checking plugin structure..."
-          # Find all plugin directories (any directory with .claude-plugin/plugin.json)
-          while IFS= read -r plugin_json; do
-            plugin=$(dirname $(dirname "$plugin_json"))
-            echo "Validating $plugin"
+          # Get all local plugin sources from marketplace catalog
+          while IFS= read -r source; do
+            if [[ "$source" == ./* ]]; then
+              plugin="$source"
+              echo "Validating $plugin"
 
-            # Check for README
-            if [ ! -f "$plugin/README.md" ]; then
-              echo "Missing README.md in $plugin"
-              exit 1
-            fi
+              # Check for plugin.json
+              if [ ! -f "$plugin/.claude-plugin/plugin.json" ]; then
+                echo "Missing .claude-plugin/plugin.json in $plugin"
+                exit 1
+              fi
 
-            # Check scripts are executable
-            if [ -d "$plugin/scripts" ]; then
-              while IFS= read -r script; do
-                if [ ! -x "$script" ]; then
-                  echo "Script not executable: $script"
-                  exit 1
-                fi
-              done < <(find "$plugin/scripts" -type f -name "*.sh")
+              # Check for README
+              if [ ! -f "$plugin/README.md" ]; then
+                echo "Missing README.md in $plugin"
+                exit 1
+              fi
+
+              # Check scripts are executable
+              if [ -d "$plugin/scripts" ]; then
+                while IFS= read -r script; do
+                  if [ ! -x "$script" ]; then
+                    echo "Script not executable: $script"
+                    exit 1
+                  fi
+                done < <(find "$plugin/scripts" -type f -name "*.sh")
+              fi
             fi
-          done < <(find plugins/ -name "plugin.json" -path "*/.claude-plugin/plugin.json")
+          done < <(jq -r '.plugins[].source' .claude-plugin/marketplace.json)
 
       - name: Validate marketplace catalog
         run: |
@@ -61,26 +69,33 @@ jobs:
           jq empty .claude-plugin/marketplace.json
 
           # Check all plugin sources exist
-          jq -r '.plugins[].source' .claude-plugin/marketplace.json | while read source; do
+          while IFS= read -r source; do
             if [[ "$source" == ./* ]]; then
               if [ ! -d "$source" ]; then
                 echo "Plugin source not found: $source"
                 exit 1
               fi
             fi
-          done
+          done < <(jq -r '.plugins[].source' .claude-plugin/marketplace.json)
 
       - name: Security scan - Detect hardcoded secrets
         run: |
           echo "Scanning for hardcoded secrets..."
           FOUND_SECRETS=0
 
+          # Get all local plugin directories from marketplace
+          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json | tr '\n' ' ')
+          if [ -z "$PLUGIN_DIRS" ]; then
+            echo "No local plugins to scan"
+            exit 0
+          fi
+
           # Check for common secret patterns, but exclude:
           # - Placeholders ("***", "xxx", "placeholder", etc.)
           # - Password generation commands (openssl rand, pwgen, etc.)
           # - Example/test values
           # - Dynamic generation (random.choice, secrets.choice, etc.)
-          MATCHES=$(grep -r -E "(password|secret|api_key|token)(\s*)=(\s*)['\"]" plugins/ 2>/dev/null | \
+          MATCHES=$(grep -r -E "(password|secret|api_key|token)(\s*)=(\s*)['\"](" $PLUGIN_DIRS 2>/dev/null | \
             grep -v '= "\*\*\*"' | \
             grep -v "= '\*\*\*'" | \
             grep -v '= "xxx"' | \
@@ -108,7 +123,7 @@ jobs:
 
           # Check for AWS keys (critical - always fail)
           # Exclude official AWS example key: AKIAIOSFODNN7EXAMPLE
-          AWS_KEYS=$(grep -r -E "AKIA[0-9A-Z]{16}" plugins/ 2>/dev/null | grep -v "AKIAIOSFODNN7EXAMPLE" || true)
+          AWS_KEYS=$(grep -r -E "AKIA[0-9A-Z]{16}" $PLUGIN_DIRS 2>/dev/null | grep -v "AKIAIOSFODNN7EXAMPLE" || true)
           if [ -n "$AWS_KEYS" ]; then
             echo "❌ ERROR: AWS Access Key detected!"
             echo "$AWS_KEYS"
@@ -118,7 +133,7 @@ jobs:
           # Check for private keys (critical - always fail)
           # Exclude README and SKILL files (documentation of patterns to look for)
           # Exclude tests/, CHANGES.md, and security pattern definitions (redact.py)
-          PRIVATE_KEYS=$(grep -r "BEGIN.*PRIVATE KEY" plugins/ 2>/dev/null | grep -v "README.md" | grep -v "SKILL.md" | grep -v "Pattern:" | grep -v "/tests/" | grep -v "CHANGES.md" | grep -v "redact.py" || true)
+          PRIVATE_KEYS=$(grep -r "BEGIN.*PRIVATE KEY" $PLUGIN_DIRS 2>/dev/null | grep -v "README.md" | grep -v "SKILL.md" | grep -v "Pattern:" | grep -v "/tests/" | grep -v "CHANGES.md" | grep -v "redact.py" || true)
           if [ -n "$PRIVATE_KEYS" ]; then
             echo "❌ ERROR: Private key detected!"
             echo "$PRIVATE_KEYS"
@@ -136,9 +151,16 @@ jobs:
           echo "Scanning for dangerous command patterns..."
           FOUND_ISSUES=0
 
+          # Get all local plugin directories from marketplace
+          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json | tr '\n' ' ')
+          if [ -z "$PLUGIN_DIRS" ]; then
+            echo "No local plugins to scan"
+            exit 0
+          fi
+
           # Check for destructive commands (only root deletion, not /var/... paths)
           # Match: rm -rf / or rm -rf /* but NOT rm -rf /var/... etc.
-          DANGEROUS_RM=$(grep -r -E "rm\s+-rf\s+/(\s|$|\*)" plugins/ 2>/dev/null | grep -v "/var/" | grep -v "/tmp/" | grep -v "/prometheus/" || true)
+          DANGEROUS_RM=$(grep -r -E "rm\s+-rf\s+/(\s|$|\*)" $PLUGIN_DIRS 2>/dev/null | grep -v "/var/" | grep -v "/tmp/" | grep -v "/prometheus/" || true)
           if [ -n "$DANGEROUS_RM" ]; then
             echo "❌ ERROR: Dangerous 'rm -rf /' pattern detected!"
             echo "$DANGEROUS_RM"
@@ -146,20 +168,20 @@ jobs:
           fi
 
           # Check for command injection risks (exclude README documentation)
-          EVAL_USES=$(grep -r -E "eval\s*\(" plugins/ 2>/dev/null | grep -v "README.md" | grep -v "this.redis.eval" || true)
+          EVAL_USES=$(grep -r -E "eval\s*\(" $PLUGIN_DIRS 2>/dev/null | grep -v "README.md" | grep -v "this.redis.eval" || true)
           if [ -n "$EVAL_USES" ]; then
             echo "⚠️  WARNING: 'eval()' detected - potential command injection risk"
             echo "$EVAL_USES"
           fi
 
           # Check for suspicious curl/wget to unknown domains
-          if grep -r -E "curl.*http://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" plugins/ 2>/dev/null; then
+          if grep -r -E "curl.*http://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" $PLUGIN_DIRS 2>/dev/null; then
             echo "⚠️  WARNING: curl to IP address detected - potential data exfiltration"
             FOUND_ISSUES=1
           fi
 
           # Check for base64 encoded content (potential obfuscation)
-          if grep -r -E "base64\s+-d" plugins/ 2>/dev/null; then
+          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null; then
             echo "⚠️  WARNING: base64 decoding detected - potential obfuscation"
             FOUND_ISSUES=1
           fi
@@ -173,24 +195,42 @@ jobs:
       - name: Security scan - Suspicious URLs
         run: |
           echo "Scanning for suspicious URLs..."
+
+          # Get all local plugin directories from marketplace
+          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json | tr '\n' ' ')
+          if [ -z "$PLUGIN_DIRS" ]; then
+            echo "No local plugins to scan"
+            exit 0
+          fi
+
           # Check for non-HTTPS URLs (except localhost)
-          if grep -r -E "http://" plugins/ 2>/dev/null | grep -v "localhost" | grep -v "127.0.0.1"; then
+          if grep -r -E "http://" $PLUGIN_DIRS 2>/dev/null | grep -v "localhost" | grep -v "127.0.0.1"; then
             echo "⚠️  WARNING: Non-HTTPS URLs detected (security risk)"
           fi
 
           # Check for URL shorteners (potential phishing)
-          if grep -r -E "(bit\.ly|tinyurl\.com|goo\.gl)" plugins/ 2>/dev/null; then
+          if grep -r -E "(bit\.ly|tinyurl\.com|goo\.gl)" $PLUGIN_DIRS 2>/dev/null; then
             echo "⚠️  WARNING: URL shorteners detected (potential phishing)"
           fi
 
           echo "✅ URL scan complete"
 
       - name: Security scan - MCP plugin dependencies
-        if: hashFiles('plugins/mcp/*/package.json') != ''
         run: |
           echo "Scanning MCP plugin dependencies..."
-          for package in plugins/mcp/*/package.json; do
-            if [ -f "$package" ]; then
+
+          # Get all local plugin directories from marketplace
+          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json)
+          if [ -z "$PLUGIN_DIRS" ]; then
+            echo "No local plugins to scan"
+            exit 0
+          fi
+
+          FOUND_PACKAGES=0
+          while IFS= read -r plugin_dir; do
+            # Find all package.json files in plugin directories
+            while IFS= read -r package; do
+              FOUND_PACKAGES=1
               echo "Checking $package"
               dir=$(dirname "$package")
               cd "$dir"
@@ -200,7 +240,12 @@ jobs:
                 npm audit --production --audit-level=high
               fi
 
-              cd -
-            fi
-          done
-          echo "✅ Dependency scan complete"
+              cd - > /dev/null
+            done < <(find "$plugin_dir" -name "package.json" -type f)
+          done < <(echo "$PLUGIN_DIRS")
+
+          if [ $FOUND_PACKAGES -eq 0 ]; then
+            echo "No package.json files found"
+          else
+            echo "✅ Dependency scan complete"
+          fi
