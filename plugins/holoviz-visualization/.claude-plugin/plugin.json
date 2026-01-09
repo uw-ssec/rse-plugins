@@ -1,5 +1,5 @@
 {
-    "name": "holoviz-expert",
+    "name": "holoviz-visualization",
     "description": "Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen)",
     "version": "0.1.0",
     "author": {

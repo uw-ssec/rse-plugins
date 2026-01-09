@@ -42,8 +42,8 @@
             ]
         },
         {
-            "name": "holoviz-expert",
-            "source": "./plugins/holoviz-expert",
+            "name": "holoviz-visualization",
+            "source": "./plugins/holoviz-visualization",
             "description": "Development kit for working with HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen)",
             "homepage": "https://github.com/uw-ssec/rse-agents",
             "repository": "https://github.com/uw-ssec/rse-agents",
