@@ -76,7 +76,7 @@ jobs:
           FOUND_SECRETS=0
 
           # Check for common secret patterns, but exclude:
-          # - Placeholders (***", "xxx", "placeholder", etc.)
+          # - Placeholders ("***", "xxx", "placeholder", etc.)
           # - Password generation commands (openssl rand, pwgen, etc.)
           # - Example/test values
           # - Dynamic generation (random.choice, secrets.choice, etc.)
