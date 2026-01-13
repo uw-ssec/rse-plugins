@@ -1,23 +1,23 @@
 {
-  "servers": {
-    "holoviz": {
-      "type": "http",
-      "url": "http://localhost:8000/mcp/",
-      "description": "HoloViz MCP server for real-time library introspection, documentation, and example access",
-      "capabilities": [
-        "library-introspection",
-        "documentation-lookup",
-        "example-retrieval",
-        "version-information",
-        "api-reference"
-      ]
+  "mcpServers": {
+    "holoviz-mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v",
+        "~/.holoviz-mcp:/root/.holoviz-mcp",
+        "ghcr.io/marcskovmadsen/holoviz-mcp:latest"
+      ],
+      "env": {}
     }
   },
   "toolAliases": {
-    "holoviz-docs": "holoviz/get-documentation",
-    "holoviz-examples": "holoviz/get-examples",
-    "holoviz-api": "holoviz/get-api-reference",
-    "holoviz-versions": "holoviz/get-versions"
+    "holoviz-docs": "holoviz-mcp/get-documentation",
+    "holoviz-examples": "holoviz-mcp/get-examples",
+    "holoviz-api": "holoviz-mcp/get-api-reference",
+    "holoviz-versions": "holoviz-mcp/get-versions"
   },
   "resourcePaths": {
     "library-matrix": "/references/library-matrix.md",
