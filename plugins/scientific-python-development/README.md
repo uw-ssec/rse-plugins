@@ -6,11 +6,11 @@ Comprehensive agents and skills for modern Scientific Python development followi
 
 This plugin provides expert guidance for scientific Python development, emphasizing reproducibility, modern tooling, and community standards from the [Scientific Python Development Guide](https://learn.scientific-python.org/development/).
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 
 **Contents:**
-- 1 Agent: Scientific Python Expert
-- 4 Skills: Code Quality Tools, Pixi Package Manager, Python Packaging, Python Testing
+- 2 Agents: Scientific Python Expert, Scientific Docs Architect
+- 5 Skills: Code Quality Tools, Pixi Package Manager, Python Packaging, Python Testing, Scientific Documentation
 
 ## Installation
 
@@ -35,7 +35,8 @@ scientific-python-development/
 ├── .claude-plugin/
 │   └── plugin.json                    # Plugin metadata and configuration
 ├── agents/
-│   └── scientific-python-expert.md    # Main scientific Python development agent
+│   ├── scientific-python-expert.md    # Main scientific Python development agent
+│   └── scientific-docs-architect.md   # Scientific documentation architect agent
 ├── skills/
 │   ├── code-quality-tools/            # Ruff, mypy, pre-commit skill
 │   │   ├── SKILL.md
@@ -71,16 +72,32 @@ scientific-python-development/
 │   │       ├── DOCSTRINGS.md
 │   │       ├── METADATA.md
 │   │       └── PATTERNS.md
-│   └── python-testing/                # pytest testing skill
+│   ├── python-testing/                # pytest testing skill
+│   │   ├── SKILL.md
+│   │   ├── assets/
+│   │   │   ├── conftest-example.py
+│   │   │   ├── github-actions-tests.yml
+│   │   │   └── pyproject-pytest.toml
+│   │   └── references/
+│   │       ├── COMMON_PITFALLS.md
+│   │       ├── SCIENTIFIC_PATTERNS.md
+│   │       └── TEST_PATTERNS.md
+│   └── scientific-documentation/      # Scientific documentation skill
 │       ├── SKILL.md
 │       ├── assets/
-│       │   ├── conftest-example.py
-│       │   ├── github-actions-tests.yml
-│       │   └── pyproject-pytest.toml
-│       └── references/
-│           ├── COMMON_PITFALLS.md
-│           ├── SCIENTIFIC_PATTERNS.md
-│           └── TEST_PATTERNS.md
+│       │   ├── sphinx-conf-scientific.py
+│       │   ├── readthedocs.yaml
+│       │   ├── mkdocs-scientific.yml
+│       │   ├── noxfile-docs.py
+│       │   └── index-template.md
+│       ├── references/
+│       │   ├── DIATAXIS_FRAMEWORK.md
+│       │   ├── SPHINX_EXTENSIONS.md
+│       │   ├── DOCSTRING_EXAMPLES.md
+│       │   ├── NOTEBOOK_INTEGRATION.md
+│       │   └── COMMON_ISSUES.md
+│       └── scripts/
+│           └── generate-api-docs.py
 ├── LICENSE -> ../../LICENSE            # Symlink to main repository license
 └── README.md                          # This file
 ```
@@ -147,6 +164,73 @@ Every response includes a self-review checklist covering:
 - **Quality** - Type hints, NumPy-style docstrings, I/O separation, functional style
 - **Reproducibility** - Environment management, version constraints, fixed seeds
 - **Performance** - Vectorization, memory efficiency, profiling suggestions
+
+### Scientific Docs Architect
+
+**File:** [agents/scientific-docs-architect.md](agents/scientific-docs-architect.md)
+
+**Agent Version:** 2026-01-15
+
+**Description:** Expert scientific Python documentation architect specializing in research software documentation following the Diátaxis framework. Creates comprehensive documentation including API references, tutorials, how-to guides, and explanations for scientific codebases. Follows Scientific Python community best practices from the [Scientific Python Development Guide](https://learn.scientific-python.org/development/guides/docs/).
+
+**Integrated Skills:**
+- scientific-documentation
+
+**Tools:**
+- Read, Write, Edit, Glob, Grep, Bash
+
+**Capabilities:**
+- Diátaxis framework mastery (tutorials, how-to guides, reference, explanation)
+- Sphinx and MkDocs configuration for scientific Python
+- NumPy-style docstring writing and validation
+- API reference generation with autodoc/autosummary
+- Read the Docs integration
+- Jupyter notebook integration (nbsphinx, mkdocs-jupyter)
+- Mathematical notation with MathJax/KaTeX
+- Intersphinx linking to scientific Python ecosystem
+- Citation and reproducibility documentation
+- Documentation build automation with Nox
+- Version awareness (package, Python, and dependency versions)
+- Structured output formats (plans, files, summaries)
+
+**When to use:**
+- Creating comprehensive documentation for scientific Python packages
+- Setting up documentation infrastructure (Sphinx, MkDocs, Read the Docs)
+- Writing NumPy-style docstrings for API documentation
+- Organizing documentation following the Diátaxis framework
+- Generating API reference pages
+- Integrating Jupyter notebooks into documentation
+- Creating tutorials and how-to guides for scientific software
+- Documenting scientific methods and algorithms
+
+**Documentation Process:**
+
+The agent follows a structured four-phase approach:
+
+1. **Discovery** - Examine codebase, identify domain, catalog existing docs, understand audience
+2. **Planning** - Apply Diátaxis framework, establish hierarchy, select tooling, plan structure
+3. **Structuring** - Create directory structure, set up tooling, organize navigation
+4. **Writing** - Generate comprehensive content with examples, diagrams, and cross-references
+
+**Quality Standards:**
+
+Every documentation deliverable demonstrates:
+- **Clarity** - Understandable by target audience
+- **Completeness** - All public interfaces documented
+- **Correctness** - Examples work, links resolve, facts accurate
+- **Consistency** - Uniform style and structure
+- **Accessibility** - Multiple entry points and learning paths
+- **Reproducibility** - Environment and version information included
+- **Scientific Rigor** - Methods properly documented and cited
+
+**Constraints:**
+
+The agent follows these guardrails:
+- Does not document private APIs unless explicitly requested
+- Always checks for existing documentation framework before assuming one
+- Verifies code examples execute correctly before including them
+- Never removes existing documentation without user confirmation
+- Avoids placeholder content like "TODO" or "Add description here"
 
 ## Available Skills
 
@@ -283,6 +367,48 @@ Every response includes a self-review checklist covering:
 - references/COMMON_PITFALLS.md: Guide to common testing mistakes and how to avoid them
 - references/SCIENTIFIC_PATTERNS.md: Testing patterns specific to scientific computing
 - references/TEST_PATTERNS.md: General pytest patterns and best practices
+
+### Scientific Documentation
+
+**File:** [skills/scientific-documentation/SKILL.md](skills/scientific-documentation/SKILL.md)
+
+**Description:** Create comprehensive documentation for scientific Python packages following the Diátaxis framework and Scientific Python community guidelines. Master Sphinx/MkDocs tooling, NumPy-style docstrings, and documentation hosting on Read the Docs.
+
+**Key topics:**
+- Diátaxis framework (tutorials, how-to guides, reference, explanation)
+- Documentation framework selection (Sphinx, MkDocs, Jupyter Book)
+- Theme selection and configuration (PyData, Material, Furo)
+- Sphinx extensions for scientific Python (autodoc, napoleon, mathjax, intersphinx)
+- NumPy-style docstrings (functions, classes, modules)
+- Read the Docs integration and configuration
+- MkDocs Material configuration for scientific packages
+- Jupyter notebook integration (nbsphinx, mkdocs-jupyter)
+- Documentation build automation with Nox
+- API documentation generation
+
+**When to use:**
+- Setting up documentation infrastructure for scientific Python packages
+- Writing comprehensive API reference documentation
+- Creating tutorials and how-to guides following Diátaxis
+- Configuring Sphinx or MkDocs for scientific projects
+- Integrating Jupyter notebooks into documentation
+- Publishing documentation to Read the Docs
+- Generating API documentation from docstrings
+- Troubleshooting documentation build issues
+
+**Skill contents:**
+- SKILL.md: Main skill guide with decision trees, quick reference, and comprehensive examples
+- assets/sphinx-conf-scientific.py: Complete Sphinx configuration for scientific Python
+- assets/readthedocs.yaml: Read the Docs configuration template
+- assets/mkdocs-scientific.yml: MkDocs Material configuration for scientific packages
+- assets/noxfile-docs.py: Nox sessions for documentation building and testing
+- assets/index-template.md: Documentation index page template
+- references/DIATAXIS_FRAMEWORK.md: Comprehensive guide to the Diátaxis framework
+- references/SPHINX_EXTENSIONS.md: Guide to Sphinx extensions for scientific Python
+- references/DOCSTRING_EXAMPLES.md: Extensive NumPy-style docstring examples
+- references/NOTEBOOK_INTEGRATION.md: Guide to integrating Jupyter notebooks
+- references/COMMON_ISSUES.md: Troubleshooting guide for documentation problems
+- scripts/generate-api-docs.py: Script for automated API documentation generation
 
 ## Architecture and Design
 
