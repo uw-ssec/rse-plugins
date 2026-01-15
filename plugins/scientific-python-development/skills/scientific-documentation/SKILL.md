@@ -13,7 +13,7 @@ A comprehensive guide to creating documentation for scientific Python packages f
 This skill includes extensive supporting materials for documentation tasks:
 
 **References** (detailed guides):
-- `references/DIATAXIS_FRAMEWORK.md` - Complete Diataxis framework guide with examples for all four documentation types
+- `references/DIATAXIS_FRAMEWORK.md` - Complete Diátaxis framework guide with examples for all four documentation types
 - `references/SPHINX_EXTENSIONS.md` - Detailed Sphinx extension configuration and usage
 - `references/DOCSTRING_EXAMPLES.md` - Comprehensive NumPy-style docstring examples for functions, classes, and modules
 - `references/NOTEBOOK_INTEGRATION.md` - Jupyter notebook integration guide for Sphinx and MkDocs
