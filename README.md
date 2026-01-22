@@ -30,18 +30,20 @@ Once installed, the agents and skills will be available in your Claude Code envi
 
 The repository provides Claude Code plugins organized by domain. Each plugin contains agents (specialized AI personas) and skills (reusable knowledge modules).
 
-### Python Development Plugin
+### Scientific Python Development Plugin
 
 Expert agents and comprehensive skills for modern Scientific Python development.
 
 **Agents:**
 - **Scientific Python Expert** - Comprehensive agent for scientific Python development following [Scientific Python Development Guide](https://learn.scientific-python.org/development/) best practices
+- **Scientific Documentation Architect** - Expert in creating comprehensive, user-friendly documentation for scientific software following Scientific Python community standards
 
 **Skills:**
 - **pixi-package-manager** - Fast, reproducible scientific Python environments with unified conda and PyPI management
 - **python-packaging** - Modern packaging with pyproject.toml, src layout, and Hatchling build backend
 - **python-testing** - Robust testing strategies with pytest following Scientific Python community guidelines
 - **code-quality-tools** - Linting, formatting, and type checking tools for Python code quality
+- **scientific-documentation** - Documentation best practices for scientific software including Sphinx, API docs, tutorials, and examples
 
 **When to use:** Scientific computing projects, data analysis pipelines, research software development, package creation, reproducible research workflows
 
@@ -81,40 +83,55 @@ Expert agents and comprehensive skills for interactive data visualization using 
 
 **When to use:** Interactive dashboards, web applications, large-scale data visualization, geographic mapping, real-time data streaming, exploratory data analysis, publication-quality visualizations
 
-Browse the [plugins directory](plugins/) to explore all available plugins.
+Browse the [plugins directory](plugins/) and [community-plugins directory](community-plugins/) to explore all available plugins.
 
 ## Repository Structure
 
 ```
 rse-plugins/
 ├── .claude-plugin/
-│   └── marketplace.json             # Claude plugin marketplace configuration
-├── plugins/
-│   ├── agents/                      # All agent definitions
-│   │   ├── scientific-python-expert.md
-│   │   ├── astronomy-astrophysics-expert.md
-│   │   ├── panel-specialist.md
-│   │   ├── visualization-designer.md
-│   │   ├── data-engineer.md
-│   │   └── geo-spatial-expert.md
-│   ├── skills/                      # All skill modules
-│   │   ├── pixi-package-manager/
-│   │   ├── python-packaging/
-│   │   ├── python-testing/
-│   │   ├── code-quality-tools/
-│   │   ├── xarray-for-multidimensional-data/
-│   │   ├── astropy-fundamentals/
-│   │   ├── panel-dashboards/
-│   │   ├── plotting-fundamentals/
-│   │   ├── data-visualization/
-│   │   ├── advanced-rendering/
-│   │   ├── geospatial-visualization/
-│   │   ├── colormaps-styling/
-│   │   ├── parameterization/
-│   │   ├── lumen-dashboards/
-│   │   └── lumen-ai/
-│   └── resources/                   # Supporting resources
-│       └── holoviz/                 # HoloViz ecosystem documentation
+│   └── marketplace.json                                # Claude plugin marketplace configuration
+├── plugins/                                            # Main plugin collection
+│   ├── scientific-python-development/                  # Scientific Python development plugin
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── agents/
+│   │   │   ├── scientific-python-expert.md
+│   │   │   └── scientific-docs-architect.md
+│   │   └── skills/
+│   │       ├── pixi-package-manager/
+│   │       ├── python-packaging/
+│   │       ├── python-testing/
+│   │       ├── code-quality-tools/
+│   │       └── scientific-documentation/
+│   └── scientific-domain-applications/                 # Domain-specific scientific computing plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       ├── agents/
+│       │   └── astronomy-astrophysics-expert.md
+│       └── skills/
+│           ├── xarray-for-multidimensional-data/
+│           └── astropy-fundamentals/
+├── community-plugins/                                  # Community-contributed plugins
+│   └── holoviz-visualization/                          # HoloViz ecosystem plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       ├── agents/
+│       │   ├── panel-specialist.md
+│       │   ├── visualization-designer.md
+│       │   ├── data-engineer.md
+│       │   └── geo-spatial-expert.md
+│       ├── skills/
+│       │   ├── panel-dashboards/
+│       │   ├── plotting-fundamentals/
+│       │   ├── data-visualization/
+│       │   ├── advanced-rendering/
+│       │   ├── geospatial-visualization/
+│       │   ├── colormaps-styling/
+│       │   ├── parameterization/
+│       │   ├── lumen-dashboards/
+│       │   └── lumen-ai/
+│       └── references/                                 # HoloViz ecosystem documentation
 │           ├── holoviz-ecosystem.md
 │           ├── library-matrix.md
 │           ├── best-practices/
@@ -123,9 +140,9 @@ rse-plugins/
 │           ├── lumen-dashboards/
 │           ├── lumen-ai/
 │           └── colormaps/
-├── CONTRIBUTING.md                  # Contribution guidelines
-├── LICENSE                          # BSD 3-Clause License
-└── README.md                        # This file
+├── CONTRIBUTING.md                                     # Contribution guidelines
+├── LICENSE                                             # BSD 3-Clause License
+└── README.md                                           # This file
 ```
 
 ## Architecture
@@ -166,8 +183,8 @@ We welcome contributions of new agents, skills, and improvements! Please see [CO
 For detailed information about the plugins and their contents:
 
 - [Contributing Guidelines](CONTRIBUTING.md) - How to contribute to this repository
-- [HoloViz Ecosystem Overview](plugins/references/holoviz/holoviz-ecosystem.md) - Introduction to the HoloViz ecosystem
-- [HoloViz Library Matrix](plugins/references/holoviz/library-matrix.md) - Comparison of HoloViz libraries and when to use each
+- [HoloViz Ecosystem Overview](community-plugins/holoviz-visualization/references/holoviz-ecosystem.md) - Introduction to the HoloViz ecosystem
+- [HoloViz Library Matrix](community-plugins/holoviz-visualization/references/library-matrix.md) - Comparison of HoloViz libraries and when to use each
 
 ## Related Resources
 
