@@ -209,3 +209,5 @@ __marimo__/
 .pixi/*
 !.pixi/config.toml
 *TODO*
+.github/agents/
+.github/skills/
