@@ -1,6 +1,6 @@
 ---
 name: pixi-package-manager
-description: Manage scientific Python dependencies and environments using pixi package manager with unified conda-forge and PyPI support. Use when setting up project environments, managing dependencies, creating reproducible workflows, or working with complex scientific packages requiring compiled libraries. Ideal for multi-environment projects, cross-platform development, and replacing conda/mamba workflows.
+description: This skill should be used when the user asks to "set up pixi", "add pixi dependencies", "create pixi environment", "migrate from conda to pixi", "configure pixi.toml", "add pixi tasks", "set up reproducible environment", "manage conda-forge packages", "create multi-environment project", or needs guidance on pixi package manager, conda-forge integration, PyPI dependencies in pixi, pixi task automation, or replacing conda/mamba workflows with pixi.
 ---
 
 # Pixi Package Manager for Scientific Python

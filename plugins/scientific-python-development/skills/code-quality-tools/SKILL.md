@@ -1,6 +1,6 @@
 ---
 name: code-quality-tools
-description: Configure and use automated code quality tools (ruff, mypy, pre-commit) for scientific Python projects. Use when setting up linting, formatting, type checking, or automated quality gates. Ideal for enforcing code style, catching type errors, managing pre-commit hooks, or integrating quality checks in CI/CD pipelines.
+description: This skill should be used when the user asks to "set up ruff", "configure mypy", "add pre-commit hooks", "fix linting errors", "add type hints", "set up code formatting", "configure linters", "set up CI quality checks", "fix mypy errors", "configure ruff rules", or needs guidance on code quality tools (ruff, mypy, pre-commit), type checking configuration, linting rules for scientific Python, or automated code quality pipelines.
 ---
 
 # Code Quality Tools for Scientific Python
@@ -93,7 +93,7 @@ Working with legacy code without type hints?
 
 ## When to Use This Skill
 
-Use this skill when you need to establish or improve code quality practices in scientific Python projects:
+Use this skill to establish or improve code quality practices in scientific Python projects:
 
 - Starting a new scientific Python project and want to establish code quality standards from day one
 - Maintaining existing research code that needs consistency and error prevention

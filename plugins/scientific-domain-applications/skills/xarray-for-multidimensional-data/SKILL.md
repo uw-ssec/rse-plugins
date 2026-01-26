@@ -1,6 +1,6 @@
 ---
 name: xarray-for-multidimensional-data
-description: Work with labeled multidimensional arrays for scientific data analysis using Xarray. Use when handling climate data, satellite imagery, oceanographic data, or any multidimensional datasets with coordinates and metadata. Ideal for NetCDF/HDF5 files, time series analysis, and large datasets requiring lazy loading with Dask.
+description: This skill should be used when the user asks to "read NetCDF files", "work with xarray", "analyze climate data", "process satellite data", "use DataArray", "create Dataset", "work with multidimensional data", "use Dask with xarray", "read Zarr files", "work with labeled arrays", "use DataTree", "process raster data with rioxarray", or needs guidance on Xarray, NetCDF/HDF5/Zarr I/O, labeled multidimensional arrays, climate/satellite/oceanographic data analysis, Dask integration for large datasets, or geospatial raster operations.
 ---
 
 # Xarray for Multidimensional Data

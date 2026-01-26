@@ -1,6 +1,6 @@
 ---
 name: python-testing
-description: Write and organize tests for scientific Python packages using pytest following Scientific Python community best practices. Use when setting up test suites, writing unit tests, integration tests, testing numerical algorithms, configuring test fixtures, parametrizing tests, or setting up continuous integration. Ideal for testing scientific computations, validating numerical accuracy, and ensuring code correctness.
+description: This skill should be used when the user asks to "write tests", "set up pytest", "add test fixtures", "parametrize tests", "test numerical code", "configure pytest", "add coverage", "write unit tests", "write integration tests", "test with numpy", "fix failing tests", or needs guidance on pytest configuration, test organization, scientific Python testing patterns, numerical algorithm testing, fixture design, or continuous integration for tests.
 ---
 
 # Scientific Python Testing with pytest

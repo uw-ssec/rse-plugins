@@ -1,6 +1,6 @@
 ---
 name: python-packaging
-description: Create and publish distributable scientific Python packages following Scientific Python community best practices with pyproject.toml, src layout, and Hatchling. Use when building Python libraries, publishing to PyPI, structuring research software, creating command-line tools, or preparing packages for distribution. Ideal for package metadata configuration, dependency management, and automated publishing workflows.
+description: This skill should be used when the user asks to "create a Python package", "set up pyproject.toml", "publish to PyPI", "configure Hatchling", "use src layout", "add package metadata", "create CLI tool", "set up package structure", "configure build backend", "add optional dependencies", or needs guidance on Python packaging best practices, pyproject.toml configuration, src layout structure, Hatchling build backend, PyPI publishing workflows, or Scientific Python packaging standards.
 ---
 
 # Scientific Python Packaging

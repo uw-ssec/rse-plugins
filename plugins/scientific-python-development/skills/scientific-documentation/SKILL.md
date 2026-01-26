@@ -1,6 +1,5 @@
 ---
 name: scientific-documentation
-version: "0.1.0"
 description: This skill should be used when the user asks to "set up documentation", "create docs for Python package", "configure Sphinx", "set up MkDocs", "write docstrings", "use NumPy-style docstrings", "set up Read the Docs", "integrate Jupyter notebooks in docs", "organize documentation with Diataxis", "create API reference docs", "build documentation with nox", "fix documentation build errors", "documentation build fails", "sphinx warning", "autodoc error", "fix sphinx errors", "make documentation accessible", "accessibility guidelines for docs", "accessible images", "alt text for figures", "colorblind-friendly plots", "color contrast in docs", or needs guidance on scientific Python documentation best practices, Sphinx extensions, documentation themes (pydata-sphinx-theme, furo, material), documentation hosting, accessibility standards, or troubleshooting documentation issues.
 ---
 

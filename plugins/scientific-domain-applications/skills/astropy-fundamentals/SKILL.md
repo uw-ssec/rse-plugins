@@ -1,13 +1,6 @@
 ---
 name: astropy-fundamentals
-description: Work with astronomical data using Astropy for FITS file I/O, coordinate transformations, physical units, precise time handling, and catalog operations. Use when processing telescope images, matching celestial catalogs, handling time-series observations, or building photometry/spectroscopy pipelines. Ideal for astronomy research requiring proper unit handling, coordinate frame transformations, and astronomical time scales.
-model: sonnet
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - WebFetch
+description: This skill should be used when the user asks to "read FITS files", "convert coordinates", "work with astronomical units", "handle astronomical time", "match catalogs", "do aperture photometry", "analyze spectra", "use SkyCoord", "work with WCS", "convert between coordinate frames", "calculate separations", or needs guidance on Astropy, FITS I/O, celestial coordinates, physical units (astropy.units), astronomical time scales, catalog cross-matching, photutils photometry, or specutils spectroscopy.
 ---
 
 # Astropy Fundamentals
