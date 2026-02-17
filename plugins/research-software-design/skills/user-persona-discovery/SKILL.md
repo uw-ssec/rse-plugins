@@ -15,13 +15,15 @@ User personas are research-based representations of key user groups that guide d
 ## When to Use This Skill
 
 This skill should be used when:
-* Generating novel research ideas or directions
-* Exploring interdisciplinary connections and analogies
-* Challenging assumptions in existing research frameworks
-* Developing new methodological approaches
-* Identifying research gaps or opportunities
-* Overcoming creative blocks in problem-solving
-* Brainstorming experimental designs or study plans
+* The user asks to discover or create user personas
+* The user asks for help brainstorming user personas
+* The user asks to have a conversation about user persona discovery or creation or writing
+* The user asks for help writing user personas and user stories
+* Generating novel research ideas or directions that involve user personas
+* Exploring interdisciplinary connections and analogies in user personas
+* Challenging assumptions in user personas
+* Identifying research gaps or opportunities in the context of user personas and user stories
+* Overcoming creative blocks in problem-solving in user persona generation
 
 ## Core Principles
 
