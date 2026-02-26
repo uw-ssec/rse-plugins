@@ -82,6 +82,25 @@ Structured AI-enabled workflow for complex software development tasks with expli
 
 **When to use:** Complex feature development, architectural changes, exploratory implementation, technical research tasks, systematic code refactoring, documented decision-making
 
+### Project Management Plugin
+
+Project lifecycle management — onboarding, documentation quality, handoff readiness, and community health for research software projects in any language.
+
+**Agents:**
+- **Project Onboarding Specialist** - Expert in project initialization, contributor onboarding, and knowledge transfer
+- **Documentation Validator** - Expert in documentation quality assurance, setup instruction validation, and completeness checking
+
+**Commands:**
+- `/setup-project` - Scaffold a new project with community health files and standard structure
+- `/project-handoff` - Assess project readiness for handoff to new maintainers
+- `/validate-project-handoff` - Test that setup instructions and documentation actually work
+
+**Skills:**
+- **community-health-files** - Templates for README, CONTRIBUTING, LICENSE, CODE_OF_CONDUCT, SECURITY, and CITATION.cff
+- **documentation-validation** - Validation tools (Vale, markdownlint, HTMLProofer) and documentation quality metrics
+
+**When to use:** Project initialization, onboarding documentation, project handoff, documentation quality auditing, community health file creation
+
 ### HoloViz Visualization Plugin
 
 Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen).
@@ -134,26 +153,39 @@ rse-plugins/
 │   │   └── skills/
 │   │       ├── xarray-for-multidimensional-data/
 │   │       └── astropy-fundamentals/
-│   └── ai-research-workflows/                          # AI-enabled research workflow plugin
+│   ├── ai-research-workflows/                          # AI-enabled research workflow plugin
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── agents/
+│   │   │   └── research-workflow-orchestrator.md
+│   │   ├── commands/
+│   │   │   ├── research.md
+│   │   │   ├── plan.md
+│   │   │   ├── iterate-plan.md
+│   │   │   ├── experiment.md
+│   │   │   ├── implement.md
+│   │   │   └── validate.md
+│   │   └── skills/
+│   │       └── research-workflow-management/
+│   │           ├── SKILL.md
+│   │           └── assets/
+│   │               ├── research-template.md
+│   │               ├── plan-template.md
+│   │               ├── experiment-template.md
+│   │               └── implement-template.md
+│   └── project-management/                              # Project lifecycle management plugin
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── agents/
-│       │   └── research-workflow-orchestrator.md
+│       │   ├── project-onboarding-specialist.md
+│       │   └── documentation-validator.md
 │       ├── commands/
-│       │   ├── research.md
-│       │   ├── plan.md
-│       │   ├── iterate-plan.md
-│       │   ├── experiment.md
-│       │   ├── implement.md
-│       │   └── validate.md
+│       │   ├── setup-project.md
+│       │   ├── project-handoff.md
+│       │   └── validate-project-handoff.md
 │       └── skills/
-│           └── research-workflow-management/
-│               ├── SKILL.md
-│               └── assets/
-│                   ├── research-template.md
-│                   ├── plan-template.md
-│                   ├── experiment-template.md
-│                   └── implement-template.md
+│           ├── community-health-files/
+│           └── documentation-validation/
 ├── community-plugins/                                  # Community-contributed plugins
 │   └── holoviz-visualization/                          # HoloViz ecosystem plugin
 │       ├── .claude-plugin/

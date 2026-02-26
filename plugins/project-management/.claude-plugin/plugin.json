@@ -1,0 +1,9 @@
+{
+    "name": "project-management",
+    "description": "Project lifecycle management — onboarding, documentation quality, handoff readiness, and community health for research software projects",
+    "version": "0.1.0",
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    }
+}
