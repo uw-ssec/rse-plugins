@@ -1,0 +1,102 @@
+# This CITATION.cff file was generated with the community-health-files skill.
+# Visit https://citation-file-format.github.io/ for full documentation.
+# Validate this file: pip install cffconvert && cffconvert --validate
+
+cff-version: 1.2.0
+
+# A message to users of the software to let them know how to cite it.
+message: "If you use this software, please cite it using the metadata from this file."
+
+# The type of work. Use "software" for software projects.
+type: software
+
+# The title of the software.
+title: "Project Name"
+
+# A brief description of the software.
+abstract: >-
+  A one-paragraph description of the software, what it does, and
+  what scientific problems it addresses. This should be concise but
+  informative enough for someone to understand the purpose and scope
+  of the project.
+
+# The authors of the software. List all significant contributors.
+# ORCID identifiers are strongly recommended for academic authors.
+authors:
+  - family-names: "Last Name"
+    given-names: "First Name"
+    email: "author@example.com"
+    affiliation: "University or Institution"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: "Last Name"
+    given-names: "First Name"
+    affiliation: "University or Institution"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+
+# The version of the software being cited.
+# Update this with each release.
+version: "0.1.0"
+
+# The date the version was released.
+date-released: "2025-01-15"
+
+# A DOI for the software. Obtain one from Zenodo by archiving a release.
+# doi: "10.5281/zenodo.XXXXXXX"
+
+# The license under which the software is distributed.
+# Use SPDX identifiers: https://spdx.org/licenses/
+license: "BSD-3-Clause"
+
+# The URL of the software's homepage or documentation site.
+url: "https://project-name.readthedocs.io"
+
+# The URL of the source code repository.
+repository-code: "https://github.com/ORG/REPO"
+
+# Keywords describing the software for discoverability.
+keywords:
+  - "scientific computing"
+  - "data analysis"
+  - "research software"
+
+# Identifiers for the software (DOIs, URLs, SWH IDs).
+# identifiers:
+#   - type: doi
+#     value: "10.5281/zenodo.XXXXXXX"
+#     description: "Zenodo archive of all versions"
+#   - type: doi
+#     value: "10.5281/zenodo.YYYYYYY"
+#     description: "Zenodo archive of version 0.1.0"
+
+# References to related works (papers, datasets, other software).
+# references:
+#   - type: article
+#     title: "Paper Title That Describes the Methods"
+#     authors:
+#       - family-names: "Last Name"
+#         given-names: "First Name"
+#     journal: "Journal Name"
+#     year: 2025
+#     volume: 1
+#     issue: 1
+#     start: 1
+#     end: 10
+#     doi: "10.1234/example.2025.001"
+
+# If there is a preferred citation (e.g., a journal article), specify it here.
+# GitHub will show this as the primary citation, with the software metadata
+# as a secondary option.
+# preferred-citation:
+#   type: article
+#   title: "Project Name: A Tool for Scientific Analysis"
+#   authors:
+#     - family-names: "Last Name"
+#       given-names: "First Name"
+#       orcid: "https://orcid.org/0000-0000-0000-0000"
+#   journal: "Journal of Open Source Software"
+#   year: 2025
+#   volume: 10
+#   issue: 100
+#   start: 1234
+#   doi: "10.21105/joss.01234"
+#   url: "https://doi.org/10.21105/joss.01234"

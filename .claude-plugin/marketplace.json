@@ -86,6 +86,25 @@
             ],
             "category": "development",
             "strict": false
+        },
+        {
+            "name": "project-management",
+            "source": "./plugins/project-management",
+            "description": "Project lifecycle management — onboarding, documentation quality, handoff readiness, and community health for research software projects",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "project-management",
+                "onboarding",
+                "documentation",
+                "handoff",
+                "community-health",
+                "research-software",
+                "project-lifecycle"
+            ],
+            "category": "development",
+            "strict": false
         }
     ]
 }
