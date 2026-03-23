@@ -10,10 +10,6 @@ description: >
   validation, and debugging guidance for hydroclimatological data download scripts
   used in the GAIA project.
 version: 2026-03-20
-compatibility: >
-  Requires Python 3.9+, xarray, geopandas, rioxarray.
-  Source-specific: herbie-data (HRRR), pyPRISMClimate (PRISM), obspy (IRIS),
-  boto3 (WRF/S3), elevation (DEM), s3fs (CONUS404).
 ---
 
 # Download Script Development Skill
@@ -21,6 +17,12 @@ compatibility: >
 ## Overview
 
 Assist in developing, refining, and debugging data download scripts for GAIA hydroclimatological data sources. This skill provides templates, configuration schemas, and troubleshooting guidance for building reproducible data pipelines across 10+ environmental data sources.
+
+## Requirements
+
+- **Python 3.9+** with `xarray`, `geopandas`, `rioxarray`
+- **Source-specific libraries:** `herbie-data` (HRRR), `pyPRISMClimate` (PRISM), `obspy` (IRIS), `boto3` (WRF/S3), `elevation` (DEM), `s3fs` (CONUS404)
+- **System dependencies:** `wgrib2` for HRRR (install via conda-forge, not pip)
 
 ## When to Use
 
@@ -132,27 +134,74 @@ Worker count guidance: 4-8 for HTTP downloads, 8-16 for S3 reads, 2-4 for API en
 
 ### wgrib2 Not Found (HRRR)
 
-`wgrib2` is a C binary, not pip-installable. Install via conda-forge: `conda install -c conda-forge wgrib2` or `pixi add wgrib2`. Verify with `shutil.which("wgrib2")`.
+`wgrib2` is a C binary, not pip-installable. Install via conda-forge: `conda install -c conda-forge wgrib2` or `pixi add wgrib2`. Verify with `shutil.which("wgrib2")`. Add a runtime guard in scripts:
+
+```python
+import shutil
+assert shutil.which("wgrib2"), "wgrib2 not found. Install: conda install -c conda-forge wgrib2"
+```
 
 ### S3 Authentication Errors (CONUS404, WRF)
 
 Public buckets require anonymous access. For CONUS404: set `anon=True` in `s3fs.S3FileSystem()`. For WRF: use `botocore.UNSIGNED` config in boto3.
 
+```python
+# CONUS404
+fs = s3fs.S3FileSystem(anon=True, client_kwargs={"endpoint_url": "https://usgs.osn.mghpcc.org"})
+
+# WRF-CMIP6
+from botocore import UNSIGNED
+from botocore.config import Config
+s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
+```
+
 ### CRS Mismatch During Spatial Subsetting
 
-If `rio.clip()` raises a CRS error, reproject the AOI: `aoi = aoi.to_crs(ds.rio.crs)`. For datasets without CRS metadata, set it explicitly: `ds.rio.write_crs("EPSG:4326", inplace=True)`.
+If `rio.clip()` raises a CRS error, reproject the AOI to match the dataset:
+
+```python
+aoi = aoi.to_crs(ds.rio.crs)  # reproject AOI to dataset CRS
+ds_clipped = ds.rio.clip(aoi.geometry)
+```
+
+For datasets without CRS metadata, set it explicitly: `ds.rio.write_crs("EPSG:4326", inplace=True)`.
 
 ### Memory Issues with Large Datasets
 
-Use chunked loading: `xr.open_dataset(path, chunks={"time": 100})`. Process in temporal batches rather than loading the full dataset. Monitor with `ds.nbytes / 1e9` to check size in GB.
+Use chunked loading to avoid loading entire datasets into RAM:
+
+```python
+ds = xr.open_dataset(path, chunks={"time": 100})  # lazy loading
+print(f"Dataset size: {ds.nbytes / 1e9:.1f} GB")   # check before computing
+```
+
+Process in temporal batches rather than loading the full dataset. Use `.compute()` only on subsets.
 
 ### Network Timeouts and Retries
 
-Wrap downloads in retry logic with exponential backoff. Use `requests.Session()` with `urllib3.util.retry.Retry` for HTTP sources. For S3, boto3 has built-in retry configuration.
+Wrap downloads in retry logic with exponential backoff:
+
+```python
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+session = requests.Session()
+session.mount("https://", HTTPAdapter(max_retries=Retry(total=3, backoff_factor=2)))
+response = session.get(url, timeout=60)
+```
+
+For S3, boto3 has built-in retry configuration via `botocore.config.Config(retries={"max_attempts": 3})`.
 
 ### USGS RDB Format Parsing
 
-USGS returns tab-separated RDB format with comment headers (`#`). Skip comment lines, parse the header row, and handle the data type row (second header line) before reading data.
+USGS returns tab-separated RDB format with comment headers (`#`) and a data-type row below the column headers. Parse by skipping both:
+
+```python
+lines = [l for l in response.text.splitlines() if not l.startswith("#")]
+df = pd.read_csv(io.StringIO("\n".join([lines[0]] + lines[2:])), sep="\t")
+```
+
+Note: USGS returns data in **local time zones**. Convert to UTC using station timezone metadata.
 
 ## Additional Resources
 
