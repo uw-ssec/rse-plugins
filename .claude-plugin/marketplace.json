@@ -105,6 +105,26 @@
             ],
             "category": "development",
             "strict": false
+        },
+        {
+            "name": "gaia-data-downloader",
+            "source": "./community-plugins/gaia-data-downloader",
+            "description": "Generate and develop hydroclimatological data download scripts for GAIA geoscience research",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "gaia",
+                "hydrology",
+                "climate",
+                "data-download",
+                "geohazard",
+                "geoscience",
+                "xarray",
+                "environmental-data"
+            ],
+            "category": "data-science",
+            "strict": false
         }
     ]
 }
