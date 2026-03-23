@@ -18,26 +18,6 @@ description: >
   </example>
 
   <example>
-  Context: User needs to set up a new data pipeline for streamflow observations
-  user: "I need to download USGS streamflow data for stations in the Skagit basin from 2020 to 2023"
-  assistant: "I'll use the data-downloader agent to generate a USGS data download script."
-  <commentary>
-  User requests USGS data with temporal and spatial parameters. The agent identifies the REST API
-  access pattern and generates a script using the requests library.
-  </commentary>
-  </example>
-
-  <example>
-  Context: User wants gridded climate reanalysis data
-  user: "Generate a script to download CONUS404 daily precipitation and temperature for my study area"
-  assistant: "I'll use the data-downloader agent to create a CONUS404 download pipeline."
-  <commentary>
-  CONUS404 is a known GAIA data source using S3/Zarr access. The agent will ask for the AOI
-  boundary file and date range before proposing the configuration.
-  </commentary>
-  </example>
-
-  <example>
   Context: User mentions GAIA project data workflows generally
   user: "Help me set up data downloads for a new GAIA hydroclimatology study"
   assistant: "I'll use the data-downloader agent to help you set up your data pipeline."
@@ -114,7 +94,7 @@ Generate a Python script following the CONFIG-at-top pattern (see Script Generat
 | Synoptic | REST API (JSON) | API token (env var) | requests |
 | IRIS | FDSN web services | None | obspy |
 
-For detailed endpoint URLs, parameter schemas, and code patterns per source, consult the `download-script-dev` skill's reference files: `references/DATA_SOURCES.md`, `references/DOWNLOAD_PATTERNS.md`, and `references/CONFIGURATION.md`.
+For detailed endpoint URLs, parameter schemas, and code patterns, consult the `download-script-dev` skill's reference files. Load only the relevant source file to minimize context: `references/sources/hrrr.md`, `references/sources/conus404.md`, etc. For code templates see `references/DOWNLOAD_PATTERNS.md` and for parameter tables see `references/CONFIGURATION.md`.
 
 ## Parameter Handling Rules
 

@@ -154,27 +154,12 @@ Wrap downloads in retry logic with exponential backoff. Use `requests.Session()`
 
 USGS returns tab-separated RDB format with comment headers (`#`). Skip comment lines, parse the header row, and handle the data type row (second header line) before reading data.
 
-## Data Source Quick Reference
-
-| Source | Access Pattern | Auth | Key Endpoint | Key Library |
-|--------|---------------|------|--------------|-------------|
-| CONUS404 | S3 Zarr | Anonymous | `s3://hytest/conus404/conus404_daily.zarr` | xarray, s3fs |
-| HRRR | S3 via Herbie | Anonymous | AWS S3 (managed by Herbie) | herbie-data |
-| WRF-CMIP6 | S3 via boto3 | Anonymous | `s3://wrf-cmip6-noversioning/` | boto3 |
-| PRISM | HTTP | None | PRISM FTP/HTTP server | pyPRISMClimate |
-| Stage IV | HTTP | None | `water.noaa.gov/resources/downloads/precip/stageIV/` | xarray |
-| USGS | REST API | None | `nwis.waterservices.usgs.gov/nwis/iv/` | requests |
-| ORNL | ORNL DAAC | .netrc | ORNL DAAC API | requests |
-| DEM/SRTM | HTTP | None | SRTM tile server | elevation |
-| Synoptic | REST API | API token | `api.synopticdata.com/v2/` | requests |
-| IRIS | FDSN | None | FDSN web services | obspy |
-
 ## Additional Resources
 
 ### Reference Files
 
 For detailed data source documentation, code templates, and configuration schemas, consult:
 
-- **`references/DATA_SOURCES.md`** — Detailed documentation per data source: endpoints, response formats, authentication setup, and example API calls
+- **`references/sources/`** — Per-source documentation files (e.g., `sources/hrrr.md`, `sources/conus404.md`): endpoints, response formats, authentication setup, and example API calls. Load only the source relevant to the current task.
 - **`references/DOWNLOAD_PATTERNS.md`** — Complete code templates for each access pattern with full pipeline examples for HRRR, CONUS404, and USGS
 - **`references/CONFIGURATION.md`** — Per-source parameter tables with types, defaults, and validation rules; size estimation formulas
