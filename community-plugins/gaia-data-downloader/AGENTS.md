@@ -1,6 +1,6 @@
 # GAIA Data Downloader — Agent Instructions
 
-This file provides vendor-neutral coding agent instructions for generating hydroclimatological data download scripts for the GAIA project.
+This file provides vendor-neutral coding agent instructions for generating hydroclimatological data download scripts for the GAIA (Geophysical AI-driven Integration and Assimilation) project.
 
 ## Purpose
 
