@@ -75,4 +75,4 @@ if __name__ == "__main__":
 
 ## Standard Pipeline
 
-Every download pipeline follows: configure parameters → download data (often parallel) → spatially subset to AOI → derive variables → save to Zarr → print QC summary. This mirrors the pattern used in the 18 notebooks in the gaia-data-downloaders repository.
+Every download pipeline follows: configure parameters → download data (often parallel) → spatially subset to AOI → derive variables → save to Zarr → print QC summary. This mirrors the pattern used in the 18 notebooks in the gaia-data-downloaders (https://github.com/gaia-hazlab/gaia-data-downloaders) repository.
