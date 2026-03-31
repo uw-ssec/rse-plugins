@@ -55,7 +55,7 @@ CONFIG = {
 def main():
     # 1. Download data (parallel when appropriate)
     # 2. Combine datasets
-    # 3. Spatial subset to AOI (if provided)
+    # 3. Spatial subset to AOI (if GeoJSON provided)
     # 4. Derive variables (if requested)
     # 5. Save to output format
     # 6. Print QC summary
