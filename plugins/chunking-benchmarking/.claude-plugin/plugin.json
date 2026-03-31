@@ -1,0 +1,9 @@
+{
+    "name": "chunking-benchmarking",
+    "description": "Benchmarking and optimization tools for Zarr chunking strategies on cloud object stores",
+    "version": "0.1.0",
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    }
+}

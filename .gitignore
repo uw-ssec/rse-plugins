@@ -211,3 +211,6 @@ __marimo__/
 *TODO*
 .github/agents/
 .github/skills/
+
+# Claude Code history
+.claude-history/
