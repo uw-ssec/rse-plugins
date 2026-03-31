@@ -71,7 +71,7 @@ if __name__ == "__main__":
 - **Synoptic:** Requires `SYNOPTIC_API_TOKEN` environment variable.
 - **WRF-CMIP6:** Uses non-standard time format `YYYY-MM-DD_HH:MM:SS`.
 - **USGS:** Returns data in local time zones — convert to UTC.
-- **CRS:** Model grids use Lambert Conformal Conic — reproject AOI before clipping.
+- **CRS:** Model grids use Lambert Conformal Conic — reproject AOI (Area of Interest) before clipping.
 
 ## Standard Pipeline
 
