@@ -1,5 +1,5 @@
 {
-    "name": "chunking-benchmarking",
+    "name": "zarr-chunk-optimization",
     "version": "0.1.0",
     "description": "Benchmarking and optimization tools for Zarr chunking strategies on cloud object stores. Measures performance across access patterns and generates recommendations based on Nguyen et al. (2023) methodology.",
     "category": "development",

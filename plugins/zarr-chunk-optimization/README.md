@@ -1,4 +1,4 @@
-# Chunking Benchmarking Plugin
+# Zarr Chunk Optimization Plugin
 
 Benchmarks Zarr chunking strategies for multi-dimensional datasets on cloud object stores (S3, GCS). Based on Nguyen et al. (2023) methodology. Measures wall-clock time, peak memory, and I/O metrics across spatial, time-series, and spectral access patterns.
 
