@@ -1,4 +1,14 @@
-# Research Paper: Nguyen et al. (2023)
+# Research Paper: Nguyen et al. (2023) — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Citation | 13–24 | Full bibliographic reference and DOI |
+| Summary of Findings Relevant to This Plugin | 25–76 | Key results on access patterns, memory, chunk sizing, and rechunking cost |
+| Application to This Plugin | 77–87 | How the plugin implements the paper's methodology |
+
+---
 
 ## Citation
 

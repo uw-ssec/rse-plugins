@@ -1,5 +1,10 @@
 ---
 description: Explore chunking trade-offs from existing benchmark results for different access pattern scenarios
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
 ---
 
 # /tradeoffs - Explore Chunking Trade-offs

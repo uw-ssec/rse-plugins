@@ -1,4 +1,17 @@
-# Access Patterns for Multi-Dimensional Zarr Data
+# Access Patterns for Multi-Dimensional Zarr Data — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 1: Spatial Access | 18–42 | Reading complete spatial slices at a single time step |
+| Pattern 2: Time-Series Access | 43–64 | Reading all time steps at a single spatial location |
+| Pattern 3: Spectral Access | 65–87 | Reading all frequency values at a fixed spatial-temporal point |
+| The Trade-Off Problem | 88–97 | Why optimal chunking for all patterns is mutually exclusive |
+| How This Plugin Uses Access Patterns | 98–104 | Workflow from user input to chunking recommendation |
+| Domain-Agnostic Design | 105–113 | Applying the framework beyond radio astronomy |
+
+---
 
 **Three access patterns** represent common ways scientists read multi-dimensional data. Understanding these patterns is essential for choosing appropriate chunking strategies.
 

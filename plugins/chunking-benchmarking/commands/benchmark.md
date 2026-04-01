@@ -1,5 +1,13 @@
 ---
 description: Run comprehensive chunking benchmarks on Zarr dataset and generate performance report with recommendations
+user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # /benchmark - Comprehensive Chunking Benchmarking

@@ -1,17 +1,16 @@
 ---
 name: chunking-strategy
-description: Benchmark and optimize Zarr chunking strategies for multi-dimensional scientific datasets. Measures wall-clock time, peak memory, and I/O metrics across spatial, time-series, and spectral access patterns. Generates recommendations based on empirical performance data following Nguyen et al. (2023) methodology.
-license: MIT
+description: Benchmark and optimize Zarr chunking strategies for multi-dimensional scientific datasets. Measures wall-clock time, peak memory, and I/O metrics across spatial, time-series, and spectral access patterns following Nguyen et al. (2023) methodology.
 metadata:
   references:
-    - ./references/access-patterns.md
-    - ./references/memory-constraints.md
-    - ./references/nguyen-2023.md
-    - ./references/benchmarking-methodology.md
+    - references/access-patterns.md
+    - references/memory-constraints.md
+    - references/nguyen-2023.md
+    - references/benchmarking-methodology.md
   scripts:
-    - ./scripts/benchmark_runner.py
-    - ./scripts/rechunk.py
-    - ./scripts/synthetic_data.py
+    - scripts/benchmark_runner.py
+    - scripts/rechunk.py
+    - scripts/synthetic_data.py
 ---
 
 # Chunking Strategy Benchmarking

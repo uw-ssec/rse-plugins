@@ -1,4 +1,17 @@
-# Memory Constraints in Zarr Chunking
+# Memory Constraints in Zarr Chunking — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| The All-or-Nothing Constraint | 16–43 | Why reading any value requires loading the entire chunk |
+| Why Peak Memory is a First-Class Metric | 44–57 | Comparing strategies with similar I/O but different memory footprints |
+| How to Interpret Memory Measurements | 58–87 | Peak vs mean memory, overhead factors, and memory budgets |
+| Measuring Peak Memory | 88–126 | Practical methods using tracemalloc, memory_profiler, and Dask |
+| Common Memory Issues | 127–154 | Diagnosing OOM kills, swapping, and inconsistent measurements |
+| Recommendations for This Plugin | 155–173 | Reporting both wall-clock time and peak memory in benchmarks |
+
+---
 
 ## The All-or-Nothing Constraint
 

@@ -1,5 +1,12 @@
 ---
 description: Apply a specific chunking configuration to a Zarr dataset with validation and progress reporting
+user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # /rechunk - Apply Chunking Configuration

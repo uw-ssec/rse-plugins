@@ -1,4 +1,15 @@
-# Benchmarking Methodology for Zarr Chunking
+# Benchmarking Methodology for Zarr Chunking — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Core Principles | 16–177 | Minimum runs, cache clearing, parameter isolation, environment control, sampling, timing, and warm-up |
+| Common Pitfalls to Avoid | 178–258 | Six frequent mistakes and their fixes (caching, small data, lazy compute, network variance, rechunking, metadata) |
+| Recommended Workflow | 259–276 | Step-by-step procedure for a complete benchmark session |
+| Output Format | 277–291 | Structured markdown table format for reporting results |
+
+---
 
 Best practices for running **reproducible, statistically valid** chunking benchmarks. Following this methodology ensures benchmark results are reliable and actionable.
 
