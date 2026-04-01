@@ -201,6 +201,12 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+# macOS
+.DS_Store
+
+# Claude Code local settings
+.settings.local.json
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
