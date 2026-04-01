@@ -1,0 +1,21 @@
+{
+    "name": "gaia-data-downloader",
+    "version": "0.1.0",
+    "description": "Generate and develop hydroclimatological data download scripts for GAIA geoscience research",
+    "author": {
+        "name": "GAIA HazLab",
+        "url": "https://github.com/gaia-hazlab"
+    },
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "gaia",
+        "hydrology",
+        "climate",
+        "data-download",
+        "geohazard",
+        "geoscience",
+        "xarray",
+        "environmental-data"
+    ]
+}

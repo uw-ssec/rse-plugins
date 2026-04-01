@@ -107,6 +107,9 @@
             "strict": false
         },
         {
+            "name": "gaia-data-downloader",
+            "source": "./community-plugins/gaia-data-downloader",
+            "description": "Generate and develop hydroclimatological data download scripts for GAIA geoscience research",
             "name": "zarr-chunk-optimization",
             "source": "./plugins/zarr-chunk-optimization",
             "description": "Benchmark and optimize Zarr chunking strategies for multi-dimensional scientific datasets on cloud object stores (S3, GCS)",
@@ -114,16 +117,17 @@
             "repository": "https://github.com/uw-ssec/rse-plugins",
             "license": "BSD-3-Clause",
             "keywords": [
-                "zarr",
-                "chunking",
-                "benchmarking",
-                "cloud-storage",
-                "performance-optimization",
-                "rechunking",
-                "access-patterns",
-                "scientific-data",
-                "research-software"
+                "gaia",
+                "hydrology",
+                "climate",
+                "data-download",
+                "geohazard",
+                "geoscience",
+                "xarray",
+                "environmental-data"
             ],
+            "category": "data-science",
+            "strict": false,
             "category": "data-science",
             "strict": false
         },

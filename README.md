@@ -124,6 +124,18 @@ Expert agents and comprehensive skills for interactive data visualization using 
 
 **When to use:** Interactive dashboards, web applications, large-scale data visualization, geographic mapping, real-time data streaming, exploratory data analysis, publication-quality visualizations
 
+### GAIA Data Downloader Plugin
+
+Generate and develop hydroclimatological data download scripts for the GAIA project, covering 10+ environmental data sources.
+
+**Agent:**
+- **Data Downloader** - Generates download scripts from natural language prompts using a three-phase interaction (propose config → confirm → generate) for CONUS404, HRRR, WRF, PRISM, Stage IV, USGS, ORNL, DEM, Synoptic, and IRIS data
+
+**Skill:**
+- **download-script-dev** - Templates, configuration validation, and debugging guidance for developing data download scripts
+
+**When to use:** Downloading hydroclimatological data for GAIA geoscience research, creating reproducible data pipelines, setting up new data download workflows
+
 Browse the [plugins directory](plugins/) and [community-plugins directory](community-plugins/) to explore all available plugins.
 
 ## Repository Structure
@@ -187,6 +199,18 @@ rse-plugins/
 │           ├── community-health-files/
 │           └── documentation-validation/
 ├── community-plugins/                                  # Community-contributed plugins
+│   ├── gaia-data-downloader/                           # GAIA data download plugin
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   ├── agents/
+│   │   │   └── data-downloader.md
+│   │   ├── skills/
+│   │   │   └── download-script-dev/
+│   │   │       ├── SKILL.md
+│   │   │       └── references/
+│   │   ├── AGENTS.md
+│   │   ├── CLAUDE.md
+│   │   └── README.md
 │   └── holoviz-visualization/                          # HoloViz ecosystem plugin
 │       ├── .claude-plugin/
 │       │   └── plugin.json
