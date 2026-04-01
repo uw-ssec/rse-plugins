@@ -1,5 +1,6 @@
 ---
 description: Create a handoff document to transfer work context to another session
+user-invocable: true
 ---
 
 # Create Handoff

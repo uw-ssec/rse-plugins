@@ -1,5 +1,6 @@
 ---
 description: Validate that an implementation was correctly executed against its plan
+user-invocable: true
 ---
 
 # Initial Setup

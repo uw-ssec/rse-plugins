@@ -3,15 +3,15 @@ name: community-health-files
 description: Templates and guidance for creating community health files (README, CONTRIBUTING, LICENSE, CODE_OF_CONDUCT, SECURITY, CITATION.cff, issue/PR templates) for open-source research software projects in any language.
 metadata:
   references:
-    - references/LICENSE_GUIDE.md
-    - references/CITATION_FORMAT.md
-    - references/GITHUB_TEMPLATES.md
+    - references/license-guide.md
+    - references/citation-format.md
+    - references/github-templates.md
   assets:
-    - assets/README-template.md
-    - assets/CONTRIBUTING-template.md
-    - assets/CODE_OF_CONDUCT-template.md
-    - assets/SECURITY-template.md
-    - assets/CITATION-template.cff
+    - assets/readme-template.md
+    - assets/contributing-template.md
+    - assets/code-of-conduct-template.md
+    - assets/security-template.md
+    - assets/citation-template.cff
 ---
 
 # Community Health Files for Research Software Projects
@@ -96,7 +96,7 @@ The README is the front door of your project. It is the first file most visitors
 - Mention the scientific domain and target audience clearly
 - Include a "Related Projects" section to help users find alternatives
 
-See [assets/README-template.md](assets/README-template.md) for a complete template.
+See [assets/readme-template.md](assets/readme-template.md) for a complete template.
 
 ### 2. LICENSE
 
@@ -146,7 +146,7 @@ The CONTRIBUTING file tells potential contributors how to participate in your pr
 - Note any domain expertise needed for reviewing certain types of changes
 - Reference the code of conduct prominently
 
-See [assets/CONTRIBUTING-template.md](assets/CONTRIBUTING-template.md) for a complete template.
+See [assets/contributing-template.md](assets/contributing-template.md) for a complete template.
 
 ### 4. CODE_OF_CONDUCT.md
 
@@ -172,7 +172,7 @@ The Contributor Covenant is the most widely adopted code of conduct in open sour
 - Connect to your institution's policies if applicable
 - Review and update annually
 
-See [assets/CODE_OF_CONDUCT-template.md](assets/CODE_OF_CONDUCT-template.md) for a complete template.
+See [assets/code-of-conduct-template.md](assets/code-of-conduct-template.md) for a complete template.
 
 ### 5. SECURITY.md
 
@@ -195,7 +195,7 @@ The SECURITY policy tells users and researchers how to responsibly disclose secu
 - Commit to a reasonable response timeline (e.g., 48 hours for acknowledgment)
 - Credit reporters in security advisories (with their permission)
 
-See [assets/SECURITY-template.md](assets/SECURITY-template.md) for a complete template.
+See [assets/security-template.md](assets/security-template.md) for a complete template.
 
 ### 6. SUPPORT.md
 
@@ -401,7 +401,7 @@ pip install cffconvert
 cffconvert --validate
 ```
 
-See [assets/CITATION-template.cff](assets/CITATION-template.cff) for a complete template.
+See [assets/citation-template.cff](assets/citation-template.cff) for a complete template.
 
 ## Issue Templates
 
@@ -602,19 +602,19 @@ Place at `.github/PULL_REQUEST_TEMPLATE.md`:
 
 Ready-to-use templates are available in the `assets/` directory:
 
-- **[assets/README-template.md](assets/README-template.md)** - Complete README template for research software projects
-- **[assets/CONTRIBUTING-template.md](assets/CONTRIBUTING-template.md)** - Contribution guidelines template
-- **[assets/CODE_OF_CONDUCT-template.md](assets/CODE_OF_CONDUCT-template.md)** - Contributor Covenant v2.1 adapted for scientific communities
-- **[assets/SECURITY-template.md](assets/SECURITY-template.md)** - Security policy template
-- **[assets/CITATION-template.cff](assets/CITATION-template.cff)** - CITATION.cff template for academic software
+- **[assets/readme-template.md](assets/readme-template.md)** - Complete README template for research software projects
+- **[assets/contributing-template.md](assets/contributing-template.md)** - Contribution guidelines template
+- **[assets/code-of-conduct-template.md](assets/code-of-conduct-template.md)** - Contributor Covenant v2.1 adapted for scientific communities
+- **[assets/security-template.md](assets/security-template.md)** - Security policy template
+- **[assets/citation-template.cff](assets/citation-template.cff)** - CITATION.cff template for academic software
 
 ## Reference Guides
 
 Detailed reference documentation for complex topics. Agents should consult the table of contents in each file and read specific sections as needed.
 
-- **[references/LICENSE_GUIDE.md](references/LICENSE_GUIDE.md)** - License selection for research software: decision flowchart, permissive vs copyleft comparison, SPDX identifiers for all languages, license compatibility matrix, CLA/DCO guidance, and funding agency requirements
-- **[references/CITATION_FORMAT.md](references/CITATION_FORMAT.md)** - Citation File Format (CFF) specification: required/recommended fields, ORCID integration, Zenodo DOI minting, JOSS requirements, preferred-citation for papers, and language-specific patterns
-- **[references/GITHUB_TEMPLATES.md](references/GITHUB_TEMPLATES.md)** - GitHub issue forms and PR templates: YAML form syntax, all 5 input types, complete bug report and feature request examples, template chooser config, and organization-level defaults
+- **[references/license-guide.md](references/license-guide.md)** - License selection for research software: decision flowchart, permissive vs copyleft comparison, SPDX identifiers for all languages, license compatibility matrix, CLA/DCO guidance, and funding agency requirements
+- **[references/citation-format.md](references/citation-format.md)** - Citation File Format (CFF) specification: required/recommended fields, ORCID integration, Zenodo DOI minting, JOSS requirements, preferred-citation for papers, and language-specific patterns
+- **[references/github-templates.md](references/github-templates.md)** - GitHub issue forms and PR templates: YAML form syntax, all 5 input types, complete bug report and feature request examples, template chooser config, and organization-level defaults
 
 ## Community Health Files Checklist
 

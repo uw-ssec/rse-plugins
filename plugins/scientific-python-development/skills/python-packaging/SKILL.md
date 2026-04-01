@@ -1,6 +1,21 @@
 ---
 name: python-packaging
-description: This skill should be used when the user asks to "create a Python package", "set up pyproject.toml", "publish to PyPI", "configure Hatchling", "use src layout", "add package metadata", "create CLI tool", "set up package structure", "configure build backend", "add optional dependencies", or needs guidance on Python packaging best practices, pyproject.toml configuration, src layout structure, Hatchling build backend, PyPI publishing workflows, or Scientific Python packaging standards.
+description: Create and publish distributable scientific Python packages following Scientific Python community best practices. Covers pyproject.toml, src layout, Hatchling, metadata, CLI entry points, and PyPI publishing.
+metadata:
+  assets:
+    - assets/pyproject-minimal.toml
+    - assets/pyproject-full-featured.toml
+    - assets/readme-template.md
+    - assets/github-actions-publish.yml
+    - assets/sphinx-conf.py
+    - assets/.gitignore
+  references:
+    - references/common-issues.md
+    - references/docstrings.md
+    - references/metadata.md
+    - references/patterns.md
+  scripts:
+    - scripts/cli-example.py
 ---
 
 # Scientific Python Packaging
@@ -132,7 +147,7 @@ See [assets/pyproject-minimal.toml](assets/pyproject-minimal.toml) for a complet
 
 ## Package Structure Patterns
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed package structure patterns including:
+See [references/patterns.md](references/patterns.md) for detailed package structure patterns including:
 - Pure Python scientific package (recommended)
 - Scientific package with data files
 - Versioning strategies
@@ -141,7 +156,7 @@ See [references/PATTERNS.md](references/PATTERNS.md) for detailed package struct
 
 ## Project Metadata
 
-See [references/METADATA.md](references/METADATA.md) for detailed information on:
+See [references/metadata.md](references/metadata.md) for detailed information on:
 - License configuration (SPDX format)
 - Python version requirements
 - Dependency management
@@ -166,7 +181,7 @@ Ready-to-use templates are available in the `assets/` directory:
 - **[assets/.gitignore](assets/.gitignore)** - `.gitignore` for scientific Python packages
 - **[assets/pyproject-minimal.toml](assets/pyproject-minimal.toml)** - Minimal `pyproject.toml` template
 - **[assets/pyproject-full-featured.toml](assets/pyproject-full-featured.toml)** - Full-featured `pyproject.toml` with all options
-- **[assets/README-template.md](assets/README-template.md)** - README template for scientific packages
+- **[assets/readme-template.md](assets/readme-template.md)** - README template for scientific packages
 - **[assets/sphinx-conf.py](assets/sphinx-conf.py)** - Sphinx documentation configuration
 - **[assets/github-actions-publish.yml](assets/github-actions-publish.yml)** - GitHub Actions workflow for publishing
 
@@ -174,7 +189,7 @@ Ready-to-use templates are available in the `assets/` directory:
 
 ### NumPy-style Docstrings
 
-See [references/DOCSTRINGS.md](references/DOCSTRINGS.md) for examples of NumPy-style docstrings and documentation best practices.
+See [references/docstrings.md](references/docstrings.md) for examples of NumPy-style docstrings and documentation best practices.
 
 ## Checklist for Publishing Scientific Packages
 
@@ -218,7 +233,7 @@ See [references/DOCSTRINGS.md](references/DOCSTRINGS.md) for examples of NumPy-s
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
+See [references/common-issues.md](references/common-issues.md) for solutions to:
 - Import errors in tests
 - Missing files in distribution
 - Dependency conflicts

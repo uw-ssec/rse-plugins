@@ -1,6 +1,14 @@
 ---
 name: code-quality-tools
-description: This skill should be used when the user asks to "set up ruff", "configure mypy", "add pre-commit hooks", "fix linting errors", "add type hints", "set up code formatting", "configure linters", "set up CI quality checks", "fix mypy errors", "configure ruff rules", or needs guidance on code quality tools (ruff, mypy, pre-commit), type checking configuration, linting rules for scientific Python, or automated code quality pipelines.
+description: Configure and use automated code quality tools (ruff, mypy, pre-commit) for scientific Python projects. Covers linting rules, type checking configuration, formatting, and CI integration.
+metadata:
+  assets:
+    - assets/pre-commit-config.yaml
+    - assets/pyproject-ruff-mypy.toml
+  references:
+    - references/common-issues.md
+    - references/configuration-patterns.md
+    - references/type-hints.md
 ---
 
 # Code Quality Tools for Scientific Python
@@ -189,7 +197,7 @@ See [assets/pre-commit-config.yaml](assets/pre-commit-config.yaml) for pre-commi
 
 ## Configuration Patterns
 
-See [references/CONFIGURATION_PATTERNS.md](references/CONFIGURATION_PATTERNS.md) for detailed patterns including:
+See [references/configuration-patterns.md](references/configuration-patterns.md) for detailed patterns including:
 - Basic Ruff configuration
 - MyPy configuration for scientific Python
 - Pre-commit configuration
@@ -198,14 +206,14 @@ See [references/CONFIGURATION_PATTERNS.md](references/CONFIGURATION_PATTERNS.md)
 
 ## Type Hints
 
-See [references/TYPE_HINTS.md](references/TYPE_HINTS.md) for type hint patterns including:
+See [references/type-hints.md](references/type-hints.md) for type hint patterns including:
 - Gradual type hint adoption
 - NumPy array type hints
 - Handling optional and union types
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
+See [references/common-issues.md](references/common-issues.md) for solutions to:
 - Ruff and Black formatting conflicts
 - MyPy can't find imports
 - Pre-commit hooks too slow

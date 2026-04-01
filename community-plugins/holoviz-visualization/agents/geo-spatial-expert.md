@@ -1,11 +1,31 @@
 ---
 name: geo-spatial-expert
 description: Expert in geographic and mapping visualizations with GeoViews and spatial data handling. Specializes in creating interactive maps, spatial analysis, coordinate reference systems, and multi-layer geographic compositions.
+color: teal
 model: inherit
-version: 2025-01-07
-permissionMode: default
-skills: geospatial-visualization, data-visualization, colormaps-styling, advanced-rendering, panel-dashboards
-allowed-tools: All tools
+skills:
+  - geospatial-visualization
+  - data-visualization
+  - colormaps-styling
+  - advanced-rendering
+  - panel-dashboards
+metadata:
+  expertise:
+    - Geographic data visualization and mapping with GeoViews
+    - GeoPandas integration and spatial data management
+    - Coordinate reference system (CRS) management and projections
+    - Spatial analysis, joins, buffers, and proximity calculations
+    - Multi-layer map composition with tile providers
+    - Geographic data formats (GeoJSON, Shapefiles, GeoParquet)
+    - Cartography best practices and accessible map design
+    - Hexbin and rasterized aggregation for geographic data
+  use-cases:
+    - Creating interactive maps from geographic datasets
+    - Combining multiple geographic layers in one visualization
+    - Visualizing point density across a region
+    - Performing spatial joins and proximity analysis
+    - Building choropleth maps showing regional statistics
+    - Building map-based applications for location analysis
 ---
 
 # Geo-Spatial Expert

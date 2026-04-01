@@ -1,6 +1,11 @@
 ---
 name: xarray-for-multidimensional-data
-description: This skill should be used when the user asks to "read NetCDF files", "work with xarray", "analyze climate data", "process satellite data", "use DataArray", "create Dataset", "work with multidimensional data", "use Dask with xarray", "read Zarr files", "work with labeled arrays", "use DataTree", "process raster data with rioxarray", or needs guidance on Xarray, NetCDF/HDF5/Zarr I/O, labeled multidimensional arrays, climate/satellite/oceanographic data analysis, Dask integration for large datasets, or geospatial raster operations.
+description: Work with labeled multidimensional arrays for scientific data analysis using Xarray. Covers NetCDF/HDF5/Zarr I/O, Dask integration for large datasets, DataTree, and geospatial raster operations with rioxarray.
+metadata:
+  references:
+    - references/common-issues.md
+    - references/examples.md
+    - references/patterns.md
 ---
 
 # Xarray for Multidimensional Data
@@ -338,7 +343,7 @@ ds.rio.to_raster("output.tif")
 
 ## Patterns
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns including:
+See [references/patterns.md](references/patterns.md) for detailed patterns including:
 - Creating DataArrays and Datasets
 - Reading and writing data
 - Selection and indexing
@@ -352,7 +357,7 @@ See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns inclu
 
 ## Real-World Examples
 
-See [references/EXAMPLES.md](references/EXAMPLES.md) for complete examples including:
+See [references/examples.md](references/examples.md) for complete examples including:
 - Climate data analysis
 - Satellite data processing
 - Oceanographic data analysis
@@ -363,7 +368,7 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for complete examples inclu
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
+See [references/common-issues.md](references/common-issues.md) for solutions to:
 - Memory errors with large datasets
 - Misaligned coordinates
 - Slow operations on chunked data

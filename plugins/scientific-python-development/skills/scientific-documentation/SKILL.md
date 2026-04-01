@@ -1,6 +1,22 @@
 ---
 name: scientific-documentation
-description: This skill should be used when the user asks to "set up documentation", "create docs for Python package", "configure Sphinx", "set up MkDocs", "write docstrings", "use NumPy-style docstrings", "set up Read the Docs", "integrate Jupyter notebooks in docs", "organize documentation with Diataxis", "create API reference docs", "build documentation with nox", "fix documentation build errors", "documentation build fails", "sphinx warning", "autodoc error", "fix sphinx errors", "make documentation accessible", "accessibility guidelines for docs", "accessible images", "alt text for figures", "colorblind-friendly plots", "color contrast in docs", or needs guidance on scientific Python documentation best practices, Sphinx extensions, documentation themes (pydata-sphinx-theme, furo, material), documentation hosting, accessibility standards, or troubleshooting documentation issues.
+description: Set up and maintain documentation for scientific Python packages. Covers Sphinx, MkDocs, NumPy-style docstrings, Diataxis framework, accessibility standards, and documentation hosting with Read the Docs.
+metadata:
+  assets:
+    - assets/sphinx-conf-scientific.py
+    - assets/mkdocs-scientific.yml
+    - assets/noxfile-docs.py
+    - assets/readthedocs.yaml
+    - assets/index-template.md
+  references:
+    - references/accessible-documentation.md
+    - references/common-issues.md
+    - references/diataxis-framework.md
+    - references/docstring-examples.md
+    - references/notebook-integration.md
+    - references/sphinx-extensions.md
+  scripts:
+    - scripts/generate-api-docs.py
 ---
 
 # Scientific Python Documentation
@@ -12,12 +28,12 @@ A comprehensive guide to creating documentation for scientific Python packages f
 This skill includes extensive supporting materials for documentation tasks:
 
 **References** (detailed guides):
-- `references/DIATAXIS_FRAMEWORK.md` - Complete Diátaxis framework guide with examples for all four documentation types
-- `references/SPHINX_EXTENSIONS.md` - Detailed Sphinx extension configuration and usage
-- `references/DOCSTRING_EXAMPLES.md` - Comprehensive NumPy-style docstring examples for functions, classes, and modules
-- `references/NOTEBOOK_INTEGRATION.md` - Jupyter notebook integration guide for Sphinx and MkDocs
-- `references/COMMON_ISSUES.md` - Troubleshooting documentation build issues
-- `references/ACCESSIBLE_DOCUMENTATION.md` - Accessibility guidelines for scientific documentation including images, color contrast, and alt text
+- `references/diataxis-framework.md` - Complete Diátaxis framework guide with examples for all four documentation types
+- `references/sphinx-extensions.md` - Detailed Sphinx extension configuration and usage
+- `references/docstring-examples.md` - Comprehensive NumPy-style docstring examples for functions, classes, and modules
+- `references/notebook-integration.md` - Jupyter notebook integration guide for Sphinx and MkDocs
+- `references/common-issues.md` - Troubleshooting documentation build issues
+- `references/accessible-documentation.md` - Accessibility guidelines for scientific documentation including images, color contrast, and alt text
 
 **Assets** (ready-to-use templates):
 - `assets/sphinx-conf-scientific.py` - Complete Sphinx `conf.py` template for scientific Python
@@ -95,7 +111,7 @@ The [Diátaxis framework](https://diataxis.fr/) organizes documentation into fou
 
 **Key principle:** Don't mix documentation types. Keep tutorials separate from reference docs.
 
-> For complete Diátaxis guidance with detailed examples and templates for each documentation type, see `references/DIATAXIS_FRAMEWORK.md`.
+> For complete Diátaxis guidance with detailed examples and templates for each documentation type, see `references/diataxis-framework.md`.
 
 ## Sphinx Configuration for Scientific Python
 
@@ -206,7 +222,7 @@ html_context = {
 }
 ```
 
-> For complete Sphinx extension configuration including advanced options, autodoc directives, and troubleshooting, see `references/SPHINX_EXTENSIONS.md`. For a complete ready-to-use `conf.py`, see `assets/sphinx-conf-scientific.py`.
+> For complete Sphinx extension configuration including advanced options, autodoc directives, and troubleshooting, see `references/sphinx-extensions.md`. For a complete ready-to-use `conf.py`, see `assets/sphinx-conf-scientific.py`.
 
 ## NumPy-style Docstrings
 
@@ -259,7 +275,7 @@ def compute_statistic(data, method="mean", axis=0, weights=None):
     pass
 ```
 
-> For comprehensive NumPy-style docstring examples including classes, modules, generators, and all supported sections, see `references/DOCSTRING_EXAMPLES.md`.
+> For comprehensive NumPy-style docstring examples including classes, modules, generators, and all supported sections, see `references/docstring-examples.md`.
 
 ## Read the Docs Integration
 
@@ -497,7 +513,7 @@ nav:
       - Advanced: notebooks/advanced.ipynb
 ```
 
-> For advanced notebook integration including execution options, cell tags, and troubleshooting, see `references/NOTEBOOK_INTEGRATION.md`.
+> For advanced notebook integration including execution options, cell tags, and troubleshooting, see `references/notebook-integration.md`.
 
 ## Build Automation with Nox
 
@@ -605,7 +621,7 @@ docs/
 4. **Broken links** - Use `linkcheck` builder
 5. **No search keywords** - Use descriptive titles and headers
 
-> For detailed troubleshooting of common documentation build issues, see `references/COMMON_ISSUES.md`.
+> For detailed troubleshooting of common documentation build issues, see `references/common-issues.md`.
 
 ## Accessibility Guidelines
 
@@ -664,7 +680,7 @@ Accessible documentation ensures all users can effectively use your documentatio
 - [ ] Videos have controls (no autoplay)
 - [ ] Text alternatives for all non-text content
 
-> For comprehensive accessibility guidelines including code examples, testing tools, and detailed checklists, see `references/ACCESSIBLE_DOCUMENTATION.md`.
+> For comprehensive accessibility guidelines including code examples, testing tools, and detailed checklists, see `references/accessible-documentation.md`.
 
 ### Version Documentation
 

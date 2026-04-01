@@ -1,5 +1,6 @@
 ---
 description: Create a detailed implementation plan through interactive research and iteration
+user-invocable: true
 ---
 
 # Initial Response

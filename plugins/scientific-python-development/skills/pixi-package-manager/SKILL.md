@@ -1,6 +1,14 @@
 ---
 name: pixi-package-manager
-description: This skill should be used when the user asks to "set up pixi", "add pixi dependencies", "create pixi environment", "migrate from conda to pixi", "configure pixi.toml", "add pixi tasks", "set up reproducible environment", "manage conda-forge packages", "create multi-environment project", or needs guidance on pixi package manager, conda-forge integration, PyPI dependencies in pixi, pixi task automation, or replacing conda/mamba workflows with pixi.
+description: Manage scientific Python dependencies and environments using pixi package manager with unified conda-forge and PyPI support, task automation, and reproducible lockfiles.
+metadata:
+  assets:
+    - assets/github-actions-pixi.yml
+    - assets/pyproject-multi-env.toml
+    - assets/pyproject-pixi-example.toml
+  references:
+    - references/common-issues.md
+    - references/patterns.md
 ---
 
 # Pixi Package Manager for Scientific Python
@@ -222,7 +230,7 @@ python analyze.py
 
 ## Patterns
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns including:
+See [references/patterns.md](references/patterns.md) for detailed patterns including:
 - Converting existing projects to Pixi
 - Multi-environment scientific workflows
 - Scientific library development
@@ -240,7 +248,7 @@ Ready-to-use templates are available in the `assets/` directory:
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
+See [references/common-issues.md](references/common-issues.md) for solutions to:
 - Package not found in conda-forge
 - Conflicting dependencies
 - Slow environment creation

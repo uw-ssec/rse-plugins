@@ -1,5 +1,6 @@
 ---
 description: Update an existing implementation plan based on feedback
+user-invocable: true
 ---
 
 # Initial Response

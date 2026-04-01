@@ -1,9 +1,26 @@
 {
     "name": "project-management",
-    "description": "Project lifecycle management — onboarding, documentation quality, handoff readiness, and community health for research software projects",
     "version": "0.1.0",
+    "description": "Project lifecycle management for research software. Covers onboarding, documentation quality, handoff readiness, and community health file generation for open-source projects.",
+    "category": "development",
+    "strict": false,
     "author": {
         "name": "SSEC Research Team",
         "url": "https://github.com/uw-ssec"
-    }
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "project-management",
+        "onboarding",
+        "documentation",
+        "community-health",
+        "handoff",
+        "contributing",
+        "citation",
+        "vale",
+        "markdownlint",
+        "open-source"
+    ]
 }

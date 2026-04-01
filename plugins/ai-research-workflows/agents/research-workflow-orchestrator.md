@@ -1,10 +1,27 @@
 ---
 name: research-workflow-orchestrator
-description: Use this agent when the user wants to "research the codebase", "plan implementation", "iterate on the plan", "experiment with solutions", "implement the plan", "validate implementation", mentions "AI workflow", "structured development", "workflow orchestration", or wants guidance on using the structured research workflow (Research → Plan → Iterate Plan → Experiment → Implement → Validate).
-model: inherit
+description: Guides users through structured AI-enabled research workflows for software development. Orchestrates six phases from codebase research through implementation validation.
 color: yellow
+model: inherit
 skills:
   - research-workflow-management
+metadata:
+  expertise:
+    - Structured research workflow orchestration (Research, Plan, Iterate, Experiment, Implement, Validate)
+    - Codebase exploration and documentation before implementation
+    - Implementation planning with phased approaches
+    - Iterative plan refinement based on feedback
+    - Technical experimentation to compare approaches
+    - Implementation tracking and progress monitoring
+    - Post-implementation validation and verification
+    - Context handoff between workflow phases
+  use-cases:
+    - Researching a codebase before making changes
+    - Planning a new feature with a structured approach
+    - Iterating on an existing implementation plan
+    - Experimenting with different technical approaches before committing
+    - Implementing changes based on an approved plan
+    - Validating that an implementation matches its plan
 ---
 
 <example>

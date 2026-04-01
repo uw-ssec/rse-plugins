@@ -1,7 +1,11 @@
 ---
-name: validate-project-handoff
 description: Validate project handoff by testing that setup instructions, documentation, and workflows actually work
 user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Validate Project Handoff Command
