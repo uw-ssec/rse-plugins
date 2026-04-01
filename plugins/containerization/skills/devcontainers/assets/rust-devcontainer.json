@@ -1,0 +1,53 @@
+{
+  "name": "Rust",
+  "image": "mcr.microsoft.com/devcontainers/rust:1",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "rust-analyzer.check.command": "clippy",
+        "rust-analyzer.cargo.features": "all",
+        "rust-analyzer.inlayHints.typeHints.enable": true,
+        "rust-analyzer.inlayHints.parameterHints.enable": true,
+        "rust-analyzer.inlayHints.chainingHints.enable": true,
+        "[rust]": {
+          "editor.defaultFormatter": "rust-lang.rust-analyzer",
+          "editor.formatOnSave": true
+        },
+        "editor.rulers": [100],
+        "editor.tabSize": 4,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "files.exclude": {
+          "**/target": true
+        }
+      }
+    }
+  },
+  "mounts": [
+    "source=cargo-registry-${devcontainerId},target=/usr/local/cargo/registry,type=volume",
+    "source=cargo-target-${devcontainerId},target=${containerWorkspaceFolder}/target,type=volume"
+  ],
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": { "label": "App Server", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "cargo build",
+  "postStartCommand": "git fetch --all --prune",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "remoteUser": "vscode"
+}

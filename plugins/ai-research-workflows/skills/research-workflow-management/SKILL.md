@@ -1,6 +1,13 @@
 ---
 name: research-workflow-management
-description: This skill should be used when the user asks to "research the codebase", "plan implementation", "iterate on the plan", "experiment with solutions", "implement the plan", "validate implementation", "AI workflow", "structured development", "workflow orchestration", or mentions any phase of the structured research workflow (Research → Plan → Iterate Plan → Experiment → Implement → Validate).
+description: Structured AI-enabled research workflows for software development. Covers the six-phase workflow (Research, Plan, Iterate Plan, Experiment, Implement, Validate) with templates for each phase.
+metadata:
+  assets:
+    - assets/research-template.md
+    - assets/plan-template.md
+    - assets/experiment-template.md
+    - assets/implement-template.md
+    - assets/handoff-template.md
 ---
 
 # Research Workflow Management

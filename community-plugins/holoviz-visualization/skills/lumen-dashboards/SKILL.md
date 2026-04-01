@@ -1,8 +1,6 @@
 ---
 name: lumen-dashboards
 description: Master declarative, no-code data dashboards with Lumen YAML specifications. Use this skill when building standard data exploration dashboards, connecting multiple data sources (files, databases, APIs), creating interactive filters and cross-filtering, designing responsive layouts with indicators and charts, or enabling rapid dashboard prototyping without writing code.
-version: 2025-01-07
-compatibility: Requires lumen >= 0.10.0, panel >= 1.3.0, holoviews >= 1.18.0, param >= 2.0.0. Supports PostgreSQL, DuckDB, SQLite, CSV, Parquet, Excel, and REST API data sources.
 ---
 
 # Lumen Dashboards Skill

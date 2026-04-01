@@ -1,0 +1,69 @@
+{
+  "name": "Node.js",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.preferences.importModuleSpecifier": "relative",
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[jsonc]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "editor.tabSize": 2,
+        "editor.rulers": [100],
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "files.exclude": {
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/.next": true,
+          "**/coverage": true
+        },
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/coverage": true,
+          "**/.next": true,
+          "**/package-lock.json": true
+        }
+      }
+    }
+  },
+  "forwardPorts": [3000, 5173, 8080],
+  "portsAttributes": {
+    "3000": { "label": "App (Next.js/Express)", "onAutoForward": "notify" },
+    "5173": { "label": "Vite Dev Server", "onAutoForward": "notify" },
+    "8080": { "label": "API Server", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "npm install",
+  "postStartCommand": "git fetch --all --prune",
+  "remoteUser": "node"
+}

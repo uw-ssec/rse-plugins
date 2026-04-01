@@ -1,0 +1,56 @@
+# Trivy Configuration File
+# Place this file as trivy.yaml in your project root and reference it with:
+#   trivy image --config trivy.yaml myapp:latest
+#
+# Documentation: https://aquasecurity.github.io/trivy/latest/docs/references/configuration/config-file/
+
+# ── Severity ──────────────────────────────────────────────────────────────────
+# Only report CRITICAL and HIGH severity vulnerabilities.
+# Adjust to include MEDIUM if your policy requires it.
+severity:
+  - CRITICAL
+  - HIGH
+
+# ── Exit Code ─────────────────────────────────────────────────────────────────
+# Return exit code 1 when vulnerabilities matching the severity filter are found.
+# Set to 0 if you want scans to be informational only (not blocking CI).
+exit-code: 1
+
+# ── Ignore Unfixed ────────────────────────────────────────────────────────────
+# Skip vulnerabilities that have no fix available yet.
+# Set to false if you want full visibility including unfixed CVEs.
+ignore-unfixed: true
+
+# ── Scanners ──────────────────────────────────────────────────────────────────
+# Which scanners to enable. Options: vuln, misconfig, secret, license
+# - vuln:      check for known vulnerabilities in OS and language packages
+# - misconfig: check Dockerfiles and IaC for misconfigurations
+# - secret:    detect hardcoded secrets and credentials
+# - license:   check for restricted or non-compliant licenses
+scanners:
+  - vuln
+  - secret
+
+# ── Ignorefile ────────────────────────────────────────────────────────────────
+# Path to the file listing CVEs to suppress.
+# Each line is a CVE ID, optionally preceded by a comment explaining why.
+ignorefile: .trivyignore
+
+# ── Output Format ─────────────────────────────────────────────────────────────
+# Default output format. Options: table, json, sarif, cyclonedx, spdx-json
+# Use "table" for local development, "sarif" for GitHub Security integration.
+format: table
+
+# ── Vulnerability Database ────────────────────────────────────────────────────
+# Skip the database update check if you manage database updates separately.
+# Useful in air-gapped or cached CI environments.
+# skip-db-update: true
+
+# ── Timeout ───────────────────────────────────────────────────────────────────
+# Maximum time for a scan to complete. Increase for very large images.
+timeout: 10m
+
+# ── Cache ─────────────────────────────────────────────────────────────────────
+# Directory for Trivy's vulnerability database cache.
+# In CI, point this to a cached directory to speed up scans.
+# cache-dir: /tmp/trivy-cache

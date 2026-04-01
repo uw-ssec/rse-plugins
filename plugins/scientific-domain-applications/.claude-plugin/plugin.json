@@ -1,9 +1,27 @@
 {
     "name": "scientific-domain-applications",
-    "description": "Domain-specific scientific computing agents and skills",
     "version": "0.1.0",
+    "description": "Domain-specific scientific computing agents and skills for astronomy, astrophysics, and multidimensional data analysis with AstroPy and Xarray.",
+    "category": "development",
+    "strict": false,
     "author": {
         "name": "SSEC Research Team",
         "url": "https://github.com/uw-ssec"
-    }
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "astronomy",
+        "astrophysics",
+        "astropy",
+        "xarray",
+        "fits",
+        "photometry",
+        "spectroscopy",
+        "netcdf",
+        "zarr",
+        "multidimensional-data",
+        "scientific-computing"
+    ]
 }

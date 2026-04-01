@@ -1,0 +1,114 @@
+# ==============================================================================
+# GitHub Actions Workflow: Publish to GitHub Container Registry (GHCR)
+#
+# Triggers on version tag push (v*). Builds a multi-architecture image
+# (amd64 + arm64), generates OCI metadata, and pushes to GHCR.
+#
+# Prerequisites:
+#   - Repository Settings > Actions > General > Workflow permissions:
+#     set to "Read and write permissions"
+#   - Or explicitly set permissions in the workflow (as done below)
+#
+# Usage:
+#   git tag v1.0.0
+#   git push origin v1.0.0
+# ==============================================================================
+
+name: Publish to GHCR
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  REGISTRY: ghcr.io
+  # IMAGE_NAME defaults to <owner>/<repo> (e.g., myorg/myapp)
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read     # checkout code
+      packages: write    # push to GHCR
+      attestations: write # generate provenance
+      id-token: write    # OIDC token for signing
+
+    steps:
+      # --------------------------------------------------------------------
+      # 1. Checkout source code
+      # --------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------------------
+      # 2. Set up QEMU for multi-architecture builds
+      #    Enables building linux/arm64 images on x86 runners via emulation.
+      # --------------------------------------------------------------------
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # --------------------------------------------------------------------
+      # 3. Set up Docker Buildx
+      #    Buildx is required for multi-platform builds and advanced caching.
+      # --------------------------------------------------------------------
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # --------------------------------------------------------------------
+      # 4. Authenticate with GHCR
+      #    Uses the automatic GITHUB_TOKEN -- no PAT needed for same-repo.
+      # --------------------------------------------------------------------
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # --------------------------------------------------------------------
+      # 5. Extract metadata (tags and labels)
+      #    Generates semver tags (1.2.3, 1.2, 1), SHA tag, and OCI labels
+      #    from the git tag and repository metadata.
+      # --------------------------------------------------------------------
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            # Semantic version tags from git tag
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            # Git short SHA for traceability
+            type=sha
+
+      # --------------------------------------------------------------------
+      # 6. Build and push multi-architecture image
+      #    Builds for amd64 (standard servers) and arm64 (Apple Silicon,
+      #    AWS Graviton). Uses GitHub Actions cache for layer caching.
+      # --------------------------------------------------------------------
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # Generate SBOM and provenance attestations
+          sbom: true
+          provenance: true
+
+      # --------------------------------------------------------------------
+      # 7. Output image details
+      #    Prints the published image digest for downstream consumption.
+      # --------------------------------------------------------------------
+      - name: Image digest
+        run: echo "Published ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"

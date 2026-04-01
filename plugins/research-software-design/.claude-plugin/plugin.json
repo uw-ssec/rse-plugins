@@ -1,0 +1,22 @@
+{
+    "name": "research-software-design",
+    "version": "0.1.0",
+    "description": "Agents and skills for Research-Through-Design approach to research software design",
+    "category": "research",
+    "strict": false,
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "research-through-design",
+        "user-personas",
+        "research-software",
+        "design-methodology",
+        "scientific-literature",
+        "software-design"
+    ]
+}

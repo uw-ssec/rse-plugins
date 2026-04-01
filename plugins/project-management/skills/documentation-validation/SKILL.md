@@ -3,9 +3,9 @@ name: documentation-validation
 description: Documentation quality assurance tools and strategies for research software projects. Covers prose linting (Vale), link checking (HTMLProofer), Markdown validation (markdownlint), code example testing, container-based instruction validation, and CI integration.
 metadata:
   references:
-    - references/VALE_CONFIGURATION.md
-    - references/DOCUMENTATION_STANDARDS.md
-    - references/VALIDATION_TOOLS.md
+    - references/vale-configuration.md
+    - references/documentation-standards.md
+    - references/validation-tools.md
   assets:
     - assets/vale-config.ini
     - assets/validation-checklist.md
@@ -20,9 +20,9 @@ A comprehensive guide to treating documentation as a first-class deliverable tha
 This skill includes supporting materials for documentation validation tasks:
 
 **References** (detailed guides — consult the table of contents in each file and read specific sections as needed):
-- `references/VALE_CONFIGURATION.md` - Complete Vale setup: .vale.ini options, style packages (proselint, write-good, Google, alex), custom rules (substitution, existence, consistency), vocabulary files, editor/CI integration, and configuration recipes
-- `references/DOCUMENTATION_STANDARDS.md` - Documentation quality frameworks: Diataxis (tutorials, how-to, reference, explanation), completeness criteria at 4 maturity levels, README standards, API doc coverage, readability metrics, documentation debt, and accessibility
-- `references/VALIDATION_TOOLS.md` - All validation tools: markdownlint rules and config, HTMLProofer for link checking, doc8 for RST, language-specific doc testing (Python/Rust/R/Go/Julia), notebook validation (nbval), CI pipeline assembly, and pre-commit integration
+- `references/vale-configuration.md` - Complete Vale setup: .vale.ini options, style packages (proselint, write-good, Google, alex), custom rules (substitution, existence, consistency), vocabulary files, editor/CI integration, and configuration recipes
+- `references/documentation-standards.md` - Documentation quality frameworks: Diataxis (tutorials, how-to, reference, explanation), completeness criteria at 4 maturity levels, README standards, API doc coverage, readability metrics, documentation debt, and accessibility
+- `references/validation-tools.md` - All validation tools: markdownlint rules and config, HTMLProofer for link checking, doc8 for RST, language-specific doc testing (Python/Rust/R/Go/Julia), notebook validation (nbval), CI pipeline assembly, and pre-commit integration
 
 **Assets** (ready-to-use configurations and checklists):
 - `assets/validation-checklist.md` - Comprehensive documentation completeness checklist for project handoff

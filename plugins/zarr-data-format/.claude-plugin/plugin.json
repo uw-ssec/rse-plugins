@@ -1,0 +1,26 @@
+{
+    "name": "zarr-data-format",
+    "version": "0.1.0",
+    "description": "Comprehensive agents and skills for working with the Zarr array storage format — creation, compression, cloud backends, xarray integration, and data migration",
+    "category": "data-science",
+    "strict": false,
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zarr",
+        "array-storage",
+        "cloud-native",
+        "compression",
+        "xarray",
+        "dask",
+        "hdf5",
+        "netcdf",
+        "scientific-computing",
+        "data-format"
+    ]
+}

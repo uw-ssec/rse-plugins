@@ -1,8 +1,6 @@
 ---
 name: lumen-ai
 description: Master AI-powered natural language data exploration with Lumen AI. Use this skill when building conversational data analysis interfaces, enabling natural language queries to databases, creating custom AI agents for domain-specific analytics, implementing RAG with document context, or deploying self-service analytics with LLM-generated SQL and visualizations.
-version: 2025-01-07
-compatibility: Requires lumen >= 0.10.0 (with AI support), panel >= 1.3.0, openai or anthropic or other LLM provider libraries. Supports OpenAI, Anthropic Claude, Google Gemini, Mistral, and local models via Ollama or LlamaCPP.
 ---
 
 # Lumen AI Skill

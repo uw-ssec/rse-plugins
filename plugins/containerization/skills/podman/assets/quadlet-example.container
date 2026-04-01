@@ -1,0 +1,130 @@
+# =============================================================================
+# Quadlet Unit File — Containerized Research API Service
+# =============================================================================
+# Quadlet lets you manage Podman containers as native systemd services.
+# Place this file in one of the following directories:
+#
+#   Rootless (per-user):  ~/.config/containers/systemd/
+#   Rootful (system-wide): /etc/containers/systemd/
+#
+# Usage:
+#   1. Copy this file to ~/.config/containers/systemd/research-api.container
+#   2. Reload systemd:   systemctl --user daemon-reload
+#   3. Start the service: systemctl --user start research-api
+#   4. Enable auto-start: systemctl --user enable research-api
+#   5. Enable linger so the service survives logout:
+#      loginctl enable-linger $USER
+#
+# Systemd will automatically generate a research-api.service unit from
+# this .container file. You manage it with standard systemctl commands:
+#   systemctl --user status research-api
+#   systemctl --user restart research-api
+#   systemctl --user stop research-api
+#   journalctl --user -u research-api -f
+#
+# File naming: The systemd service name is derived from the filename.
+# This file (research-api.container) becomes research-api.service.
+# =============================================================================
+
+[Unit]
+Description=Research API Service (containerized)
+# Start after the network is available and the database is ready.
+# If the database is also a Quadlet unit, use:
+#   After=research-db.service
+#   Requires=research-db.service
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+# --- Image ---
+# Use fully qualified image names to avoid registry ambiguity.
+Image=docker.io/library/python:3.12-slim
+
+# --- Container Name ---
+# Optional: gives the container a predictable name for podman commands.
+ContainerName=research-api
+
+# --- Command ---
+# The command to run inside the container. This overrides the image's
+# ENTRYPOINT/CMD. Omit this if the image already has the correct entrypoint.
+Exec=python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+# --- Port Mapping ---
+# HOST:CONTAINER — expose the API on the host.
+PublishPort=8000:8000
+
+# --- Environment Variables ---
+# Set environment variables for the container process.
+Environment=PYTHONUNBUFFERED=1
+Environment=DATABASE_URL=postgresql://researcher:changeme@localhost:5432/research_db
+
+# --- Environment File ---
+# Load additional environment variables from a file (optional).
+# The file should contain KEY=VALUE pairs, one per line.
+# EnvironmentFile=%h/.config/research-api/env
+
+# --- Volumes ---
+# Bind-mount host directories into the container.
+# :Z relabels for SELinux; safe as a no-op on non-SELinux systems.
+Volume=%h/research-api/data:/app/data:Z
+
+# --- Named Volumes ---
+# Use named volumes for data that should persist across container recreation.
+# Volume=research-api-cache.volume:/app/cache
+
+# --- User Mapping ---
+# Run the container process as a non-root user inside the container.
+# --userns=keep-id maps your host UID to the same UID inside the container,
+# which avoids permission issues with bind-mounted volumes.
+UserNS=keep-id
+
+# --- Health Check ---
+# Systemd uses this to determine if the container is healthy.
+HealthCmd=curl -f http://localhost:8000/health || exit 1
+HealthInterval=30s
+HealthTimeout=5s
+HealthRetries=3
+HealthStartPeriod=10s
+
+# --- Resource Limits ---
+# Requires cgroup v2 for rootless mode.
+# Memory=2G
+# CPU=2.0
+
+# --- Auto-Update ---
+# Enable automatic image updates. When you run `podman auto-update`,
+# Podman pulls the latest image and restarts the container if it changed.
+# Requires the image to use a tag (not a digest).
+AutoUpdate=registry
+
+# --- Pull Policy ---
+# Control when Podman pulls the image:
+#   always    — pull every time the service starts
+#   missing   — pull only if the image is not local (default)
+#   never     — never pull; fail if not local
+#   newer     — pull if a newer image is available
+Pull=missing
+
+# --- Labels ---
+# OCI labels for the container.
+Label=org.opencontainers.image.title=research-api
+Label=org.opencontainers.image.description=Research API service
+
+[Service]
+# Restart policy — systemd handles restarts (not Podman's --restart flag).
+Restart=on-failure
+RestartSec=10
+
+# Timeout for container startup. Increase if the container pulls images
+# or runs slow initialization.
+TimeoutStartSec=120
+
+# Send SIGTERM for graceful shutdown, then SIGKILL after TimeoutStopSec.
+TimeoutStopSec=30
+
+[Install]
+# Start this service when the user's default target is reached.
+# For rootless services, this is the user's default.target.
+# Combined with `loginctl enable-linger`, this starts the container
+# at boot without requiring the user to log in.
+WantedBy=default.target

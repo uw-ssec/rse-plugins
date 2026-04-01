@@ -1,5 +1,23 @@
 # HoloViz Ecosystem Overview
 
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| What is HoloViz? | 21–24 | Brief introduction to the HoloViz Python visualization ecosystem |
+| Core Philosophy | 25–34 | Guiding principles: declarative, composable, interactive, accessible, scalable |
+| The HoloViz Library Stack | 35–139 | Detailed overview of each library: Param, HoloViews, hvPlot, GeoViews, Datashader, Panel, Colorcet, and Lumen |
+| Library Relationships and Data Flow | 140–157 | How data flows through the HoloViz stack from source to application |
+| When to Use Each Library | 158–215 | Per-library guidance on ideal use cases and scenarios |
+| Common Workflows | 216–242 | Typical pipelines for EDA, dashboards, large-scale analysis, geographic apps, and publication figures |
+| Integration Patterns | 243–301 | Code examples combining multiple HoloViz libraries together |
+| Learning Path Recommendation | 302–318 | Suggested progression from beginner to advanced |
+| Ecosystem Strengths | 319–328 | Key advantages of the HoloViz ecosystem |
+| Key Resources | 329–336 | Links to official documentation, gallery, and community |
+| Next Steps | 337–344 | Starting points based on specific visualization needs |
+
+---
+
 ## What is HoloViz?
 
 HoloViz (formerly PyViz) is a comprehensive Python ecosystem for building data visualization applications. It consists of interconnected libraries that work together seamlessly to help you create everything from quick exploratory plots to complex, multi-faceted interactive applications.

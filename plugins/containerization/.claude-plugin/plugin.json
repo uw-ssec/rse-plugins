@@ -1,0 +1,33 @@
+{
+    "name": "containerization",
+    "version": "0.1.0",
+    "description": "Language-agnostic containerization for research software. Covers Dockerfile best practices, Podman, Singularity/Apptainer, Docker Compose, GPU containers, devcontainers, container registries, and container security scanning.",
+    "category": "development",
+    "strict": false,
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "containerization",
+        "docker",
+        "dockerfile",
+        "podman",
+        "singularity",
+        "apptainer",
+        "hpc",
+        "gpu",
+        "cuda",
+        "rocm",
+        "devcontainer",
+        "container-security",
+        "trivy",
+        "compose",
+        "ghcr",
+        "multi-stage-build",
+        "research-software"
+    ]
+}

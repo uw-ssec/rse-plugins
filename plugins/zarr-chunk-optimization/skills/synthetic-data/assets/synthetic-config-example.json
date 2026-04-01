@@ -1,0 +1,13 @@
+{
+  "_description": "Example configuration for synthetic Zarr dataset generation. Use this template with synthetic_data.py to create test datasets for chunking benchmarks. Adjust shape, chunks, dtype, and compression to match your target workload.",
+  "output": "/tmp/synthetic_benchmark.zarr",
+  "shape": [1000, 2048, 2048],
+  "chunks": [50, 256, 256],
+  "dimensions": ["time", "frequency", "baseline"],
+  "dtype": "float32",
+  "compression": "zstd",
+  "compression_level": 3,
+  "pattern": "random",
+  "seed": 42,
+  "overwrite": false
+}

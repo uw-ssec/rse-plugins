@@ -1,6 +1,15 @@
 ---
 name: python-testing
-description: This skill should be used when the user asks to "write tests", "set up pytest", "add test fixtures", "parametrize tests", "test numerical code", "configure pytest", "add coverage", "write unit tests", "write integration tests", "test with numpy", "fix failing tests", or needs guidance on pytest configuration, test organization, scientific Python testing patterns, numerical algorithm testing, fixture design, or continuous integration for tests.
+description: Write and organize tests for scientific Python packages using pytest. Covers fixtures, parametrization, numerical testing with NumPy utilities, property-based testing with Hypothesis, and CI integration.
+metadata:
+  assets:
+    - assets/conftest-example.py
+    - assets/github-actions-tests.yml
+    - assets/pyproject-pytest.toml
+  references:
+    - references/common-pitfalls.md
+    - references/scientific-patterns.md
+    - references/test-patterns.md
 ---
 
 # Scientific Python Testing with pytest
@@ -220,7 +229,7 @@ def test_fit_linear():
 
 ## Testing Patterns
 
-See [references/TEST_PATTERNS.md](references/TEST_PATTERNS.md) for detailed patterns including:
+See [references/test-patterns.md](references/test-patterns.md) for detailed patterns including:
 - Writing simple, focused tests
 - Testing for failures
 - Approximate comparisons
@@ -233,7 +242,7 @@ See [references/TEST_PATTERNS.md](references/TEST_PATTERNS.md) for detailed patt
 
 ## Scientific Python Testing Patterns
 
-See [references/SCIENTIFIC_PATTERNS.md](references/SCIENTIFIC_PATTERNS.md) for scientific-specific patterns:
+See [references/scientific-patterns.md](references/scientific-patterns.md) for scientific-specific patterns:
 - Testing numerical algorithms
 - Testing with different NumPy dtypes
 - Testing random/stochastic code
@@ -320,7 +329,7 @@ Ready-to-use templates are available in the `assets/` directory:
 
 ## Common Pitfalls and Solutions
 
-See [references/COMMON_PITFALLS.md](references/COMMON_PITFALLS.md) for solutions to:
+See [references/common-pitfalls.md](references/common-pitfalls.md) for solutions to:
 - Testing implementation instead of behavior
 - Non-deterministic tests
 - Exact floating-point comparisons
