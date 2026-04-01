@@ -1,0 +1,244 @@
+# ==============================================================================
+# MPI-Enabled Apptainer Definition File
+# Base: Ubuntu 24.04 with OpenMPI
+# Purpose: MPI-parallel scientific computing on HPC clusters
+#
+# Build:
+#   sudo apptainer build mpi_app.sif mpi-definition.def
+#   apptainer build --fakeroot mpi_app.sif mpi-definition.def
+#
+# Run (Bind Model -- recommended for HPC):
+#   srun --mpi=pmix -n 128 apptainer exec mpi_app.sif /opt/app/my_mpi_app
+#   mpirun -np 64 apptainer exec --bind /opt/openmpi:/opt/openmpi mpi_app.sif /opt/app/my_mpi_app
+#
+# Run (Hybrid Model -- portable, uses container's MPI):
+#   apptainer exec mpi_app.sif mpirun -np 4 /opt/app/my_mpi_app
+#
+# ==============================================================================
+#
+# MPI CONTAINER MODELS
+# --------------------
+# There are two approaches for running MPI inside Apptainer containers:
+#
+# 1. BIND MODEL (recommended for production HPC):
+#    - The HOST's MPI is bind-mounted into the container at runtime
+#    - The container is built with compatible MPI headers for compilation
+#    - At runtime, the host's optimized MPI stack is used (InfiniBand, etc.)
+#    - Pros: Best performance, uses vendor-tuned interconnect drivers
+#    - Cons: Container MPI must be ABI-compatible with host MPI
+#    - Usage: mpirun -np N apptainer exec --bind /opt/openmpi:/opt/openmpi image.sif ./app
+#
+# 2. HYBRID MODEL (portable, self-contained):
+#    - The container ships its own complete MPI installation
+#    - All MPI libraries and tools are inside the container
+#    - Pros: Works on any system, no host MPI dependency
+#    - Cons: May not use high-speed interconnects without driver binding
+#    - Usage: apptainer exec image.sif mpirun -np N ./app
+#
+# This definition file builds an MPI environment suitable for BOTH models.
+# The choice of model is made at RUNTIME, not at build time.
+# ==============================================================================
+
+Bootstrap: docker
+From: ubuntu:24.04
+
+%labels
+    Author Research Computing Team
+    Version 1.0.0
+    Description MPI-enabled scientific computing environment with OpenMPI
+    Base.Image ubuntu:24.04
+    MPI.Implementation OpenMPI
+    MPI.Version 4.1.6
+
+%help
+    MPI Scientific Computing Environment v1.0.0
+
+    This container provides OpenMPI 4.1.6 for parallel computing.
+
+    Bind Model (HPC clusters with host MPI):
+        srun --mpi=pmix -n 128 apptainer exec mpi_app.sif /opt/app/my_mpi_app
+        mpirun -np 64 apptainer exec --bind /opt/openmpi:/opt/openmpi mpi_app.sif /opt/app/my_mpi_app
+
+    Hybrid Model (portable, uses container MPI):
+        apptainer exec mpi_app.sif mpirun -np 4 /opt/app/my_mpi_app
+
+    Required bind mounts for bind model:
+        --bind /opt/openmpi:/opt/openmpi    Host MPI installation
+        --bind /etc/libibverbs.d:/etc/libibverbs.d    InfiniBand config (if needed)
+
+    Environment variables:
+        OMP_NUM_THREADS   OpenMP threads per MPI rank (default: 1)
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+
+    # --------------------------------------------------------------------------
+    # System dependencies
+    # --------------------------------------------------------------------------
+    apt-get update && apt-get install -y --no-install-recommends \
+        # Build tools for compiling MPI applications
+        build-essential \
+        gfortran \
+        cmake \
+        pkg-config \
+        # Networking and fabric support
+        openssh-client \
+        openssh-server \
+        # InfiniBand user-space libraries (needed for high-speed interconnects)
+        # These are needed even for the bind model -- the container's linker
+        # must be able to find verbs libraries at compile time.
+        libibverbs-dev \
+        librdmacm-dev \
+        # Utilities
+        wget \
+        ca-certificates \
+        # Python for scripting and mpi4py
+        python3 \
+        python3-pip \
+        python3-venv && \
+    rm -rf /var/lib/apt/lists/*
+
+    # --------------------------------------------------------------------------
+    # Build OpenMPI from source
+    # --------------------------------------------------------------------------
+    # Building from source gives control over the version and configure options.
+    # For the BIND MODEL: the version here should be ABI-compatible with the
+    # host's MPI. OpenMPI 4.1.x containers work with OpenMPI 4.1.x hosts.
+    #
+    # Key configure options:
+    #   --with-verbs          Enable InfiniBand support
+    #   --with-pmix=internal  Build PMIx for Slurm integration
+    #   --with-slurm          Enable Slurm awareness
+    #   --with-ucx            Enable UCX transport (for modern fabrics)
+    #
+    OPENMPI_MAJOR=4.1
+    OPENMPI_VERSION=4.1.6
+
+    cd /tmp
+    wget -q https://download.open-mpi.org/release/open-mpi/v${OPENMPI_MAJOR}/openmpi-${OPENMPI_VERSION}.tar.gz
+    tar xzf openmpi-${OPENMPI_VERSION}.tar.gz
+    cd openmpi-${OPENMPI_VERSION}
+
+    ./configure --prefix=/opt/openmpi \
+        --with-verbs \
+        --with-pmix=internal \
+        --with-slurm \
+        --enable-mpi-fortran \
+        --disable-static \
+        --enable-shared
+
+    make -j "$(nproc)"
+    make install
+
+    # Clean up source to reduce image size
+    rm -rf /tmp/openmpi*
+
+    # --------------------------------------------------------------------------
+    # Set MPI paths for subsequent build steps
+    # --------------------------------------------------------------------------
+    export PATH="/opt/openmpi/bin:$PATH"
+    export LD_LIBRARY_PATH="/opt/openmpi/lib:$LD_LIBRARY_PATH"
+
+    # --------------------------------------------------------------------------
+    # Python virtual environment with mpi4py
+    # --------------------------------------------------------------------------
+    python3 -m venv /opt/venv
+    . /opt/venv/bin/activate
+
+    pip install --no-cache-dir --upgrade pip setuptools wheel
+    pip install --no-cache-dir \
+        numpy \
+        scipy \
+        h5py \
+        mpi4py
+
+    # --------------------------------------------------------------------------
+    # Example: Compile a C MPI application
+    # --------------------------------------------------------------------------
+    # Replace this section with your own application's build steps.
+    mkdir -p /opt/app
+    cat > /opt/app/hello_mpi.c << 'CSOURCE'
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    int rank, size, namelen;
+    char processor_name[MPI_MAX_PROCESSOR_NAME];
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Get_processor_name(processor_name, &namelen);
+
+    printf("Hello from rank %d of %d on %s\n", rank, size, processor_name);
+
+    MPI_Finalize();
+    return 0;
+}
+CSOURCE
+
+    mpicc -o /opt/app/hello_mpi /opt/app/hello_mpi.c
+    rm /opt/app/hello_mpi.c
+
+    # --------------------------------------------------------------------------
+    # SSH configuration for multi-node hybrid model
+    # --------------------------------------------------------------------------
+    # Some MPI launchers use SSH to start processes on remote nodes.
+    # This configures SSH to accept unknown hosts without prompting.
+    mkdir -p /etc/ssh
+    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+    echo "UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
+
+%environment
+    # MPI paths
+    export PATH="/opt/openmpi/bin:/opt/venv/bin:$PATH"
+    export LD_LIBRARY_PATH="/opt/openmpi/lib:$LD_LIBRARY_PATH"
+    export MANPATH="/opt/openmpi/share/man:$MANPATH"
+
+    # Python virtual environment
+    export VIRTUAL_ENV="/opt/venv"
+    export PYTHONUNBUFFERED=1
+
+    # Default OpenMP configuration (1 thread per MPI rank)
+    # Override at runtime for hybrid MPI+OpenMP workloads:
+    #   --env OMP_NUM_THREADS=4
+    export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
+
+    # Locale
+    export LC_ALL=C
+
+%runscript
+    if [ $# -eq 0 ]; then
+        echo "MPI Container v1.0.0 (OpenMPI 4.1.6)"
+        echo ""
+        echo "Usage:"
+        echo "  Bind model:   srun --mpi=pmix -n N apptainer exec mpi_app.sif <command>"
+        echo "  Hybrid model: apptainer exec mpi_app.sif mpirun -np N <command>"
+        echo ""
+        echo "Example:"
+        echo "  srun --mpi=pmix -n 4 apptainer exec mpi_app.sif /opt/app/hello_mpi"
+        echo ""
+        mpirun --version | head -1
+        exit 0
+    fi
+
+    exec "$@"
+
+%test
+    echo "Running post-build tests..."
+
+    # Verify MPI installation
+    mpirun --version
+    mpicc --version | head -1
+
+    # Verify the example MPI application runs
+    mpirun -np 2 --allow-run-as-root /opt/app/hello_mpi
+
+    # Verify Python MPI bindings
+    python3 -c "from mpi4py import MPI; print(f'mpi4py {MPI.Get_library_version()[:50]}...')"
+
+    # Verify key Python packages
+    python3 -c "import numpy; print(f'NumPy {numpy.__version__}')"
+    python3 -c "import scipy; print(f'SciPy {scipy.__version__}')"
+
+    echo "All tests passed."
