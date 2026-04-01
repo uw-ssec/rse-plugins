@@ -127,17 +127,7 @@
                 "environmental-data"
             ],
             "category": "data-science",
-            "strict": false
-                "zarr",
-                "chunking",
-                "benchmarking",
-                "cloud-storage",
-                "performance-optimization",
-                "rechunking",
-                "access-patterns",
-                "scientific-data",
-                "research-software"
-            ],
+            "strict": false,
             "category": "data-science",
             "strict": false
         },
