@@ -12,7 +12,9 @@ Benchmarks Zarr chunking strategies for multi-dimensional datasets on cloud obje
 
 | Skill | Description |
 |-------|-------------|
-| **chunking-strategy** | Chunking strategy design, benchmarking methodology, and rechunking workflows with 4 references and 3 scripts |
+| **chunking-strategy** | Core benchmarking methodology, access pattern analysis, performance interpretation, and cloud storage patterns |
+| **synthetic-data** | Generate synthetic Zarr datasets with configurable dimensions, shapes, and compression for controlled benchmarks |
+| **rechunking** | Safely apply chunking configurations with validation, progress reporting, and rollback safety |
 
 ## Commands
 

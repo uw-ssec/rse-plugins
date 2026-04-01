@@ -5,6 +5,8 @@ color: blue
 model: inherit
 skills:
   - chunking-strategy
+  - synthetic-data
+  - rechunking
 metadata:
   expertise:
     - Zarr chunking strategy benchmarking and optimization

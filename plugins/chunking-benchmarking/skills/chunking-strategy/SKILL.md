@@ -7,10 +7,13 @@ metadata:
     - references/memory-constraints.md
     - references/nguyen-2023.md
     - references/benchmarking-methodology.md
+    - references/cloud-storage-patterns.md
+    - references/performance-interpretation.md
   scripts:
     - scripts/benchmark_runner.py
-    - scripts/rechunk.py
-    - scripts/synthetic_data.py
+  assets:
+    - assets/benchmark-config-example.json
+    - assets/report-template.md
 ---
 
 # Chunking Strategy Benchmarking
@@ -177,6 +180,8 @@ The `references/` folder contains detailed documentation the agent should load o
 - **[access-patterns.md](references/access-patterns.md)**: Detailed explanation of the three access patterns
 - **[memory-constraints.md](references/memory-constraints.md)**: All-or-nothing constraint and memory measurement
 - **[benchmarking-methodology.md](references/benchmarking-methodology.md)**: Best practices, pitfalls, and reproducibility
+- **[cloud-storage-patterns.md](references/cloud-storage-patterns.md)**: S3/GCS semantics, latency, caching, and cost optimization
+- **[performance-interpretation.md](references/performance-interpretation.md)**: Metrics, performance bias, reading reports, and translating results
 
 **Load references only when needed** to avoid context bloat. The README.md serves as a table of contents for progressive disclosure.
 

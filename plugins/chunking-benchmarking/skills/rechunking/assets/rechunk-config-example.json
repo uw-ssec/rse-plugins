@@ -1,0 +1,13 @@
+{
+  "_description": "Example configuration for a rechunking operation. Copy this file and modify the values for your dataset. Pass individual fields as CLI arguments to rechunk.py, or use this file as a reference for scripted workflows.",
+  "input_path": "/data/observations.zarr",
+  "output_path": "/data/observations_rechunked.zarr",
+  "target_chunks": [50, 512, 512],
+  "max_memory": "4GB",
+  "validate": true,
+  "compression": {
+    "_description": "Compression settings for the output. If omitted, the source compressor is preserved. The rechunk.py script preserves the source compressor by default.",
+    "codec": "zstd",
+    "level": 3
+  }
+}
