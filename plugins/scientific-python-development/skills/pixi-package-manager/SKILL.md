@@ -222,7 +222,7 @@ python analyze.py
 
 ## Patterns
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns including:
+See [references/patterns.md](references/patterns.md) for detailed patterns including:
 - Converting existing projects to Pixi
 - Multi-environment scientific workflows
 - Scientific library development
@@ -240,7 +240,7 @@ Ready-to-use templates are available in the `assets/` directory:
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
+See [references/common-issues.md](references/common-issues.md) for solutions to:
 - Package not found in conda-forge
 - Conflicting dependencies
 - Slow environment creation

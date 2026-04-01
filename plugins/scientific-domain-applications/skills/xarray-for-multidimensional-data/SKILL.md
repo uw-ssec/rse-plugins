@@ -338,7 +338,7 @@ ds.rio.to_raster("output.tif")
 
 ## Patterns
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns including:
+See [references/patterns.md](references/patterns.md) for detailed patterns including:
 - Creating DataArrays and Datasets
 - Reading and writing data
 - Selection and indexing
@@ -352,7 +352,7 @@ See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns inclu
 
 ## Real-World Examples
 
-See [references/EXAMPLES.md](references/EXAMPLES.md) for complete examples including:
+See [references/examples.md](references/examples.md) for complete examples including:
 - Climate data analysis
 - Satellite data processing
 - Oceanographic data analysis
@@ -363,7 +363,7 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for complete examples inclu
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for solutions to:
+See [references/common-issues.md](references/common-issues.md) for solutions to:
 - Memory errors with large datasets
 - Misaligned coordinates
 - Slow operations on chunked data

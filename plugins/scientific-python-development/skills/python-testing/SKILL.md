@@ -220,7 +220,7 @@ def test_fit_linear():
 
 ## Testing Patterns
 
-See [references/TEST_PATTERNS.md](references/TEST_PATTERNS.md) for detailed patterns including:
+See [references/test-patterns.md](references/test-patterns.md) for detailed patterns including:
 - Writing simple, focused tests
 - Testing for failures
 - Approximate comparisons
@@ -233,7 +233,7 @@ See [references/TEST_PATTERNS.md](references/TEST_PATTERNS.md) for detailed patt
 
 ## Scientific Python Testing Patterns
 
-See [references/SCIENTIFIC_PATTERNS.md](references/SCIENTIFIC_PATTERNS.md) for scientific-specific patterns:
+See [references/scientific-patterns.md](references/scientific-patterns.md) for scientific-specific patterns:
 - Testing numerical algorithms
 - Testing with different NumPy dtypes
 - Testing random/stochastic code
@@ -320,7 +320,7 @@ Ready-to-use templates are available in the `assets/` directory:
 
 ## Common Pitfalls and Solutions
 
-See [references/COMMON_PITFALLS.md](references/COMMON_PITFALLS.md) for solutions to:
+See [references/common-pitfalls.md](references/common-pitfalls.md) for solutions to:
 - Testing implementation instead of behavior
 - Non-deterministic tests
 - Exact floating-point comparisons
