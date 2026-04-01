@@ -1,0 +1,28 @@
+{
+    "name": "zarr-chunk-optimization",
+    "version": "0.1.0",
+    "description": "Benchmarking and optimization tools for Zarr chunking strategies on cloud object stores. Measures performance across access patterns and generates recommendations based on Nguyen et al. (2023) methodology.",
+    "category": "development",
+    "strict": false,
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "zarr",
+        "chunking",
+        "benchmarking",
+        "cloud-storage",
+        "s3",
+        "gcs",
+        "multidimensional-data",
+        "performance-optimization",
+        "rechunking",
+        "access-patterns",
+        "scientific-data",
+        "research-software"
+    ]
+}

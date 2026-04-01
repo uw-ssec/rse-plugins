@@ -1,0 +1,146 @@
+# Container Security Scan — GitHub Actions Workflow
+#
+# This workflow provides two scanning strategies:
+#   1. PR Scan: Runs Trivy on every pull request that modifies container-related
+#      files. Fails on CRITICAL vulnerabilities and uploads results to the
+#      GitHub Security tab via SARIF.
+#   2. Nightly Scan: Runs on a schedule to catch newly disclosed CVEs in your
+#      latest published image.
+#
+# Prerequisites:
+#   - A Dockerfile in the repository root (adjust path if elsewhere)
+#   - GitHub Advanced Security enabled (for SARIF upload to Security tab)
+#   - Write access to ghcr.io for the nightly scan (uses GITHUB_TOKEN)
+#
+# Customization:
+#   - Adjust severity levels in the Trivy steps to match your policy
+#   - Add Grype as a second scanner for cross-validation
+#   - Add cosign signing after a successful build (see supply-chain-security.md)
+
+name: Container Security Scan
+
+on:
+  # ── PR Scan ─────────────────────────────────────────────────────────────────
+  # Trigger on PRs that modify container or dependency files.
+  pull_request:
+    paths:
+      - 'Dockerfile'
+      - 'Dockerfile.*'
+      - 'docker-compose*.yml'
+      - 'requirements*.txt'
+      - 'pyproject.toml'
+      - 'poetry.lock'
+      - 'package-lock.json'
+      - 'go.sum'
+
+  # ── Nightly Scan ────────────────────────────────────────────────────────────
+  # Run at 2:00 AM UTC daily to catch newly disclosed vulnerabilities.
+  schedule:
+    - cron: '0 2 * * *'
+
+  # Allow manual trigger for on-demand scanning.
+  workflow_dispatch:
+
+# ── Permissions ───────────────────────────────────────────────────────────────
+# security-events: write  — required to upload SARIF to the Security tab
+# contents: read          — required to checkout the repository
+# packages: read          — required to pull images from ghcr.io (nightly)
+permissions:
+  security-events: write
+  contents: read
+  packages: read
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Job 1: PR Scan — build the image and scan it on every pull request
+  # ═══════════════════════════════════════════════════════════════════════════
+  pr-scan:
+    name: Scan PR Image
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build the image locally for scanning. We tag with the commit SHA
+      # so each PR build is unique and traceable.
+      - name: Build container image
+        run: |
+          docker build \
+            -t ${{ github.repository }}:${{ github.sha }} \
+            .
+
+      # ── Trivy Vulnerability Scan ───────────────────────────────────────────
+      # Scan the built image for CRITICAL and HIGH vulnerabilities.
+      # exit-code: 1 causes the job to fail if matching vulns are found.
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ github.repository }}:${{ github.sha }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+          # Optionally ignore vulnerabilities with no available fix:
+          # ignore-unfixed: true
+
+      # ── Upload to GitHub Security Tab ──────────────────────────────────────
+      # Always upload results even if the scan step fails, so findings
+      # are visible in the Security tab regardless of pass/fail.
+      - name: Upload Trivy SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      # ── Dockerfile Misconfiguration Scan ───────────────────────────────────
+      # Check the Dockerfile for security misconfigurations (running as root,
+      # using ADD instead of COPY, hardcoded secrets, etc.).
+      - name: Scan Dockerfile for misconfigurations
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          scan-ref: '.'
+          format: 'table'
+          exit-code: '0'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Job 2: Nightly Scan — scan the latest published image for new CVEs
+  # ═══════════════════════════════════════════════════════════════════════════
+  nightly-scan:
+    name: Nightly Security Scan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Pull the latest published image from the container registry.
+      # Adjust the image reference to match your registry and naming.
+      - name: Pull latest image
+        run: |
+          docker pull ghcr.io/${{ github.repository }}:latest
+
+      # ── Trivy Vulnerability Scan ───────────────────────────────────────────
+      # Scan for all severity levels on nightly to get full visibility.
+      # exit-code is 0 so the workflow does not fail — results go to
+      # the Security tab for triage.
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ghcr.io/${{ github.repository }}:latest'
+          format: 'sarif'
+          output: 'trivy-nightly.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: '0'
+          ignore-unfixed: false
+
+      # ── Upload to GitHub Security Tab ──────────────────────────────────────
+      - name: Upload nightly SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-nightly.sarif'

@@ -1,0 +1,135 @@
+# =============================================================================
+# Development Override — compose.override.yml
+# =============================================================================
+# This file layers development-specific settings on top of the base compose.yml.
+#
+# Usage:
+#   Rename (or symlink) this file to compose.override.yml in your project root.
+#   Compose automatically merges compose.yml + compose.override.yml when you run:
+#
+#     docker compose up -d
+#
+#   No extra -f flags needed.
+#
+# What this override adds:
+#   - Bind mounts for live code reload (no rebuild required)
+#   - Debug ports exposed (debugpy, pgAdmin)
+#   - Relaxed health checks (faster startup during development)
+#   - Development-specific environment variables
+#   - Compose Watch configuration for auto-sync
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # API — development overrides
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development             # Use the dev stage of a multi-stage build
+    volumes:
+      # Live-reload: bind mount source code so changes appear instantly
+      - ./src:/app/src:cached
+      - ./tests:/app/tests:cached
+      # Prevent overwriting installed packages inside the container
+      - /app/.venv
+    environment:
+      DEBUG: "true"
+      LOG_LEVEL: "debug"
+      RELOAD: "true"                  # Enable uvicorn/flask auto-reload
+    ports:
+      - "${API_PORT:-8000}:8000"
+      # Debugger port (e.g., debugpy for VS Code remote debugging)
+      - "${DEBUG_PORT:-5678}:5678"
+    # Override the production command with a reload-enabled one
+    command: >
+      python -m uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --reload-dir /app/src
+    healthcheck:
+      # Relaxed health check for faster startup during development
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 2
+      start_period: 5s
+    # Optional: Compose Watch for automatic sync and rebuild
+    develop:
+      watch:
+        # Sync source code changes without rebuilding
+        - action: sync
+          path: ./src
+          target: /app/src
+        # Sync test changes
+        - action: sync
+          path: ./tests
+          target: /app/tests
+        # Rebuild when dependencies change
+        - action: rebuild
+          path: ./pyproject.toml
+        - action: rebuild
+          path: ./requirements.txt
+
+  # ---------------------------------------------------------------------------
+  # Database — development overrides
+  # ---------------------------------------------------------------------------
+  db:
+    ports:
+      # Expose the database port to the host for local tooling (DBeaver, psql)
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s              # Faster than production start_period
+
+  # ---------------------------------------------------------------------------
+  # Redis — development overrides
+  # ---------------------------------------------------------------------------
+  redis:
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 2
+      start_period: 3s
+
+  # ---------------------------------------------------------------------------
+  # pgAdmin — database management UI (dev-only)
+  # ---------------------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: app-pgadmin
+    profiles:
+      - tools                        # Only starts with --profile tools
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@localhost.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_LISTEN_PORT: 5050
+    ports:
+      - "${PGADMIN_PORT:-5050}:5050"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backend
+
+  # ---------------------------------------------------------------------------
+  # Mailpit — local email testing (dev-only)
+  # ---------------------------------------------------------------------------
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: app-mailpit
+    profiles:
+      - tools
+    ports:
+      - "${MAILPIT_UI_PORT:-8025}:8025"   # Web UI
+      - "${MAILPIT_SMTP_PORT:-1025}:1025" # SMTP
+    restart: unless-stopped
+    networks:
+      - backend

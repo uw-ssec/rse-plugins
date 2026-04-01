@@ -201,6 +201,12 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+# macOS
+.DS_Store
+
+# Claude Code local settings
+.settings.local.json
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
@@ -209,5 +215,9 @@ __marimo__/
 .pixi/*
 !.pixi/config.toml
 *TODO*
+.agents/
 .github/agents/
 .github/skills/
+
+# Claude Code history
+.claude-history/

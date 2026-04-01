@@ -1,9 +1,9 @@
 ---
 name: user-persona-discovery
 description: Creative user persona discovery through ideation and exploration. Use for open-ended brainstorming sessions to elucidate and reveal user personas for cultural probes in research through design. This is useful for settings for thinking about a range of user personas that might be relevant to a design process.
-license: MIT license
 metadata:
-    skill-author: dacb@uw.edu
+  references:
+    - references/user-persona-examples.md
 ---
 
 # User Persona Discovery

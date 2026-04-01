@@ -1,9 +1,28 @@
 {
     "name": "holoviz-visualization",
-    "description": "Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem (Panel, hvPlot, HoloViews, Datashader, GeoViews, Lumen)",
     "version": "0.1.0",
+    "description": "Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem including Panel, hvPlot, HoloViews, Datashader, GeoViews, Colorcet, and Lumen.",
+    "category": "development",
+    "strict": false,
     "author": {
         "name": "SSEC Research Team",
         "url": "https://github.com/uw-ssec"
-    }
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "holoviz",
+        "panel",
+        "hvplot",
+        "holoviews",
+        "datashader",
+        "geoviews",
+        "colorcet",
+        "lumen",
+        "visualization",
+        "dashboards",
+        "interactive",
+        "geospatial"
+    ]
 }

@@ -1,8 +1,6 @@
 ---
 name: plotting-fundamentals
 description: Master quick plotting and interactive visualization with hvPlot. Use this skill when creating basic plots (line, scatter, bar, histogram, box), visualizing pandas DataFrames with minimal code, adding interactivity and hover tools, composing multiple plots in layouts, or generating publication-quality visualizations rapidly.
-version: 2025-01-07
-compatibility: Requires hvplot >= 0.9.0, holoviews >= 1.18.0, pandas >= 1.0.0, numpy >= 1.15.0, bokeh >= 3.0.0
 ---
 
 # Plotting Fundamentals Skill

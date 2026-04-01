@@ -1,6 +1,11 @@
 ---
 name: astropy-fundamentals
-description: This skill should be used when the user asks to "read FITS files", "convert coordinates", "work with astronomical units", "handle astronomical time", "match catalogs", "do aperture photometry", "analyze spectra", "use SkyCoord", "work with WCS", "convert between coordinate frames", "calculate separations", or needs guidance on Astropy, FITS I/O, celestial coordinates, physical units (astropy.units), astronomical time scales, catalog cross-matching, photutils photometry, or specutils spectroscopy.
+description: Work with astronomical data using AstroPy for FITS file I/O, coordinate transformations, physical units, precise time handling, catalog cross-matching, photutils photometry, and specutils spectroscopy.
+metadata:
+  references:
+    - references/common-issues.md
+    - references/examples.md
+    - references/patterns.md
 ---
 
 # Astropy Fundamentals
@@ -122,7 +127,7 @@ Physical quantities with dimensional correctness. Attach units to values and con
 - Equivalencies: `wavelength.to(u.Hz, equivalencies=u.spectral())`
 - Arithmetic: Units propagate automatically
 
-**See [references/PATTERNS.md](references/PATTERNS.md#units-and-quantities-patterns)** for custom units, logarithmic units, and advanced equivalencies.
+**See [references/patterns.md](references/patterns.md#units-and-quantities-patterns)** for custom units, logarithmic units, and advanced equivalencies.
 
 ### 2. FITS I/O
 
@@ -134,7 +139,7 @@ Standard format for astronomical data. Read/write images and tables with headers
 - Headers: Dictionary-like access, add comments
 - Memory mapping: `fits.open('file.fits', memmap=True)` for large files
 
-**See [references/PATTERNS.md](references/PATTERNS.md#fits-manipulation-patterns)** for multi-extension FITS, header inheritance, and large file handling.
+**See [references/patterns.md](references/patterns.md#fits-manipulation-patterns)** for multi-extension FITS, header inheritance, and large file handling.
 
 ### 3. Coordinates
 
@@ -146,7 +151,7 @@ Celestial positions with automatic frame transformations.
 - Separations: `coord1.separation(coord2)`
 - Matching: `coord.match_to_catalog_sky(catalog)`
 
-**See [references/PATTERNS.md](references/PATTERNS.md#coordinate-patterns)** for custom frames, catalog cross-matching, and observer-dependent coordinates.
+**See [references/patterns.md](references/patterns.md#coordinate-patterns)** for custom frames, catalog cross-matching, and observer-dependent coordinates.
 
 ### 4. Time
 
@@ -158,7 +163,7 @@ Sub-nanosecond precision with multiple time scales and formats.
 - Scales: `.utc`, `.tai`, `.tt`, `.tdb`
 - Arithmetic: `t + 1*u.day`
 
-**See [references/PATTERNS.md](references/PATTERNS.md#time-patterns)** for high-precision calculations, time series, and barycentric corrections.
+**See [references/patterns.md](references/patterns.md#time-patterns)** for high-precision calculations, time series, and barycentric corrections.
 
 ### 5. Tables
 
@@ -171,7 +176,7 @@ Flexible tabular data with units and metadata.
 - Join: `join(tbl1, tbl2, keys='id')`
 - I/O: `.read()`, `.write()` for FITS, CSV, HDF5
 
-**See [references/PATTERNS.md](references/PATTERNS.md#table-patterns)** for masked tables, joins, metadata, and indexing.
+**See [references/patterns.md](references/patterns.md#table-patterns)** for masked tables, joins, metadata, and indexing.
 
 ### 6. WCS (World Coordinate System)
 
@@ -183,7 +188,7 @@ Maps pixel coordinates to sky coordinates.
 - Sky→Pixel: `wcs.world_to_pixel(coord)`
 - Legacy: `wcs.all_pix2world(x, y, 0)` for arrays
 
-**See [references/PATTERNS.md](references/PATTERNS.md#wcs-patterns)** for creating WCS, SIP distortions, and cutouts.
+**See [references/patterns.md](references/patterns.md#wcs-patterns)** for creating WCS, SIP distortions, and cutouts.
 
 ### 7. Photometry (Photutils)
 
@@ -195,7 +200,7 @@ Source detection and aperture photometry.
 - Measure: `aperture_photometry(image, apertures)`
 - Background: Use `CircularAnnulus` for local background
 
-**See [references/PATTERNS.md](references/PATTERNS.md#photometry-patterns)** for PSF photometry and grouped sources.
+**See [references/patterns.md](references/patterns.md#photometry-patterns)** for PSF photometry and grouped sources.
 
 ### 8. Spectroscopy (Specutils)
 
@@ -207,11 +212,11 @@ Source detection and aperture photometry.
 - Convert: `.with_spectral_axis_unit(u.Hz)`
 - Lines: `line_flux(spectrum, region)`
 
-**See [references/PATTERNS.md](references/PATTERNS.md#spectroscopy-patterns)** for line fitting, continuum normalization, and redshift measurement.
+**See [references/patterns.md](references/patterns.md#spectroscopy-patterns)** for line fitting, continuum normalization, and redshift measurement.
 
 ## Patterns
 
-See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns including:
+See [references/patterns.md](references/patterns.md) for detailed patterns including:
 
 **FITS Manipulation:**
 - Multi-extension FITS handling
@@ -260,7 +265,7 @@ See [references/PATTERNS.md](references/PATTERNS.md) for detailed patterns inclu
 
 ## Real-World Examples
 
-See [references/EXAMPLES.md](references/EXAMPLES.md) for complete workflows:
+See [references/examples.md](references/examples.md) for complete workflows:
 
 1. **Telescope Image Processing Pipeline**: FITS loading → background subtraction → source detection → aperture photometry → catalog creation with WCS
 
@@ -276,7 +281,7 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for complete workflows:
 
 ## Common Issues and Solutions
 
-See [references/COMMON_ISSUES.md](references/COMMON_ISSUES.md) for troubleshooting:
+See [references/common-issues.md](references/common-issues.md) for troubleshooting:
 
 **FITS I/O Issues:**
 - VerifyError with non-standard FITS

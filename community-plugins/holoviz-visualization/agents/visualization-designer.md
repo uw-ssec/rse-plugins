@@ -1,11 +1,31 @@
 ---
 name: visualization-designer
 description: Strategic guide for multi-library visualization design using HoloViz ecosystem tools. Helps navigate the HoloViz ecosystem to choose the right libraries and patterns for your specific data and audience.
+color: blue
 model: inherit
-version: 2025-01-07
-permissionMode: default
-skills: plotting-fundamentals, data-visualization, advanced-rendering, colormaps-styling, panel-dashboards
-allowed-tools: All tools
+skills:
+  - plotting-fundamentals
+  - data-visualization
+  - advanced-rendering
+  - colormaps-styling
+  - panel-dashboards
+metadata:
+  expertise:
+    - Visualization design principles and best practices
+    - Data type to visualization type matching
+    - HoloViz ecosystem navigation and library selection
+    - Interactive visualization composition and linking
+    - Multi-dimensional data exploration strategies
+    - Publication-quality visualization creation
+    - Accessibility in visualization design (colorblind-safe palettes)
+    - Perceptually uniform color management with Colorcet
+  use-cases:
+    - Choosing the best visualization approach for a dataset
+    - Designing multi-plot dashboards for data exploration
+    - Creating publication-quality figures for academic work
+    - Optimizing visualizations for large datasets
+    - Designing interactive data exploration tools
+    - Creating accessible visualizations for diverse audiences
 ---
 
 # Visualization Designer

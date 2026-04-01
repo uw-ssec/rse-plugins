@@ -1,0 +1,200 @@
+# ==============================================================================
+# Basic Apptainer Definition File
+# Base: Ubuntu 24.04 with common scientific packages
+# Purpose: General-purpose research computing environment
+#
+# Build:
+#   sudo apptainer build scientific.sif basic-definition.def
+#   apptainer build --fakeroot scientific.sif basic-definition.def
+#
+# Run:
+#   apptainer exec scientific.sif python3 analysis.py
+#   apptainer run scientific.sif  (invokes %runscript)
+#   apptainer shell scientific.sif  (interactive shell)
+# ==============================================================================
+
+Bootstrap: docker
+From: ubuntu:24.04
+
+%labels
+    Author Research Computing Team
+    Version 1.0.0
+    Description General-purpose scientific computing environment
+    Base.Image ubuntu:24.04
+    Python.Version 3.12
+
+%help
+    Scientific Computing Environment v1.0.0
+
+    This container provides a Python 3.12 environment with common
+    scientific packages: NumPy, SciPy, Matplotlib, Pandas, h5py.
+
+    Usage:
+        apptainer exec scientific.sif python3 my_script.py
+        apptainer run scientific.sif my_script.py [args]
+
+    Bind mounts:
+        --bind /scratch/$USER:/scratch   Scratch workspace
+        --bind /project/data:/data:ro    Read-only data access
+
+    Environment variables:
+        OMP_NUM_THREADS   Number of OpenMP threads (default: 1)
+
+%files
+    # Copy files from the build context into the container.
+    # Uncomment and modify these lines to include your own files:
+    # requirements.txt /opt/app/requirements.txt
+    # scripts/ /opt/app/scripts/
+
+%post
+    # --------------------------------------------------------------------------
+    # System packages
+    # --------------------------------------------------------------------------
+    # DEBIAN_FRONTEND=noninteractive prevents interactive prompts during install.
+    # --no-install-recommends keeps the image small by skipping optional packages.
+    # Always clean up apt caches in the same RUN/post section to reduce image size.
+    export DEBIAN_FRONTEND=noninteractive
+
+    apt-get update && apt-get install -y --no-install-recommends \
+        # Python runtime and package management
+        python3 \
+        python3-pip \
+        python3-venv \
+        # Common build dependencies for compiled Python packages
+        build-essential \
+        gfortran \
+        pkg-config \
+        # Numerical libraries (used by NumPy, SciPy)
+        libopenblas-dev \
+        liblapack-dev \
+        # HDF5 library (used by h5py)
+        libhdf5-dev \
+        # Miscellaneous utilities
+        wget \
+        curl \
+        git \
+        vim-tiny \
+        less && \
+    rm -rf /var/lib/apt/lists/*
+
+    # --------------------------------------------------------------------------
+    # Python virtual environment
+    # --------------------------------------------------------------------------
+    # Using a virtual environment keeps installed packages organized and avoids
+    # conflicts with system Python packages. The venv is activated in %environment.
+    python3 -m venv /opt/venv
+    . /opt/venv/bin/activate
+
+    # --------------------------------------------------------------------------
+    # Python packages
+    # --------------------------------------------------------------------------
+    # --no-cache-dir prevents pip from caching wheels, reducing image size.
+    # Pin versions in production to ensure reproducibility.
+    pip install --no-cache-dir --upgrade pip setuptools wheel
+
+    pip install --no-cache-dir \
+        numpy \
+        scipy \
+        matplotlib \
+        pandas \
+        h5py \
+        scikit-learn \
+        jupyter
+
+    # --------------------------------------------------------------------------
+    # Optional: Install from a requirements file
+    # --------------------------------------------------------------------------
+    # Uncomment if you copied a requirements.txt in %files:
+    # pip install --no-cache-dir -r /opt/app/requirements.txt
+
+    # --------------------------------------------------------------------------
+    # Cleanup
+    # --------------------------------------------------------------------------
+    # Remove build dependencies that are no longer needed at runtime.
+    # This reduces image size. Comment out if your application needs to compile
+    # at runtime (e.g., JIT compilation, Cython extensions).
+    apt-get purge -y build-essential gfortran pkg-config && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    # Activate the virtual environment for all runtime invocations.
+    export PATH="/opt/venv/bin:$PATH"
+    export VIRTUAL_ENV="/opt/venv"
+
+    # Prevent Python from buffering stdout/stderr (important for job logs).
+    export PYTHONUNBUFFERED=1
+
+    # Set a sensible default for OpenMP threads (override at runtime if needed).
+    export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
+
+    # Locale settings to avoid encoding issues.
+    export LC_ALL=C
+
+%runscript
+    # The runscript is invoked by "apptainer run image.sif [args]"
+    # or by executing the .sif directly: ./image.sif [args]
+    #
+    # This runscript passes all arguments to python3:
+    #   apptainer run scientific.sif my_script.py --flag value
+    # is equivalent to:
+    #   python3 my_script.py --flag value
+
+    if [ $# -eq 0 ]; then
+        echo "Scientific Computing Environment v1.0.0"
+        echo ""
+        echo "Usage: apptainer run scientific.sif <script.py> [arguments]"
+        echo "       apptainer exec scientific.sif <command>"
+        echo "       apptainer shell scientific.sif"
+        echo ""
+        echo "Installed packages:"
+        python3 -c "
+import numpy, scipy, matplotlib, pandas, h5py, sklearn
+print(f'  NumPy        {numpy.__version__}')
+print(f'  SciPy        {scipy.__version__}')
+print(f'  Matplotlib   {matplotlib.__version__}')
+print(f'  Pandas       {pandas.__version__}')
+print(f'  h5py         {h5py.__version__}')
+print(f'  scikit-learn {sklearn.__version__}')
+"
+        exit 0
+    fi
+
+    exec python3 "$@"
+
+%test
+    # --------------------------------------------------------------------------
+    # Build validation
+    # --------------------------------------------------------------------------
+    # These tests run automatically after a successful build.
+    # A non-zero exit code fails the build.
+    # Skip tests during build with: apptainer build --notest image.sif def.def
+
+    echo "Running post-build tests..."
+
+    # Verify Python is accessible
+    python3 --version
+
+    # Verify all key packages import successfully
+    python3 -c "import numpy; print(f'NumPy {numpy.__version__}')"
+    python3 -c "import scipy; print(f'SciPy {scipy.__version__}')"
+    python3 -c "import matplotlib; print(f'Matplotlib {matplotlib.__version__}')"
+    python3 -c "import pandas; print(f'Pandas {pandas.__version__}')"
+    python3 -c "import h5py; print(f'h5py {h5py.__version__}')"
+    python3 -c "import sklearn; print(f'scikit-learn {sklearn.__version__}')"
+
+    # Quick numerical sanity check
+    python3 -c "
+import numpy as np
+from scipy import linalg
+
+# Verify BLAS/LAPACK work correctly
+A = np.random.randn(100, 100)
+B = linalg.inv(A)
+identity = A @ B
+error = np.max(np.abs(identity - np.eye(100)))
+assert error < 1e-10, f'Matrix inversion error too large: {error}'
+print(f'BLAS/LAPACK check passed (error={error:.2e})')
+"
+
+    echo "All tests passed."

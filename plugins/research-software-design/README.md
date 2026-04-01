@@ -1,4 +1,4 @@
-This is a suite of tools for Research Through Design (RtD) including 
+# This is a suite of tools for Research Through Design (RtD) including 
 a RtD oriented agent and a user persona discovery and elucidation skill.
 
 ## RtD agent

@@ -66,6 +66,106 @@
             ],
             "category": "data-science",
             "strict": false
+        },
+        {
+            "name": "ai-research-workflows",
+            "source": "./plugins/ai-research-workflows",
+            "description": "Structured AI-enabled research workflows for software development: Research, Plan, Experiment, Implement",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "research",
+                "planning",
+                "workflow",
+                "implementation",
+                "experimentation",
+                "validation",
+                "software-development",
+                "research-software-engineering"
+            ],
+            "category": "development",
+            "strict": false
+        },
+        {
+            "name": "project-management",
+            "source": "./plugins/project-management",
+            "description": "Project lifecycle management — onboarding, documentation quality, handoff readiness, and community health for research software projects",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "project-management",
+                "onboarding",
+                "documentation",
+                "handoff",
+                "community-health",
+                "research-software",
+                "project-lifecycle"
+            ],
+            "category": "development",
+            "strict": false
+        },
+        {
+            "name": "zarr-chunk-optimization",
+            "source": "./plugins/zarr-chunk-optimization",
+            "description": "Benchmark and optimize Zarr chunking strategies for multi-dimensional scientific datasets on cloud object stores (S3, GCS)",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "zarr",
+                "chunking",
+                "benchmarking",
+                "cloud-storage",
+                "performance-optimization",
+                "rechunking",
+                "access-patterns",
+                "scientific-data",
+                "research-software"
+            ],
+            "category": "data-science",
+            "strict": false
+        },
+        {
+            "name": "zarr-data-format",
+            "source": "./plugins/zarr-data-format",
+            "description": "Comprehensive agents and skills for working with the Zarr array storage format",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "zarr",
+                "array-storage",
+                "cloud-native",
+                "compression",
+                "xarray",
+                "dask",
+                "hdf5",
+                "netcdf",
+                "scientific-computing",
+                "data-format"
+            ],
+            "category": "data-science",
+            "strict": false
+        },
+        {
+            "name": "research-software-design",
+            "source": "./plugins/research-software-design",
+            "description": "Agents and skills for Research-Through-Design approach to research software design",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "research-through-design",
+                "user-personas",
+                "research-software",
+                "design-methodology",
+                "scientific-literature",
+                "software-design"
+            ],
+            "category": "research",
+            "strict": false
         }
     ]
 }
