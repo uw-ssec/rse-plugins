@@ -1,11 +1,36 @@
-# 20 Example User Personas  
+# 20 Example User Personas
 *Designed for Research Through Design (RtD) contexts*
 
 Each persona below is:
-- Goal-oriented and behavior-centered  
-- Explicit about constraints and tensions  
-- Actionable for design decisions  
-- Framed as a **hypothesis**, not a fictional character  
+- Goal-oriented and behavior-centered
+- Explicit about constraints and tensions
+- Actionable for design decisions
+- Framed as a **hypothesis**, not a fictional character
+
+## Contents
+
+| Persona | Lines | Description |
+|---------|-------|-------------|
+| 1. The Time-Constrained Operator | 12-17 | Prioritizes speed, tolerates partial engagement |
+| 2. The Risk-Averse Validator | 21-26 | Avoids errors, seeks confirmation and rollback |
+| 3. The Experimental Explorer | 30-35 | Probes edge cases, needs safe experimentation |
+| 4. The Compliance-Bound Practitioner | 39-44 | Follows prescribed workflows under regulatory oversight |
+| 5. The Resource-Limited Improviser | 48-53 | Achieves outcomes with minimal resources and workarounds |
+| 6. The Outcome-Driven Manager | 57-62 | Delivers on schedule, tracks milestones |
+| 7. The Detail-Oriented Analyst | 66-71 | Examines data deeply, needs progressive disclosure |
+| 8. The Novice Learner | 75-80 | Builds basic competence, needs scaffolded learning |
+| 9. The Expert Specialist | 84-89 | Uses shortcuts and advanced controls efficiently |
+| 10. The Collaboration-Focused Contributor | 93-98 | Coordinates with others, shares intermediate work |
+| 11. The Accountability-Driven Reporter | 102-107 | Provides defensible explanations, captures rationale |
+| 12. The Context-Switcher | 111-116 | Maintains continuity across fragmented sessions |
+| 13. The Optimization-Focused Improver | 120-125 | Measures and refines performance incrementally |
+| 14. The Ethics-Motivated Stakeholder | 129-134 | Questions implications, seeks transparency |
+| 15. The Tool-Skeptical Traditionalist | 138-143 | Resists new tools, prefers trusted methods |
+| 16. The Automation-Seeking Optimizer | 147-152 | Reduces repetitive effort through scripting |
+| 17. The Evidence-Hungry Decision Maker | 156-161 | Makes choices backed by credible data |
+| 18. The Failure-Avoidant Maintainer | 165-170 | Keeps systems running, avoids risky changes |
+| 19. The Insight-Seeking Reflector | 174-179 | Reviews outcomes, looks for patterns |
+| 20. The Boundary-Pushing Innovator | 183-188 | Extends what is possible, challenges assumptions |
 
 ---
 
