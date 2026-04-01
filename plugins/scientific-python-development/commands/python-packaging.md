@@ -1,5 +1,6 @@
 ---
 description: Set up or improve Python package structure with pyproject.toml, src layout, and Hatchling following Scientific Python standards
+user-invocable: true
 allowed-tools:
   - Read
   - Write

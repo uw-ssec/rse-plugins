@@ -1,5 +1,6 @@
 ---
 description: Create interactive maps and geographic visualizations with GeoViews, GeoPandas, and tile providers
+user-invocable: true
 allowed-tools:
   - Read
   - Write

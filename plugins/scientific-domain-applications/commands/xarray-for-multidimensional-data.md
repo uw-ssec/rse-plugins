@@ -1,5 +1,6 @@
 ---
 description: Work with labeled multidimensional data using Xarray for NetCDF, Zarr, climate, and satellite data analysis
+user-invocable: true
 allowed-tools:
   - Read
   - Write

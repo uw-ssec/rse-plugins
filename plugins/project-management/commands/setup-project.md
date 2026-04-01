@@ -1,5 +1,6 @@
 ---
 description: Scaffold a new project with community health files and standard structure for any language
+user-invocable: true
 allowed-tools:
   - Read
   - Write

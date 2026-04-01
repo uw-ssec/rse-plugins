@@ -1,5 +1,6 @@
 ---
 description: Write or improve pytest tests for scientific Python code with fixtures, parametrization, and numerical testing patterns
+user-invocable: true
 allowed-tools:
   - Read
   - Write

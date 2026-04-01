@@ -1,5 +1,6 @@
 ---
 description: Render massive datasets (100M+ points) efficiently with Datashader rasterization and aggregation
+user-invocable: true
 allowed-tools:
   - Read
   - Write

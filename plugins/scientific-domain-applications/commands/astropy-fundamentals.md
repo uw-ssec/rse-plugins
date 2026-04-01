@@ -1,5 +1,6 @@
 ---
 description: Work with astronomical data using AstroPy for FITS files, coordinates, units, photometry, spectroscopy, and catalog matching
+user-invocable: true
 allowed-tools:
   - Read
   - Write

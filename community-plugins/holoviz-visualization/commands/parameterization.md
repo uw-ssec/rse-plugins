@@ -1,5 +1,6 @@
 ---
 description: Build type-safe parameterized classes with Param for reactive dependencies, validation, and auto-generated UIs
+user-invocable: true
 allowed-tools:
   - Read
   - Write

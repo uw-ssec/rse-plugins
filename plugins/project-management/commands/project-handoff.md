@@ -1,5 +1,6 @@
 ---
 description: Assess project readiness for handoff to new maintainers with a comprehensive health check
+user-invocable: true
 allowed-tools:
   - Read
   - Glob

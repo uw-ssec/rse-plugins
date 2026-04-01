@@ -1,5 +1,6 @@
 ---
 description: Build declarative no-code data dashboards with Lumen YAML specifications
+user-invocable: true
 allowed-tools:
   - Read
   - Write

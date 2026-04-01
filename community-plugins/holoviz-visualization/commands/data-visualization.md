@@ -1,5 +1,6 @@
 ---
 description: Create advanced declarative visualizations with HoloViews for multi-dimensional data, interactive streams, and complex compositions
+user-invocable: true
 allowed-tools:
   - Read
   - Write

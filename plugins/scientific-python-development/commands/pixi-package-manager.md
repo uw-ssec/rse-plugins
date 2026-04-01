@@ -1,5 +1,6 @@
 ---
 description: Set up or manage pixi environments for reproducible scientific Python workflows
+user-invocable: true
 allowed-tools:
   - Read
   - Write

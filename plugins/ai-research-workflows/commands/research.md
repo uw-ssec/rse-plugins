@@ -1,5 +1,6 @@
 ---
 description: Research a codebase or topic to build context for a task
+user-invocable: true
 ---
 
 # CRITICAL DIRECTIVE

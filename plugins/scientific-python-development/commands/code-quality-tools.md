@@ -1,5 +1,6 @@
 ---
 description: Set up or fix ruff, mypy, and pre-commit for scientific Python code quality
+user-invocable: true
 allowed-tools:
   - Read
   - Write

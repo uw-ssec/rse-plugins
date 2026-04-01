@@ -1,5 +1,6 @@
 ---
 description: Build AI-powered natural language data exploration interfaces with Lumen AI
+user-invocable: true
 allowed-tools:
   - Read
   - Write

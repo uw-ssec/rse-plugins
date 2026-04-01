@@ -1,5 +1,6 @@
 ---
 description: Create quick interactive plots with hvPlot from pandas DataFrames, NumPy arrays, or Xarray datasets
+user-invocable: true
 allowed-tools:
   - Read
   - Write

@@ -1,5 +1,6 @@
 ---
 description: Build interactive dashboards and web applications with Panel and Param
+user-invocable: true
 allowed-tools:
   - Read
   - Write

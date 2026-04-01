@@ -1,5 +1,6 @@
 ---
 description: Set up or improve documentation for a scientific Python package using Sphinx, MkDocs, and Diataxis framework
+user-invocable: true
 allowed-tools:
   - Read
   - Write

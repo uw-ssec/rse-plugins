@@ -1,5 +1,6 @@
 ---
 description: Implement changes based on an approved plan, tracking progress phase by phase
+user-invocable: true
 ---
 
 # Getting Started

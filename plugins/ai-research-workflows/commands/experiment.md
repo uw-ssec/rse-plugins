@@ -1,5 +1,6 @@
 ---
 description: Experiment with different approaches before committing to implementation
+user-invocable: true
 ---
 
 # CRITICAL DIRECTIVE

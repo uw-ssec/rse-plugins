@@ -1,5 +1,6 @@
 ---
 description: Select and apply perceptually uniform colormaps and accessible visual styling with Colorcet
+user-invocable: true
 allowed-tools:
   - Read
   - Write
