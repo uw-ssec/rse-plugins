@@ -126,6 +126,28 @@
             ],
             "category": "data-science",
             "strict": false
+        },
+        {
+            "name": "zarr-data-format",
+            "source": "./plugins/zarr-data-format",
+            "description": "Comprehensive agents and skills for working with the Zarr array storage format",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "zarr",
+                "array-storage",
+                "cloud-native",
+                "compression",
+                "xarray",
+                "dask",
+                "hdf5",
+                "netcdf",
+                "scientific-computing",
+                "data-format"
+            ],
+            "category": "data-science",
+            "strict": false
         }
     ]
 }
