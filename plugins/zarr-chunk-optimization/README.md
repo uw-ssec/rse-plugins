@@ -6,15 +6,18 @@ Benchmarks Zarr chunking strategies for multi-dimensional datasets on cloud obje
 
 | Agent | Description |
 |-------|-------------|
-| **benchmarking-agent** | Zarr chunking optimization expert for multi-dimensional scientific datasets on cloud object stores |
+| **benchmarking-agent** | Zarr chunking optimization expert — coordinates benchmarking, synthetic data generation, and rechunking workflows |
+| **performance-analyst** | Interprets benchmark results, analyzes trade-offs across access patterns, and generates actionable recommendations |
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| **chunking-strategy** | Core benchmarking methodology, access pattern analysis, performance interpretation, and cloud storage patterns |
+| **chunking-strategy** | Core benchmarking methodology, cloud storage patterns, and performance interpretation references |
 | **synthetic-data** | Generate synthetic Zarr datasets with configurable dimensions, shapes, and compression for controlled benchmarks |
 | **rechunking** | Safely apply chunking configurations with validation, progress reporting, and rollback safety |
+| **access-pattern-analysis** | Identify, formalize, and prioritize data access patterns from user workflow descriptions |
+| **performance-reporting** | Generate structured benchmark reports with comparisons, bias analysis, and ranked recommendations |
 
 ## Commands
 
@@ -23,6 +26,8 @@ Benchmarks Zarr chunking strategies for multi-dimensional datasets on cloud obje
 | `/benchmark` | Run chunking benchmarks across access patterns and collect wall-clock time, peak memory, and I/O metrics |
 | `/rechunk` | Rechunk a production dataset with validation and safety checks |
 | `/tradeoffs` | Analyze trade-offs between spatial, temporal, and spectral access performance for a given chunk configuration |
+| `/generate-synthetic` | Generate a synthetic Zarr dataset for controlled chunking benchmarks |
+| `/analyze-performance` | Analyze benchmark results and generate a performance report with ranked recommendations |
 
 ## When to Use
 

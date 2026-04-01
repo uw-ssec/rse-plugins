@@ -7,6 +7,8 @@ skills:
   - chunking-strategy
   - synthetic-data
   - rechunking
+  - access-pattern-analysis
+  - performance-reporting
 metadata:
   expertise:
     - Zarr chunking strategy benchmarking and optimization
