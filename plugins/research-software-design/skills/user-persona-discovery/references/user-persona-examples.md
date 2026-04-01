@@ -1,3 +1,11 @@
+# 20 Example User Personas  
+*Designed for Research Through Design (RtD) contexts*
+
+Each persona below is:
+- Goal-oriented and behavior-centered  
+- Explicit about constraints and tensions  
+- Actionable for design decisions  
+- Framed as a **hypothesis**, not a fictional character  
 # 20 Example User Personas
 *Designed for Research Through Design (RtD) contexts*
 
