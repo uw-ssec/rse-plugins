@@ -148,6 +148,24 @@
             ],
             "category": "data-science",
             "strict": false
+        },
+        {
+            "name": "research-software-design",
+            "source": "./plugins/research-software-design",
+            "description": "Agents and skills for Research-Through-Design approach to research software design",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "research-through-design",
+                "user-personas",
+                "research-software",
+                "design-methodology",
+                "scientific-literature",
+                "software-design"
+            ],
+            "category": "research",
+            "strict": false
         }
     ]
 }
