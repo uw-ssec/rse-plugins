@@ -1,88 +1,26 @@
-// =============================================================================
-// Node.js Dev Container Configuration
-//
-// Includes:
-//   - Node.js 22 LTS with npm
-//   - ESLint for code linting
-//   - Prettier for code formatting
-//   - GitHub CLI for pull requests and issues
-//
-// Usage:
-//   1. Copy this file to .devcontainer/devcontainer.json
-//   2. Update postCreateCommand if you use yarn or pnpm instead of npm
-//   3. Open in VS Code: "Reopen in Container"
-//
-// Customization:
-//   - Change Node.js version: update the image tag (e.g., typescript-node:20)
-//   - For TypeScript projects: the image includes TypeScript by default
-//   - Add database services: use dockerComposeFile instead of image
-// =============================================================================
 {
   "name": "Node.js",
-
-  // Pre-built Node.js + TypeScript image from Microsoft.
-  // Includes Node.js, npm, yarn, git, zsh, and common utilities.
-  // Change version: typescript-node:20, typescript-node:22
   "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
-
   "features": {
-    // GitHub CLI for PR workflows
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-
-    // Uncomment to add Docker-in-Docker
-    // "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-
-    // Uncomment to add Python (for tools like pre-commit)
-    // "ghcr.io/devcontainers/features/python:1": { "version": "3.12" }
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
-
   "customizations": {
     "vscode": {
       "extensions": [
-        // ESLint: JavaScript/TypeScript linting.
-        // Integrates with .eslintrc config files in the project.
         "dbaeumer.vscode-eslint",
-
-        // Prettier: opinionated code formatter.
-        // Works for JS, TS, JSON, CSS, HTML, Markdown, and more.
         "esbenp.prettier-vscode",
-
-        // npm Intellisense: auto-completes npm module imports
         "christian-kohler.npm-intellisense",
-
-        // Path Intellisense: auto-completes file paths
         "christian-kohler.path-intellisense",
-
-        // Git integration
-        "eamodio.gitlens",
-
-        // Test explorer for Vitest, Jest, or Mocha
-        // Uncomment the one that matches your test framework:
-        // "vitest.explorer",                  // Vitest
-        // "orta.vscode-jest",                 // Jest
-
-        // Uncomment for additional tools:
-        // "github.copilot",                   // AI code completion
-        // "ms-azuretools.vscode-docker",      // Docker support
-        // "bradlc.vscode-tailwindcss",        // Tailwind CSS
-        // "prisma.prisma"                     // Prisma ORM
+        "eamodio.gitlens"
       ],
-
       "settings": {
-        // Prettier as the default formatter for JS/TS/JSON/CSS
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
-
-        // ESLint auto-fix on save
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "explicit"
         },
-
-        // TypeScript settings
         "typescript.preferences.importModuleSpecifier": "relative",
         "typescript.updateImportsOnFileMove.enabled": "always",
-
-        // Language-specific formatter overrides
         "[javascript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
@@ -98,25 +36,17 @@
         "[jsonc]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-
-        // Editor settings
         "editor.tabSize": 2,
         "editor.rulers": [100],
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
-
-        // Terminal
         "terminal.integrated.defaultProfile.linux": "zsh",
-
-        // Hide build artifacts and dependencies from file explorer
         "files.exclude": {
           "**/node_modules": true,
           "**/dist": true,
           "**/.next": true,
           "**/coverage": true
         },
-
-        // Search exclusions (do not search in these directories)
         "search.exclude": {
           "**/node_modules": true,
           "**/dist": true,
@@ -127,25 +57,13 @@
       }
     }
   },
-
-  // Auto-forward common development ports
   "forwardPorts": [3000, 5173, 8080],
-
   "portsAttributes": {
     "3000": { "label": "App (Next.js/Express)", "onAutoForward": "notify" },
     "5173": { "label": "Vite Dev Server", "onAutoForward": "notify" },
     "8080": { "label": "API Server", "onAutoForward": "notify" }
   },
-
-  // Install dependencies after container creation.
-  // Change to your package manager:
-  //   npm:  "npm install"
-  //   yarn: "yarn install --frozen-lockfile"
-  //   pnpm: "pnpm install --frozen-lockfile"
   "postCreateCommand": "npm install",
-
-  // Fetch latest changes on start
   "postStartCommand": "git fetch --all --prune",
-
   "remoteUser": "node"
 }

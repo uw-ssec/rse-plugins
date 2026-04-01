@@ -1,84 +1,22 @@
-// =============================================================================
-// Python Dev Container Configuration
-//
-// Optimized for scientific Python development with:
-//   - Python 3.12 runtime with full development tools
-//   - Pylance for type checking and IntelliSense
-//   - Jupyter for interactive notebook development
-//   - Ruff for fast linting and formatting
-//   - GitHub CLI for pull requests and issues
-//
-// Usage:
-//   1. Copy this file to .devcontainer/devcontainer.json
-//   2. Update postCreateCommand for your project's install command
-//   3. Open in VS Code: "Reopen in Container" or push to GitHub for Codespaces
-//
-// Customization:
-//   - Add system libraries: create a .devcontainer/Dockerfile
-//     and replace "image" with "build": { "dockerfile": "Dockerfile" }
-//   - Add features for additional tools (Node.js, Docker, etc.)
-//   - Adjust settings to match your team's coding standards
-// =============================================================================
 {
-  // Display name shown in VS Code and Codespaces
   "name": "Python Scientific",
-
-  // Pre-built Python image from Microsoft.
-  // Includes Python, pip, venv, git, zsh, and common utilities.
-  // Change version as needed: python:3.11, python:3.13
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-
-  // Additional tools installed as dev container features.
-  // Features are modular, versioned, and cacheable.
   "features": {
-    // GitHub CLI for PR workflows, issue management, and gh auth
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-
-    // Uncomment to add Node.js (needed for some Jupyter extensions)
-    // "ghcr.io/devcontainers/features/node:1": { "version": "22" },
-
-    // Uncomment to enable Docker-in-Docker (for building container images)
-    // "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
-
-  // VS Code editor customizations
   "customizations": {
     "vscode": {
-      // Extensions installed automatically in the container.
-      // Use the full extension ID from the VS Code Marketplace.
       "extensions": [
-        // Python language support and IntelliSense
         "ms-python.python",
-
-        // Pylance: fast type checking, auto-imports, and code navigation
         "ms-python.vscode-pylance",
-
-        // Jupyter: interactive notebooks, cell execution, variable explorer
         "ms-toolsai.jupyter",
-
-        // Ruff: extremely fast Python linter and formatter (replaces black, isort, flake8)
         "charliermarsh.ruff",
-
-        // Git integration
-        "eamodio.gitlens",
-
-        // Uncomment for additional tools:
-        // "ms-python.mypy-type-checker",     // mypy type checking
-        // "github.copilot",                   // AI code completion
-        // "ms-toolsai.datawrangler",          // Data exploration
-        // "ms-azuretools.vscode-docker"       // Docker file support
+        "eamodio.gitlens"
       ],
-
-      // Editor settings for consistent formatting across the team
       "settings": {
-        // Python interpreter path (matches the image's Python installation)
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-
-        // Enable pytest as the test framework
         "python.testing.pytestEnabled": true,
         "python.testing.pytestArgs": ["tests/"],
-
-        // Ruff as the default formatter (replaces black)
         "[python]": {
           "editor.defaultFormatter": "charliermarsh.ruff",
           "editor.formatOnSave": true,
@@ -87,17 +25,11 @@
             "source.organizeImports.ruff": "explicit"
           }
         },
-
-        // Editor settings
         "editor.rulers": [88],
         "editor.tabSize": 4,
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
-
-        // Terminal
         "terminal.integrated.defaultProfile.linux": "zsh",
-
-        // Hide common Python artifacts from the file explorer
         "files.exclude": {
           "**/__pycache__": true,
           "**/.pytest_cache": true,
@@ -108,30 +40,12 @@
       }
     }
   },
-
-  // Ports to auto-forward from the container to the host.
-  // Add ports for Jupyter (8888), FastAPI (8000), Flask (5000), etc.
   "forwardPorts": [8888, 8000],
-
-  // Port-specific settings
   "portsAttributes": {
     "8888": { "label": "Jupyter", "onAutoForward": "notify" },
     "8000": { "label": "App Server", "onAutoForward": "notify" }
   },
-
-  // Command to run after the container is created (first time only).
-  // Install the project in editable mode with development dependencies.
-  // Adjust this to match your project:
-  //   pip:   "pip install -e '.[dev]'"
-  //   uv:    "uv sync --frozen"
-  //   conda: "conda env update -f environment.yml"
   "postCreateCommand": "pip install -e '.[dev]'",
-
-  // Command to run every time the container starts.
-  // Useful for fetching latest changes or starting services.
   "postStartCommand": "git fetch --all --prune",
-
-  // Run as the vscode user (non-root). This user is created by the
-  // Microsoft dev container images with UID 1000.
   "remoteUser": "vscode"
 }

@@ -1,132 +1,53 @@
-// =============================================================================
-// Rust Dev Container Configuration
-//
-// Includes:
-//   - Rust toolchain with cargo, rustfmt, and clippy
-//   - rust-analyzer for code navigation, completion, and inline diagnostics
-//   - LLDB debugger for step-through debugging
-//   - GitHub CLI for pull requests and issues
-//
-// Usage:
-//   1. Copy this file to .devcontainer/devcontainer.json
-//   2. Open in VS Code: "Reopen in Container"
-//   3. Or push to GitHub and open in Codespaces
-//
-// Notes:
-//   - The Rust image includes the stable toolchain by default.
-//   - Cargo registry and target directories are cached in named volumes
-//     to survive container rebuilds and speed up subsequent builds.
-//   - For large projects, consider a 4-core or 8-core Codespaces machine.
-// =============================================================================
 {
   "name": "Rust",
-
-  // Pre-built Rust image from Microsoft.
-  // Includes rustup, cargo, rustfmt, clippy, git, zsh, and common utilities.
   "image": "mcr.microsoft.com/devcontainers/rust:1",
-
   "features": {
-    // GitHub CLI for PR workflows
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-
-    // Uncomment to add Docker-in-Docker for building container images
-    // "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-
-    // Uncomment to add Node.js (if your project has a web frontend)
-    // "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
-
   "customizations": {
     "vscode": {
       "extensions": [
-        // rust-analyzer: the primary Rust language server.
-        // Provides code completion, go-to-definition, type hints,
-        // inline error diagnostics, and cargo integration.
         "rust-lang.rust-analyzer",
-
-        // CodeLLDB: LLDB-based debugger for Rust.
-        // Supports breakpoints, variable inspection, and expression evaluation.
-        // Launch configs are auto-generated for cargo targets.
         "vadimcn.vscode-lldb",
-
-        // Even Better TOML: syntax highlighting and validation for Cargo.toml
         "tamasfe.even-better-toml",
-
-        // Crates: inline display of crate versions in Cargo.toml
         "serayuzgur.crates",
-
-        // Git integration
         "eamodio.gitlens"
-
-        // Uncomment for additional tools:
-        // "github.copilot",                  // AI code completion
-        // "ms-azuretools.vscode-docker",     // Docker support
-        // "fill-labs.dependi"                // Dependency version management
       ],
-
       "settings": {
-        // Use clippy instead of cargo check for more thorough diagnostics.
-        // clippy catches common mistakes and enforces Rust idioms.
         "rust-analyzer.check.command": "clippy",
-
-        // Enable all features when checking (useful for feature-gated code)
         "rust-analyzer.cargo.features": "all",
-
-        // Show inlay hints for types, parameter names, and chaining
         "rust-analyzer.inlayHints.typeHints.enable": true,
         "rust-analyzer.inlayHints.parameterHints.enable": true,
         "rust-analyzer.inlayHints.chainingHints.enable": true,
-
-        // Format on save using rustfmt
         "[rust]": {
           "editor.defaultFormatter": "rust-lang.rust-analyzer",
           "editor.formatOnSave": true
         },
-
-        // Editor settings
         "editor.rulers": [100],
         "editor.tabSize": 4,
         "files.trimTrailingWhitespace": true,
         "files.insertFinalNewline": true,
-
-        // Terminal
         "terminal.integrated.defaultProfile.linux": "zsh",
-
-        // Hide build artifacts from file explorer
         "files.exclude": {
           "**/target": true
         }
       }
     }
   },
-
-  // Cache cargo registry and build artifacts in named volumes.
-  // These persist across container rebuilds, dramatically speeding up
-  // cargo build after the first compilation.
   "mounts": [
     "source=cargo-registry-${devcontainerId},target=/usr/local/cargo/registry,type=volume",
     "source=cargo-target-${devcontainerId},target=${containerWorkspaceFolder}/target,type=volume"
   ],
-
-  // Auto-forward common ports
   "forwardPorts": [8080],
-
   "portsAttributes": {
     "8080": { "label": "App Server", "onAutoForward": "notify" }
   },
-
-  // Build the project after container creation to populate caches.
   "postCreateCommand": "cargo build",
-
-  // Fetch latest crate index on start
   "postStartCommand": "git fetch --all --prune",
-
-  // Minimum machine requirements for compilation
   "hostRequirements": {
     "cpus": 4,
     "memory": "8gb",
     "storage": "32gb"
   },
-
   "remoteUser": "vscode"
 }
