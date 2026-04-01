@@ -1,6 +1,11 @@
 ---
 name: astropy-fundamentals
-description: This skill should be used when the user asks to "read FITS files", "convert coordinates", "work with astronomical units", "handle astronomical time", "match catalogs", "do aperture photometry", "analyze spectra", "use SkyCoord", "work with WCS", "convert between coordinate frames", "calculate separations", or needs guidance on Astropy, FITS I/O, celestial coordinates, physical units (astropy.units), astronomical time scales, catalog cross-matching, photutils photometry, or specutils spectroscopy.
+description: Work with astronomical data using AstroPy for FITS file I/O, coordinate transformations, physical units, precise time handling, catalog cross-matching, photutils photometry, and specutils spectroscopy.
+metadata:
+  references:
+    - references/common-issues.md
+    - references/examples.md
+    - references/patterns.md
 ---
 
 # Astropy Fundamentals

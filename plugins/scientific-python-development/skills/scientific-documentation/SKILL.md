@@ -1,6 +1,22 @@
 ---
 name: scientific-documentation
-description: This skill should be used when the user asks to "set up documentation", "create docs for Python package", "configure Sphinx", "set up MkDocs", "write docstrings", "use NumPy-style docstrings", "set up Read the Docs", "integrate Jupyter notebooks in docs", "organize documentation with Diataxis", "create API reference docs", "build documentation with nox", "fix documentation build errors", "documentation build fails", "sphinx warning", "autodoc error", "fix sphinx errors", "make documentation accessible", "accessibility guidelines for docs", "accessible images", "alt text for figures", "colorblind-friendly plots", "color contrast in docs", or needs guidance on scientific Python documentation best practices, Sphinx extensions, documentation themes (pydata-sphinx-theme, furo, material), documentation hosting, accessibility standards, or troubleshooting documentation issues.
+description: Set up and maintain documentation for scientific Python packages. Covers Sphinx, MkDocs, NumPy-style docstrings, Diataxis framework, accessibility standards, and documentation hosting with Read the Docs.
+metadata:
+  assets:
+    - assets/sphinx-conf-scientific.py
+    - assets/mkdocs-scientific.yml
+    - assets/noxfile-docs.py
+    - assets/readthedocs.yaml
+    - assets/index-template.md
+  references:
+    - references/accessible-documentation.md
+    - references/common-issues.md
+    - references/diataxis-framework.md
+    - references/docstring-examples.md
+    - references/notebook-integration.md
+    - references/sphinx-extensions.md
+  scripts:
+    - scripts/generate-api-docs.py
 ---
 
 # Scientific Python Documentation

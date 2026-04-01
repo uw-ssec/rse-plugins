@@ -1,6 +1,15 @@
 ---
 name: python-testing
-description: This skill should be used when the user asks to "write tests", "set up pytest", "add test fixtures", "parametrize tests", "test numerical code", "configure pytest", "add coverage", "write unit tests", "write integration tests", "test with numpy", "fix failing tests", or needs guidance on pytest configuration, test organization, scientific Python testing patterns, numerical algorithm testing, fixture design, or continuous integration for tests.
+description: Write and organize tests for scientific Python packages using pytest. Covers fixtures, parametrization, numerical testing with NumPy utilities, property-based testing with Hypothesis, and CI integration.
+metadata:
+  assets:
+    - assets/conftest-example.py
+    - assets/github-actions-tests.yml
+    - assets/pyproject-pytest.toml
+  references:
+    - references/common-pitfalls.md
+    - references/scientific-patterns.md
+    - references/test-patterns.md
 ---
 
 # Scientific Python Testing with pytest
