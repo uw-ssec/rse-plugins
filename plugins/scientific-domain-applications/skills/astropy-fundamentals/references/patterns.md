@@ -2,16 +2,20 @@
 
 This document provides detailed patterns for advanced Astropy usage beyond the basics.
 
-## Table of Contents
+## Contents
 
-1. [FITS Manipulation Patterns](#fits-manipulation-patterns)
-2. [Units and Quantities Patterns](#units-and-quantities-patterns)
-3. [Coordinate Patterns](#coordinate-patterns)
-4. [Time Patterns](#time-patterns)
-5. [Table Patterns](#table-patterns)
-6. [WCS Patterns](#wcs-patterns)
-7. [Photometry Patterns](#photometry-patterns)
-8. [Spectroscopy Patterns](#spectroscopy-patterns)
+| Section | Lines | Description |
+|---------|-------|-------------|
+| FITS Manipulation Patterns | 20–158 | Multi-extension FITS, header propagation, and large file handling |
+| Units and Quantities Patterns | 159–258 | Custom units, logarithmic units, and spectral equivalencies |
+| Coordinate Patterns | 259–402 | Custom frames, catalog matching, proper motion, and observability |
+| Time Patterns | 403–476 | High-precision arithmetic, time series analysis, and timezone handling |
+| Table Patterns | 477–578 | Masked tables, joins, metadata, and fast indexing |
+| WCS Patterns | 579–668 | Astrometry solutions, SIP distortions, and cutouts with WCS |
+| Photometry Patterns | 669–726 | PSF photometry and grouped source fitting |
+| Spectroscopy Patterns | 727–787 | Line fitting, continuum normalization, and redshift measurement |
+
+---
 
 ## FITS Manipulation Patterns
 

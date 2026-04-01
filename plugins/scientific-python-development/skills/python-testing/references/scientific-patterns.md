@@ -1,4 +1,16 @@
-# Scientific Python Testing Patterns
+# Scientific Python Testing Patterns — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 9: Testing Numerical Algorithms | 15–52 | Testing stability, convergence, and conservation laws |
+| Pattern 10: Testing with Different NumPy dtypes | 53–79 | Parametrized tests across float and integer dtypes |
+| Pattern 11: Testing Random/Stochastic Code | 80–112 | Fixed seeds and statistical property verification |
+| Pattern 12: Testing Data Pipelines | 113–152 | End-to-end and stage-by-stage pipeline testing |
+| Pattern 13: Property-Based Testing with Hypothesis | 153–182 | Using hypothesis for generative scientific testing |
+
+---
 
 ## Pattern 9: Testing Numerical Algorithms
 

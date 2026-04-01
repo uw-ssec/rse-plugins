@@ -1,16 +1,25 @@
-# NumPy-style Docstring Examples
+# NumPy-style Docstring Examples — Deep Reference
 
 Comprehensive examples of NumPy-style docstrings for scientific Python code.
 
-## Table of Contents
+## Contents
 
-- [Module Docstrings](#module-docstrings)
-- [Function Docstrings](#function-docstrings)
-- [Class Docstrings](#class-docstrings)
-- [Method Docstrings](#method-docstrings)
-- [Property Docstrings](#property-docstrings)
-- [Generator Docstrings](#generator-docstrings)
-- [Special Sections](#special-sections)
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Module Docstrings | 24–99 | Simple and complete module-level docstring examples |
+| Function Docstrings | 100–261 | Simple and fully-documented function docstrings |
+| Class Docstrings | 262–412 | Simple and comprehensive class docstring patterns |
+| Method Docstrings | 413–488 | Simple and complete method docstring examples |
+| Property Docstrings | 489–524 | Property docstrings with return types and errors |
+| Generator Docstrings | 525–557 | Generator function docstrings with Yields section |
+| Special Sections | 558–666 | See Also, Notes, Examples, Warnings, and Deprecated |
+| Type Hints Integration | 667–705 | Combining type hints with docstrings |
+| Common Patterns | 706–777 | Validator functions and decorator docstrings |
+| Best Practices | 778–788 | Eight guidelines for effective docstrings |
+| Tools for Validation | 789–810 | numpydoc, pydocstyle, and darglint validation |
+| Resources | 811–815 | Links to NumPy style guide, PEP 257, and numpydoc docs |
+
+---
 
 ## Module Docstrings
 

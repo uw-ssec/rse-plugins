@@ -1,4 +1,14 @@
-# Type Hints Patterns
+# Type Hints Patterns — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 6: Gradual Type Hint Adoption | 13–80 | Incrementally adding type hints to scientific code |
+| Pattern 7: NumPy Array Type Hints | 81–127 | Using numpy.typing for proper array annotations |
+| Pattern 8: Handling Optional and Union Types | 128–170 | Typing functions with optional parameters and multiple types |
+
+---
 
 ## Pattern 6: Gradual Type Hint Adoption
 

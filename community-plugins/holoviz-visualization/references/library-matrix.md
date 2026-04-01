@@ -1,5 +1,20 @@
 # Library Selection Matrix
 
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Quick Reference: Which Library to Use? | 18–72 | Tables mapping tasks, data sizes, data types, and visualization types to recommended libraries |
+| Decision Trees | 73–148 | Flowchart-style guides for choosing libraries based on plotting, application, or data needs |
+| Library Combinations | 149–183 | Recommended multi-library stacks for beginner through enterprise use cases |
+| Trade-offs and Considerations | 184–215 | Comparison tables for development speed, flexibility, and performance |
+| When NOT to Use HoloViz | 216–226 | Scenarios where alternative tools are a better fit |
+| Example: Choosing for Your Project | 227–260 | Four concrete project scenarios with library recommendations and rationale |
+| Performance Comparison | 261–286 | Benchmarks for rendering speed, memory usage, and development time |
+| Conclusion | 287–291 | Summary guidance for progressive adoption of HoloViz libraries |
+
+---
+
 ## Quick Reference: Which Library to Use?
 
 ### By Task

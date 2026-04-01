@@ -1,4 +1,17 @@
-# Project Metadata Reference
+# Project Metadata Reference — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| License (Modern SPDX Format) | 16–33 | Using SPDX license identifiers with hatchling |
+| Python Version Requirements | 34–43 | Best practices for requires-python without upper caps |
+| Dependencies | 44–58 | Appropriate version constraints for dependencies |
+| Classifiers | 59–81 | Important PyPI classifiers for scientific packages |
+| Optional Dependencies (Extras) | 82–111 | Defining and installing optional scientific features |
+| Development Dependencies (Dependency Groups) | 112–153 | Using PEP 735 dependency groups for dev tools |
+
+---
 
 ## License (Modern SPDX Format)
 

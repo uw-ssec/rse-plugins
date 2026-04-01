@@ -2,14 +2,18 @@
 
 Complete workflows demonstrating Astropy in realistic astronomical scenarios.
 
-## Table of Contents
+## Contents
 
-1. [Telescope Image Processing Pipeline](#telescope-image-processing-pipeline)
-2. [Catalog Cross-Matching](#catalog-cross-matching)
-3. [Light Curve Analysis](#light-curve-analysis)
-4. [Multi-Wavelength SED Construction](#multi-wavelength-sed-construction)
-5. [Spectroscopic Redshift Measurement](#spectroscopic-redshift-measurement)
-6. [Observability Calculation](#observability-calculation)
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Telescope Image Processing Pipeline | 18–148 | FITS loading, background subtraction, source detection, and photometry |
+| Catalog Cross-Matching | 149–274 | Cross-match catalogs with coordinate transforms and quality filtering |
+| Light Curve Analysis | 275–439 | Time-series photometry with period search and phase folding |
+| Multi-Wavelength SED Construction | 440–586 | Build spectral energy distributions from multi-band photometry |
+| Spectroscopic Redshift Measurement | 587–732 | Measure redshift via line identification and cross-correlation |
+| Observability Calculation | 733–915 | Calculate target visibility from a specific location over time |
+
+---
 
 ## Telescope Image Processing Pipeline
 

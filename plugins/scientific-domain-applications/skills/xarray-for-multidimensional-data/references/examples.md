@@ -1,5 +1,19 @@
 # Real-World Examples
 
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Example 1: Climate Data Analysis | 17–48 | Global temperature analysis with area-weighted means and anomalies |
+| Example 2: Satellite Data Processing | 49–76 | Multi-temporal satellite NDVI calculation and trend analysis |
+| Example 3: Oceanographic Data Analysis | 77–102 | Ocean temperature profiles, mixed layer depth, and heat content |
+| Example 4: Multi-Model Ensemble Analysis | 103–147 | Compare multiple climate model outputs and assess agreement |
+| Example 5: Time Series Decomposition | 148–202 | Decompose into trend, seasonal, and residual components |
+| Example 6: Hierarchical Climate Model Data with DataTree | 203–339 | Organize multi-model ensemble data with varying resolutions |
+| Example 7: Geospatial Satellite Data Processing with rioxarray | 340–528 | Landsat imagery with CRS handling and geospatial operations |
+
+---
+
 ## Example 1: Climate Data Analysis
 
 **Load and analyze global temperature data:**

@@ -1,6 +1,21 @@
-# Jupyter Notebook Integration in Documentation
+# Jupyter Notebook Integration in Documentation — Deep Reference
 
 Guide to integrating Jupyter notebooks into Sphinx and MkDocs documentation for scientific Python packages.
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Why Include Notebooks? | 20–27 | Benefits of including notebooks in documentation |
+| Sphinx Integration | 28–159 | nbsphinx and MyST-NB setup, execution control, custom rendering |
+| MkDocs Integration | 160–218 | mkdocs-jupyter plugin setup and notebook execution |
+| Best Practices | 219–378 | Notebook structure, code cells, data management, dependencies |
+| Gallery Integration | 379–430 | Using sphinx-gallery with Python scripts |
+| CI/CD Integration | 431–488 | Testing notebooks in GitHub Actions and pytest |
+| Common Issues | 489–540 | Troubleshooting execution, output, and build failures |
+| Resources | 541–547 | Links to nbsphinx, MyST-NB, mkdocs-jupyter, and more |
+
+---
 
 ## Why Include Notebooks?
 

@@ -9,21 +9,21 @@ custom rules, and CI integration.
 Also referenced by the `community-health-files` skill for prose quality
 in community health files.
 
-## Table of Contents
+## Contents
 
-| Line | Section | Description |
-|------|---------|-------------|
-| 30   | Quick Start | Install Vale and run your first check in 60 seconds |
-| 60   | .vale.ini Configuration | Complete config file reference with all options |
-| 120  | Style Packages | Available style packages and when to use each |
-| 195  | Style Selection Guide | Decision matrix for choosing styles |
-| 225  | Custom Rules | Writing project-specific Vale rules (substitution, existence, etc.) |
-| 320  | Vocabulary | Project-specific term lists: accept and reject |
-| 365  | Scoping and File Types | Control which files and sections Vale checks |
-| 405  | Integration | Editor plugins, pre-commit hooks, GitHub Actions |
-| 460  | Configuration Recipes | Ready-to-use configs for common documentation scenarios |
-| 510  | Troubleshooting | Common issues and how to fix them |
-| 545  | External Resources | Vale docs, style package repos, community resources |
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Quick Start | 30–71 | Install Vale and run your first check in 60 seconds |
+| .vale.ini Configuration | 73–160 | Complete config file reference with all options |
+| Style Packages | 162–268 | Available style packages and when to use each |
+| Style Selection Guide | 270–295 | Decision matrix for choosing styles |
+| Custom Rules | 297–401 | Writing project-specific Vale rules (substitution, existence, etc.) |
+| Vocabulary | 403–453 | Project-specific term lists: accept and reject |
+| Scoping and File Types | 455–498 | Control which files and sections Vale checks |
+| Integration | 500–554 | Editor plugins, pre-commit hooks, GitHub Actions |
+| Configuration Recipes | 556–603 | Ready-to-use configs for common documentation scenarios |
+| Troubleshooting | 605–641 | Common issues and how to fix them |
+| External Resources | 643–653 | Vale docs, style package repos, community resources |
 
 ---
 

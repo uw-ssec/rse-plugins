@@ -1,4 +1,17 @@
-# Pixi Patterns
+# Pixi Patterns — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 1: Converting Existing Projects to Pixi | 16–48 | Migrating from requirements.txt or environment.yml to pixi |
+| Pattern 2: Multi-Environment Scientific Workflow | 49–58 | Organizing features and environments for scientific work |
+| Pattern 3: Scientific Library Development | 59–142 | Complete pixi setup for developing a scientific library |
+| Pattern 4: Conda + PyPI Dependency Strategy | 143–188 | Decision rules for conda-forge vs PyPI packages |
+| Pattern 5: Reproducible Research Environment | 189–260 | Pinning versions and creating reproducible pipelines |
+| Pattern 6: Task Dependencies and Workflows | 261–310 | Complex scientific workflows with task dependencies |
+
+---
 
 ## Pattern 1: Converting Existing Projects to Pixi
 

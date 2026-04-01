@@ -1,5 +1,20 @@
 # Common Issues and Solutions
 
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Issue 1: Memory Errors with Large Datasets | 18–31 | Solving MemoryError with chunking and lazy loading |
+| Issue 2: Misaligned Coordinates | 32–47 | Fixing coordinate mismatch with alignment and reindexing |
+| Issue 3: Slow Operations on Chunked Data | 48–63 | Optimizing Dask chunking strategy for performance |
+| Issue 4: Coordinate Precision Issues | 64–79 | Using nearest neighbor and tolerance for .sel() lookups |
+| Issue 5: Dimension Order Confusion | 80–93 | Explicitly specifying dimensions in operations |
+| Issue 6: Broadcasting Errors | 94–111 | Resolving dimension mismatch with broadcasting and alignment |
+| Issue 7: Encoding Issues When Saving | 112–130 | Setting explicit encoding for NetCDF output |
+| Issue 8: Time Coordinate Parsing Issues | 131–147 | Proper datetime formats and non-standard calendars |
+
+---
+
 ## Issue 1: Memory Errors with Large Datasets
 
 **Problem:** `MemoryError` when loading large NetCDF files.

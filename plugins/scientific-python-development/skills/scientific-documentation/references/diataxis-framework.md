@@ -1,6 +1,21 @@
-# The Diátaxis Framework for Scientific Python Documentation
+# The Diátaxis Framework for Scientific Python Documentation — Deep Reference
 
 The [Diátaxis framework](https://diataxis.fr/) provides a systematic approach to organizing technical documentation into four distinct categories based on user needs and contexts.
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Framework Overview | 20–46 | Two-dimensional model of documentation with four quadrants |
+| 1. Tutorials (Learning-oriented) | 47–172 | Guide newcomers through hands-on learning experiences |
+| 2. How-to Guides (Task-oriented) | 173–294 | Practical guidance for solving specific problems |
+| 3. Reference (Information-oriented) | 295–431 | Complete, accurate technical specifications |
+| 4. Explanation (Understanding-oriented) | 432–610 | Conceptual background and design rationale |
+| Applying Diátaxis to Your Project | 611–667 | Auditing, separating, and organizing existing docs |
+| Common Questions | 668–681 | FAQs about applying the framework |
+| Resources | 682–686 | Official Diataxis site, talks, and guides |
+
+---
 
 ## Framework Overview
 

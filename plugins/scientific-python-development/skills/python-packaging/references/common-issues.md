@@ -1,4 +1,15 @@
-# Common Issues and Solutions
+# Common Issues and Solutions — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Issue: Import errors in tests | 14–19 | Fixing test imports with src layout and editable installs |
+| Issue: Missing files in distribution | 20–28 | Ensuring data files and docs are included in SDist/wheel |
+| Issue: Dependency conflicts | 29–34 | Avoiding incompatible dependency versions for users |
+| Issue: Python version incompatibility | 35–40 | Supporting multiple Python versions without capping |
+
+---
 
 ## Issue: Import errors in tests
 

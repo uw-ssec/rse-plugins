@@ -1,4 +1,16 @@
-# Package Structure Patterns
+# Package Structure Patterns — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 1: Pure Python Scientific Package (Recommended) | 15–47 | Standard src layout for scientific Python packages |
+| Pattern 2: Scientific Package with Data Files | 48–92 | Including and accessing data files in packages |
+| Pattern 3: Versioning Strategies | 93–143 | Manual, dynamic, and git-based versioning approaches |
+| Pattern 4: Building and Publishing | 144–203 | Building distributions and publishing to PyPI |
+| Pattern 5: Testing Installation | 204–241 | Editable installs and isolated environment testing |
+
+---
 
 ## Pattern 1: Pure Python Scientific Package (Recommended)
 

@@ -1,4 +1,14 @@
-# NumPy-style Docstrings
+# NumPy-style Docstrings — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Example Function Documentation | 13–56 | Complete NumPy-style docstring example with all sections |
+| Common Scientific Dependencies | 57–70 | Standard dependency declarations for scientific packages |
+| Reproducibility | 71–83 | Project URLs and citation metadata for reproducibility |
+
+---
 
 ## Example Function Documentation
 

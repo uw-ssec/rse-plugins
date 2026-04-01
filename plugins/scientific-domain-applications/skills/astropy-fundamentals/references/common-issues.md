@@ -2,16 +2,21 @@
 
 Troubleshooting guide for common Astropy problems and their solutions.
 
-## Table of Contents
+## Contents
 
-1. [FITS I/O Issues](#fits-io-issues)
-2. [Unit and Quantity Problems](#unit-and-quantity-problems)
-3. [Coordinate Transformation Issues](#coordinate-transformation-issues)
-4. [Time Handling Problems](#time-handling-problems)
-5. [Table Issues](#table-issues)
-6. [WCS Problems](#wcs-problems)
-7. [Memory and Performance](#memory-and-performance)
-8. [Deprecation Warnings](#deprecation-warnings)
+| Section | Lines | Description |
+|---------|-------|-------------|
+| FITS I/O Issues | 21–122 | FITS file reading, writing, and verification errors |
+| Unit and Quantity Problems | 123–222 | Unit conversion errors and quantity arithmetic issues |
+| Coordinate Transformation Issues | 223–324 | Frame mismatches, AltAz requirements, and matching |
+| Time Handling Problems | 325–429 | Time scale confusion, format parsing, and precision |
+| Table Issues | 430–535 | Column types, unit preservation, joins, and masked values |
+| WCS Problems | 536–624 | WCS NaN results, pixel origin conventions, and SIP distortions |
+| Memory and Performance | 625–722 | Large file handling and slow operation optimization |
+| Deprecation Warnings | 723–778 | Deprecated API patterns and their modern replacements |
+| General Troubleshooting Tips | 779–813 | Version checking, warnings, docs, and minimal examples |
+
+---
 
 ## FITS I/O Issues
 

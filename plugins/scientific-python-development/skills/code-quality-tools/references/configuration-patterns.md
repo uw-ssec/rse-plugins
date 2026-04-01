@@ -1,4 +1,16 @@
-# Configuration Patterns
+# Configuration Patterns — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 1: Basic Ruff Configuration | 15–33 | Basic ruff setup in pyproject.toml for scientific Python |
+| Pattern 2: MyPy Configuration for Scientific Python | 34–50 | Configuring mypy strictness for scientific code |
+| Pattern 3: Pre-commit Configuration | 51–66 | Setting up pre-commit hooks for quality enforcement |
+| Pattern 4: Ruff Rule Selection for Scientific Python | 67–108 | Comprehensive ruff rule selection for scientific computing |
+| Pattern 5: Fixing Common Ruff Warnings | 109–171 | Solutions for frequent ruff warnings with examples |
+
+---
 
 ## Pattern 1: Basic Ruff Configuration
 

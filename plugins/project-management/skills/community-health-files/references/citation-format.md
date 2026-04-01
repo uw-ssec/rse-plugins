@@ -7,23 +7,23 @@ files for research software projects.
 `project-onboarding-specialist` agent, and the `documentation-validator`
 agent when creating or validating citation metadata.
 
-## Table of Contents
+## Contents
 
-| Line | Section | Description |
-|------|---------|-------------|
-| 27   | Quick Reference | Minimal valid CITATION.cff with all required fields |
-| 53   | Required Fields | Fields every CITATION.cff must have |
-| 90   | Recommended Fields | Fields that improve discoverability and accuracy |
-| 145  | Author Metadata | Names, ORCID, affiliations, and author ordering |
-| 205  | Version and Release | Version syncing, DOI, release dates |
-| 245  | Preferred Citation | Citing a paper instead of (or alongside) the software |
-| 295  | Identifiers | DOI, SWHID, URL — linking to persistent archives |
-| 335  | Validation | Tools and CI integration for CFF validation |
-| 370  | Integration with Zenodo | Auto-archiving and DOI minting via Zenodo |
-| 410  | Integration with JOSS | Journal of Open Source Software requirements |
-| 440  | Language-Specific Patterns | How CFF interacts with pyproject.toml, Cargo.toml, etc. |
-| 475  | Common Mistakes | Frequent CFF errors and how to fix them |
-| 505  | External Resources | CFF specification, tools, and guides |
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Quick Reference | 30–52 | Minimal valid CITATION.cff with all required fields |
+| Required Fields | 53–98 | Fields every CITATION.cff must have |
+| Recommended Fields | 99–182 | Fields that improve discoverability and accuracy |
+| Author Metadata | 183–253 | Names, ORCID, affiliations, and author ordering |
+| Version and Release | 254–285 | Version syncing, DOI, release dates |
+| Preferred Citation | 286–337 | Citing a paper instead of (or alongside) the software |
+| Identifiers | 338–373 | DOI, SWHID, URL — linking to persistent archives |
+| Validation | 374–416 | Tools and CI integration for CFF validation |
+| Integration with Zenodo | 417–434 | Auto-archiving and DOI minting via Zenodo |
+| Integration with JOSS | 435–457 | Journal of Open Source Software requirements |
+| Language-Specific Patterns | 458–486 | How CFF interacts with pyproject.toml, Cargo.toml, etc. |
+| Common Mistakes | 487–509 | Frequent CFF errors and how to fix them |
+| External Resources | 510–520 | CFF specification, tools, and guides |
 
 ---
 

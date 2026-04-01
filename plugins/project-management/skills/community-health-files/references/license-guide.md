@@ -7,21 +7,21 @@ open-source research software projects across any language.
 `project-onboarding-specialist` agent when scaffolding new projects or
 advising on license selection.
 
-## Table of Contents
+## Contents
 
-| Line | Section | Description |
-|------|---------|-------------|
-| 28   | Quick Decision Guide | Flowchart for choosing a license in 30 seconds |
-| 55   | Permissive Licenses | BSD-3-Clause, MIT, Apache-2.0 — when to use each |
-| 120  | Copyleft Licenses | GPL-3.0, LGPL-3.0 — when copyleft is appropriate |
-| 162  | SPDX Identifiers | Standard identifiers for project configuration files |
-| 195  | License Compatibility | Matrix of which licenses can be combined |
-| 232  | Applying a License | Step-by-step: LICENSE file, headers, config files |
-| 277  | Contributor Agreements | CLA vs DCO — when each is needed |
-| 318  | Research-Specific Considerations | Funding mandates, data licensing, patents |
-| 370  | Dual and Multi-Licensing | When and how to offer multiple licenses |
-| 395  | Common Mistakes | Frequent licensing errors and how to avoid them |
-| 420  | External Resources | Authoritative references and tools |
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Quick Decision Guide | 28–56 | Flowchart for choosing a license in 30 seconds |
+| Permissive Licenses | 58–123 | BSD-3-Clause, MIT, Apache-2.0 — when to use each |
+| Copyleft Licenses | 125–153 | GPL-3.0, LGPL-3.0 — when copyleft is appropriate |
+| SPDX Identifiers | 155–204 | Standard identifiers for project configuration files |
+| License Compatibility | 206–231 | Matrix of which licenses can be combined |
+| Applying a License | 233–288 | Step-by-step: LICENSE file, headers, config files |
+| Contributor Agreements | 290–327 | CLA vs DCO — when each is needed |
+| Research-Specific Considerations | 329–368 | Funding mandates, data licensing, patents |
+| Dual and Multi-Licensing | 370–394 | When and how to offer multiple licenses |
+| Common Mistakes | 396–420 | Frequent licensing errors and how to avoid them |
+| External Resources | 422–431 | Authoritative references and tools |
 
 ---
 

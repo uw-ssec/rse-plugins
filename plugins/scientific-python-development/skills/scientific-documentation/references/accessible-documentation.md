@@ -1,6 +1,21 @@
-# Accessible Documentation Guide
+# Accessible Documentation Guide — Deep Reference
 
 A comprehensive guide to creating accessible scientific documentation, based on the [Scientific Python Accessible Documentation Guide](https://learn.scientific-python.org/documentation/accessible-documentation/).
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Core Accessibility Principles | 20–64 | Foundational principles: write it out, multiple options, semantic structures |
+| Documentation Structure Requirements | 65–131 | Heading hierarchy, page titles, TOC, and organizational elements |
+| Text Accessibility Guidelines | 132–193 | Grammar, plain language, technical terms, and descriptive links |
+| Image Accessibility | 194–335 | Color, contrast, alt text, descriptions, and source data links |
+| Video Accessibility | 336–412 | Contextual intros, player controls, captions, and flash safety |
+| Accessibility Checklist | 413–454 | Pre-publishing checklist for structure, text, images, video |
+| Testing Tools | 455–484 | Automated testing, color contrast checkers, screen readers |
+| Resources | 485–499 | Standards, scientific Python guides, and framework references |
+
+---
 
 ## Core Accessibility Principles
 

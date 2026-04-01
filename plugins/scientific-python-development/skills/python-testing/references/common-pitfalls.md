@@ -1,4 +1,15 @@
-# Common Testing Pitfalls and Solutions
+# Common Testing Pitfalls and Solutions — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pitfall 1: Testing Implementation Instead of Behavior | 14–31 | Testing behavior and outcomes rather than internal details |
+| Pitfall 2: Non-Deterministic Tests | 32–49 | Fixing random seed issues for reproducible tests |
+| Pitfall 3: Exact Floating-Point Comparisons | 50–65 | Using approx for floating-point assertions |
+| Pitfall 4: Testing Too Much in One Test | 66–111 | Splitting monolithic tests into focused test functions |
+
+---
 
 ## Pitfall 1: Testing Implementation Instead of Behavior
 

@@ -1,6 +1,27 @@
-# Common Documentation Issues and Solutions
+# Common Documentation Issues and Solutions — Deep Reference
 
 Troubleshooting guide for common problems when building scientific Python documentation.
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Build Errors | 26–81 | ImportError, toctree warnings, and extension import failures |
+| Autodoc Issues | 82–131 | Failed imports, missing docstrings, and type hint problems |
+| Math Rendering Issues | 132–169 | MathJax configuration and LaTeX syntax fixes |
+| Intersphinx Issues | 170–206 | External link resolution and ambiguous references |
+| Theme Issues | 207–240 | Theme loading failures and custom CSS issues |
+| Link Checking | 241–272 | False positive link checks and local file links |
+| Notebook Issues | 273–327 | Rendering, execution, and output size problems |
+| Read the Docs Issues | 328–377 | RTD build failures and missing dependencies |
+| Performance Issues | 378–437 | Slow builds and large documentation optimization |
+| Version-Specific Issues | 438–461 | numpy.typing and Sphinx 7.x compatibility |
+| Debugging Tips | 462–498 | Verbose output, validation, and clean builds |
+| Quick Reference | 499–538 | Common commands and useful conf.py settings |
+| Getting Help | 539–549 | Documentation, forums, and community resources |
+| Resources | 550–554 | Links to Sphinx FAQ, RTD, and nbsphinx troubleshooting |
+
+---
 
 ## Build Errors
 

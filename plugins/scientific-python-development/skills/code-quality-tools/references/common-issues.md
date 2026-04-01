@@ -1,4 +1,19 @@
-# Common Issues and Solutions
+# Common Issues and Solutions — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Issue 1: Ruff and Black Formatting Conflicts | 18–32 | Resolving conflicts between ruff format and black |
+| Issue 2: MyPy Can't Find Imports | 33–48 | Fixing missing import errors in mypy |
+| Issue 3: Pre-commit Hooks Too Slow | 49–56 | Speeding up pre-commit on large codebases |
+| Issue 4: Too Many Ruff Errors on Legacy Code | 57–72 | Gradual adoption strategy for ruff on existing code |
+| Issue 5: Type Hints Break at Runtime | 73–87 | Using future annotations for Python < 3.10 |
+| Issue 6: MyPy Errors in Test Files | 88–98 | Configuring mypy to be lenient with test files |
+| Issue 7: Ruff Conflicts with Project Style | 99–108 | Customizing ruff formatting preferences |
+| Issue 8: Pre-commit Fails in CI | 109–124 | Ensuring consistent pre-commit environments in CI |
+
+---
 
 ## Issue 1: Ruff and Black Formatting Conflicts
 

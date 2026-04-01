@@ -1,6 +1,20 @@
-# Sphinx Extensions for Scientific Python
+# Sphinx Extensions for Scientific Python — Deep Reference
 
 A comprehensive guide to Sphinx extensions commonly used in scientific Python documentation.
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Core Sphinx Extensions | 19–274 | autodoc, autosummary, viewcode, intersphinx, napoleon, mathjax, todo, doctest |
+| Scientific Python Extensions | 275–519 | numpydoc, sphinx_autodoc_typehints, myst_parser, nbsphinx, sphinx-gallery |
+| Theme Extensions | 520–587 | pydata_sphinx_theme and furo configuration |
+| Utility Extensions | 588–666 | sphinx-copybutton, sphinx-design, sphinxcontrib-bibtex |
+| Debugging and Quality | 667–705 | coverage and linkcheck extensions |
+| Extension Compatibility | 706–777 | Common combinations and troubleshooting conflicts |
+| Resources | 778–783 | Links to Sphinx, PyData theme, MyST, and nbsphinx docs |
+
+---
 
 ## Core Sphinx Extensions
 

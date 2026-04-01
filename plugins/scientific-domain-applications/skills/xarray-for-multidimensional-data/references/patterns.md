@@ -1,5 +1,22 @@
 # Xarray Patterns
 
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 1: Creating DataArrays and Datasets | 20–69 | Build DataArrays from NumPy arrays and Pandas DataFrames |
+| Pattern 2: Reading and Writing Data | 70–108 | NetCDF, Zarr, and CSV file I/O patterns |
+| Pattern 3: Selection and Indexing | 109–152 | Label-based, position-based, and conditional selection |
+| Pattern 4: Computation and Aggregation | 153–203 | Arithmetic, groupby, rolling windows, and resampling |
+| Pattern 5: Combining Datasets | 204–233 | Concatenation, merging, and alignment of datasets |
+| Pattern 6: Dask Integration for Large Data | 234–268 | Chunked operations and parallel computation strategies |
+| Pattern 7: Interpolation and Regridding | 269–292 | Coordinate interpolation, missing value filling, and reindexing |
+| Pattern 8: Custom Functions with apply_ufunc | 293–327 | Apply NumPy and SciPy functions with Dask support |
+| Pattern 9: Working with DataTree | 328–484 | Hierarchical data structures, navigation, and operations |
+| Pattern 10: Geospatial Operations with rioxarray | 485–659 | CRS handling, reprojection, clipping, and raster calculations |
+
+---
+
 ## Pattern 1: Creating DataArrays and Datasets
 
 **From NumPy arrays:**

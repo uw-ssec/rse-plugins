@@ -8,22 +8,22 @@ HTMLProofer, doc8, link checkers, and language-specific documentation testing.
 troubleshooting tool configuration. Complements `references/VALE_CONFIGURATION.md`
 (prose linting) and `references/DOCUMENTATION_STANDARDS.md` (quality criteria).
 
-## Table of Contents
+## Contents
 
-| Line | Section | Description |
-|------|---------|-------------|
-| 28   | Tool Decision Matrix | Which tool for which job |
-| 55   | markdownlint | Markdown formatting and syntax validation |
-| 145  | HTMLProofer | Link checking and HTML validation for generated docs |
-| 215  | doc8 | reStructuredText linting |
-| 255  | Link Checking | Dedicated link validation tools and strategies |
-| 310  | Language-Specific Doc Testing | Doctest tools for Python, Rust, R, Go, Julia |
-| 420  | Notebook Validation | Testing Jupyter notebooks with nbval and pytest-notebook |
-| 470  | CI Pipeline Assembly | Combining tools in GitHub Actions workflows |
-| 530  | Pre-commit Integration | Adding doc validation to pre-commit hooks |
-| 565  | Makefile Targets | Standard make targets for documentation validation |
-| 590  | Performance Tips | Speeding up validation in large projects |
-| 615  | External Resources | Tool repositories and documentation links |
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Tool Decision Matrix | 30–46 | Which tool for which job |
+| markdownlint | 48–135 | Markdown formatting and syntax validation |
+| HTMLProofer | 137–218 | Link checking and HTML validation for generated docs |
+| doc8 | 220–262 | reStructuredText linting |
+| Link Checking | 264–316 | Dedicated link validation tools and strategies |
+| Language-Specific Doc Testing | 318–439 | Doctest tools for Python, Rust, R, Go, Julia |
+| Notebook Validation | 441–483 | Testing Jupyter notebooks with nbval and pytest-notebook |
+| CI Pipeline Assembly | 485–545 | Combining tools in GitHub Actions workflows |
+| Pre-commit Integration | 547–580 | Adding doc validation to pre-commit hooks |
+| Makefile Targets | 582–601 | Standard make targets for documentation validation |
+| Performance Tips | 603–633 | Speeding up validation in large projects |
+| External Resources | 635–648 | Tool repositories and documentation links |
 
 ---
 

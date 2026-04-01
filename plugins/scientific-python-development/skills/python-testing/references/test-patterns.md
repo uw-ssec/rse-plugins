@@ -1,4 +1,20 @@
-# Testing Patterns
+# Testing Patterns — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Pattern 1: Writing Simple, Focused Tests | 19–66 | Arrange-Act-Assert pattern and focused test design |
+| Pattern 2: Testing for Failures | 67–94 | Testing exceptions, warnings, and deprecations |
+| Pattern 3: Approximate Comparisons | 95–152 | Floating-point comparisons with pytest.approx and numpy.testing |
+| Pattern 4: Using Fixtures | 153–239 | Reusable test setup with scopes and auto-use |
+| Pattern 5: Parametrized Tests | 240–311 | Testing with multiple inputs and custom IDs |
+| Pattern 6: Test Organization with Markers | 312–440 | Markers, skip/xfail, and directory-based test organization |
+| Pattern 7: Mocking and Monkeypatching | 441–514 | Mocking expensive operations and external dependencies |
+| Pattern 8: Testing Against Installed Version | 515–555 | Using src layout for proper installed package testing |
+| Pattern 8b: Import Best Practices in Tests | 556–620 | Proper import patterns for maintainable tests |
+
+---
 
 ## Pattern 1: Writing Simple, Focused Tests
 

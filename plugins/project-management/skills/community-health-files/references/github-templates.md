@@ -7,21 +7,21 @@ forms, PR templates, and organization-level community health defaults.
 `project-onboarding-specialist` agent when scaffolding templates. Also
 referenced by the `documentation-validator` agent for completeness checks.
 
-## Table of Contents
+## Contents
 
-| Line | Section | Description |
-|------|---------|-------------|
-| 27   | Quick Reference | File locations and minimal examples |
-| 60   | Issue Form Syntax | YAML form schema: types, fields, validation |
-| 145  | Input Types | Detailed reference for all 5 input types |
-| 245  | Bug Report Template | Complete research software bug report form |
-| 310  | Feature Request Template | Complete feature request form |
-| 360  | PR Template | Pull request template with checklist |
-| 400  | Template Chooser | config.yml for directing users to the right template |
-| 430  | Organization-Level Defaults | .github repository for org-wide templates |
-| 465  | Template Design Principles | Best practices for research software templates |
-| 500  | Troubleshooting | Common issues and fixes |
-| 525  | External Resources | GitHub docs and community examples |
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Quick Reference | 28–70 | File locations and minimal examples |
+| Issue Form Syntax | 71–126 | YAML form schema: types, fields, validation |
+| Input Types | 127–237 | Detailed reference for all 5 input types |
+| Bug Report Template | 239–340 | Complete research software bug report form |
+| Feature Request Template | 342–393 | Complete feature request form |
+| PR Template | 395–427 | Pull request template with checklist |
+| Template Chooser | 428–453 | config.yml for directing users to the right template |
+| Organization-Level Defaults | 455–487 | .github repository for org-wide templates |
+| Template Design Principles | 489–521 | Best practices for research software templates |
+| Troubleshooting | 523–550 | Common issues and fixes |
+| External Resources | 552–558 | GitHub docs and community examples |
 
 ---
 

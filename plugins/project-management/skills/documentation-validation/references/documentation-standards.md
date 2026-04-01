@@ -8,22 +8,22 @@ and quality metrics applied to research software projects in any language.
 Also referenced by the `project-onboarding-specialist` agent when scaffolding
 new project documentation.
 
-## Table of Contents
+## Contents
 
-| Line | Section | Description |
-|------|---------|-------------|
-| 29   | The Diataxis Framework | Four documentation types: tutorials, how-to, reference, explanation |
-| 95   | Applying Diataxis | Mapping the framework to research software documentation |
-| 150  | Completeness Criteria | What "complete documentation" means at each maturity level |
-| 215  | README Standards | What makes a great README for research software |
-| 275  | API Documentation | Standards for function/class/module reference docs |
-| 320  | Readability Metrics | Flesch-Kincaid, sentence length, and practical guidelines |
-| 360  | Documentation Debt | Identifying, measuring, and reducing documentation debt |
-| 400  | The Documentation System | docs-as-code, build tools, hosting |
-| 445  | Accessibility | Making documentation accessible to all users |
-| 480  | Internationalization | Supporting non-English documentation |
-| 500  | Quality Checklist | Quick pass/fail checklist for documentation reviews |
-| 530  | External Resources | Frameworks, guides, and community standards |
+| Section | Lines | Description |
+|---------|-------|-------------|
+| The Diataxis Framework | 30–116 | Four documentation types: tutorials, how-to, reference, explanation |
+| Applying Diataxis | 118–160 | Mapping the framework to research software documentation |
+| Completeness Criteria | 162–210 | What "complete documentation" means at each maturity level |
+| README Standards | 212–252 | What makes a great README for research software |
+| API Documentation | 254–285 | Standards for function/class/module reference docs |
+| Readability Metrics | 287–314 | Flesch-Kincaid, sentence length, and practical guidelines |
+| Documentation Debt | 316–345 | Identifying, measuring, and reducing documentation debt |
+| The Documentation System | 347–375 | docs-as-code, build tools, hosting |
+| Accessibility | 376–392 | Making documentation accessible to all users |
+| Internationalization | 393–401 | Supporting non-English documentation |
+| Quality Checklist | 403–431 | Quick pass/fail checklist for documentation reviews |
+| External Resources | 433–444 | Frameworks, guides, and community standards |
 
 ---
 

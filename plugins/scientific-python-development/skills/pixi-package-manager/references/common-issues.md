@@ -1,4 +1,18 @@
-# Common Issues and Solutions
+# Common Issues and Solutions — Deep Reference
+
+## Contents
+
+| Section | Lines | Description |
+|---------|-------|-------------|
+| Issue: Package Not Found in Conda-forge | 17–33 | Handling packages missing from conda-forge channels |
+| Issue: Conflicting Dependencies | 34–55 | Resolving dependency solver conflicts |
+| Issue: Slow Environment Creation | 56–76 | Speeding up pixi install and environment creation |
+| Issue: Platform-Specific Failures | 77–98 | Handling cross-platform compatibility issues |
+| Issue: PyPI Package Installation Fails | 99–118 | Fixing build errors with PyPI packages |
+| Issue: Lockfile Merge Conflicts | 119–138 | Resolving git merge conflicts in pixi.lock |
+| Issue: Editable Install of Local Package | 139–159 | Developing local packages in pixi environments |
+
+---
 
 ## Issue: Package Not Found in Conda-forge
 
