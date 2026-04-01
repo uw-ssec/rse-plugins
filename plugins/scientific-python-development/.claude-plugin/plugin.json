@@ -1,9 +1,28 @@
 {
     "name": "scientific-python-development",
-    "description": "Agents and skills for Scientific Python development and best practices",
     "version": "0.1.0",
+    "description": "Agents and skills for Scientific Python development following community best practices. Covers packaging, testing, code quality, environment management with pixi, and documentation architecture.",
+    "category": "development",
+    "strict": false,
     "author": {
         "name": "SSEC Research Team",
         "url": "https://github.com/uw-ssec"
-    }
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "scientific-python",
+        "numpy",
+        "pandas",
+        "scipy",
+        "matplotlib",
+        "pixi",
+        "packaging",
+        "testing",
+        "code-quality",
+        "research-software",
+        "reproducibility",
+        "documentation"
+    ]
 }
