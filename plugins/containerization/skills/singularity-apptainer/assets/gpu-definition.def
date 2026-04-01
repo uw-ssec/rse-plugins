@@ -1,0 +1,257 @@
+# ==============================================================================
+# GPU-Enabled Apptainer Definition File
+# Base: NVIDIA CUDA on Ubuntu 24.04
+# Purpose: GPU-accelerated computing with CUDA (NVIDIA) support
+#
+# Build:
+#   sudo apptainer build gpu_app.sif gpu-definition.def
+#   apptainer build --fakeroot gpu_app.sif gpu-definition.def
+#
+# Run:
+#   apptainer exec --nv gpu_app.sif python3 train.py
+#   apptainer exec --nv gpu_app.sif nvidia-smi
+#
+# Slurm:
+#   #!/bin/bash
+#   #SBATCH --gpus=4
+#   apptainer exec --nv gpu_app.sif python3 train.py
+#
+# ==============================================================================
+#
+# GPU PASSTHROUGH IN APPTAINER
+# ----------------------------
+# Apptainer does NOT include GPU drivers inside the container. Instead, the
+# host's GPU drivers are bind-mounted into the container at runtime using:
+#
+#   --nv     for NVIDIA GPUs (binds driver libs, exposes /dev/nvidia* devices)
+#   --rocm   for AMD GPUs (binds ROCm stack, exposes /dev/kfd and /dev/dri)
+#
+# The container must include the GPU compute toolkit (CUDA or ROCm) but NOT
+# the driver itself. The toolkit version must be compatible with the host
+# driver version. Check compatibility:
+#   NVIDIA: https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/
+#   AMD:    https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html
+#
+# NVIDIA DRIVER COMPATIBILITY
+# ----------------------------
+# Each CUDA toolkit version requires a minimum driver version on the host.
+# The container's CUDA toolkit must be <= the host driver's supported CUDA.
+#
+#   CUDA 12.x  requires driver >= 525.60
+#   CUDA 11.x  requires driver >= 450.80
+#
+# Check host driver: nvidia-smi (look at "Driver Version" and "CUDA Version")
+#
+# AMD ROCm NOTES
+# ---------------
+# For AMD GPU support, change the base image and use --rocm at runtime.
+# See the "AMD ROCm Alternative" section at the bottom of this file.
+# ==============================================================================
+
+Bootstrap: docker
+From: nvidia/cuda:12.4.1-devel-ubuntu24.04
+
+%labels
+    Author Research Computing Team
+    Version 1.0.0
+    Description GPU-accelerated scientific computing with CUDA 12.4
+    Base.Image nvidia/cuda:12.4.1-devel-ubuntu24.04
+    CUDA.Version 12.4
+    GPU.Vendor NVIDIA
+
+%help
+    GPU Computing Environment v1.0.0
+
+    This container provides CUDA 12.4 with PyTorch for GPU-accelerated workloads.
+
+    Usage:
+        apptainer exec --nv gpu_app.sif python3 train.py
+        apptainer exec --nv gpu_app.sif nvidia-smi
+
+    IMPORTANT: Always use the --nv flag to expose NVIDIA GPUs.
+    Without --nv, the container cannot access GPU devices.
+
+    For Slurm:
+        #SBATCH --gpus=4
+        apptainer exec --nv gpu_app.sif python3 train.py
+
+    Environment variables:
+        CUDA_VISIBLE_DEVICES   Control which GPUs are visible (set by Slurm)
+        OMP_NUM_THREADS        CPU threads for data loading (default: 1)
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+
+    # --------------------------------------------------------------------------
+    # System packages
+    # --------------------------------------------------------------------------
+    # The nvidia/cuda base image already includes CUDA toolkit, nvcc, cuBLAS,
+    # cuDNN, etc. We add Python and supporting libraries.
+    apt-get update && apt-get install -y --no-install-recommends \
+        python3 \
+        python3-pip \
+        python3-venv \
+        build-essential \
+        pkg-config \
+        # For downloading models and datasets
+        wget \
+        curl \
+        git \
+        # Image processing support
+        libjpeg-dev \
+        libpng-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+    # --------------------------------------------------------------------------
+    # Python virtual environment
+    # --------------------------------------------------------------------------
+    python3 -m venv /opt/venv
+    . /opt/venv/bin/activate
+
+    pip install --no-cache-dir --upgrade pip setuptools wheel
+
+    # --------------------------------------------------------------------------
+    # PyTorch with CUDA support
+    # --------------------------------------------------------------------------
+    # Install PyTorch from the official CUDA-enabled index.
+    # The CUDA version in the PyTorch package must match the container's CUDA.
+    # Check available versions at: https://pytorch.org/get-started/locally/
+    pip install --no-cache-dir \
+        torch \
+        torchvision \
+        torchaudio \
+        --index-url https://download.pytorch.org/whl/cu124
+
+    # --------------------------------------------------------------------------
+    # Additional ML/scientific packages
+    # --------------------------------------------------------------------------
+    pip install --no-cache-dir \
+        numpy \
+        scipy \
+        matplotlib \
+        pandas \
+        scikit-learn \
+        h5py \
+        tensorboard \
+        tqdm \
+        jupyter
+
+    # --------------------------------------------------------------------------
+    # Optional: Install cupy for GPU-accelerated NumPy operations
+    # --------------------------------------------------------------------------
+    # pip install --no-cache-dir cupy-cuda12x
+
+    # --------------------------------------------------------------------------
+    # Optional: Install RAPIDS for GPU-accelerated data science
+    # --------------------------------------------------------------------------
+    # pip install --no-cache-dir --extra-index-url=https://pypi.nvidia.com \
+    #     cudf-cu12 cuml-cu12 cugraph-cu12
+
+    # --------------------------------------------------------------------------
+    # Create workspace directory
+    # --------------------------------------------------------------------------
+    mkdir -p /workspace
+
+%environment
+    # Python virtual environment
+    export PATH="/opt/venv/bin:$PATH"
+    export VIRTUAL_ENV="/opt/venv"
+    export PYTHONUNBUFFERED=1
+
+    # CUDA paths (set by base image, listed here for documentation)
+    # export PATH="/usr/local/cuda/bin:$PATH"
+    # export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+
+    # Default threading configuration
+    export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
+
+    # Locale
+    export LC_ALL=C
+
+%runscript
+    if [ $# -eq 0 ]; then
+        echo "GPU Computing Environment v1.0.0 (CUDA 12.4)"
+        echo ""
+        echo "Usage: apptainer exec --nv gpu_app.sif <command>"
+        echo ""
+        echo "IMPORTANT: Use --nv flag for NVIDIA GPU access"
+        echo ""
+        python3 -c "
+import torch
+print(f'PyTorch {torch.__version__}')
+print(f'CUDA available: {torch.cuda.is_available()}')
+if torch.cuda.is_available():
+    print(f'GPU count: {torch.cuda.device_count()}')
+    for i in range(torch.cuda.device_count()):
+        print(f'  GPU {i}: {torch.cuda.get_device_name(i)}')
+else:
+    print('  (Run with --nv to enable GPU access)')
+"
+        exit 0
+    fi
+
+    exec python3 "$@"
+
+%test
+    echo "Running post-build tests..."
+
+    # Verify CUDA toolkit is present
+    nvcc --version
+
+    # Verify Python is accessible
+    python3 --version
+
+    # Verify PyTorch imports and sees CUDA toolkit
+    # Note: Actual GPU test requires --nv at runtime, which is not available
+    # during build. We verify that PyTorch was built with CUDA support.
+    python3 -c "
+import torch
+print(f'PyTorch {torch.__version__}')
+print(f'CUDA compiled: {torch.version.cuda}')
+print(f'cuDNN compiled: {torch.backends.cudnn.version()}')
+# GPU test would need --nv: torch.cuda.is_available()
+"
+
+    # Verify other packages
+    python3 -c "import numpy; print(f'NumPy {numpy.__version__}')"
+    python3 -c "import scipy; print(f'SciPy {scipy.__version__}')"
+    python3 -c "import matplotlib; print(f'Matplotlib {matplotlib.__version__}')"
+
+    echo "All tests passed."
+
+
+# ==============================================================================
+# AMD ROCm ALTERNATIVE
+# ==============================================================================
+# To build a container for AMD GPUs instead of NVIDIA, replace the header and
+# modify the %post section as shown below. Use --rocm instead of --nv at runtime.
+#
+# Header:
+#   Bootstrap: docker
+#   From: rocm/dev-ubuntu-24.04:6.1
+#
+# %post changes:
+#   # Install PyTorch for ROCm
+#   pip install --no-cache-dir \
+#       torch \
+#       torchvision \
+#       torchaudio \
+#       --index-url https://download.pytorch.org/whl/rocm6.1
+#
+# Runtime:
+#   apptainer exec --rocm gpu_app.sif python3 train.py
+#   apptainer exec --rocm gpu_app.sif rocm-smi
+#
+# The --rocm flag exposes:
+#   /dev/kfd        AMD GPU kernel interface
+#   /dev/dri        Direct Rendering Infrastructure devices
+#   ROCm libraries  HIP runtime, rocBLAS, MIOpen, etc.
+#
+# Key differences from NVIDIA:
+#   - Use --rocm instead of --nv
+#   - HIP replaces CUDA as the programming model
+#   - rocm-smi replaces nvidia-smi for GPU monitoring
+#   - PyTorch ROCm wheels are built with HIP backend
+#   - Check ROCm/driver compatibility at:
+#     https://rocm.docs.amd.com/en/latest/release/gpu_os_support.html
+# ==============================================================================

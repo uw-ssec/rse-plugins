@@ -1,0 +1,120 @@
+# =============================================================================
+# Research Stack — JupyterLab + REST API + PostgreSQL
+# =============================================================================
+# Usage:
+#   1. Copy this file to your project as compose.yml
+#   2. Create a .env file with the variables below
+#   3. Run: docker compose up -d
+#   4. Open JupyterLab at http://localhost:8888
+#
+# Required .env variables:
+#   POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB,
+#   JUPYTER_TOKEN (default: changeme)
+#
+# Directory structure expected:
+#   project/
+#   ├── compose.yml          (this file)
+#   ├── .env
+#   ├── api/                 (REST API source code + Dockerfile)
+#   ├── notebooks/           (Jupyter notebooks — bind-mounted)
+#   └── data/                (Shared datasets — bind-mounted)
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # JupyterLab — interactive research notebook server
+  # ---------------------------------------------------------------------------
+  jupyter:
+    image: quay.io/jupyter/scipy-notebook:latest
+    container_name: research-jupyter
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:-changeme}
+      # Allow the notebook to connect to the API and DB by service name
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+      API_URL: "http://api:8000"
+    volumes:
+      # Persist notebooks on the host so work survives container rebuilds
+      - ./notebooks:/home/jovyan/work/notebooks
+      # Shared data directory (read-write)
+      - ./data:/home/jovyan/work/data
+    depends_on:
+      db:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - research
+    # The scipy-notebook image already runs as the jovyan (non-root) user
+
+  # ---------------------------------------------------------------------------
+  # REST API — backend service for data access and processing
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: research-api
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+    env_file:
+      - .env
+    volumes:
+      # Shared data directory so the API can read/write datasets
+      - ./data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - research
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — relational database for structured research data
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: research-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      # Optional: seed the database on first run
+      # - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+    networks:
+      - research
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  research:
+    driver: bridge
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  pg-data:
+    driver: local

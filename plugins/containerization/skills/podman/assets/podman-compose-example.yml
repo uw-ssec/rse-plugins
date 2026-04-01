@@ -1,0 +1,152 @@
+# =============================================================================
+# Research Stack — JupyterLab + REST API + PostgreSQL (Podman Compose)
+# =============================================================================
+# Usage:
+#   1. Copy this file to your project as compose.yml
+#   2. Create a .env file with the variables below
+#   3. Run: podman compose up -d
+#   4. Open JupyterLab at http://localhost:8888
+#
+# Required .env variables:
+#   POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB,
+#   JUPYTER_TOKEN (default: changeme)
+#
+# Podman-Specific Notes:
+#   - This file works with both `podman compose` and `podman-compose`.
+#   - Use fully qualified image names (e.g., docker.io/library/postgres)
+#     to avoid interactive registry prompts. Podman does not default to
+#     Docker Hub unless configured in registries.conf.
+#   - Rootless volume mounts may require :Z (SELinux) or :U (auto-chown).
+#     Adjust the volume flags below based on your system.
+#   - The `restart` directive has limited effect without a daemon.
+#     For production, use Quadlet .container files instead.
+#
+# Directory structure expected:
+#   project/
+#   ├── compose.yml          (this file)
+#   ├── .env
+#   ├── api/                 (REST API source code + Containerfile)
+#   ├── notebooks/           (Jupyter notebooks — bind-mounted)
+#   └── data/                (Shared datasets — bind-mounted)
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # JupyterLab — interactive research notebook server
+  # ---------------------------------------------------------------------------
+  jupyter:
+    # Podman: Use fully qualified image name to avoid registry prompt
+    image: quay.io/jupyter/scipy-notebook:latest
+    container_name: research-jupyter
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:-changeme}
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+      API_URL: "http://api:8000"
+    volumes:
+      # Podman: :Z relabels for SELinux (safe on non-SELinux systems, just a no-op)
+      - ./notebooks:/home/jovyan/work/notebooks:Z
+      - ./data:/home/jovyan/work/data:ro,Z
+    depends_on:
+      db:
+        condition: service_healthy
+    # Podman: restart has limited effect without a daemon.
+    # For auto-start, use Quadlet instead.
+    restart: unless-stopped
+    networks:
+      - research-net
+
+  # ---------------------------------------------------------------------------
+  # REST API — backend service for data processing
+  # ---------------------------------------------------------------------------
+  api:
+    # Podman: Use Containerfile (OCI standard) instead of Dockerfile
+    # Podman searches for Containerfile first, then Dockerfile
+    build:
+      context: ./api
+      # dockerfile: Containerfile   # Uncomment if you have both files
+    container_name: research-api
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      # Podman: For development bind mounts, :Z handles SELinux
+      - ./api/src:/app/src:Z
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - research-net
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — relational database for structured research data
+  # ---------------------------------------------------------------------------
+  db:
+    # Podman: Fully qualified image name
+    image: docker.io/library/postgres:16-alpine
+    container_name: research-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      # Podman rootless: Use :U to auto-chown the volume to match the
+      # container's postgres user (UID 70 on Alpine). Without :U, the
+      # postgres process cannot write to this directory because rootless
+      # UID mapping makes host files appear owned by a different user.
+      - pg-data:/var/lib/postgresql/data:U
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - research-net
+
+  # ---------------------------------------------------------------------------
+  # Redis — caching and task queue (optional, enable with --profile cache)
+  # ---------------------------------------------------------------------------
+  redis:
+    image: docker.io/library/redis:7-alpine
+    container_name: research-redis
+    profiles:
+      - cache
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data:U
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - research-net
+
+# Podman: Named volumes are stored in ~/.local/share/containers/storage/volumes/
+# (rootless) instead of /var/lib/docker/volumes/ (Docker).
+volumes:
+  pg-data:
+  redis-data:
+
+# Podman: Networks use Netavark as the backend (not Docker's libnetwork).
+# DNS resolution between containers works the same way — services are
+# reachable by their service name (e.g., "db", "api", "jupyter").
+networks:
+  research-net:
+    driver: bridge
