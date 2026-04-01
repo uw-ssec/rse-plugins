@@ -1,0 +1,42 @@
+{
+  "_description": "Template configuration for a chunking benchmark run. Copy this file, fill in your dataset details, and pass it to the benchmark runner. All array values should be adjusted to match your dataset dimensions.",
+  "dataset_path": "s3://my-bucket/datasets/example.zarr",
+  "candidate_chunks": [
+    {
+      "_description": "Spatial-optimized: large spatial dims, small time dim",
+      "chunk_shape": [1, 2048, 2048]
+    },
+    {
+      "_description": "Temporal-optimized: large time dim, small spatial dims",
+      "chunk_shape": [1000, 64, 64]
+    },
+    {
+      "_description": "Balanced: moderate size in all dimensions",
+      "chunk_shape": [50, 512, 512]
+    },
+    {
+      "_description": "Fine-grained: small chunks for high parallelism",
+      "chunk_shape": [10, 256, 256]
+    }
+  ],
+  "access_patterns": [
+    {
+      "_description": "Single time-step spatial slice",
+      "name": "spatial",
+      "selector": {"time": 0}
+    },
+    {
+      "_description": "Time series at a single spatial point",
+      "name": "temporal",
+      "selector": {"y": 1024, "x": 1024}
+    },
+    {
+      "_description": "Spectral or band access across a subset",
+      "name": "spectral",
+      "selector": {"frequency": 0}
+    }
+  ],
+  "num_runs": 5,
+  "memory_budget_gb": 8.0,
+  "output_dir": "./benchmark_results"
+}
