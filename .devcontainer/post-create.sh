@@ -8,7 +8,7 @@ echo "=== Setting up RSE Agents Codespace ==="
 
 # Install Claude Code CLI globally
 echo "Installing Claude Code CLI..."
-npm install -g @anthropic-ai/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
 
 # Create .github/agents and .github/skills directories
 echo "Creating .github/agents and .github/skills directories..."
