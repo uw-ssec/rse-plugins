@@ -1,0 +1,48 @@
+name: Evaluate Skills
+on: workflow_dispatch
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      skills: ${{ steps.discover.outputs.skills }}
+      count: ${{ steps.discover.outputs.count }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+          sparse-checkout: skills
+
+      - name: Discover skills with evals
+        id: discover
+        run: |
+          skills=$(find skills -name "*.yaml" -path "*/evals/*" -exec dirname {} \; | xargs -I{} dirname {} | xargs -I{} basename {} | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "skills=$skills" >> "$GITHUB_OUTPUT"
+          echo "count=$(echo $skills | jq length)" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: echo "Found ${{ steps.discover.outputs.count }} skills with evals"
+        
+  evaluate:
+    needs: discover
+    if: needs.discover.outputs.count > 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        skill: ${{ fromJSON(needs.discover.outputs.skills) }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: skill-bench/skill-eval-action@v1
+        with:
+          skill-name: ${{ matrix.skill }}
+          skill-path: skills/${{ matrix.skill }}
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          pass-threshold: '80'
+          
