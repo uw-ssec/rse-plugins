@@ -1,0 +1,8 @@
+name: Configure ruff for a scientific Python project
+prompt: Set up ruff as a linter and formatter for my scientific Python project.
+criteria:
+- Adds ruff configuration under [tool.ruff] in pyproject.toml
+- Specifies selected rule sets (e.g., E, F, I, NPY)
+- Configures line-length and target Python version
+expect_skill: true
+timeout: 120

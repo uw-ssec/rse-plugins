@@ -1,0 +1,8 @@
+name: Add NumPy type hints to a function
+prompt: How do I add type hints to a Python function that takes a NumPy array and returns a float?
+criteria:
+- Uses np.ndarray or npt.NDArray[np.float64] for the array parameter
+- Returns float or np.floating type hint
+- Mentions importing numpy.typing as npt for typed arrays
+expect_skill: true
+timeout: 120

@@ -1,0 +1,7 @@
+name: Negative trigger - JavaScript ESLint question
+prompt: How do I configure ESLint for a TypeScript project?
+criteria:
+- Response discusses .eslintrc or eslint.config.js for TypeScript
+- Response does not reference ruff, mypy, or Python code quality tools
+expect_skill: false
+timeout: 30

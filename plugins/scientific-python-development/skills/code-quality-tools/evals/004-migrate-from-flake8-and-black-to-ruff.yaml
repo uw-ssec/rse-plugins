@@ -1,0 +1,8 @@
+name: Migrate from flake8 and black to ruff
+prompt: I'm using flake8 and black for my project. How do I migrate to ruff?
+criteria:
+- Maps flake8 rules to equivalent ruff rule codes
+- Notes that ruff replaces both flake8 (linting) and black (formatting)
+- Provides the ruff configuration that covers the common flake8/black use cases
+expect_skill: true
+timeout: 120
