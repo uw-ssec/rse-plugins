@@ -1,8 +1,7 @@
-name: Tessl Skill Review
+name: Tessl PR Skill Review
 on:
   pull_request:
-    paths: ['**/SKILL.md', '.github/workflows/tessl-skill-review.yml']
-  workflow_dispatch:
+    paths: ['**/SKILL.md']
 
 jobs:
   review:
@@ -15,4 +14,3 @@ jobs:
       - uses: tesslio/skill-review@main
         with:
           fail-threshold: 80
-          comment: false
