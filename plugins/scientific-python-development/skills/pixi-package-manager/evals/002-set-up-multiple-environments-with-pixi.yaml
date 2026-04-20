@@ -1,0 +1,8 @@
+name: Set up multiple environments with pixi
+prompt: I need separate CPU and GPU environments for my machine learning project. How do I set this up with pixi?
+criteria:
+- Uses pixi features or environments configuration
+- Shows separate feature blocks for cpu and gpu variants
+- Demonstrates that each environment can have different dependencies
+expect_skill: true
+timeout: 120

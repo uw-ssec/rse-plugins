@@ -1,0 +1,8 @@
+name: pixi GitHub Actions workflow
+prompt: How do I run my pixi-managed tests in GitHub Actions?
+criteria:
+- Uses prefix-dev/setup-pixi or installs pixi in the workflow
+- Runs pixi run test or equivalent in the workflow step
+- Caches pixi environment or mentions it for faster CI
+expect_skill: true
+timeout: 120

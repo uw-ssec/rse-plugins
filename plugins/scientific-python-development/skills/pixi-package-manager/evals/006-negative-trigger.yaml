@@ -1,0 +1,7 @@
+name: Negative trigger - npm package management question
+prompt: How do I add a development dependency in npm?
+criteria:
+- Response uses npm install --save-dev or package.json
+- Response does not reference pixi, conda-forge, or pyproject.toml
+expect_skill: false
+timeout: 30

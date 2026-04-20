@@ -1,0 +1,8 @@
+name: Add a PyPI dependency with pixi
+prompt: How do I add scipy as a dependency to my pixi project?
+criteria:
+- Uses pixi add scipy command or adds to pyproject.toml [tool.pixi.dependencies]
+- Mentions that pixi resolves and locks the dependency
+- Does not suggest pip install as the pixi-equivalent approach
+expect_skill: true
+timeout: 120

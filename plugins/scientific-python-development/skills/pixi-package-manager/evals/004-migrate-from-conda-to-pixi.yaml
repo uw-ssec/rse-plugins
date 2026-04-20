@@ -1,0 +1,8 @@
+name: Migrate from conda to pixi
+prompt: I have an environment.yml file for my conda project. How do I migrate it to pixi?
+criteria:
+- Shows or describes mapping conda dependencies to pixi [dependencies] block
+- Notes that pixi generates a lockfile (pixi.lock) replacing the environment.yml
+- Mentions the conda-forge channel as the default source
+expect_skill: true
+timeout: 120

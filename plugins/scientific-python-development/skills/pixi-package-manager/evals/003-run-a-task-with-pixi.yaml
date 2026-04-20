@@ -1,0 +1,8 @@
+name: Run a task with pixi
+prompt: How do I define and run a test task using pixi so contributors don't need to know the exact pytest invocation?
+criteria:
+- Defines a task under [tool.pixi.tasks] in pyproject.toml
+- Shows pixi run test (or equivalent) as the command
+- Task definition includes the pytest command string
+expect_skill: true
+timeout: 120
