@@ -15,12 +15,11 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           persist-credentials: false
-          sparse-checkout: skills
 
       - name: Discover skills with evals
         id: discover
         run: |
-          skills=$(find skills -name "*.yaml" -path "*/evals/*" -exec dirname {} \; | xargs -I{} dirname {} | xargs -I{} basename {} | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          skills=$(find plugins community-plugins -name "*.yaml" -path "*/evals/*" -exec dirname {} \; | xargs -I{} dirname {} | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
           echo "skills=$skills" >> "$GITHUB_OUTPUT"
           echo "count=$(echo $skills | jq length)" >> "$GITHUB_OUTPUT"
 
@@ -44,7 +43,7 @@ jobs:
           ANTHROPIC_BASE_URL: ${{ secrets.LITELLM_PROXY_URL }}
         with:
           skill-name: ${{ matrix.skill }}
-          skill-path: skills/${{ matrix.skill }}
+          skill-path: ${{ matrix.skill }}
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
           pass-threshold: '80'
           
