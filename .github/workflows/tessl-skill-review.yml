@@ -1,0 +1,15 @@
+name: Tessl Skill Review
+on:
+  pull_request:
+    paths: ['**/SKILL.md', '.github/workflows/tessl-skill-review.yml']
+  workflow_dispatch:
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: tesslio/skill-review@main
