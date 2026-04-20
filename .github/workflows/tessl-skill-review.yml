@@ -15,3 +15,4 @@ jobs:
       - uses: tesslio/skill-review@main
         with:
           fail-threshold: 80
+          comment: false
