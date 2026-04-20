@@ -38,11 +38,15 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
+      - name: Derive skill name
+        id: skill-name
+        run: echo "value=$(basename '${{ matrix.skill }}')" >> "$GITHUB_OUTPUT"
+
       - uses: skill-bench/skill-eval-action@v1
         env:
           ANTHROPIC_BASE_URL: ${{ secrets.LITELLM_PROXY_URL }}
         with:
-          skill-name: ${{ matrix.skill }}
+          skill-name: ${{ steps.skill-name.outputs.value }}
           skill-path: ${{ matrix.skill }}
           anthropic-api-key: ${{ secrets.LITELLM_API_KEY }}
           pass-threshold: '80'
