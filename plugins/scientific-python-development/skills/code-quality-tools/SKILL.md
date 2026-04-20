@@ -13,7 +13,8 @@ metadata:
 
 # Code Quality Tools for Scientific Python
 
-Master the essential code quality tools that keep scientific Python projects maintainable, consistent, and error-free. Learn how to configure **ruff** for lightning-fast linting and formatting, **mypy** for static type checking, and **pre-commit** hooks for automated quality gates. These tools help catch bugs early, enforce consistent style across teams, and make code reviews focus on logic rather than formatting.
+This skill covers configuring and using **ruff** (fast linting and formatting), **mypy** (static type checking), and **pre-commit** hooks (automated quality gates) to keep scientific Python projects maintainable, consistent, and error-free.
+
 
 **Key Tools:**
 - **Ruff**: Ultra-fast Python linter and formatter (replaces flake8, black, isort, and more)
