@@ -283,3 +283,14 @@ Before completing research, verify:
 - [ ] Task list is updated to show completion
 
 Remember: Your job is to illuminate how the codebase works TODAY, not to suggest how it should work tomorrow.
+
+# Retreat Paths
+
+If research stalls or its results cannot support the next workflow step, do not force a document — retreat to a more appropriate command instead.
+
+| If this happens | Go to |
+|---|---|
+| Topic is too broad; findings are shallow or contradictory | Re-run `/research <narrower-topic>` or ask the user to narrow scope |
+| The code you need to document does not yet exist | Stop research; suggest `/plan` first, then revisit research once the code lands |
+| Research reveals genuine approach uncertainty | Suggest `/experiment <approach A vs approach B>` |
+| Research surfaces the need for a structural change | Suggest `/plan <change>` |

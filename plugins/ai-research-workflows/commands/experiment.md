@@ -455,3 +455,14 @@ Before completing experimentation, verify:
 - [ ] Code snippets include file paths or locations
 
 Remember: Good experiments provide evidence for decisions. They trade short-term investment for long-term confidence.
+
+# Retreat Paths
+
+If experimentation cannot produce a defensible recommendation, do not invent one — retreat.
+
+| If this happens | Go to |
+|---|---|
+| None of the tested approaches meet the success criteria | `/plan` (revisit requirements) or `/research <missing-context>` |
+| The experiment reveals the plan's assumptions are wrong | `/iterate-plan <plan-file>` to update approach and success criteria |
+| The experiment exposes missing context about the codebase | `/research <topic>` first, then re-run `/experiment` with that context |
+| The trade-offs are genuinely tied; no approach dominates | Report the tie honestly and ask the user to choose based on product priorities |

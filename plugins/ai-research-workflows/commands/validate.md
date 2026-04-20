@@ -465,3 +465,15 @@ FAILED tests/test_auth.py::test_token_refresh - TimeoutError: Token refresh time
 - **Be honest** — Document problems even if they're inconvenient
 
 Good validation catches issues before they reach production. It's worth the time investment.
+
+# Retreat Paths
+
+Validation is a diagnostic step — when it fails, it routes work back to earlier phases rather than forcing fixes in place.
+
+| If this happens | Go to |
+|---|---|
+| Conformance fails: claimed work is not actually done | `/implement <plan-file>` to finish the missing work |
+| Conformance fails: the implementation matches reality but the plan is wrong | `/iterate-plan <plan-file>` to correct the plan |
+| Automated verification commands from the plan do not run (env/setup issues) | Fix the environment; do not silently skip checks |
+| Empirical validation against real data fails (v0.2.0+ mode) | `/iterate-plan` to revise approach or success criteria |
+| Validation surfaces large amounts of new, unplanned cleanup work | `/optimize <validate-doc>` if present (v0.2.0 PR7+) — otherwise file follow-ups; do not expand scope in place |

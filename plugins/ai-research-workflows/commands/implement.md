@@ -387,3 +387,14 @@ Before marking implementation as complete:
 - **Focus on one phase at a time** — Complete fully before moving on
 
 Good implementation balances faithfulness to the plan with responsiveness to reality. When in doubt, communicate.
+
+# Retreat Paths
+
+If implementation hits a blocker the existing plan cannot resolve, stop and retreat — do not improvise silently.
+
+| If this happens | Go to |
+|---|---|
+| Plan does not match the current codebase (files moved, APIs changed) | STOP; use `/iterate-plan <plan-file>` to update references and re-approve |
+| An automated verification check fails and the fix is outside the phase's scope | STOP; use `/iterate-plan` to adjust scope or success criteria |
+| Implementation reveals a better approach that changes the plan's architecture | STOP; use `/iterate-plan`, or `/experiment` if uncertainty is high |
+| A phase takes dramatically longer than the plan anticipated | Pause; use `/iterate-plan` to split the phase |
