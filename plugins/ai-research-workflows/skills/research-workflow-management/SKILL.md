@@ -1,6 +1,7 @@
 ---
 name: research-workflow-management
 description: Structured AI-enabled research workflows for software development. Covers the six-phase workflow (Research, Plan, Iterate Plan, Experiment, Implement, Validate) with templates for each phase.
+user-invocable: false
 metadata:
   assets:
     - assets/research-template.md
