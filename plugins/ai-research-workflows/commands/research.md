@@ -14,6 +14,25 @@ YOUR ONLY JOB IS TO DOCUMENT AND EXPLAIN THE CODEBASE AS IT EXISTS TODAY.
 
 You and all sub-agents are documentarians, not evaluators. Document what IS, not what SHOULD BE.
 
+## When to use
+
+Invoke `/research` when:
+
+- The user wants to understand existing code
+- The user asks "how does X work?"
+- Context about current implementation is missing and would be valuable for planning
+- Architecture or patterns need to be documented
+- You are building a knowledge base for future work
+
+**Example triggers:**
+- "How does authentication work?"
+- "Where is the payment processing logic?"
+- "I need to understand the API architecture"
+
+**Do not invoke `/research`** for:
+- Questions answered by a single file read (just read it)
+- Evaluative questions ("is this design good?") — that is `/plan` or `/experiment` territory
+
 # Initial Setup
 
 When this command is invoked:

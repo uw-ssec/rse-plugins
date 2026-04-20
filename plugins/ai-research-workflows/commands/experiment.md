@@ -17,6 +17,26 @@ This step is OPTIONAL in the workflow — only use when the best approach is gen
 - Every solution has downsides
 - Document both successes and failures
 
+## When to use
+
+Invoke `/experiment` when:
+
+- The user is genuinely uncertain about the best technical approach
+- Multiple valid solutions exist with real trade-offs
+- Performance or integration characteristics are unknown
+- An architectural decision has significant trade-offs worth measuring
+
+**Example triggers:**
+- "Should I use JWT or sessions?"
+- "Which caching strategy is better?"
+- "How should we structure the microservices?"
+
+**Do not invoke `/experiment`** for:
+- Decisions that are obvious from existing codebase patterns
+- Low-risk choices where being wrong is cheap
+- Preference questions dressed up as uncertainty
+- End-to-end feasibility questions — those are `/prototype` (v0.2.0+)
+
 # Initial Setup
 
 When this command is invoked:

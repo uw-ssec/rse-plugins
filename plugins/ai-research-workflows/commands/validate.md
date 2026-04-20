@@ -3,6 +3,24 @@ description: Validate that an implementation was correctly executed against its 
 user-invocable: true
 ---
 
+## When to use
+
+Invoke `/validate` when:
+
+- An implementation is complete (or claimed complete) and needs systematic verification
+- You are preparing to create a pull request and want to catch issues first
+- Tests are failing and a structured review of plan-vs-implementation is needed
+- You are resuming old work and need to know its current state
+
+**Example triggers:**
+- "Is the implementation correct?"
+- "Verify the implementation matches the plan"
+- "Some tests are failing"
+
+**Do not invoke `/validate`** for:
+- Work that has not yet been implemented
+- Code review tasks unrelated to a plan (use a general code-review command)
+
 # Initial Setup
 
 When this command is invoked:

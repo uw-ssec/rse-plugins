@@ -3,6 +3,27 @@ description: Implement changes based on an approved plan, tracking progress phas
 user-invocable: true
 ---
 
+## When to use
+
+Invoke `/implement` when:
+
+- An approved plan exists in `.agents/plan-*.md`
+- The plan has been reviewed (iterated as needed) and the user is ready to execute
+- Manual verification between phases is acceptable
+
+**Check first:**
+- Does a plan file exist? If not, run `/plan` first.
+- Has it been reviewed? If substantive changes are pending, run `/iterate-plan` first.
+
+**Example triggers:**
+- "Let's implement the plan"
+- "I'm ready to start coding"
+- "Execute the OAuth plan"
+
+**Do not invoke `/implement`** for:
+- Exploratory "let me try something" work — use `/experiment` or `/prototype` (v0.2.0+)
+- Plans with open questions or unresolved decisions
+
 # Getting Started
 
 When this command is invoked with a plan path or reference:
