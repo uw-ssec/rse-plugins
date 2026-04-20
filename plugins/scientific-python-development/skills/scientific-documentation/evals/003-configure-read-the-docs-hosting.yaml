@@ -3,6 +3,6 @@ prompt: How do I host my Sphinx documentation on Read the Docs?
 criteria:
 - Mentions creating a .readthedocs.yaml configuration file
 - Describes connecting the GitHub repo to Read the Docs
-- Shows or describes the python.install or requirements section in the config
+- Shows or describes how to specify dependencies in the config (e.g. python.install, python.packages, or a requirements file)
 expect_skill: true
 timeout: 120
