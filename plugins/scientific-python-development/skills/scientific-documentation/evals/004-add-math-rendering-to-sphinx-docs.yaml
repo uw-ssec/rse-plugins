@@ -1,0 +1,9 @@
+name: Add math rendering to Sphinx docs
+prompt: I have equations in my docstrings using LaTeX notation. How do I render them
+  in Sphinx?
+criteria:
+- Mentions sphinx.ext.mathjax or sphinx.ext.imgmath extension
+- 'Shows the :math: inline role or .. math:: directive syntax'
+- Configures the extension in conf.py extensions list
+expect_skill: true
+timeout: 120

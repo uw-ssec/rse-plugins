@@ -1,0 +1,7 @@
+name: Negative trigger - README writing question
+prompt: Help me write a marketing description for my new SaaS product homepage.
+expect_skill: false
+criteria:
+- Response provides marketing copy or product description writing guidance
+- Response does not reference Sphinx, docstrings, or scientific documentation
+timeout: 30

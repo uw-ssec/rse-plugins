@@ -1,0 +1,9 @@
+name: Diátaxis documentation structure
+prompt: How should I structure the documentation for my scientific Python library
+  according to best practices?
+criteria:
+- Mentions the Diátaxis framework or its four documentation types
+- Distinguishes tutorials from how-to guides, reference, and explanation
+- Applies these categories to scientific software documentation context
+expect_skill: true
+timeout: 120

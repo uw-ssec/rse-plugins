@@ -1,0 +1,8 @@
+name: Set up Sphinx documentation
+prompt: How do I set up Sphinx to build documentation for my scientific Python package?
+criteria:
+- Shows sphinx-quickstart or manual conf.py setup
+- Mentions sphinx.ext.autodoc and/or numpydoc extensions
+- Describes the make html build command or equivalent
+expect_skill: true
+timeout: 120

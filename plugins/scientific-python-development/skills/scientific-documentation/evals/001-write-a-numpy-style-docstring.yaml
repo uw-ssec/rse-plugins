@@ -1,0 +1,9 @@
+name: Write a NumPy-style docstring
+prompt: Write a NumPy-style docstring for a function that computes the power spectral
+  density of a 1D time series.
+criteria:
+- Includes Parameters, Returns, and at least one Example section
+- Uses NumPy docstring section headers (underlined with dashes)
+- Documents parameter types and array shape in the Parameters section
+expect_skill: true
+timeout: 120
