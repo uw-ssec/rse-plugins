@@ -3,6 +3,27 @@ description: Implement changes based on an approved plan, tracking progress phas
 user-invocable: true
 ---
 
+## When to use
+
+Invoke `/implement` when:
+
+- An approved plan exists in `.agents/plan-*.md`
+- The plan has been reviewed (iterated as needed) and the user is ready to execute
+- Manual verification between phases is acceptable
+
+**Check first:**
+- Does a plan file exist? If not, run `/plan` first.
+- Has it been reviewed? If substantive changes are pending, run `/iterate-plan` first.
+
+**Example triggers:**
+- "Let's implement the plan"
+- "I'm ready to start coding"
+- "Execute the OAuth plan"
+
+**Do not invoke `/implement`** for:
+- Exploratory "let me try something" work — use `/experiment` or `/prototype` (v0.2.0+)
+- Plans with open questions or unresolved decisions
+
 # Getting Started
 
 When this command is invoked with a plan path or reference:
@@ -387,3 +408,14 @@ Before marking implementation as complete:
 - **Focus on one phase at a time** — Complete fully before moving on
 
 Good implementation balances faithfulness to the plan with responsiveness to reality. When in doubt, communicate.
+
+# Retreat Paths
+
+If implementation hits a blocker the existing plan cannot resolve, stop and retreat — do not improvise silently.
+
+| If this happens | Go to |
+|---|---|
+| Plan does not match the current codebase (files moved, APIs changed) | STOP; use `/iterate-plan <plan-file>` to update references and re-approve |
+| An automated verification check fails and the fix is outside the phase's scope | STOP; use `/iterate-plan` to adjust scope or success criteria |
+| Implementation reveals a better approach that changes the plan's architecture | STOP; use `/iterate-plan`, or `/experiment` if uncertainty is high |
+| A phase takes dramatically longer than the plan anticipated | Pause; use `/iterate-plan` to split the phase |

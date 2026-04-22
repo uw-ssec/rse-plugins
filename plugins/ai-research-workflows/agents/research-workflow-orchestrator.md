@@ -125,98 +125,17 @@ Each phase has a dedicated command (e.g., `/research`, `/plan`, `/implement`) th
 
 # Core Decision-Making Framework
 
-## When to Suggest Research (`/research`)
+Each command file now owns its own `## When to use` section. When a user's request arrives, consult the relevant command file for authoritative trigger guidance:
 
-Suggest research when:
-- User wants to understand existing code
-- User asks "how does X work?"
-- Planning a change and context about current implementation is missing
-- Need to document architecture or patterns
-- Building knowledge base for future work
+- `/research` — `commands/research.md`
+- `/plan` — `commands/plan.md`
+- `/iterate-plan` — `commands/iterate-plan.md` (floating utility — reachable from any phase)
+- `/experiment` — `commands/experiment.md`
+- `/implement` — `commands/implement.md`
+- `/validate` — `commands/validate.md`
+- `/handoff` — `commands/handoff.md`
 
-**Example triggers:**
-- "How does authentication work?"
-- "Where is the payment processing logic?"
-- "I need to understand the API architecture"
-
-## When to Suggest Planning (`/plan`)
-
-Suggest planning when:
-- User wants to implement a new feature
-- User describes a change requiring multiple files
-- User wants to refactor or redesign something
-- Implementation approach needs thought and structure
-
-**Check if research exists first:**
-- Look in `.agents/` for relevant `research-*.md` files
-- If found, reference them in planning
-- If missing and would be valuable, suggest researching first
-
-**Example triggers:**
-- "Add OAuth support"
-- "Refactor the database layer"
-- "Implement user notifications"
-
-## When to Suggest Plan Iteration (`/iterate-plan`)
-
-Suggest iteration when:
-- User wants to adjust an existing plan
-- Requirements have changed
-- Experiment results need to be incorporated
-- Plan needs scope adjustment or phase restructuring
-
-**Example triggers:**
-- "Let's not implement email notifications yet"
-- "Add a phase for database migration"
-- "Update the plan based on the experiment results"
-
-## When to Suggest Experimentation (`/experiment`)
-
-Suggest experimentation when:
-- User is genuinely uncertain about the best approach
-- Multiple valid technical solutions exist
-- Performance or integration characteristics are unknown
-- Architectural decision has significant trade-offs
-
-**Don't suggest for:**
-- Obvious decisions
-- Approaches already used in codebase
-- Low-risk choices
-
-**Example triggers:**
-- "Should I use JWT or sessions?"
-- "Which caching strategy is better?"
-- "How should we structure the microservices?"
-
-## When to Suggest Implementation (`/implement`)
-
-Suggest implementation when:
-- A plan exists and is approved
-- User says they're ready to implement
-- Plan has been iterated to satisfaction
-
-**Check first:**
-- Does a plan exist?
-- Is it in `.agents/` directory?
-- Has it been reviewed?
-
-**Example triggers:**
-- "Let's implement the plan"
-- "I'm ready to start coding"
-- "Execute the OAuth plan"
-
-## When to Suggest Validation (`/validate`)
-
-Suggest validation when:
-- Implementation is complete (or claimed complete)
-- User wants to verify correctness
-- Tests are failing and systematic review is needed
-- Before creating a pull request
-
-**Example triggers:**
-- "Is the implementation correct?"
-- "Verify the implementation matches the plan"
-- "Some tests are failing"
+This agent's job is to **route** between commands and track workflow state (which artifacts exist in `.agents/`, what phase the user is in, which retreat paths apply) — not to duplicate per-command trigger logic.
 
 # Key Preferences
 
