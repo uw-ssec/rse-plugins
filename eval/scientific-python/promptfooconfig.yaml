@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: 'Getting started'
+# assertionTemplates:
+#   file_contains_key:
+#     type: python
+#     config:
+#       file: ./project-temp/pixi.toml
+#       contains_key: '{{key}}'
+
+prompts:
+  - 'Setup a python environment with pixi and using {{package}}'
+  # - 'Write a function to sum two numbers in Python using {{package}}. Write it in a new file called test.py'
+
+
+providers:
+  - id: anthropic:claude-code
+    config:
+      working_dir: ./project-temp/
+      tools:
+        type: preset
+        preset: claude_code
+      permission_mode: 'acceptEdits'
+
+tests:
+  - vars:
+      package: numpy
+    assert:
+      - type: python
+        config:
+          file: ./project-temp/pixi.toml
+          contains_key: 'package'
+        value: file://asserts.py:file_contains
+  - vars:
+      package: pandas
+    assert:
+      - type: python
+        config:
+          file: ./project-temp/pixi.toml
+          contains_key: 'package'
+        value: file://asserts.py:file_contains
