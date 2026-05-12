@@ -367,3 +367,28 @@ Open Card Sort -> Proposed Structure -> Tree Test -> Refine -> Re-test
 ```
 
 Repeat until tree test success rates exceed 80% for all critical tasks.
+
+## Card sort analysis template
+
+```
+Study: <name> · Method: open · n=18 · Tool: Optimal Workshop
+
+Top emergent clusters (by agreement %):
+1. "Account & Billing"  — 89% agreement — 7 cards
+2. "Reports"            — 78% agreement — 6 cards
+3. "Team Management"    — 72% agreement — 5 cards
+4. "Integrations"       — 67% agreement — 4 cards
+
+Disputed cards (assigned to >2 clusters by >25% of participants):
+- "API keys"      → split: Account (45%) vs Integrations (40%)
+- "Audit log"     → split: Reports (35%) vs Settings (35%)
+  Action: test both placements in tree test.
+
+Vocabulary used by participants (frequency):
+- "Settings" 14 · "Preferences" 4 · "Configuration" 2 → use "Settings"
+- "Reports" 11 · "Analytics" 7 · "Insights" 3 → use "Reports" (audience match)
+
+Recommendation:
+- Top-level IA: Home, Reports, Team, Integrations, Settings, Help
+- Move "Audit log" under Settings (matches participant mental model + admin task flow)
+```

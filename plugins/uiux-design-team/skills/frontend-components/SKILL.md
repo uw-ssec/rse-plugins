@@ -34,12 +34,10 @@ Deep comparison: [react-patterns.md](references/react-patterns.md), [vue-pattern
 **Checkpoint after step 4:** run `npx @axe-core/cli http://localhost:6006/iframe?id=<story>` — fail build if any violation.
 **Checkpoint after step 5:** branch coverage on the component file must be >= 80% (`vitest run --coverage`).
 
-## Copy-paste templates
-
-### React (controlled input + custom hook + Suspense)
+## Reference template (React + Suspense + custom hook)
 
 ```tsx
-import { Suspense, use, useState, useId } from "react";
+import { Suspense, use, useEffect, useId, useState } from "react";
 
 function useDebounced<T>(value: T, ms = 300): T {
   const [v, setV] = useState(value);
@@ -68,76 +66,17 @@ function Results({ promise }: { promise: Promise<string[]>; query: string }) {
 }
 ```
 
-### Vue 3 SFC (composable + reactive)
+Vue SFC, Svelte 5 runes, and Lit equivalents (same controlled-input + debounce pattern) live in [vue-patterns.md](references/vue-patterns.md), [svelte-patterns.md](references/svelte-patterns.md), and [web-components.md](references/web-components.md).
 
-```vue
-<script setup lang="ts">
-import { ref, computed, watchEffect } from 'vue'
-const props = defineProps<{ modelValue: string }>()
-const emit = defineEmits<{ 'update:modelValue': [v: string] }>()
-const local = ref(props.modelValue)
-const length = computed(() => local.value.length)
-watchEffect(() => emit('update:modelValue', local.value))
-</script>
+## Pre-merge gates
 
-<template>
-  <label class="field">
-    <span>Search</span>
-    <input v-model="local" :aria-describedby="`hint`" />
-    <small id="hint">{{ length }} characters</small>
-  </label>
-</template>
-
-<style scoped>
-.field { display: grid; gap: .25rem; }
-</style>
+```bash
+npx size-limit                         # fail if component adds >5kb gzipped
+npx @axe-core/cli http://localhost:6006/iframe.html?id=<story>  # zero violations
+vitest run --coverage                  # branch coverage ≥80% on the component file
 ```
 
-### Svelte 5 (runes)
-
-```svelte
-<script lang="ts">
-  let { value = $bindable(''), onSearch }: { value?: string; onSearch: (q: string) => void } = $props();
-  let debounced = $state(value);
-  $effect(() => { const t = setTimeout(() => { debounced = value; onSearch(debounced); }, 250); return () => clearTimeout(t); });
-</script>
-
-<label>
-  Search
-  <input bind:value aria-describedby="hint" />
-  <small id="hint">{value.length} chars</small>
-</label>
-```
-
-### Lit Web Component
-
-```ts
-import { LitElement, html, css } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-
-@customElement('search-box')
-export class SearchBox extends LitElement {
-  static styles = css`:host{display:block} input{width:100%}`;
-  @property() value = '';
-  @state() private _count = 0;
-  private _onInput(e: Event) {
-    this.value = (e.target as HTMLInputElement).value;
-    this._count = this.value.length;
-    this.dispatchEvent(new CustomEvent('search', { detail: this.value, bubbles: true, composed: true }));
-  }
-  render() {
-    return html`<label>Search<input .value=${this.value} @input=${this._onInput} aria-describedby="h" /><small id="h">${this._count}</small></label>`;
-  }
-}
-```
-
-## Performance gates (run before merge)
-
-- Bundle delta: `npx size-limit` — fail if component adds >5kb gzipped without justification.
-- Long lists (>100 rows): use `react-window` / `vue-virtual-scroller` / `svelte-virtual-list`.
-- Images: set explicit `width`/`height` or `aspect-ratio`; use `loading="lazy"` below the fold; preload hero with `<link rel="preload" as="image" fetchpriority="high">`.
-- Fonts: `font-display: swap` + preload critical WOFF2. Subset to needed glyphs.
-- Code-split modal/admin features: `React.lazy`, `defineAsyncComponent`, dynamic `import()`.
+Long lists (>100 rows): use `react-window` / `vue-virtual-scroller` / `svelte-virtual-list`. Code-split modal/admin features (`React.lazy`, `defineAsyncComponent`, dynamic `import()`).
 
 ## Next Steps
 

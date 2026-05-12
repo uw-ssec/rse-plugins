@@ -101,49 +101,22 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 **Checkpoint:** Toggle OS setting (macOS: System Settings → Accessibility → Display → Reduce motion). Reload page. All animations should disappear or become instantaneous. If anything still animates, find it and gate it.
 
-### Step 5 — Profile on a low-end device
+### Step 5 — Profile and constrain
 
-- Chrome DevTools → Performance panel → CPU: 4× slowdown → Record interaction → Verify ≥ 55fps in the FPS strip.
-- Inspect for layout/paint flashes in the bottom panel. Animate only `transform` and `opacity` — these are GPU-composited. Animating `width`, `top`, `margin` triggers layout.
-- Test on a real budget Android if shipping consumer mobile.
+Chrome DevTools → Performance panel → CPU: 4× slowdown → Record interaction → verify ≥ 55fps in the FPS strip. Test on real budget Android if shipping consumer mobile.
 
-**Pass:** sustained ≥ 55fps under 4× throttle. **Fail:** below 55fps → switch the property to `transform`, remove drop-shadow during animation, or shorten duration.
-
-## 12 Principles → UI (Compact Reference)
-
-| Principle | UI application |
-|-----------|----------------|
-| 1. Squash & stretch | Press-compress / spring-back on buttons and toggles |
-| 2. Anticipation | Slight pull-back before a swipe-away |
-| 3. Staging | Dim background on modal; highlight the changed element |
-| 4. Straight-ahead vs pose-to-pose | Continuous (progress bar) vs keyframed (modal open) |
-| 5. Follow-through / overlap | Spring overshoot; staggered list arrival |
-| 6. Ease in / ease out | Never linear — ease-out enter, ease-in exit, ease-in-out move |
-| 7. Arcs | Curved motion paths (fanning menu, drag-release toss) |
-| 8. Secondary action | Material ripple; badge bounce on count change |
-| 9. Timing | 100–200ms micro / 200–350ms transition / ≤500ms choreography |
-| 10. Exaggeration | Slight overshoot, error shake — subtle, not cartoon |
-| 11. Solid drawing | No flicker / layout shift / half-rendered frames |
-| 12. Appeal | Spring physics; slight overshoot; "feels nice" |
-
-Full explanations and code references in [references/animation-principles.md](references/animation-principles.md).
-
-## Performance Budget
-
-- Animate only `transform` and `opacity`.
+**Constraints (enforce on every animation):**
+- Animate only `transform` and `opacity`. Animating `width`/`top`/`margin` triggers layout — switch to `transform`.
 - `will-change: transform` only on actively animating elements; remove after.
 - Total screen transition ≤ 500ms; individual element ≤ 350ms.
 - `requestAnimationFrame` for JS-driven animation, never `setInterval`.
 
+**Pass:** sustained ≥ 55fps under 4× throttle. **Fail:** below 55fps → switch property to `transform`, remove drop-shadow during animation, or shorten duration.
+
 ## Deep Dive References
 
-- [references/animation-principles.md](references/animation-principles.md) — full Disney 12 principles with code
-- [references/easing-functions.md](references/easing-functions.md) — bezier library, spring params, custom curves
-- [references/scroll-animations.md](references/scroll-animations.md) — IntersectionObserver, scroll-driven CSS, parallax
+12 Principles → UI mapping with code in [references/animation-principles.md](references/animation-principles.md). Easing library and spring tuning in [references/easing-functions.md](references/easing-functions.md). Scroll-driven patterns (IntersectionObserver, scroll-timeline, parallax) in [references/scroll-animations.md](references/scroll-animations.md).
 
 ## Next Steps
 
-- **[Visual Design](../visual-design/SKILL.md)**: motion within visual design
-- **[Design Tokens](../design-tokens/SKILL.md)**: encode duration/easing as tokens
-- **[Frontend Components](../frontend-components/SKILL.md)**: implement motion patterns
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)**: verify reduced-motion support
+[visual-design](../visual-design/SKILL.md) · [design-tokens](../design-tokens/SKILL.md) · [frontend-components](../frontend-components/SKILL.md) · [accessibility-audit](../accessibility-audit/SKILL.md)

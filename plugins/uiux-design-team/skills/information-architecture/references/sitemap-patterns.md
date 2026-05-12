@@ -439,3 +439,29 @@ An XML sitemap tells search engines which pages exist and how frequently they ch
 - Note any content that will be newly created vs migrated
 - Call out pages that require special functionality (search, dynamic filtering, user-generated content)
 - Version the sitemap document and track changes over time
+
+## Sitemap example (indented tree)
+
+```
+Root
+├── Products
+│   ├── Plans & Pricing
+│   ├── Features
+│   │   ├── Collaboration
+│   │   ├── Analytics
+│   │   └── Integrations
+│   └── Changelog
+├── Solutions
+│   ├── By Industry
+│   │   ├── Healthcare
+│   │   └── Finance
+│   └── By Team Size
+├── Resources
+│   ├── Docs · Blog · Case Studies · Help Center
+├── Company
+│   ├── About · Careers · Contact
+└── Auth
+    ├── Sign in · Sign up
+```
+
+Constraints: depth ≤ 4, siblings ≤ 7. Note breadcrumb path for any node ≥ 3 deep.

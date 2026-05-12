@@ -558,3 +558,19 @@ Expose styling hooks via CSS custom properties, allowing consumers to customize 
 - [[../../css-architecture/references/css-modules-guide.md]] -- CSS scoping approaches compared to Svelte's built-in scoping
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
+
+## SearchBox (Svelte 5 runes)
+
+```svelte
+<script lang="ts">
+  let { value = $bindable(''), onSearch }: { value?: string; onSearch: (q: string) => void } = $props();
+  let debounced = $state(value);
+  $effect(() => { const t = setTimeout(() => { debounced = value; onSearch(debounced); }, 250); return () => clearTimeout(t); });
+</script>
+
+<label>
+  Search
+  <input bind:value aria-describedby="hint" />
+  <small id="hint">{value.length} chars</small>
+</label>
+```

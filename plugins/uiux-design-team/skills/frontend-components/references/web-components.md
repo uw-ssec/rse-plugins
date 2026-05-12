@@ -500,3 +500,25 @@ The `ElementInternals` API provides access to form state, validation, and access
 - [[../../accessibility-audit/references/aria-patterns.md]] -- ARIA patterns for building accessible custom elements
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
+
+## search-box (Lit)
+
+```ts
+import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+@customElement('search-box')
+export class SearchBox extends LitElement {
+  static styles = css`:host{display:block} input{width:100%}`;
+  @property() value = '';
+  @state() private _count = 0;
+  private _onInput(e: Event) {
+    this.value = (e.target as HTMLInputElement).value;
+    this._count = this.value.length;
+    this.dispatchEvent(new CustomEvent('search', { detail: this.value, bubbles: true, composed: true }));
+  }
+  render() {
+    return html`<label>Search<input .value=${this.value} @input=${this._onInput} aria-describedby="h" /><small id="h">${this._count}</small></label>`;
+  }
+}
+```

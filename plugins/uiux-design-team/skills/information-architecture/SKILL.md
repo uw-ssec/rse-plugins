@@ -22,66 +22,13 @@ metadata:
 6. **Lock labels** — first-click test the top 10 labels (≥ 80% clicking expected option).
 7. **Wire to navigation patterns** — see [navigation-guide.md](references/navigation-guide.md).
 
-## Deliverable templates
+## Deliverables (formats in references)
 
-### Sitemap (indented tree)
+- **Sitemap** — indented tree, depth ≤ 4, siblings ≤ 7. Example: [sitemap-patterns.md](references/sitemap-patterns.md).
+- **Card sort analysis** — clusters with agreement %, disputed cards with action, participant vocabulary. Template: [card-sorting-methods.md](references/card-sorting-methods.md).
+- **Navigation spec** — pattern + primary/secondary/wayfinding + rationale. Format: [navigation-guide.md](references/navigation-guide.md).
 
-```
-Root
-├── Products
-│   ├── Plans & Pricing
-│   ├── Features
-│   │   ├── Collaboration
-│   │   ├── Analytics
-│   │   └── Integrations
-│   └── Changelog
-├── Solutions
-│   ├── By Industry
-│   │   ├── Healthcare
-│   │   └── Finance
-│   └── By Team Size
-├── Resources
-│   ├── Docs
-│   ├── Blog
-│   ├── Case Studies
-│   └── Help Center
-├── Company
-│   ├── About
-│   ├── Careers
-│   └── Contact
-└── Auth
-    ├── Sign in
-    └── Sign up
-```
-
-Constraints: depth ≤ 4, siblings ≤ 7. Note breadcrumb path for any node ≥ 3 deep.
-
-### Card sort analysis template
-
-```
-Study: <name> · Method: open · n=18 · Tool: Optimal Workshop
-
-Top emergent clusters (by agreement %):
-1. "Account & Billing"  — 89% agreement — 7 cards
-2. "Reports"            — 78% agreement — 6 cards
-3. "Team Management"    — 72% agreement — 5 cards
-4. "Integrations"       — 67% agreement — 4 cards
-
-Disputed cards (assigned to >2 clusters by >25% of participants):
-- "API keys"      → split: Account (45%) vs Integrations (40%)
-- "Audit log"     → split: Reports (35%) vs Settings (35%)
-  Action: test both placements in tree test.
-
-Vocabulary used by participants (frequency):
-- "Settings" 14 · "Preferences" 4 · "Configuration" 2 → use "Settings"
-- "Reports" 11 · "Analytics" 7 · "Insights" 3 → use "Reports" (audience match)
-
-Recommendation:
-- Top-level IA: Home, Reports, Team, Integrations, Settings, Help
-- Move "Audit log" under Settings (matches participant mental model + admin task flow)
-```
-
-### Labeling audit checklist
+## Labeling audit checklist
 
 For each navigation label, verify:
 - [ ] Unambiguous: a stranger can predict what's behind it
@@ -89,18 +36,7 @@ For each navigation label, verify:
 - [ ] User language: matches card-sort vocabulary, not internal jargon
 - [ ] Mutually exclusive: no overlap with sibling labels ("Shoes" vs "Footwear")
 - [ ] Scannable: meaningful word first ("Account Settings" not "Settings for Your Account")
-- [ ] Tested: first-click success ≥ 80%
-
-### Navigation recommendations (output format)
-
-```
-Pattern:    Hub-and-Spoke
-Primary:    Bottom tab bar (5 items: Home, Search, Create, Inbox, Profile)
-Secondary:  In-screen tabs within each section
-Wayfinding: Sticky section title + breadcrumb when depth ≥ 2
-Rationale:  Tasks are independent (low cross-section navigation).
-            User research showed 92% return to home between tasks.
-```
+- [ ] First-click test success ≥ 80%
 
 ## Navigation pattern picker
 
@@ -121,14 +57,6 @@ Details: [navigation-guide.md](references/navigation-guide.md).
 - After labeling audit: any label with < 80% first-click success → rename.
 - After launch: monitor search queries — high volume of "where is X" = IA failure.
 
-## Deep references
-
-- [Sitemap Patterns](references/sitemap-patterns.md) — diagrams + content inventory template
-- [Navigation Guide](references/navigation-guide.md) — global/local/mega-menu/mobile patterns
-- [Card Sorting Methods](references/card-sorting-methods.md) — open/closed/hybrid, analysis
-
 ## Next Steps
 
-- **[Wireframing](../wireframing/SKILL.md)**: translate IA into page layouts
-- **[User Research](../user-research/SKILL.md)**: validate IA with real users
-- **[UX Writing](../ux-writing/SKILL.md)**: craft labels and microcopy
+[wireframing](../wireframing/SKILL.md) · [user-research](../user-research/SKILL.md) · [ux-writing](../ux-writing/SKILL.md)

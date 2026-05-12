@@ -483,3 +483,14 @@ Users follow cues that signal whether a path leads to their goal. Strengthen by:
 - Contextual descriptions on nav items
 - Content previews (snippets, thumbnails, metadata)
 - Rich search result context
+
+## Navigation recommendations output format
+
+```
+Pattern:    Hub-and-Spoke
+Primary:    Bottom tab bar (5 items: Home, Search, Create, Inbox, Profile)
+Secondary:  In-screen tabs within each section
+Wayfinding: Sticky section title + breadcrumb when depth ≥ 2
+Rationale:  Tasks are independent (low cross-section navigation).
+            User research showed 92% return to home between tasks.
+```

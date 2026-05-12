@@ -106,20 +106,10 @@ npx changeset status --since=origin/main
 
 Pass criteria per checkpoint: (1) exits clean, (2) zero a11y violations on built stories, (3) tsc clean + visual diffs reviewed, (4) changeset matches change scope.
 
-## Atomic Tiers (summary)
-
-Atoms → Molecules → Organisms → Templates → Pages. Full table and catalog in [atomic-design-guide.md](references/atomic-design-guide.md).
-
 ## References
 
-- [Token Architecture](references/token-architecture.md) — three-tier model, Style Dictionary pipeline
-- [Component API Guide](references/component-api-guide.md) — prop/event conventions, polymorphism
-- [Theming Patterns](references/theming-patterns.md) — light/dark, multi-brand, white-label
-- [Atomic Design Guide](references/atomic-design-guide.md) — full atom→page catalog and workflow
+- [token-architecture.md](references/token-architecture.md), [component-api-guide.md](references/component-api-guide.md), [theming-patterns.md](references/theming-patterns.md), [atomic-design-guide.md](references/atomic-design-guide.md)
 
 ## Next Steps
 
-- **[Design Tokens](../design-tokens/SKILL.md)**: Deep dive into token implementation, naming conventions, and platform output
-- **[Component Library](../component-library/SKILL.md)**: Build the component library with composition patterns and variant systems
-- **[Visual Design](../visual-design/SKILL.md)**: Apply visual identity and brand alignment to the system
-- **[Design Handoff](../design-handoff/SKILL.md)**: Prepare the system for cross-team adoption and developer consumption
+[design-tokens](../design-tokens/SKILL.md) · [component-library](../component-library/SKILL.md) · [visual-design](../visual-design/SKILL.md) · [design-handoff](../design-handoff/SKILL.md)

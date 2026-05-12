@@ -566,3 +566,28 @@ async function open() {
 - [[../../css-architecture/references/css-modules-guide.md]] -- CSS Modules integration with Vue SFCs
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
+
+## SearchBox SFC (composable + reactive)
+
+```vue
+<script setup lang="ts">
+import { ref, computed, watchEffect } from 'vue'
+const props = defineProps<{ modelValue: string }>()
+const emit = defineEmits<{ 'update:modelValue': [v: string] }>()
+const local = ref(props.modelValue)
+const length = computed(() => local.value.length)
+watchEffect(() => emit('update:modelValue', local.value))
+</script>
+
+<template>
+  <label class="field">
+    <span>Search</span>
+    <input v-model="local" :aria-describedby="`hint`" />
+    <small id="hint">{{ length }} characters</small>
+  </label>
+</template>
+
+<style scoped>
+.field { display: grid; gap: .25rem; }
+</style>
+```
