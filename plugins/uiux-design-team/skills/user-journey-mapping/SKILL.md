@@ -1,6 +1,6 @@
 ---
 name: user-journey-mapping
-description: Create user journey maps, experience maps, service blueprints, and touchpoint analysis to visualize the complete user experience with stages, actions, emotions, pain points, and opportunities.
+description: Use when visualizing a user's end-to-end experience for a specific scenario, identifying pain points and emotion lows, aligning teams on user flow, planning improvements to onboarding/checkout/support, or producing a service blueprint.
 metadata:
    references:
    - references/blueprint-guide.md
@@ -10,28 +10,45 @@ metadata:
 
 # User Journey Mapping
 
-Journey maps make the invisible visible. They transform abstract user experiences into concrete, shareable artifacts that align teams around a common understanding of what users go through. A good journey map does not just describe steps; it captures the emotional arc, surfaces hidden pain points, and reveals opportunities that no single team member could see on their own.
+## Map Type Selection
 
-## Quick Start: Create a Journey Map
+| Type | Use When |
+|------|----------|
+| **Journey Map** | Optimizing one persona through one specific scenario |
+| **Experience Map** | Entering a new market; understanding category-level behavior outside your product |
+| **Service Blueprint** | Coordinating across teams; surfacing backstage/support processes affecting UX |
 
-Follow this process to build a journey map for any user scenario.
+## Workflow
 
-**Step 1 -- Define scope.** Select one persona and one specific scenario (e.g., "New user signs up and completes first project"). A focused scope produces actionable maps; a broad scope produces wallpaper.
+**Step 1 — Define scope.** One persona, one scenario (e.g., "New user signs up and completes first project"). Narrow scope produces actionable maps; broad scope produces wallpaper.
 
-**Step 2 -- Identify stages.** Break the scenario into 5-7 sequential stages. Each stage represents a distinct phase of the experience with its own goal. Example stages for a SaaS onboarding: Awareness, Sign-Up, First Use, Configuration, First Value, Routine Use, Expansion.
+**Step 2 — Identify 5–7 sequential stages.** Each stage = a distinct phase with its own goal.
+Example: Awareness → Sign-Up → First Use → Configuration → First Value → Routine Use → Expansion.
 
-**Step 3 -- Map each stage.** For every stage, document the following:
+**Step 3 — Fill the stage matrix.** For each stage document: Actions, Thoughts, Emotions (1–5), Touchpoints, Pain Points, Opportunities (template below).
 
-| Stage         | Awareness       | Sign-Up          | First Use        | Configuration    | First Value      |
-|---------------|-----------------|------------------|------------------|------------------|------------------|
-| **Actions**   | Reads blog post, clicks CTA | Enters email, creates password | Opens dashboard, looks around | Sets preferences, adds team | Completes first task |
-| **Thoughts**  | "Does this solve my problem?" | "Is this worth my time?" | "Where do I start?" | "This is more setup than I expected" | "Oh, this actually works" |
-| **Emotions**  | Curious (3/5)   | Hopeful (4/5)    | Confused (2/5)   | Frustrated (2/5) | Satisfied (4/5)  |
-| **Touchpoints** | Blog, landing page | Sign-up form, email confirmation | Dashboard, onboarding tooltip | Settings, invite flow | Core feature, success screen |
-| **Pain Points** | Value prop unclear | Too many form fields | No guidance | Defaults are wrong | None identified  |
-| **Opportunities** | Clearer headline | Social sign-in | Guided walkthrough | Smart defaults | Celebrate the moment |
+**Step 4 — Validation checkpoint.** Before continuing, verify the map against real data:
+- Compare every Action/Thought row against ≥5 user interview transcripts or analytics events.
+- Flag any row backed only by team assumption — mark "ASSUMPTION" and schedule research.
+- Pass criteria: ≥80% of rows have direct evidence (quote, log event, survey response). If <80%, pause and run targeted research before Step 5.
 
-**Step 4 -- Draw the emotion curve.** Plot emotional highs and lows across stages to identify the overall arc:
+**Step 5 — Plot the emotion curve.** Graph 1–5 scores across stages. Identify valleys (likely churn points) and peaks (delight moments).
+
+**Step 6 — Prioritize using severity × frequency.** Apply the P0–P3 matrix below. Share with product/engineering to align on what ships first.
+
+## Stage Matrix Template
+
+| Stage          | Awareness        | Sign-Up           | First Use         | Configuration     | First Value       |
+|----------------|------------------|-------------------|-------------------|-------------------|-------------------|
+| **Actions**    | Reads blog, clicks CTA | Enters email | Opens dashboard | Sets preferences | Completes first task |
+| **Thoughts**   | "Does this solve my problem?" | "Worth my time?" | "Where do I start?" | "More setup than expected" | "Oh, this works" |
+| **Emotions**   | Curious (3/5) | Hopeful (4/5) | Confused (2/5) | Frustrated (2/5) | Satisfied (4/5) |
+| **Touchpoints** | Blog, landing page | Sign-up form, email | Dashboard, tooltip | Settings, invite flow | Core feature |
+| **Pain Points** | Value prop unclear | Too many fields | No guidance | Wrong defaults | — |
+| **Opportunities** | Clearer headline | Social sign-in | Guided walkthrough | Smart defaults | Celebrate moment |
+| **Evidence**   | Interview #2, #4 | Funnel drop 38% | Session replay | Survey Q7 | Activation event |
+
+## Emotion Curve Format
 
 ```
   5 |         *                              *
@@ -43,99 +60,43 @@ Follow this process to build a journey map for any user scenario.
       Aware  Sign-Up  First  Config  Value  Routine
 ```
 
-**Step 5 -- Prioritize opportunities.** Focus on the deepest emotional valleys. These are the moments where users are most likely to churn or develop negative perceptions.
+Measure emotion: ask interviewees to rate 1–5 at each stage. Also watch verbal cues (sighs, laughter, hesitation). Aggregate across 5+ users.
 
-## Map Types
+## Moments of Truth
 
-Different visualization types serve different purposes. Choose the right one for your context.
-
-**Journey Map** -- Follows a single persona through a single scenario from beginning to end. Best for understanding a specific user flow in detail. Use when you need to optimize a particular experience.
-
-**Experience Map** -- Broader than a journey map. Captures the full context of how a user interacts with a category of product or service, not just yours. Includes activities that happen before and after they touch your product. Use when entering a new market or redefining product boundaries.
-
-**Service Blueprint** -- Extends the journey map by adding behind-the-scenes layers:
-- **Frontstage interactions** -- What the user sees and interacts with
-- **Backstage interactions** -- Internal processes the user cannot see (APIs, manual reviews, queue processing)
-- **Support processes** -- Systems, databases, and third-party services that enable the experience
-
-Use service blueprints when you need to coordinate across teams or identify operational bottlenecks that affect user experience.
-
-## Emotion Curves
-
-Emotion curves are the most powerful element of a journey map. They reveal where the experience breaks down and where it delights.
-
-**How to measure emotions:**
-
-- During user interviews, ask participants to rate their feeling at each stage on a 1-5 scale (1 = very frustrated, 5 = very satisfied)
-- Look for verbal cues: sighs, laughter, hesitation, excitement
-- Aggregate across 5+ users to find patterns
-
-**Moments of truth** are the critical points in the emotion curve where the experience can go very right or very wrong:
-- **First impression** -- Does the product immediately communicate value?
-- **First friction** -- How does the product handle the user's first mistake or confusion?
-- **First value** -- When does the user first achieve what they came to do?
-- **Recovery** -- When something goes wrong, how does the product respond?
-
-Identify moments of truth and design for them explicitly. A journey with a strong recovery moment can produce higher satisfaction than a journey where nothing went wrong.
+Flag and design explicitly for:
+- **First impression** — Does the product communicate value within 5 seconds?
+- **First friction** — How does it handle the user's first mistake?
+- **First value** — When does the user achieve what they came for?
+- **Recovery** — When something fails, what happens next?
 
 ## Pain Point Prioritization
 
-Not all pain points deserve equal attention. Use a severity-frequency matrix to prioritize:
+| Priority | Severity | Frequency | Action |
+|----------|----------|-----------|--------|
+| P0 | High | High | Fix now — users churning |
+| P1 | High | Low | Fix soon — catastrophic when hit |
+| P2 | Low | High | Improve — constant minor annoyance (quick wins) |
+| P3 | Low | Low | Backlog |
 
-| Priority | Severity | Frequency | Action                          |
-|----------|----------|-----------|----------------------------------|
-| P0       | High     | High      | Fix immediately; users are leaving |
-| P1       | High     | Low       | Fix soon; catastrophic when hit    |
-| P2       | Low      | High      | Improve; constant minor annoyance  |
-| P3       | Low      | Low       | Backlog; address when convenient   |
+## Deliverable Checklist
 
-**Quick wins** are P2 items that can be resolved with minimal effort. They improve the day-to-day experience and build team momentum.
-
-**Strategic improvements** are P0 and P1 items that require significant investment. They prevent churn and drive retention.
-
-Map every identified pain point onto this matrix and share it with product and engineering stakeholders to drive alignment on priorities.
+Before sharing the map:
+- [ ] Persona named and linked to a persona doc
+- [ ] Scenario stated in one sentence
+- [ ] 5–7 stages, each with all six rows filled
+- [ ] Evidence column populated for ≥80% of cells
+- [ ] Emotion curve drawn
+- [ ] Top 3 P0/P1 opportunities highlighted with owner and ETA proposed
+- [ ] Reviewed with 1 user-research lead and 1 PM/engineer
 
 ## Deep Dive References
 
-### [Journey Template](references/journey-template.md)
-
-- Overview
-- Template Components
-- Emotional Curve Mapping
-- Journey Map Formats
-- Journey Map Creation Process
-- Stakeholder Presentation Tips
-- Journey Map Canvas
-- Persona: _______________________________________________
-- *...and 8 more sections*
-
-### [Blueprint Guide](references/blueprint-guide.md)
-
-- Overview
-- Difference from Journey Maps
-- Blueprint Components
-- Visual Structure
-- Creation Process
-- Cross-Functional Alignment
-- Digital Service Blueprint Adaptations
-- Service Blueprint Template
-- *...and 8 more sections*
-
-### [Touchpoint Patterns](references/touchpoint-patterns.md)
-
-- Overview
-- Touchpoint Inventory Methodology
-- Digital vs Physical Touchpoints
-- Owned vs Earned vs Paid Touchpoints
-- Touchpoint Matrix
-- Channel Consistency Analysis
-- Moment-of-Truth Identification
-- Touchpoint Optimization Prioritization
-- *...and 2 more sections*
+- [Journey Template](references/journey-template.md) — Full canvas, components, formats, presentation tips
+- [Blueprint Guide](references/blueprint-guide.md) — Frontstage/backstage/support layers, digital adaptations
+- [Touchpoint Patterns](references/touchpoint-patterns.md) — Inventory method, owned/earned/paid, matrix, moment-of-truth identification
 
 ## Next Steps
 
-After completing your journey map, continue with these related skills:
-
-- **user-research** -- If your journey map reveals stages where you lack data, go back and conduct targeted research to fill those gaps.
-- **information-architecture** -- Use journey maps to inform the structure and navigation of your product, ensuring it matches the user's mental model of the process.
+- **user-research** — If the validation checkpoint flagged assumption-heavy stages, run targeted research to fill the gaps.
+- **information-architecture** — Use the journey to inform navigation that matches the user's mental model.

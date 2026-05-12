@@ -1,6 +1,6 @@
 ---
 name: grid-layout-systems
-description: Design and implement layout systems using CSS Grid, Flexbox, column grids, modular grids, baseline grids, container queries, and subgrid for responsive, consistent page compositions across devices and content types.
+description: Use when laying out a page or component, choosing between CSS Grid and Flexbox, setting up a column grid, aligning nested components to a parent grid, or building responsive card/dashboard layouts.
 metadata:
    references:
    - references/grid-patterns.md
@@ -10,18 +10,26 @@ metadata:
 
 # Grid Layout Systems
 
-Grids are the invisible architecture of every well-designed interface. They create alignment, rhythm, and spatial consistency that users feel even when they cannot articulate it. A page without a grid is a page where every element placement is an ad hoc decision. A page with a grid is a page where every element has a reason for being where it is.
+## Choose the Right Tool
 
-## Grid Types
+| Need | Use |
+|------|-----|
+| 2D page layout (rows + columns) | CSS Grid |
+| 1D component layout (row OR column) | Flexbox |
+| Nested element aligned to parent grid | `grid-template-columns: subgrid` |
+| Auto-reflowing card grid (no breakpoints) | Grid + `auto-fit minmax()` |
+| Component responsive to container, not viewport | Container queries |
 
-### Column Grid
+## Workflow
 
-The most common grid type for web design. The page is divided into vertical columns with gutters between them.
+1. Decide page-level vs component-level. Page → Grid. Component → Flexbox.
+2. Pick a column count: 12 (flexible), 8 (simpler), 4 (mobile).
+3. Set tokens for `--gap`, `--max-width`, spacing scale (see Spacing).
+4. Build layout with named areas OR `repeat(N, 1fr)`.
+5. Add responsive behavior: prefer `auto-fit minmax()` over breakpoints; fall back to `@media (min-width: ...)` for structural changes.
+6. Validate against the checklist at the bottom.
 
-**Standard configurations:**
-- **12-column grid**: Maximum flexibility. Divides evenly into halves (6+6), thirds (4+4+4), quarters (3+3+3+3), and sixths (2+2+2+2+2+2).
-- **8-column grid**: Good for simpler layouts. Divides into halves and quarters cleanly.
-- **4-column grid**: Mobile layouts. Simple, constrained.
+## 12-Column Grid (copy-paste)
 
 ```css
 .container {
@@ -33,86 +41,13 @@ The most common grid type for web design. The page is divided into vertical colu
   padding: 0 24px;
 }
 
-/* Content area spanning 8 columns, sidebar spanning 4 */
 .content { grid-column: span 8; }
 .sidebar { grid-column: span 4; }
-
-/* Full-width section */
-.hero { grid-column: 1 / -1; }
-
-/* Centered content block */
-.narrow-content { grid-column: 3 / 11; } /* 8 of 12 columns, centered */
+.hero    { grid-column: 1 / -1; }
+.narrow  { grid-column: 3 / 11; }
 ```
 
-### Modular Grid
-
-A column grid with horizontal divisions added, creating a matrix of rectangular modules. Each module is the intersection of a column and a row.
-
-**Use cases:**
-- Dashboard layouts with cards of varying sizes
-- Portfolio and gallery layouts
-- Magazine-style editorial layouts
-
-```css
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 200px);
-  gap: 16px;
-}
-
-/* A large card spanning 2 columns and 2 rows */
-.card-large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-/* Standard single-module card */
-.card-standard {
-  grid-column: span 1;
-  grid-row: span 1;
-}
-```
-
-### Baseline Grid
-
-An invisible horizontal grid that aligns all text to a consistent vertical rhythm. The baseline grid interval is typically the body text line-height.
-
-```css
-:root {
-  --baseline: 1.5rem; /* 24px if base is 16px with 1.5 line-height */
-}
-
-h1 {
-  font-size: 2.5rem;
-  line-height: calc(var(--baseline) * 2); /* 48px - double baseline */
-  margin-bottom: var(--baseline);
-}
-
-h2 {
-  font-size: 1.75rem;
-  line-height: calc(var(--baseline) * 1.5); /* 36px - 1.5x baseline */
-  margin-bottom: var(--baseline);
-}
-
-p {
-  font-size: 1rem;
-  line-height: var(--baseline); /* 24px - single baseline */
-  margin-bottom: var(--baseline);
-}
-```
-
-### Compound Grid
-
-Two or more grids overlaid to create richer alignment possibilities. A 3-column and 4-column grid overlaid produces a 12-column compound grid with unique alignment points.
-
-**When to use compound grids:**
-- Complex editorial layouts where a single column count is too limiting
-- Designs that need to accommodate both even (halves, quarters) and odd (thirds, fifths) divisions
-
-## CSS Grid Deep Dive
-
-### Named Grid Areas
+## Named Grid Areas (Holy Grail)
 
 ```css
 .page {
@@ -120,12 +55,11 @@ Two or more grids overlaid to create richer alignment possibilities. A 3-column 
   grid-template-columns: 240px 1fr 300px;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "header  header  header"
-    "nav     main    aside"
-    "footer  footer  footer";
+    "header header header"
+    "nav    main   aside"
+    "footer footer footer";
   min-height: 100vh;
 }
-
 .header { grid-area: header; }
 .nav    { grid-area: nav; }
 .main   { grid-area: main; }
@@ -133,253 +67,86 @@ Two or more grids overlaid to create richer alignment possibilities. A 3-column 
 .footer { grid-area: footer; }
 ```
 
-### Auto-Fill and Auto-Fit
+## Auto-Reflow Card Grid
 
 ```css
-/* Auto-fill: creates as many columns as fit, empty columns remain */
-.grid-fill {
+/* auto-fit: empty tracks collapse; auto-fill: empty tracks preserved */
+.card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 24px;
-}
-
-/* Auto-fit: creates as many columns as fit, empty columns collapse */
-.grid-fit {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 24px;
 }
 ```
 
-**When to use which:**
-- `auto-fill` when you want the grid to maintain its column structure even with few items
-- `auto-fit` when you want fewer items to expand and fill the available space
-
-### Subgrid
-
-Subgrid allows child grids to inherit the track definitions of their parent grid. This solves the alignment problem where nested components need to align with the outer page grid.
+## Subgrid (align nested to parent)
 
 ```css
-.page {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
-}
-
+.page { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
 .card-group {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: subgrid; /* Inherits parent's 12 columns */
+  grid-template-columns: subgrid;
 }
-
-.card {
-  grid-column: span 4; /* Each card spans 4 of the parent's 12 columns */
-}
+.card { grid-column: span 4; }
 ```
 
 ## Flexbox Patterns
 
-Flexbox excels at one-dimensional layouts (row OR column). Use Flexbox for component-level layout and CSS Grid for page-level layout.
-
-### Navigation Bar
-
 ```css
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  height: 64px;
-}
+/* Navbar */
+.navbar { display: flex; align-items: center; justify-content: space-between; }
 
-.navbar-links {
-  display: flex;
-  gap: 24px;
-}
-```
+/* Card with footer pinned to bottom */
+.card { display: flex; flex-direction: column; height: 100%; }
+.card-body { flex: 1; }
+.card-footer { margin-top: auto; }
 
-### Card Content
-
-```css
-.card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.card-body {
-  flex: 1; /* Fills available space, pushing footer to bottom */
-}
-
-.card-footer {
-  margin-top: auto; /* Alternative: pushes to bottom within flex container */
-}
-```
-
-### Centering
-
-```css
-/* The definitive centering technique */
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Or with grid */
-.center-grid {
-  display: grid;
-  place-items: center;
-}
+/* Centering */
+.center { display: grid; place-items: center; }
 ```
 
 ## Container Queries
 
-Container queries allow components to respond to their container's size rather than the viewport's size. This is essential for reusable components that may appear in different layout contexts.
-
 ```css
-/* Define a containment context */
-.card-container {
-  container-type: inline-size;
-  container-name: card;
-}
+.card-container { container-type: inline-size; container-name: card; }
 
-/* Component responds to container width */
 @container card (min-width: 400px) {
-  .card {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 16px;
-  }
+  .card { display: grid; grid-template-columns: 120px 1fr; gap: 16px; }
 }
-
 @container card (max-width: 399px) {
-  .card {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-image {
-    aspect-ratio: 16 / 9;
-    width: 100%;
-  }
+  .card { display: flex; flex-direction: column; }
 }
 ```
 
-### Container Query Units
-
-```css
-/* cqw = 1% of container width */
-.card-title {
-  font-size: clamp(1rem, 3cqw, 1.5rem);
-}
-```
-
-## Spacing System
-
-Consistent spacing reinforces the grid's rhythm. Use a base unit and derive all spacing from multiples of it.
-
-### Base-4 System
+## Spacing Tokens (Base-4)
 
 ```css
 :root {
-  --space-1:  4px;   /* 0.25rem */
-  --space-2:  8px;   /* 0.5rem  */
-  --space-3:  12px;  /* 0.75rem */
-  --space-4:  16px;  /* 1rem    */
-  --space-5:  20px;  /* 1.25rem */
-  --space-6:  24px;  /* 1.5rem  */
-  --space-8:  32px;  /* 2rem    */
-  --space-10: 40px;  /* 2.5rem  */
-  --space-12: 48px;  /* 3rem    */
-  --space-16: 64px;  /* 4rem    */
-  --space-20: 80px;  /* 5rem    */
-  --space-24: 96px;  /* 6rem    */
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-6: 24px; --space-8: 32px;  --space-12: 48px; --space-16: 64px;
 }
 ```
 
-### Spatial Hierarchy
+- Intra-component: 4–12px. Inter-component: 16–24px. Section: 32–96px.
 
-- **Intra-component spacing** (4-12px): Padding within buttons, spacing between icon and label, gaps between form label and input
-- **Inter-component spacing** (16-24px): Gap between cards, space between form groups, margin between list items
-- **Section spacing** (32-96px): Space between page sections, margin above/below hero areas, separator between content blocks
+## Validation Checklist
 
-## Responsive Grid Strategies
-
-### Breakpoint-Based Column Changes
-
-```css
-.grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr; /* Mobile: single column */
-}
-
-@media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columns */
-    gap: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns */
-    gap: 24px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr); /* Wide: 4 columns */
-  }
-}
-```
-
-### No-Breakpoint Responsive Grid
-
-```css
-/* Components automatically reflow based on available space */
-.auto-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: 24px;
-}
-```
+- [ ] DevTools grid overlay shows all major elements aligned to the same column tracks.
+- [ ] No element uses absolute positioning to escape the grid.
+- [ ] Resize from 320px → 1920px: no horizontal scroll, no overlaps, no orphaned items.
+- [ ] Cards in an `auto-fit` grid reflow without breakpoints.
+- [ ] Sub-components in nested grids align to the parent (use subgrid or matching tracks).
+- [ ] Gap values come from spacing tokens, not magic numbers.
 
 ## Deep Dive References
 
-### [Grid Patterns](references/grid-patterns.md)
-
-- Holy Grail Layout
-- Dashboard Grid
-- Card Grid (Auto-Fit)
-- Magazine Layout
-- Masonry-Like Grid
-- Sidebar Layouts
-- Full-Bleed Within Constrained Grid
-- Pancake Stack (Sticky Footer)
-- *...and 1 more sections*
-
-### [Responsive Strategies](references/responsive-strategies.md)
-
-- Mobile-First vs Desktop-First
-- Content-Driven Breakpoints
-- Fluid Grids Without Breakpoints
-- Container Queries
-- Responsive Testing Methodology
-
-### [Spacing Systems](references/spacing-systems.md)
-
-- Base-Unit Systems
-- Spatial Hierarchy
-- Density Modes
-- Spacing Token Naming
-- Spacing and Visual Rhythm
+- [Grid Patterns](references/grid-patterns.md) — Holy Grail, dashboard, magazine, masonry, sidebar, sticky footer
+- [Responsive Strategies](references/responsive-strategies.md) — Mobile-first, content-driven breakpoints, fluid grids
+- [Spacing Systems](references/spacing-systems.md) — Base units, hierarchy, density modes, token naming
 
 ## Next Steps
 
 - **[Typography Systems](../typography-systems/SKILL.md)**: Align type to baseline grid
-- **[Responsive Design](../responsive-design/SKILL.md)**: Grids within the broader responsive strategy
-- **[CSS Architecture](../css-architecture/SKILL.md)**: Organize grid utilities within CSS architecture
+- **[Responsive Design](../responsive-design/SKILL.md)**: Broader responsive strategy
+- **[CSS Architecture](../css-architecture/SKILL.md)**: Organize grid utilities
 - **[Design Tokens](../design-tokens/SKILL.md)**: Encode spacing and breakpoints as tokens

@@ -263,3 +263,16 @@ One JTBD can generate many user stories. The JTBD "When I am preparing for the M
 - [[journey-template.md]] -- Map jobs to specific stages in the user journey
 
 **Back to:** [User Research Skill](../SKILL.md)
+
+## Job Types (moved from SKILL.md)
+
+**Functional** — practical task.
+Example: "When I receive a support ticket, I want to see customer history at a glance, so I can resolve without asking them to repeat themselves."
+
+**Emotional** — how the user wants to feel.
+Example: "When I present analytics to my team, I want to feel confident in the accuracy, so I can avoid the embarrassment of wrong numbers."
+
+**Social** — how the user wants to be perceived.
+Example: "When I share a design with stakeholders, I want it to look polished, so I can be seen as competent and detail-oriented."
+
+Design for all three. A product that nails the functional but ignores the emotional feels cold and transactional.

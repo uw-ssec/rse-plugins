@@ -289,3 +289,23 @@ This happens when Variant received disproportionately more mobile traffic.
 6. Inspect secondary and guardrail metrics (apply correction if needed)
 7. Segment analysis for heterogeneous treatment effects
 8. Document results, limitations, and next steps
+
+## Statistical Significance (Detailed)
+
+**p-value** — the probability of observing a result as extreme as the one obtained if there were truly no difference. Convention: p < 0.05 means statistically significant.
+
+**Confidence interval** — the range within which the true effect likely falls. A 95% CI that does not cross zero indicates significance.
+
+**Why you must not peek at results early:**
+- Checking results multiple times during a test inflates the false-positive rate. Checking 10 times at α=0.05 pushes the actual false-positive rate near 40%.
+- Decide sample size and duration before launch. Analyze only when complete.
+- If interim monitoring is required, use sequential testing methods (Bayesian or group sequential designs) that account for multiple looks.
+
+## Common Pitfalls
+
+- **Testing too many things at once** — if you change headline, button color, and layout simultaneously, you can't attribute the result. Run multivariate (MVT) with the appropriate larger sample if combinations are needed.
+- **Stopping too early** — a 100-visitor "winner" routinely reverses by 1,000. Commit to the planned n.
+- **Ignoring segments** — neutral overall can hide +mobile / −desktop. Always segment-check.
+- **Novelty effect** — users interact more with new things. Run ≥ 2 weeks for novelty to wear off.
+- **No clear hypothesis** — fishing finds spurious "significance" by chance.
+- **Survivorship bias** — measure from exposure, not from completion.

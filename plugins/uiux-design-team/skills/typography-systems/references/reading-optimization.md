@@ -289,3 +289,55 @@ Font loading can cause Cumulative Layout Shift (CLS) when the custom font has di
 - [[../../design-tokens/SKILL.md]] -- Encode reading-optimized values as tokens for consistent application
 
 **Back to:** [Typography Systems Skill](../SKILL.md)
+
+## Reading Metrics (Reference)
+
+### Line Length
+
+Optimal body line length: **45–75 characters**, ideal 65.
+
+```css
+.prose { max-width: 65ch; }
+```
+
+### Line Height Ratios
+
+| Font Size | Recommended Line Height |
+|-----------|-------------------------|
+| 12–14px | 1.6–1.7 |
+| 16–18px | 1.5–1.6 |
+| 20–24px | 1.4–1.5 |
+| 28–36px | 1.2–1.3 |
+| 40px+   | 1.1–1.2 |
+
+Rule: larger size → smaller ratio.
+
+```css
+:root {
+  --leading-tight:   1.2;
+  --leading-snug:    1.375;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose:   1.75;
+}
+```
+
+### Letter Spacing
+
+- All-caps: +0.05 to +0.1em
+- Large display: −0.02 to −0.01em
+- Body: 0 (font designer optimized)
+- Small text: +0.01 to +0.02em
+
+```css
+.uppercase-label { text-transform: uppercase; letter-spacing: 0.08em; }
+.display-heading { letter-spacing: -0.02em; }
+```
+
+### Paragraph Spacing
+
+Use margin between paragraphs, not first-line indent, for screen reading:
+
+```css
+.prose p + p { margin-top: 1.5em; }
+```

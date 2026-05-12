@@ -234,3 +234,47 @@ body { font-size: type-scale(0); } // 1rem
 - [[../../design-tokens/SKILL.md]] -- Encode type scale values as design tokens for cross-platform consistency
 
 **Back to:** [Typography Systems Skill](../SKILL.md)
+
+## Full Ratio Comparison Table
+
+| Ratio | Value | Character | Best For |
+|-------|-------|-----------|----------|
+| Minor Second | 1.067 | Very tight, subtle | Dense data UIs, dashboards |
+| Major Second | 1.125 | Tight, professional | Enterprise SaaS, data-heavy apps |
+| Minor Third | 1.200 | Balanced, versatile | Most web applications |
+| Major Third | 1.250 | Clear, readable | Content-rich sites, blogs |
+| Perfect Fourth | 1.333 | Strong hierarchy | Marketing sites, editorial |
+| Augmented Fourth | 1.414 | Dramatic | Landing pages, portfolios |
+| Perfect Fifth | 1.500 | Very dramatic | Hero sections, display typography |
+| Golden Ratio | 1.618 | Classical proportion | Art, luxury, editorial |
+
+## clamp() Calculation Walkthrough
+
+To produce a fluid value between (min-size at min-viewport) and (max-size at max-viewport):
+
+```
+slope     = (max-size − min-size) / (max-viewport − min-viewport)
+intercept = min-size − slope × min-viewport
+result    = clamp(min-size, (slope × 100)vw + intercept rem, max-size)
+```
+
+Example: min 2rem @ 320px → max 3.815rem @ 1440px
+- slope = (3.815 − 2) / (1440 − 320) = 0.00162rem/px → 0.162rem per 100px ≈ 1.62vw
+- intercept = 2 − (0.00162 × 320) = 1.482rem
+- **result: `clamp(2rem, 1.62vw + 1.482rem, 3.815rem)`**
+
+## Scale Generation Worked Example
+
+Base 16px, Major Third (1.250):
+
+```
+Step −2: 16 / 1.25² = 10.24px → 0.64rem  (caption)
+Step −1: 16 / 1.25  = 12.80px → 0.80rem  (small/label)
+Step  0: 16         = 16.00px → 1.00rem  (body)
+Step  1: 16 × 1.25  = 20.00px → 1.25rem  (lead)
+Step  2: 16 × 1.25² = 25.00px → 1.5625rem (h4)
+Step  3: 16 × 1.25³ = 31.25px → 1.953rem  (h3)
+Step  4: 16 × 1.25⁴ = 39.06px → 2.441rem  (h2)
+Step  5: 16 × 1.25⁵ = 48.83px → 3.052rem  (h1)
+Step  6: 16 × 1.25⁶ = 61.04px → 3.815rem  (display)
+```

@@ -179,3 +179,28 @@ Colors are classified by their position on the color wheel:
 - [[contrast-requirements.md]] - WCAG contrast standards that constrain color choices
 - [[../../visual-design/references/aesthetic-principles.md]] - How color choices support aesthetic direction
 - [[../../visual-design/references/brand-alignment.md]] - Color within brand identity systems
+
+## Color Theory Fundamentals (Moved from SKILL.md)
+
+### Color Wheel
+- Primary: red/blue/yellow (traditional) or RGB (additive)
+- Secondary: orange, green, purple
+- Tertiary: red-orange, blue-green, etc.
+
+### HSL Model
+- Hue 0–360 (0=red, 120=green, 240=blue)
+- Saturation 0–100% (0=gray, 100=full)
+- Lightness 0–100% (drives shade/tint scales)
+
+### Warm vs Cool
+- Warm (red/orange/yellow): advance, energy, urgency → CTAs, alerts
+- Cool (blue/green/purple): recede, calm, trust → backgrounds, info-dense
+- Neutral (gray/beige/slate): visual rest, lets accents stand out
+
+## Palette Generation Methods (Moved from SKILL.md)
+
+- Complementary: opposite on wheel, max contrast (CTAs)
+- Analogous: 3 adjacent, harmony (wellness/nature)
+- Triadic: 3 equally spaced, balanced diversity (playful)
+- Split-Complementary: base + two adjacent to complement; less tension
+- Tetradic: 4 forming rectangle; rich palettes, hardest to balance

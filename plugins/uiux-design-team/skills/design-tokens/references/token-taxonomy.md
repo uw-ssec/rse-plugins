@@ -416,3 +416,31 @@ A controlled z-index scale prevents z-index wars.
 ```
 
 This scale ensures that modals always appear above dropdowns, and toasts always appear above modals, without guessing or hard-coding arbitrary numbers.
+
+## Token Categories (Moved from SKILL.md)
+
+| Category | What It Stores | Examples |
+|----------|---------------|---------|
+| Color | Palette scales, semantic, state | `--color-red-500`, `--color-error` |
+| Spacing | Whitespace, padding, gaps | `--spacing-0` through `--spacing-24` |
+| Sizing | Component/icon/avatar sizes | `--size-icon-sm`, `--size-avatar-lg` |
+| Typography | Families, sizes, weights, line heights | `--font-family-body`, `--font-weight-bold` |
+| Elevation | Box shadows for depth | `--shadow-sm`, `--shadow-lg` |
+| Border radius | Corner rounding | `--radius-sm`, `--radius-full` |
+| Opacity | Transparency levels | `--opacity-disabled` |
+| Motion | Durations and easings | `--duration-fast`, `--ease-in-out` |
+| Breakpoints | Responsive width thresholds | `--breakpoint-sm`, `--breakpoint-lg` |
+| Z-index | Stacking layers | `--z-dropdown`, `--z-modal`, `--z-toast` |
+
+## Tier Detail (Moved from SKILL.md)
+
+**Tier 1 — Global:** raw values, no semantics. Palette + scales.
+**Tier 2 — Alias:** semantic role mapped to global. Theming happens here.
+**Tier 3 — Component:** component-scoped, references alias. Optional — use when component deviates or for explicit dependency documentation.
+
+## Governance (Moved from SKILL.md)
+
+- Adding tokens: any contributor via PR; core team reviews naming + necessity.
+- Changing values: design review required. Global changes ripple — high risk.
+- Removing: treated as breaking change. Deprecate first, remove in major version.
+- Auditing: periodic review for unused, inconsistent names, missing categories.

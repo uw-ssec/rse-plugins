@@ -267,6 +267,29 @@ Focus on high-traffic, high-emotion touchpoints first: error messages, onboardin
 
 Document the voice attributes, tone variations, and rewritten examples in a shared resource. Update it as the product and brand evolve. Review quarterly.
 
+## Quick-Reference Voice Attribute Table
+
+For each chosen attribute, document what it means, what you do, and what you avoid.
+
+| Attribute | This means | We do | We don't |
+|-----------|-----------|-------|----------|
+| **Confident** | We know our product and state things clearly | Direct statements: "Your file is saved." | Hedge with uncertainty: "It looks like your file might be saved." |
+| **Warm** | We treat users like real people | Use "you" and conversational phrasing | Sound robotic: "The user's session has been terminated." |
+| **Straightforward** | We say what we mean without filler | Get to the point: "3 tasks remaining" | Pad with pleasantries: "Great news! You only have 3 tasks remaining!" |
+| **Helpful** | We anticipate needs and address them | Offer the next step inline | Leave users to figure it out |
+| **Honest** | We name tradeoffs and limits | "Available on paid plans" | Bury limitations in fine print |
+
+## Tone Across Contexts
+
+| Context | User's State | Tone | Example |
+|---------|-------------|------|---------|
+| Onboarding | Curious, uncertain | Encouraging, guiding | "Welcome! Let's set up your workspace in 3 steps." |
+| Success | Relieved, accomplished | Celebratory, brief | "Payment processed. You're all set." |
+| Error | Frustrated, confused | Empathetic, helpful | "Something went wrong. Here's what you can try." |
+| Destructive action | Cautious, anxious | Clear, serious | "Delete this workspace? All projects and files will be permanently removed." |
+| Waiting/loading | Impatient | Reassuring, transparent | "Generating your report. This usually takes about 30 seconds." |
+| Empty state | Lost, disoriented | Encouraging, instructive | "No conversations yet. Start one by clicking New Message." |
+
 ## See Also
 
 - [[microcopy-guide.md]] -- Practical patterns for every UI text type, informed by voice and tone decisions

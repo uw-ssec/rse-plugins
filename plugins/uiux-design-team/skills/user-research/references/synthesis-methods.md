@@ -237,3 +237,25 @@ Research findings only matter if they change decisions. Presenting to non-resear
 - [[journey-template.md]] -- Translate synthesized insights into visual journey maps
 
 **Back to:** [User Research Skill](../SKILL.md)
+
+## Affinity Mapping Detail (moved from SKILL.md)
+
+Write each observation on a separate sticky/card. Group related notes into clusters. Name each cluster with a theme. Merge or split until themes feel distinct and meaningful.
+
+## Empathy Map Quadrants
+
+- **Says** — direct quotes from interviews
+- **Thinks** — inferred beliefs and concerns
+- **Does** — observable actions
+- **Feels** — emotional states (frustrated, anxious, confident)
+
+## Insight Statement Template
+
+> "We observed [observation]. We were surprised that [surprise]. Because of this, we might [hypothesis]."
+
+## How Might We Generation
+
+Transform insights into design challenges. Generate 3-5 HMW per insight. Use to seed ideation.
+
+- Insight: Users feel overwhelmed by dashboard on first login.
+- HMW: How might we make the first dashboard experience feel manageable and guided?

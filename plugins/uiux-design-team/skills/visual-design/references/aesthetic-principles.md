@@ -171,3 +171,17 @@ Concrete descriptions of how each tone manifests in a landing page for a project
 - [[visual-hierarchy.md]] - Gestalt principles, scanning patterns, and visual weight
 - [[../../../color-systems/references/color-theory.md]] - Color psychology and perceptual color spaces
 - [[../../../typography-systems/references/font-pairing.md]] - Distinctive font alternatives and pairing principles
+
+## Norman's Three Levels (moved from SKILL.md)
+
+1. Visceral (first 50ms) — pure aesthetics. Invest in first-impression moments (hero, onboarding).
+2. Behavioral — usability. Every interaction needs immediate, clear feedback.
+3. Reflective — meaning, identity. Craft moments of delight (404 pages, completion animations, empathetic errors).
+
+## Anti-Patterns to Avoid
+
+- Inter / Roboto / Arial / system font defaults
+- Purple-gradient-on-white "AI default"
+- Predictable Bento layouts
+- Cookie-cutter components with no context-specific character
+- Converging on Space Grotesk across every generation

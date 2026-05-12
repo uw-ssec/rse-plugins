@@ -272,3 +272,20 @@ Headings typically qualify as large text. Body text, labels, and UI element text
 - [[palette-generation.md]] - Building palettes that meet contrast requirements by design
 - [[../../visual-design/references/visual-hierarchy.md]] - How contrast drives visual hierarchy
 - [[../../visual-design/references/aesthetic-principles.md]] - Balancing aesthetics with accessibility requirements
+
+## Dark Mode Testing Checklist (Moved from SKILL.md)
+
+- [ ] All text meets WCAG AA against dark surfaces
+- [ ] Semantic colors (success/error/warning) remain distinguishable
+- [ ] Images/illustrations don't clash with dark backgrounds
+- [ ] Borders visible but not harsh
+- [ ] Elevated surfaces perceptibly lighter than base
+- [ ] Focus indicators visible
+- [ ] Shadows intensified for dark backgrounds
+
+## Common Failures (Moved from SKILL.md)
+
+- Light gray on white: #999/#fff = 2.85:1 → darken to #767676 (4.54:1)
+- Colored on colored: always verify mathematically, not visually
+- Placeholders: must meet 4.5:1 or pair with visible labels
+- Transparent overlays over images: use solid-enough overlay or text-shadow fallback

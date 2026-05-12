@@ -1,6 +1,6 @@
 ---
 name: information-architecture
-description: Design information architecture including sitemaps, navigation patterns, taxonomy, card sorting, content hierarchy, labeling systems, and wayfinding to structure how users find and understand content.
+description: Use when structuring a new site/app's content, when users report "I can't find anything," when running a card sort or tree test, or when auditing navigation labels and taxonomy for an existing product.
 metadata:
    references:
    - references/card-sorting-methods.md
@@ -10,139 +10,125 @@ metadata:
 
 # Information Architecture
 
-Information architecture (IA) is the structural design of shared information environments. It determines how content is organized, labeled, and connected so that users can find what they need and understand where they are. Poor IA is the silent killer of usability: users don't complain about "bad information architecture" -- they say "I can't find anything" or "this doesn't make sense."
+## Workflow
 
-Good IA makes content findable, understandable, and navigable. It bridges the gap between user mental models and system organization, turning chaotic content into coherent experiences.
+1. **Inventory content** — list every page/feature/content-type in a spreadsheet (cols: URL, title, type, owner, last-updated, traffic).
+2. **Identify user goals** — top 10 tasks users come to do.
+3. **Run open card sort** (15-20 participants via Optimal Workshop / Maze).
+4. **Draft sitemap** — depth ≤ 4 levels, ≤ 7 siblings per node.
+5. **Tree test** — 10+ tasks, 30+ participants.
+   - **Pass:** ≥ 70% direct success (target found within 3 clicks, no backtrack) per task.
+   - **Fail:** restructure the failing branch and re-test before shipping.
+6. **Lock labels** — first-click test the top 10 labels (≥ 80% clicking expected option).
+7. **Wire to navigation patterns** — see [navigation-guide.md](references/navigation-guide.md).
 
-## Quick Start: Creating a Sitemap
+## Deliverable templates
 
-When starting a new project or restructuring an existing one, follow this sequence:
+### Sitemap (indented tree)
 
-1. **Inventory content** -- List every page, feature, and content type that exists or will exist
-2. **Identify user goals** -- What are users trying to accomplish? What do they search for?
-3. **Run a card sort** -- Have users group and label content (see [Card Sorting Methods](references/card-sorting-methods.md))
-4. **Draft the sitemap** -- Organize content into a hierarchy based on sort results and business priorities
-5. **Validate with tree testing** -- Give users tasks and see if they can navigate the hierarchy without a UI
-6. **Define labeling** -- Choose clear, unambiguous labels for every category and page
-7. **Design navigation** -- Translate the sitemap into navigation patterns (see [Navigation Guide](references/navigation-guide.md))
+```
+Root
+├── Products
+│   ├── Plans & Pricing
+│   ├── Features
+│   │   ├── Collaboration
+│   │   ├── Analytics
+│   │   └── Integrations
+│   └── Changelog
+├── Solutions
+│   ├── By Industry
+│   │   ├── Healthcare
+│   │   └── Finance
+│   └── By Team Size
+├── Resources
+│   ├── Docs
+│   ├── Blog
+│   ├── Case Studies
+│   └── Help Center
+├── Company
+│   ├── About
+│   ├── Careers
+│   └── Contact
+└── Auth
+    ├── Sign in
+    └── Sign up
+```
 
-## Navigation Patterns
+Constraints: depth ≤ 4, siblings ≤ 7. Note breadcrumb path for any node ≥ 3 deep.
 
-The navigation model you choose depends on content volume, user tasks, and device context. Each pattern has distinct strengths.
+### Card sort analysis template
 
-### Hierarchical (Tree)
+```
+Study: <name> · Method: open · n=18 · Tool: Optimal Workshop
 
-Content organized in parent-child relationships with multiple depth levels. Best for large content sites, documentation portals, and enterprise applications with many feature areas. Keep depth to 3-4 levels maximum; users lose orientation beyond that.
+Top emergent clusters (by agreement %):
+1. "Account & Billing"  — 89% agreement — 7 cards
+2. "Reports"            — 78% agreement — 6 cards
+3. "Team Management"    — 72% agreement — 5 cards
+4. "Integrations"       — 67% agreement — 4 cards
 
-### Flat
+Disputed cards (assigned to >2 clusters by >25% of participants):
+- "API keys"      → split: Account (45%) vs Integrations (40%)
+- "Audit log"     → split: Reports (35%) vs Settings (35%)
+  Action: test both placements in tree test.
 
-All primary destinations at the same level with no nesting. Best for applications with 4-7 core sections of equal importance. Common in mobile apps where a bottom tab bar provides direct access to every major area.
+Vocabulary used by participants (frequency):
+- "Settings" 14 · "Preferences" 4 · "Configuration" 2 → use "Settings"
+- "Reports" 11 · "Analytics" 7 · "Insights" 3 → use "Reports" (audience match)
 
-### Hub-and-Spoke
+Recommendation:
+- Top-level IA: Home, Reports, Team, Integrations, Settings, Help
+- Move "Audit log" under Settings (matches participant mental model + admin task flow)
+```
 
-A central hub (home screen or dashboard) from which users navigate to discrete task areas and return. Best for mobile apps with independent task flows (banking: accounts, transfers, payments, settings) where cross-section navigation is rare.
+### Labeling audit checklist
 
-### Sequential (Linear)
+For each navigation label, verify:
+- [ ] Unambiguous: a stranger can predict what's behind it
+- [ ] Consistent: same concept = same word across product
+- [ ] User language: matches card-sort vocabulary, not internal jargon
+- [ ] Mutually exclusive: no overlap with sibling labels ("Shoes" vs "Footwear")
+- [ ] Scannable: meaningful word first ("Account Settings" not "Settings for Your Account")
+- [ ] Tested: first-click success ≥ 80%
 
-Users progress through content in a defined order. Best for onboarding flows, checkout processes, wizards, and educational content where steps build on each other. Always show progress and allow backward navigation.
+### Navigation recommendations (output format)
 
-### Faceted
+```
+Pattern:    Hub-and-Spoke
+Primary:    Bottom tab bar (5 items: Home, Search, Create, Inbox, Profile)
+Secondary:  In-screen tabs within each section
+Wayfinding: Sticky section title + breadcrumb when depth ≥ 2
+Rationale:  Tasks are independent (low cross-section navigation).
+            User research showed 92% return to home between tasks.
+```
 
-Multiple simultaneous classification schemes let users filter and combine attributes. Best for e-commerce, search-heavy applications, and content libraries with many items sharing multiple attributes (size, color, price, rating).
+## Navigation pattern picker
 
-For comprehensive navigation implementation guidance, see [Navigation Guide](references/navigation-guide.md).
+| Pattern | When |
+|---------|------|
+| Hierarchical tree | Large content sites, docs, enterprise — depth ≤ 4 |
+| Flat | 4-7 equal-weight sections; mobile bottom-tab |
+| Hub-and-spoke | Independent task flows; rare cross-section nav |
+| Sequential | Onboarding, checkout, wizard — always show progress + back |
+| Faceted | E-commerce, search-heavy libraries with multi-attribute items |
 
-## Content Hierarchy Principles
+Details: [navigation-guide.md](references/navigation-guide.md).
 
-### Progressive Disclosure
+## Validation checkpoints
 
-Show only what users need at each level of engagement. Start with a summary or overview, then let users drill into details on demand. This reduces cognitive load and keeps interfaces clean while still providing depth for users who need it.
+- After card sort: clusters with < 60% agreement → re-run with refined card set.
+- After tree test: any task < 70% success → restructure failing branch, re-test.
+- After labeling audit: any label with < 80% first-click success → rename.
+- After launch: monitor search queries — high volume of "where is X" = IA failure.
 
-- **Level 1**: Title, thumbnail, key metadata (list view)
-- **Level 2**: Summary, primary actions, important details (expanded/detail view)
-- **Level 3**: Full content, secondary actions, related items (deep dive)
+## Deep references
 
-### Information Scent
-
-Users follow "information scent" -- cues that signal whether a path will lead to their goal. Strong scent means clear labels, descriptive link text, and preview content that helps users predict what they'll find. Weak scent causes pogo-sticking (clicking back and forth) and abandonment.
-
-Strengthen scent by:
-- Using descriptive labels instead of clever or branded terms
-- Adding contextual descriptions to navigation items
-- Showing content previews (snippets, thumbnails, metadata)
-- Making search results rich with context
-
-## Labeling Systems
-
-Labels are the words you use to represent categories, navigation items, and content groups. They are the most visible expression of your IA.
-
-### Labeling Principles
-
-| Principle | Description | Example |
-|-----------|-------------|---------|
-| **Clarity** | Labels must be unambiguous | "Pricing" not "Plans & Solutions" |
-| **Consistency** | Same concept = same label everywhere | Don't mix "Settings" and "Preferences" |
-| **User language** | Match how users think and speak | "Help" not "Knowledge Base" (unless your audience expects it) |
-| **Mutual exclusivity** | Categories shouldn't overlap | "Shoes" and "Footwear" in the same nav is confusing |
-| **Scannability** | Front-load meaningful words | "Account Settings" not "Settings for Your Account" |
-
-### Label Testing
-
-Before committing to labels, test them:
-- **First-click testing**: Show users a task and see which label they click first
-- **Highlight testing**: Ask users to highlight the label they'd click for a given task
-- **Card sorting**: Have users label groups they've created (reveals their vocabulary)
-
-## Sitemap Patterns
-
-Different content structures demand different sitemap shapes. Understanding these patterns helps you choose the right foundation. See [Sitemap Patterns](references/sitemap-patterns.md) for detailed diagrams and examples.
-
-## Card Sorting
-
-Card sorting is the foundational IA research method. It reveals how users naturally group and think about content, preventing you from imposing an internal organizational structure that makes sense to the business but confuses users. See [Card Sorting Methods](references/card-sorting-methods.md) for methodology details.
-
-## Deep Dive References
-
-### [Sitemap Patterns](references/sitemap-patterns.md)
-
-- Overview
-- Hierarchical Sitemaps
-- Flat Sitemaps
-- Hub-and-Spoke
-- Sequential / Linear
-- Matrix / Faceted
-- Content Inventory Template
-- Page Naming Conventions
-- *...and 3 more sections*
-
-### [Navigation Guide](references/navigation-guide.md)
-
-- Overview
-- Global Navigation Patterns
-- Local Navigation
-- Navigation Depth vs Breadth Tradeoffs
-- Mega Menus
-- Faceted Navigation for Complex Sites
-- Mobile Navigation Patterns
-- Accessibility Requirements
-- *...and 1 more sections*
-
-### [Card Sorting Methods](references/card-sorting-methods.md)
-
-- Overview
-- Open Card Sorting
-- Closed Card Sorting
-- Hybrid Card Sorting
-- Tools and Facilitation
-- Participant Recruitment
-- Analysis Methods
-- Online vs In-Person
-- *...and 9 more sections*
+- [Sitemap Patterns](references/sitemap-patterns.md) — diagrams + content inventory template
+- [Navigation Guide](references/navigation-guide.md) — global/local/mega-menu/mobile patterns
+- [Card Sorting Methods](references/card-sorting-methods.md) — open/closed/hybrid, analysis
 
 ## Next Steps
 
-After defining the information architecture, move into detailed structural design:
-
-- **[Wireframing](../wireframing/SKILL.md)**: Translate IA into page layouts with content hierarchy and annotation
-- **[User Research](../user-research/SKILL.md)**: Validate IA decisions with real users through testing and observation
-- **[UX Writing](../ux-writing/SKILL.md)**: Craft clear labels, microcopy, and content that reinforces the IA
+- **[Wireframing](../wireframing/SKILL.md)**: translate IA into page layouts
+- **[User Research](../user-research/SKILL.md)**: validate IA with real users
+- **[UX Writing](../ux-writing/SKILL.md)**: craft labels and microcopy

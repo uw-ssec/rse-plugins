@@ -1,6 +1,6 @@
 ---
 name: responsive-design
-description: Implement responsive design with mobile-first methodology, breakpoint strategy, fluid layouts using clamp and minmax, container queries, responsive images, touch targets, and device testing to ensure interfaces work across all screen sizes.
+description: Use when building or refactoring an interface that must work across phone, tablet, and desktop; setting breakpoints; sizing touch targets; serving responsive images; or testing layout across viewports.
 metadata:
    references:
    - references/breakpoint-strategy.md
@@ -10,70 +10,50 @@ metadata:
 
 # Responsive Design
 
-Responsive design is a mindset, not a bolt-on. It is not "make the desktop layout work on mobile." It is designing a single interface that adapts intelligently to the constraints and opportunities of every screen size, input method, and context. The best responsive interfaces feel native to every device, not like a compromise.
+## Workflow
 
-The core principle: design for the smallest screen first, then enhance for larger ones. This forces you to prioritize ruthlessly -- mobile has no room for "nice to have" content. What survives the mobile cut is what truly matters.
+1. **Implement mobile-first.** Write base styles for 320–375px. Add `@media (min-width: ...)` only to enhance.
+2. **Set breakpoint tokens.** Use the standard scale below or content-driven values when layouts break.
+3. **Apply fluid sizing.** Use `clamp()` for type/spacing and `auto-fit minmax()` for grids before reaching for breakpoints.
+4. **Add container queries** for components reused in multiple layout contexts.
+5. **Serve responsive images** with `srcset`/`sizes` or `<picture>`.
+6. **Verify touch targets** ≥ 44×44 CSS px with ≥ 8px gaps.
+7. **Run validation checklist** (bottom). If any check fails, fix and re-test.
 
-## Mobile-First Methodology
-
-Start with the mobile layout and progressively enhance for larger screens. This approach has practical benefits:
-
-- **Forces content prioritization**: Limited space means only essential content survives
-- **Performance by default**: Mobile-first CSS loads the lightest styles first; larger screen styles load conditionally
-- **Simpler CSS**: Adding styles for larger screens (min-width) is more intuitive than overriding desktop styles for smaller screens (max-width)
-- **Realistic constraints**: Most users are on mobile. Starting there ensures the majority experience is designed first, not retrofitted
+## Breakpoint Tokens
 
 ```css
-/* Mobile-first: base styles are for mobile */
+:root {
+  --bp-sm: 640px;   /* large phones landscape */
+  --bp-md: 768px;   /* tablets portrait */
+  --bp-lg: 1024px;  /* tablets landscape, small laptops */
+  --bp-xl: 1280px;  /* laptops, desktops */
+  --bp-2xl: 1536px; /* large desktops */
+}
+```
+
+```css
+/* Mobile-first pattern */
 .card { padding: 1rem; }
-
-/* Enhance for tablet */
-@media (min-width: 768px) {
-  .card { padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; }
-}
-
-/* Enhance for desktop */
-@media (min-width: 1280px) {
-  .card { padding: 2rem; grid-template-columns: 1fr 1fr 1fr; }
-}
+@media (min-width: 768px) { .card { padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1280px) { .card { padding: 2rem; grid-template-columns: 1fr 1fr 1fr; } }
 ```
 
-## Breakpoint Strategy
-
-Breakpoints should be driven by content, not devices. When the layout breaks -- when content becomes cramped, lines become too long, or elements lose their relationship -- that is where a breakpoint belongs.
-
-That said, common breakpoints align with device categories for practical reasons:
-
-| Token | Width | Typical Devices |
-|-------|-------|----------------|
-| `sm` | 640px | Large phones in landscape |
-| `md` | 768px | Tablets in portrait |
-| `lg` | 1024px | Tablets in landscape, small laptops |
-| `xl` | 1280px | Laptops, desktops |
-| `2xl` | 1536px | Large desktops, external monitors |
-
-Store breakpoints as design tokens. Use consistent names across CSS, JavaScript, and design tools. See [Breakpoint Strategy](references/breakpoint-strategy.md) for detailed guidance.
-
-## Fluid Layouts
-
-Rather than jumping between fixed layouts at breakpoints, use fluid techniques that scale smoothly.
-
-### clamp()
-
-The most powerful tool for fluid sizing. Sets a minimum, preferred, and maximum value.
+## Fluid Sizing with clamp()
 
 ```css
-/* Font size: minimum 1rem, scales with viewport, maximum 1.5rem */
-font-size: clamp(1rem, 0.5rem + 1.5vw, 1.5rem);
+:root {
+  --fs-base: clamp(1rem, 0.5rem + 1vw, 1.125rem);
+  --fs-h1:   clamp(2rem, 1rem + 3vw, 3.5rem);
+  --fs-h2:   clamp(1.5rem, 0.75rem + 2vw, 2.5rem);
+}
 
-/* Padding: minimum 1rem, scales fluidly, maximum 3rem */
-padding: clamp(1rem, 3vw, 3rem);
+.section { padding: clamp(1rem, 3vw, 3rem); }
 ```
 
-### minmax() in CSS Grid
+## Auto-Reflowing Grid
 
 ```css
-/* Cards that are at least 280px, fill available space, wrap automatically */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -81,136 +61,74 @@ padding: clamp(1rem, 3vw, 3rem);
 }
 ```
 
-For comprehensive fluid layout recipes, see [Fluid Layouts](references/fluid-layouts.md).
-
 ## Container Queries
 
-Container queries enable component-level responsiveness. Instead of reacting to the viewport width, a component reacts to the width of its container. This means the same component can adapt whether it is in a full-width main content area or a narrow sidebar.
-
 ```css
-.card-container {
-  container-type: inline-size;
-}
+.card-container { container-type: inline-size; }
 
-@container (min-width: 400px) {
-  .card { display: grid; grid-template-columns: 200px 1fr; }
-}
-
-@container (min-width: 600px) {
-  .card { grid-template-columns: 250px 1fr 150px; }
-}
+@container (min-width: 400px) { .card { display: grid; grid-template-columns: 200px 1fr; } }
+@container (min-width: 600px) { .card { grid-template-columns: 250px 1fr 150px; } }
 ```
 
-Container queries represent a fundamental shift from page-level to component-level responsive design. See [Container Queries](references/container-queries.md) for implementation patterns.
-
 ## Responsive Images
-
-Images are often the heaviest assets on a page. Responsive image techniques ensure the right image loads for the right context.
-
-### srcset and sizes
 
 ```html
 <img
   src="hero-800.jpg"
   srcset="hero-400.jpg 400w, hero-800.jpg 800w, hero-1200.jpg 1200w"
   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-  alt="Hero image"
+  alt="..."
 />
-```
 
-### picture Element
-
-```html
 <picture>
   <source media="(min-width: 1024px)" srcset="hero-wide.avif" type="image/avif" />
   <source media="(min-width: 1024px)" srcset="hero-wide.webp" type="image/webp" />
   <source srcset="hero-narrow.avif" type="image/avif" />
-  <source srcset="hero-narrow.webp" type="image/webp" />
-  <img src="hero-narrow.jpg" alt="Hero image" />
+  <img src="hero-narrow.jpg" alt="..." />
 </picture>
 ```
 
-Prefer AVIF (best compression) with WebP fallback and JPEG as the final fallback.
+Prefer AVIF, then WebP, then JPEG.
 
 ## Touch Targets
 
-Mobile interfaces are operated by imprecise fingers, not precise cursors. WCAG 2.5.8 requires a minimum target size of 44x44 CSS pixels. Apple's HIG recommends 44pt and Material Design recommends 48dp.
+- Minimum 44×44 CSS px (WCAG 2.5.8).
+- ≥ 8px gap between adjacent targets.
+- Icon-only buttons: expand tap area with padding.
+- Inline links: increase line-height for vertical hit area.
 
-- **Buttons, links, and interactive elements**: Minimum 44x44px
-- **Spacing between targets**: At least 8px gap to prevent accidental taps
-- **Inline links in text**: Increase line height to create sufficient vertical target space
-- **Icon buttons without visible boundaries**: Use padding to expand the tap area beyond the visible icon
+## Validation Workflow
 
-## Responsive Typography
+Execute in order. If a step fails, fix before proceeding.
 
-Typography should scale fluidly between breakpoints, not jump between fixed sizes.
+**1. Breakpoint sweep.** Resize browser through 320, 375, 414, 640, 768, 1024, 1280, 1536, 1920 px. Pass: no horizontal scroll, no overflow, no overlapping content.
 
-```css
-:root {
-  --font-size-base: clamp(1rem, 0.5rem + 1vw, 1.125rem);
-  --font-size-h1: clamp(2rem, 1rem + 3vw, 3.5rem);
-  --font-size-h2: clamp(1.5rem, 0.75rem + 2vw, 2.5rem);
-  --line-height-body: clamp(1.5, 1.4 + 0.2vw, 1.75);
-}
+**2. Touch target audit.**
+```bash
+# Lighthouse mobile audit
+npx lighthouse https://localhost:3000 --preset=mobile --only-categories=accessibility
 ```
+Pass: "Tap targets are sized appropriately" score = 100.
 
-Maintain a minimum of 16px for body text on all devices to ensure readability without zooming.
+**3. Image loading verification.** Open DevTools Network panel, filter to Img. At 375px viewport, the 400w variant loads (not 1200w). At 1280px viewport, the 1200w variant loads.
 
-## Device Testing Strategy
+**4. Container query check.** Place the same component in a wide container and a narrow container on one page. Confirm both render appropriately.
 
-Responsive design requires testing on real devices, not just browser resize.
+**5. Real-device test matrix.** Pass on each of: iPhone SE (375), iPhone 14 (390), iPad (768), iPad landscape (1024), 13-inch laptop (1366), desktop (1920).
 
-| Test Level | Method | What It Catches |
-|------------|--------|----------------|
-| **Browser resize** | Drag browser window | Layout breaks, overflow, squished content |
-| **Device emulation** | Chrome DevTools, Safari Responsive Mode | Touch target sizes, viewport units, safe areas |
-| **Real devices** | Physical phones and tablets | Touch behavior, scroll performance, font rendering |
-| **Network conditions** | Throttled connections | Image loading order, lazy load behavior, skeleton states |
+**6. Network throttling.** Chrome DevTools → Slow 3G. Verify skeleton states or loading indicators appear; no layout shift on image load (CLS < 0.1).
 
-Test at least: iPhone SE (375px), iPhone 14 (390px), iPad (768px), iPad landscape (1024px), laptop (1366px), desktop (1920px).
+**7. Body text minimum.** Inspect computed font-size on body text at smallest breakpoint. Pass: ≥ 16px.
 
 ## Deep Dive References
 
-### [Breakpoint Strategy](references/breakpoint-strategy.md)
-
-- Common Breakpoint Values
-- Mobile-First vs Desktop-First
-- Content-First Breakpoints
-- Device-Agnostic Approach
-- Breakpoint Naming Conventions
-- Breakpoints in CSS Custom Properties
-- Breakpoints with Container Queries
-- Testing Across Breakpoints
-
-### [Fluid Layouts](references/fluid-layouts.md)
-
-- Fluid Typography with clamp()
-- Fluid Spacing with clamp()
-- Fluid Grid Columns
-- aspect-ratio Property
-- Viewport Units
-- min() / max() / clamp() for Responsive Values
-- Fluid Images
-- Fluid Containers Without max-width Breakpoints
-- *...and 1 more sections*
-
-### [Container Queries](references/container-queries.md)
-
-- container-type
-- container-name
-- @container Rule Syntax
-- Container Query Units
-- Nesting Containers
-- Combining with Media Queries
-- Component-Level Responsive Design
-- Browser Support
-- *...and 2 more sections*
+- [Breakpoint Strategy](references/breakpoint-strategy.md) — Common values, content-first, naming, CSS custom properties, container query integration
+- [Fluid Layouts](references/fluid-layouts.md) — clamp(), fluid type, aspect-ratio, viewport units, min/max
+- [Container Queries](references/container-queries.md) — container-type, nesting, units, browser support
 
 ## Next Steps
 
-After implementing responsive design, build out the supporting systems:
-
-- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: CSS Grid and Flexbox layout patterns for responsive structures
-- **[CSS Architecture](../css-architecture/SKILL.md)**: Organize responsive styles with scalable CSS methodology
-- **[Wireframing](../wireframing/SKILL.md)**: Design responsive wireframes showing layout transformations
-- **[Design Tokens](../design-tokens/SKILL.md)**: Store breakpoints and fluid values as design tokens
+- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: Grid/Flexbox patterns for responsive structures
+- **[CSS Architecture](../css-architecture/SKILL.md)**: Organize responsive styles
+- **[Wireframing](../wireframing/SKILL.md)**: Design responsive wireframes
+- **[Design Tokens](../design-tokens/SKILL.md)**: Store breakpoints and fluid values as tokens

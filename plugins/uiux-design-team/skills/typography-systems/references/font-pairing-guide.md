@@ -194,3 +194,55 @@ Set the pairing against a dark background. Some fonts with thin strokes (Didone 
 - [[../../color-systems/references/contrast-requirements.md]] -- Verify text contrast ratios for both fonts
 
 **Back to:** [Typography Systems Skill](../SKILL.md)
+
+## Extended Pairing List (Reliable Combinations)
+
+**Serif heading + Sans-serif body (most versatile):**
+- Playfair Display + Source Sans Pro
+- Lora + Inter
+- Merriweather + Open Sans
+- Fraunces + Work Sans
+
+**Sans-serif heading + Serif body (editorial feel):**
+- Montserrat + Lora
+- Poppins + Merriweather
+- DM Sans + Charter
+
+**Display heading + Clean body (strong personality):**
+- Space Grotesk + Inter
+- Cabinet Grotesk + Söhne
+- Clash Display + Satoshi
+
+**Monospace accent + Sans-serif body (developer/technical):**
+- JetBrains Mono + Inter
+- Fira Code + Source Sans Pro
+- IBM Plex Mono + IBM Plex Sans
+
+## Pairing Principles (Detail)
+
+1. **Contrast, not conflict** — pair clearly different fonts that still share structural DNA. Geometric sans + humanist serif works; two similar sans-serifs creates confusion.
+2. **Limit to 2–3 fonts** — heading, body, optional monospace/accent. More creates noise.
+3. **Match x-height** — similar x-heights feel natural together at different sizes.
+4. **Share an era or designer** — fonts from a shared design origin pair predictably.
+
+## Font Loading Strategy
+
+```html
+<link rel="preload" href="/fonts/heading.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/body.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+```css
+@font-face {
+  font-family: 'Heading';
+  src: url('/fonts/heading.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Body';
+  src: url('/fonts/body.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+```

@@ -327,6 +327,50 @@ Onboarding text guides new users through setup and first use.
 | First-time tooltip | "This is your inbox. Messages from your team appear here." |
 | Completion encouragement | "Great start! You've completed 2 of 5 setup steps." |
 
+## Empty State Type Templates
+
+**First-use empty state** (user has never added content):
+- Visual that hints at the feature
+- Headline naming the feature: "No projects yet"
+- Description of value: "Projects help you organize tasks, deadlines, and team members in one place."
+- Clear CTA: "Create your first project"
+
+**User-cleared empty state** (user removed all content):
+- Acknowledge: "All caught up!"
+- Reinforce value: "New tasks will appear here when assigned to you."
+- Optional CTA: "Browse open tasks"
+
+**Error empty state** (content failed to load):
+- State what failed: "Couldn't load your projects"
+- Recovery action: "Try again" button
+- Alternative path: "Check your connection or visit our status page"
+
+## Common UI Text Patterns
+
+| Element | Bad | Good | Why |
+|---------|-----|------|-----|
+| Submit button | Submit | Create account | Specific verb describes outcome |
+| Cancel button | Cancel | Discard changes | Clarifies what canceling does |
+| Delete confirmation | Are you sure? | Delete "Project Alpha"? This can't be undone. | Names the thing, states the consequence |
+| Empty search | No results | No results for "fluxcapacitor". Try a different search term. | Reflects query, suggests next step |
+| Loading state | Loading... | Preparing your dashboard... | Describes what is happening |
+| Tooltip | Info | Visible to team members only | Provides actual information |
+| Form placeholder | Enter text here | jane@example.com | Shows format, not instruction |
+| Success toast | Success | Invoice sent to jane@example.com | Confirms specific action |
+
+## Button & CTA Patterns
+
+| Action | Weak | Strong |
+|--------|------|--------|
+| Creating | Submit | Create project |
+| Saving | OK | Save changes |
+| Deleting | Yes | Delete file |
+| Upgrading | Continue | Start free trial |
+| Inviting | Add | Send invitation |
+| Confirming | OK | Got it |
+| Dismissing | Close | Dismiss |
+| Starting | Start | Generate report |
+
 ## See Also
 
 - [[error-message-patterns.md]] -- Deep dive into error message types, tone calibration, and localization

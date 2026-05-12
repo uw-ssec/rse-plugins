@@ -442,3 +442,44 @@ When navigation changes the page content without a full page load:
 - [ ] Skip links are present and functional
 - [ ] Search is available as an alternative to browsing navigation
 - [ ] Navigation scales gracefully as content grows
+
+## Navigation Pattern Details (moved from SKILL.md)
+
+### Hierarchical (Tree)
+Parent-child with multiple depth levels. Keep depth ≤ 4 levels — users lose orientation beyond that. Best for documentation portals and enterprise apps.
+
+### Flat
+All primary destinations at the same level, no nesting. Best for apps with 4-7 core sections of equal importance. Common with bottom tab bars on mobile.
+
+### Hub-and-Spoke
+Central dashboard, navigate out to discrete tasks, return. Best for banking-style mobile apps where cross-section navigation is rare.
+
+### Sequential (Linear)
+Defined order. Onboarding, checkout, wizards. Always show progress and allow backward navigation.
+
+### Faceted
+Multiple simultaneous classification schemes (size, color, price, rating). Best for e-commerce, search-heavy libraries.
+
+## Labeling Principles
+
+| Principle | Example |
+|-----------|---------|
+| Clarity | "Pricing" not "Plans & Solutions" |
+| Consistency | Don't mix "Settings" and "Preferences" |
+| User language | "Help" not "Knowledge Base" unless audience expects it |
+| Mutual exclusivity | "Shoes" + "Footwear" in same nav is confusing |
+| Scannability | Front-load meaningful words |
+
+## Progressive Disclosure Levels
+
+- L1: title, thumbnail, key metadata (list view)
+- L2: summary, primary actions, important details (detail view)
+- L3: full content, secondary actions, related items (deep dive)
+
+## Information Scent
+
+Users follow cues that signal whether a path leads to their goal. Strengthen by:
+- Descriptive labels, not branded/clever terms
+- Contextual descriptions on nav items
+- Content previews (snippets, thumbnails, metadata)
+- Rich search result context

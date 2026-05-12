@@ -309,3 +309,13 @@ legend { font-weight: 600; padding: 0 0.5rem; }
 - [[../../wireframing/references/layout-systems.md]] -- Layout systems apply Gestalt continuation and symmetry to structural patterns
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
+
+## Gestalt Principles (Moved from SKILL.md)
+
+1. Proximity — closeness = grouping
+2. Similarity — shared visual properties = related
+3. Closure — mind completes incomplete shapes
+4. Continuation — eye follows smooth lines
+5. Figure-ground — foreground vs background
+6. Common region — shared boundary = group
+7. Symmetry and order — balance perceived as cohesion

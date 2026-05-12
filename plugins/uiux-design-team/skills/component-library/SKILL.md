@@ -1,6 +1,6 @@
 ---
 name: component-library
-description: Build component libraries with composition patterns, variant systems using CVA, state management for UI components, accessibility requirements per component, Storybook documentation, and visual regression testing.
+description: Use when implementing or extending a shared component library — scaffolding new components with CVA variants, writing Storybook stories, wiring visual regression, or auditing existing components for state and a11y coverage.
 metadata:
    references:
    - references/composition-patterns.md
@@ -10,165 +10,124 @@ metadata:
 
 # Component Library
 
-A component library is the implementation of a design system. While the design system defines the rules -- tokens, principles, patterns -- the component library is the code that enforces them. Every component encapsulates structure, style, behavior, and accessibility into a reusable unit that teams consume to build interfaces.
+## Build Order (with validation gates)
 
-A well-built component library eliminates the most expensive form of technical debt: inconsistency. When every button, modal, and form field comes from a shared library, changes propagate everywhere, accessibility is baked in, and new features ship faster because developers compose from existing parts rather than building from scratch.
+1. **Tokens published** → verify with `rg -- '--color-' dist/tokens.css`.
+2. **Layout primitives** (`Box`, `Stack`, `Flex`, `Grid`) → verify token consumption: `rg "#[0-9a-fA-F]{6}" src/primitives/` exits empty.
+3. **Typography** (`Heading`, `Text`, `Label`).
+4. **Button** → run a11y audit before proceeding: `npx test-storybook --url http://127.0.0.1:6006` zero violations.
+5. **Form atoms** (`Input`, `Select`, `Checkbox`, `Radio`) → keyboard nav test passes.
+6. **Containers** (`Card`, `Modal`, `Drawer`) → focus-trap test passes for Modal.
+7. **Data** (`Table`, `List`) → axe-core audit on rendered story.
+8. **Nav** (`Nav`, `Tabs`, `Breadcrumbs`).
 
-## Component Inventory Methodology
+Gate per tier: a11y audit clean + visual regression reviewed before next tier.
 
-Before building, understand what you have and what you need.
+## Compound Component (Select)
 
-### Audit Process
+```tsx
+import { createContext, useContext, useState, ReactNode } from "react";
 
-1. **Screenshot every screen** in the current product. Group screenshots by page type (dashboard, settings, forms, lists).
-2. **Extract unique components**: Identify every distinct UI element. A "distinct" element is one that differs in structure, behavior, or purpose -- not just color or size.
-3. **Catalog variants**: For each component, document all observed variations. Three different button styles means three variants of one Button component, not three components.
-4. **Score by priority**: Use a 2x2 matrix of **frequency** (how many screens use it) and **inconsistency** (how many unintentional variants exist). High-frequency, high-inconsistency components get built first.
+type Ctx = { value: string | null; setValue: (v: string) => void };
+const SelectCtx = createContext<Ctx | null>(null);
 
-### Recommended Build Order
+export function Select({ children, defaultValue = null }:
+  { children: ReactNode; defaultValue?: string | null }) {
+  const [value, setValue] = useState<string | null>(defaultValue);
+  return (
+    <SelectCtx.Provider value={{ value, setValue }}>
+      <div role="listbox" className="rounded-md border">{children}</div>
+    </SelectCtx.Provider>
+  );
+}
 
-Start with the components everything else depends on:
+Select.Option = function Option({ value, children }:
+  { value: string; children: ReactNode }) {
+  const ctx = useContext(SelectCtx)!;
+  const selected = ctx.value === value;
+  return (
+    <button role="option" aria-selected={selected}
+      onClick={() => ctx.setValue(value)}
+      className={selected ? "bg-[var(--color-brand-500)] text-white" : ""}>
+      {children}
+    </button>
+  );
+};
+```
 
-1. **Design tokens** (consumed by all components)
-2. **Layout primitives** (Box, Stack, Flex, Grid)
-3. **Typography** (Heading, Text, Label)
-4. **Button** (most used interactive element)
-5. **Input, Select, Checkbox, Radio** (form foundation)
-6. **Card, Modal, Drawer** (container components)
-7. **Table, List** (data display)
-8. **Navigation components** (Nav, Tabs, Breadcrumbs)
+## CVA Variant Definition
 
-## Composition Patterns
-
-How components are structured internally determines how flexible and maintainable they are. See [Composition Patterns](references/composition-patterns.md) for detailed guidance.
-
-### Compound Components
-
-A parent component manages shared state while child components handle rendering. Like `<Select>` containing `<Option>` elements. The parent provides context; children consume it.
-
-### Headless Components
-
-Logic-only components that provide behavior without any rendered UI. Consumers supply all markup and styling. Libraries like Radix UI and Headless UI follow this pattern. Maximum flexibility at the cost of more consumer effort.
-
-### Slots and Children
-
-Named insertion points where consumers inject custom content. Vue and Svelte have native slot syntax. In React, use children for the default slot and named props (e.g., `header`, `footer`) for additional slots.
-
-## Variant Systems with CVA
-
-Class Variance Authority (CVA) provides a structured way to define component variants when using utility-first CSS like Tailwind.
-
-```typescript
+```ts
 import { cva } from "class-variance-authority";
-
-const button = cva("inline-flex items-center justify-center font-medium", {
+export const button = cva("inline-flex items-center font-medium rounded-md", {
   variants: {
-    variant: {
-      solid: "bg-primary text-white",
-      outline: "border-2 border-primary text-primary",
-      ghost: "text-primary hover:bg-primary/10",
-    },
-    size: {
-      sm: "h-8 px-3 text-sm",
-      md: "h-10 px-4 text-base",
-      lg: "h-12 px-6 text-lg",
-    },
+    intent: { primary: "bg-primary text-white",
+              outline: "border-2 border-primary text-primary",
+              ghost:   "text-primary hover:bg-primary/10" },
+    size:   { sm: "h-8 px-3 text-sm", md: "h-10 px-4", lg: "h-12 px-6 text-lg" }
   },
-  defaultVariants: {
-    variant: "solid",
-    size: "md",
-  },
+  compoundVariants: [
+    { intent: "ghost", size: "sm", class: "underline-offset-2" }
+  ],
+  defaultVariants: { intent: "primary", size: "md" }
 });
 ```
 
-For detailed CVA patterns and alternatives, see [Variant Systems](references/variant-systems.md).
+## Storybook Story (`Button.stories.tsx`)
 
-## Component States
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
 
-Every interactive component must handle multiple states. Designing for the "happy path" alone creates fragile interfaces.
+const meta: Meta<typeof Button> = {
+  component: Button,
+  args: { children: "Click me" },
+  argTypes: { intent: { control: "select", options: ["primary","outline","ghost"] },
+              size:   { control: "select", options: ["sm","md","lg"] } },
+  parameters: { a11y: { config: { rules: [{ id: "color-contrast", enabled: true }] } } }
+};
+export default meta;
 
-| State | Description | Design Requirement |
-|-------|-------------|-------------------|
-| **Empty** | No data to display | Helpful message, illustration, action to add data |
-| **Loading** | Data is being fetched | Skeleton, spinner, or progress indicator |
-| **Partial** | Some data loaded, more available | Render available data, indicate more exists |
-| **Error** | Something went wrong | Clear error message, recovery action, retry option |
-| **Ideal** | Everything works as expected | Full content displayed as designed |
-| **Disabled** | Interaction is not available | Reduced opacity, no pointer events, tooltip explaining why |
-| **Hover** | Pointer is over the element | Visual feedback (color shift, elevation change) |
-| **Focus** | Keyboard focus is on the element | Visible focus ring (required for accessibility) |
-| **Active/Pressed** | Element is being clicked or tapped | Compressed or darkened appearance |
+export const Primary: StoryObj<typeof Button> = {};
+export const Disabled: StoryObj<typeof Button> = { args: { disabled: true } };
+export const Loading:  StoryObj<typeof Button> = { args: { children: "Loading…" } };
+```
 
-For comprehensive state management patterns, see [State Management](references/state-management.md).
+## Playwright Visual Regression (`tests/visual/button.spec.ts`)
 
-## Accessibility Per Component Type
+```ts
+import { test, expect } from "@playwright/test";
 
-Accessibility is not an add-on. Every component must meet these requirements at the library level.
+const stories = ["primary", "disabled", "loading"];
+for (const id of stories) {
+  test(`Button ${id} visual`, async ({ page }) => {
+    await page.goto(`http://127.0.0.1:6006/iframe.html?id=button--${id}`);
+    await expect(page.locator("#storybook-root"))
+      .toHaveScreenshot(`button-${id}.png`, { maxDiffPixelRatio: 0.01 });
+  });
+}
+```
 
-| Component | Key Requirements |
-|-----------|-----------------|
-| **Button** | Proper role, disabled state announced, loading state announced, keyboard activation (Enter/Space) |
-| **Input** | Associated label (for/id or aria-labelledby), error state linked (aria-describedby), required announced |
-| **Modal** | Focus trap, Escape to close, focus returns to trigger, aria-modal, announced on open |
-| **Tabs** | role=tablist/tab/tabpanel, arrow key navigation, active tab state announced |
-| **Dropdown** | role=listbox or menu, arrow key navigation, typeahead, Escape to close |
-| **Toast** | role=alert or aria-live=polite, auto-dismiss with sufficient time, dismiss action |
-| **Table** | Proper th/td semantics, scope attributes, sortable column announcement |
+Run: `npx playwright test tests/visual/ --update-snapshots` on intentional changes; fail-block on diffs in CI.
 
-## Documentation with Storybook
+## Accessibility Audit (per-component gate)
 
-Every component in the library needs a Storybook story that serves as both documentation and a testing surface.
+```bash
+# Headless axe-core on every Storybook story
+npx test-storybook --url http://127.0.0.1:6006 --maxWorkers=2
+# Or one-off:
+npx @axe-core/cli http://127.0.0.1:6006/iframe.html?id=button--primary
+```
 
-### Story Requirements
+Pass: zero serious/critical violations. Track moderate violations in issue tracker.
 
-- **Default story**: Component with default props
-- **All variants**: One story per variant combination (or use Controls addon)
-- **States**: Stories for loading, error, disabled, empty states
-- **Responsive**: Stories showing component at different widths
-- **Accessibility**: Include a11y addon panel showing automated audit results
-- **Usage docs**: MDX page with guidelines, do/don't examples, code snippets
+## References
 
-## Visual Regression Testing
-
-Prevent unintended visual changes with automated screenshot comparison.
-
-- **Chromatic** or **Percy**: Cloud-based visual testing that captures screenshots of every Storybook story
-- **Playwright screenshot tests**: Local visual regression with pixel comparison
-- Run visual tests on every pull request. Require approval for any visual diff.
-
-## Deep Dive References
-
-### [Composition Patterns](references/composition-patterns.md)
-
-- Compound Components
-- Render Props and Slots
-- Headless Components
-- Provider Pattern
-- Controlled vs Uncontrolled
-- Forwarding Refs
-- Polymorphic Components
-
-### [Variant Systems](references/variant-systems.md)
-
-- CVA Detailed Usage
-- Compound Variants
-- Tailwind Integration
-- Alternative Approaches
-- Type-Safe Variant APIs
-- Variant Documentation Patterns
-
-### [State Management](references/state-management.md)
-
-- The Five UI States
-- State Machines
-- Controlled vs Uncontrolled Components
-- Optimistic Updates
-- Form State Management
-- Loading State Patterns
+- [Composition Patterns](references/composition-patterns.md) — compound, headless, polymorphic, refs
+- [Variant Systems](references/variant-systems.md) — CVA, compound variants, type-safe APIs
+- [State Management](references/state-management.md) — five UI states table, a11y requirements table, state machines
 
 ## Next Steps
-
-After building the component library, integrate and expand:
 
 - **[Design System Creation](../design-system-creation/SKILL.md)**: Ensure the library aligns with the broader design system governance
 - **[Design Tokens](../design-tokens/SKILL.md)**: Consume tokens correctly and contribute component tokens back to the system

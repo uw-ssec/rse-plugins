@@ -373,3 +373,38 @@ Create a comprehensive scorecard by combining multiple metrics:
 - Report confidence intervals alongside mean scores
 - For A/B comparisons, use paired or independent samples depending on study design
 - Minimum sample sizes: 8-12 for descriptive statistics, 20+ per group for inferential comparisons
+
+## SUS Full Questionnaire (moved from SKILL.md)
+
+Each item rated 1 (Strongly Disagree) to 5 (Strongly Agree):
+
+1. I think that I would like to use this system frequently.
+2. I found the system unnecessarily complex.
+3. I thought the system was easy to use.
+4. I think that I would need the support of a technical person to use this system.
+5. I found the various functions in this system were well integrated.
+6. I thought there was too much inconsistency in this system.
+7. I would imagine that most people would learn to use this system very quickly.
+8. I found the system very cumbersome to use.
+9. I felt very confident using the system.
+10. I needed to learn a lot of things before I could get going with this system.
+
+**Scoring formula**
+- For odd items (1, 3, 5, 7, 9): adjusted = score − 1
+- For even items (2, 4, 6, 8, 10): adjusted = 5 − score
+- Sum all adjusted scores and multiply by 2.5
+
+**Interpretation**
+- < 50: unacceptable; significant redesign needed
+- 50-67: marginal; address notable issues
+- 68: industry average
+- 68-80: good
+- 80-90: excellent
+- > 90: exceptional, best-in-class
+
+## Severity Rating Decision Criteria (moved from SKILL.md)
+
+- Does the issue prevent task completion? (yes → 3 or 4)
+- Critical path vs edge case? (critical path → higher severity)
+- Can user recover unaided? (no → higher severity)
+- How many users affected? (wide impact → higher)

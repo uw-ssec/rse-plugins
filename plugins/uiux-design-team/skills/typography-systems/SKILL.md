@@ -1,6 +1,6 @@
 ---
 name: typography-systems
-description: Build responsive typography systems with modular type scales, fluid typography using clamp(), font pairing strategies, reading metrics optimization, and CSS custom properties for systematic type management across devices and contexts.
+description: Use when building a new type scale, converting fixed sizes to fluid clamp() values, choosing or pairing fonts, fixing readability issues (line height, measure, tracking), or encoding typography as design tokens / CSS custom properties.
 metadata:
    references:
    - references/font-pairing-guide.md
@@ -10,105 +10,43 @@ metadata:
 
 # Typography Systems
 
-Typography is the foundation of interface design. It carries 95% of the information in most interfaces, and its quality determines whether content is readable, scannable, and emotionally resonant. A well-built typography system eliminates ad hoc font sizing decisions and creates visual rhythm across every screen.
+## Build Workflow
 
-## Type Scale Fundamentals
+### Step 1 — Choose a ratio
 
-A type scale is a predetermined set of font sizes based on a mathematical ratio. Using a scale ensures harmonious proportions and eliminates arbitrary sizing decisions.
+Pick by use case (full table in [type-scale-theory.md](references/type-scale-theory.md)):
 
-### Common Ratios
+| Context | Ratio |
+|---------|-------|
+| Dense data UI / dashboard | 1.125 (Major Second) |
+| Most web apps | 1.200 (Minor Third) |
+| Content / blog | 1.250 (Major Third) |
+| Marketing / editorial | 1.333 (Perfect Fourth) |
+| Landing / hero | 1.500 (Perfect Fifth) |
 
-| Ratio | Value | Character | Best For |
-|-------|-------|-----------|----------|
-| Minor Second | 1.067 | Very tight, subtle | Dense data UIs, dashboards |
-| Major Second | 1.125 | Tight, professional | Enterprise SaaS, data-heavy apps |
-| Minor Third | 1.200 | Balanced, versatile | Most web applications |
-| Major Third | 1.250 | Clear, readable | Content-rich sites, blogs |
-| Perfect Fourth | 1.333 | Strong hierarchy | Marketing sites, editorial |
-| Augmented Fourth | 1.414 | Dramatic | Landing pages, portfolios |
-| Perfect Fifth | 1.500 | Very dramatic | Hero sections, display typography |
-| Golden Ratio | 1.618 | Classical proportion | Art, luxury, editorial |
+**Checkpoint:** Hold the ratio against your densest screen. If h1 dwarfs everything, drop one step.
 
-### Generating a Scale
+### Step 2 — Generate the scale
 
-Start with a base size (typically 16px for body text) and multiply by the ratio for each step up, divide for each step down:
-
-```
-Base: 16px, Ratio: 1.250 (Major Third)
-
-Step -2: 16 / 1.250 / 1.250 = 10.24px → 0.64rem  (caption, fine print)
-Step -1: 16 / 1.250            = 12.80px → 0.80rem  (small text, labels)
-Step  0: 16                     = 16.00px → 1.00rem  (body text)
-Step  1: 16 × 1.250            = 20.00px → 1.25rem  (large body, lead text)
-Step  2: 16 × 1.250²           = 25.00px → 1.5625rem (h4, subheading)
-Step  3: 16 × 1.250³           = 31.25px → 1.953rem  (h3)
-Step  4: 16 × 1.250⁴           = 39.06px → 2.441rem  (h2)
-Step  5: 16 × 1.250⁵           = 48.83px → 3.052rem  (h1)
-Step  6: 16 × 1.250⁶           = 61.04px → 3.815rem  (display)
-```
-
-### CSS Custom Properties
+Base 16px (or 1rem). Multiply up, divide down. Tools: `npx type-scale-generator`, or by hand. Worked example in [type-scale-theory.md](references/type-scale-theory.md).
 
 ```css
 :root {
-  --font-size-xs:      0.64rem;   /* 10.24px */
-  --font-size-sm:      0.80rem;   /* 12.80px */
-  --font-size-base:    1rem;      /* 16.00px */
-  --font-size-lg:      1.25rem;   /* 20.00px */
-  --font-size-xl:      1.5625rem; /* 25.00px */
-  --font-size-2xl:     1.953rem;  /* 31.25px */
-  --font-size-3xl:     2.441rem;  /* 39.06px */
-  --font-size-4xl:     3.052rem;  /* 48.83px */
-  --font-size-display: 3.815rem;  /* 61.04px */
+  --font-size-xs:      0.64rem;
+  --font-size-sm:      0.80rem;
+  --font-size-base:    1rem;
+  --font-size-lg:      1.25rem;
+  --font-size-xl:      1.5625rem;
+  --font-size-2xl:     1.953rem;
+  --font-size-3xl:     2.441rem;
+  --font-size-4xl:     3.052rem;
+  --font-size-display: 3.815rem;
 }
 ```
 
-## Fluid Typography
+### Step 3 — Implement fluid values
 
-Fluid typography scales smoothly between a minimum and maximum size based on the viewport width, eliminating the need for breakpoint-specific font size overrides.
-
-### The clamp() Approach
-
-```css
-/* clamp(minimum, preferred, maximum) */
-h1 {
-  font-size: clamp(2rem, 5vw + 1rem, 3.815rem);
-}
-
-body {
-  font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
-}
-```
-
-**How it works:**
-- Below the minimum viewport, the minimum size applies
-- Above the maximum viewport, the maximum size applies
-- Between them, the preferred value creates a smooth interpolation
-
-### Calculating Preferred Values
-
-To calculate the preferred value for a smooth transition between two sizes:
-
-```
-Given:
-  min-size: 2rem at min-viewport: 320px
-  max-size: 3.815rem at max-viewport: 1440px
-
-Slope = (max-size - min-size) / (max-viewport - min-viewport)
-      = (3.815 - 2) / (1440 - 320)
-      = 1.815 / 1120
-      = 0.00162rem per px
-      = 0.162rem per 100px ≈ 1.62vw
-
-Intercept = min-size - slope × min-viewport
-          = 2 - (0.00162 × 320)
-          = 2 - 0.518
-          = 1.482rem
-
-Result: clamp(2rem, 1.62vw + 1.482rem, 3.815rem)
-```
-
-### Full Fluid Type Scale
+Convert each token to `clamp(min, slope*vw + intercept, max)`. Formula and walkthrough in [type-scale-theory.md](references/type-scale-theory.md).
 
 ```css
 :root {
@@ -124,228 +62,65 @@ Result: clamp(2rem, 1.62vw + 1.482rem, 3.815rem)
 }
 ```
 
-## Font Pairing
+### Step 4 — Test at breakpoints
 
-Font pairing is the art of selecting two or three typefaces that work together harmoniously. Poor pairing creates visual discord; great pairing creates a cohesive voice.
-
-### Pairing Principles
-
-1. **Contrast, not conflict.** Pair fonts that are clearly different but share structural DNA. A geometric sans with a humanist serif creates contrast. Two similar sans-serifs create confusion.
-
-2. **Limit to 2-3 fonts.** One display/heading font, one body font, and optionally one monospace or accent font. More than three creates visual noise.
-
-3. **Match x-height.** When fonts have similar x-heights (the height of lowercase letters), they feel natural together even at different sizes.
-
-4. **Share an era or designer.** Fonts from the same designer or era often pair well because they share underlying design principles.
-
-### Reliable Pairing Strategies
-
-**Serif heading + Sans-serif body** (most versatile):
-- Playfair Display + Source Sans Pro
-- Lora + Inter
-- Merriweather + Open Sans
-- Fraunces + Work Sans
-
-**Sans-serif heading + Serif body** (editorial feel):
-- Montserrat + Lora
-- Poppins + Merriweather
-- DM Sans + Charter
-
-**Display heading + Clean body** (strong personality):
-- Space Grotesk + Inter
-- Cabinet Grotesk + Söhne
-- Clash Display + Satoshi
-
-**Monospace accent + Sans-serif body** (technical/developer):
-- JetBrains Mono + Inter
-- Fira Code + Source Sans Pro
-- IBM Plex Mono + IBM Plex Sans
-
-### Font Loading Strategy
-
-```css
-/* Preload critical fonts */
-<link rel="preload" href="/fonts/heading.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/body.woff2" as="font" type="font/woff2" crossorigin>
-
-/* Font-face declarations with swap strategy */
-@font-face {
-  font-family: 'Heading';
-  src: url('/fonts/heading.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Body';
-  src: url('/fonts/body.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
+```bash
+# Visual diff at standard widths
+npx playwright test --grep "typography snapshots"
 ```
 
-## Reading Metrics
+Or manually in Chrome DevTools `Cmd+Shift+M` at 320, 375, 768, 1024, 1440, 1920px.
 
-Optimized reading metrics reduce eye strain, increase comprehension, and keep users engaged with content.
+**Pass/fail:**
+- No h1 wraps to more than 3 lines on mobile.
+- No body text below 14px effective at any width.
+- Line length stays in 45–75ch on prose containers.
 
-### Line Length (Measure)
+### Step 5 — Validate accessibility
 
-The optimal line length for body text is **45-75 characters** per line, with 65 characters as the ideal.
+```bash
+# Lighthouse will flag font-size < 12px and tap-target conflicts
+npx lighthouse https://example.com --only-categories=accessibility --output=json
 
-```css
-/* Constrain reading width */
-.prose {
-  max-width: 65ch; /* ch unit = width of the '0' character */
-}
+# axe will flag insufficient text contrast (interacts with type weight)
+npx @axe-core/cli https://example.com --tags wcag2aa
 ```
 
-Lines that are too long cause the eye to lose its place when returning to the start of the next line. Lines that are too short create excessive line breaks and a choppy reading rhythm.
+**Pass criteria:**
+- Body ≥ 16px effective at default zoom.
+- Text reflows at 200% browser zoom without horizontal scroll.
+- Line height ≥ 1.5× font size for body copy (WCAG 1.4.12).
+- Letter spacing supports +0.12× font size without breaking layout.
 
-### Line Height (Leading)
+## Font Pairing (Quick Reference)
 
-Line height depends on font size, line length, and typeface design:
+| Pattern | Combo |
+|---------|-------|
+| Versatile | Lora (heading) + Inter (body) |
+| Editorial | Montserrat (heading) + Lora (body) |
+| Strong personality | Space Grotesk (heading) + Inter (body) |
+| Developer | JetBrains Mono (accent) + Inter (body) |
 
-| Font Size | Recommended Line Height | Ratio |
-|-----------|------------------------|-------|
-| 12-14px | 1.6-1.7 | Tighter for small text |
-| 16-18px | 1.5-1.6 | Standard body text |
-| 20-24px | 1.4-1.5 | Subheadings |
-| 28-36px | 1.2-1.3 | Headings |
-| 40px+ | 1.1-1.2 | Display text |
+Rules: contrast not conflict; max 3 fonts; match x-height. Full guidance, extended combos, and `@font-face` loading strategy in [font-pairing-guide.md](references/font-pairing-guide.md).
 
-**The rule:** As font size increases, line height ratio decreases. Large text needs less leading because the letterforms are already clearly distinguished.
+## Reading Metrics (Quick Reference)
 
-```css
-:root {
-  --leading-tight:   1.2;
-  --leading-snug:    1.375;
-  --leading-normal:  1.5;
-  --leading-relaxed: 1.625;
-  --leading-loose:   1.75;
-}
-```
+- **Measure:** `max-width: 65ch` on prose.
+- **Leading:** body 1.5–1.6, subheads 1.4–1.5, headings 1.2–1.3, display 1.1–1.2.
+- **Tracking:** all-caps +0.08em; display −0.02em; body 0.
+- **Paragraph rhythm:** `p + p { margin-top: 1.5em }`.
 
-### Letter Spacing (Tracking)
-
-- **All-caps text:** Add 0.05-0.1em tracking. Uppercase letters are designed to follow lowercase letters, so they look cramped when set alone.
-- **Large display text:** Tighten tracking slightly (-0.02em to -0.01em). Large type reveals gaps between letters that look natural at body sizes.
-- **Body text:** Leave at default (0). The font designer has optimized letter spacing for the intended reading size.
-- **Small text:** Slightly increase tracking (+0.01em to +0.02em) for legibility at small sizes.
-
-```css
-.uppercase-label {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: var(--font-size-xs);
-}
-
-.display-heading {
-  letter-spacing: -0.02em;
-  font-size: var(--font-size-display);
-}
-```
-
-### Paragraph Spacing
-
-Use margin between paragraphs rather than first-line indent for screen reading:
-
-```css
-.prose p + p {
-  margin-top: 1.5em; /* One line height of space between paragraphs */
-}
-```
-
-## Responsive Typography Strategies
-
-### Strategy 1: Fluid Only (Recommended)
-
-Use `clamp()` for all sizes. No breakpoints needed for typography.
-
-```css
-body { font-size: clamp(1rem, 0.2vw + 0.93rem, 1.125rem); }
-h1   { font-size: clamp(2.25rem, 2vw + 1.5rem, 3.815rem); }
-h2   { font-size: clamp(1.875rem, 1.2vw + 1.4rem, 2.441rem); }
-```
-
-### Strategy 2: Scale Shift at Breakpoints
-
-Use a different ratio for different screen sizes:
-
-```css
-:root {
-  /* Mobile: Minor Third (1.200) */
-  --font-size-base: 1rem;
-  --font-size-lg: 1.2rem;
-  --font-size-xl: 1.44rem;
-  --font-size-2xl: 1.728rem;
-  --font-size-3xl: 2.074rem;
-}
-
-@media (min-width: 768px) {
-  :root {
-    /* Desktop: Major Third (1.250) */
-    --font-size-lg: 1.25rem;
-    --font-size-xl: 1.5625rem;
-    --font-size-2xl: 1.953rem;
-    --font-size-3xl: 2.441rem;
-  }
-}
-```
-
-### Strategy 3: Base Size Shift
-
-Change only the base size and let `rem` units handle the cascade:
-
-```css
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1440px) {
-  html {
-    font-size: 18px;
-  }
-}
-```
-
-This approach is simple but creates less dramatic heading changes than a ratio shift.
+Full tables, tokens, and dyslexia/dark-mode guidance in [reading-optimization.md](references/reading-optimization.md).
 
 ## Deep Dive References
 
-### [Type Scale Theory](references/type-scale-theory.md)
-
-- Mathematical Foundations
-- Ratio Comparison Table
-- Historical Context
-- Multi-Base Scales
-- Practical Ratio Selection
-- Implementation Patterns
-
-### [Font Pairing Guide](references/font-pairing-guide.md)
-
-- Typeface Classification System
-- Pairing Principles
-- Extended Pairing Examples
-- Google Fonts Recommendations
-- Testing Methodology
-
-### [Reading Optimization](references/reading-optimization.md)
-
-- Research-Backed Reading Metrics
-- Accessibility Considerations
-- Dark Mode Typography
-- Dyslexia-Friendly Type
-- Performance and Reading
+- [references/type-scale-theory.md](references/type-scale-theory.md) — full ratio table, scale math, clamp() walkthrough
+- [references/font-pairing-guide.md](references/font-pairing-guide.md) — classification, principles, extended combos, font loading
+- [references/reading-optimization.md](references/reading-optimization.md) — measure/leading/tracking detail, accessibility, dark mode, dyslexia
 
 ## Next Steps
 
-- **[Visual Design](../visual-design/SKILL.md)**: Apply typography within the broader visual design context
-- **[Design Tokens](../design-tokens/SKILL.md)**: Encode typography decisions as design tokens
-- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: Align typography to grid structure
-- **[Responsive Design](../responsive-design/SKILL.md)**: Typography within responsive layout strategy
+- **[Visual Design](../visual-design/SKILL.md)**: typography within visual design
+- **[Design Tokens](../design-tokens/SKILL.md)**: encode typography as tokens
+- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: align typography to grid
+- **[Responsive Design](../responsive-design/SKILL.md)**: typography in responsive layout

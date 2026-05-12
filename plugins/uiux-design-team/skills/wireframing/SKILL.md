@@ -1,6 +1,6 @@
 ---
 name: wireframing
-description: Create wireframes from low-fidelity content blocks through high-fidelity layouts with proper content hierarchy, annotation conventions, responsive considerations, and common page layout patterns.
+description: Use when sketching a new screen before visual design, when restructuring an existing page's content priority, when validating layout feasibility with engineering, or when communicating responsive behavior across breakpoints.
 metadata:
    references:
    - references/content-hierarchy.md
@@ -10,145 +10,132 @@ metadata:
 
 # Wireframing
 
-Wireframes are thinking tools. They strip away color, imagery, and visual polish to focus on what matters most: content structure, layout logic, and interaction flow. A wireframe forces you to answer hard questions early -- what content goes where, what's most important, and how do users move through the interface -- before the cost of change becomes high.
+## Workflow (input → output)
 
-Wireframes are not art. They are arguments about structure, made visible.
+Given a user request for a wireframe:
 
-## Fidelity Levels
+1. **Identify page type** — landing, dashboard, list/detail, settings, form, search results.
+2. **List content blocks in priority order** — number each block 1..N (1 = highest).
+3. **Pick a layout pattern** from the catalog below that matches the page type.
+4. **Produce annotated ASCII wireframe** at desktop (1280px) — label every block, attach numbered notes for interaction/conditional/responsive behavior.
+5. **Add responsive notes** — describe mobile (375px) and tablet (768px) reflow rules.
 
-Choose your fidelity based on the decision you need to make.
+Output format: ASCII block + numbered notes table + responsive notes section.
 
-### Low-Fidelity (Sketch)
+**Fidelity selector:**
+- Low-fi (boxes + labels): exploration, structure debates
+- Mid-fi (real content lengths): hierarchy validation, usability testing
+- Hi-fi (precise spacing, near-final): final approval, dev handoff
 
-Boxes, lines, and labels. No real content, no precise sizing. Created in minutes on paper or a whiteboard. Use low-fi wireframes for:
-- Exploring multiple layout concepts quickly
-- Facilitating team discussions about structure
-- Early stakeholder alignment on page intent
-- Deciding what content belongs on a page at all
+## Worked example
 
-Low-fi wireframes should be intentionally rough. Polish signals "this is decided" and discourages feedback on the structure itself.
+**Input:** "Create a wireframe for a SaaS pricing page."
 
-### Mid-Fidelity
+**Output:**
 
-Real content dimensions, approximate sizing, placeholder text that represents actual content length. Created in design tools or code. Use mid-fi wireframes for:
-- Testing content hierarchy with realistic proportions
-- Validating navigation flows between screens
-- Getting developer input on layout feasibility
-- Usability testing focused on findability and flow
+```
++----------------------------------------------------------------+
+| [Logo]   Product  Pricing  Docs  Blog        [Sign in] [Try]  | (1)
++----------------------------------------------------------------+
+|                                                                |
+|         Simple pricing. No surprises.                          | (2)
+|         Pick a plan, change anytime.                           |
+|                                                                |
+|         [ Monthly | Annual -20% ]                              | (3)
+|                                                                |
++----------------------------------------------------------------+
+|  +------------+   +------------+   +------------+              |
+|  | Starter    |   | Pro ★      |   | Enterprise |              | (4)
+|  | $0/mo      |   | $29/mo     |   | Contact us |              |
+|  |  - 3 seats |   |  - 25 seats|   |  - Unltd   |              |
+|  |  - Basic   |   |  - SSO     |   |  - SLA     |              |
+|  | [Get free] |   | [Start trl]|   | [Talk]     |              |
+|  +------------+   +------------+   +------------+              |
++----------------------------------------------------------------+
+|  Compare plans (collapsible feature matrix)                    | (5)
++----------------------------------------------------------------+
+|  Logos: Acme, Globex, Initech, Umbrella                        | (6)
++----------------------------------------------------------------+
+|  FAQ accordion (5 items)                                       | (7)
++----------------------------------------------------------------+
+|  Footer                                                        |
++----------------------------------------------------------------+
+```
 
-### High-Fidelity
+| # | Block | Notes |
+|---|-------|-------|
+| 1 | Header | Sticky on scroll. Trial CTA always visible. |
+| 2 | Headline | Plain language. No jargon. |
+| 3 | Toggle | Default = Annual (highest LTV). Persist choice in URL. |
+| 4 | Plan cards | Highlight Pro with badge + scale 1.05. CTAs route to signup with plan preselected. |
+| 5 | Comparison | Collapsed by default; expand updates URL hash. |
+| 6 | Social proof | Grayscale logos, color on hover. |
+| 7 | FAQ | One open at a time; structured data for SEO. |
 
-Near-final layout with real or realistic content, precise spacing, actual typography sizing (though typically grayscale). Use high-fi wireframes for:
-- Final layout approval before visual design
-- Responsive behavior specification
-- Detailed interaction annotation
-- Handoff documentation for complex layouts
+**Responsive:**
+- Mobile (375px): cards stack vertically; Pro card first. Header collapses to hamburger; trial CTA persists in header.
+- Tablet (768px): cards 2-up + 1; nav stays inline.
 
-## Content-First Wireframing
+## Page-type catalog (with ASCII)
 
-Start every wireframe with a content priority list, not a layout. Ask:
+### Dashboard (1280px)
 
-1. What is the single most important thing on this page?
-2. What must every user see without scrolling?
-3. What content supports the primary action?
-4. What is secondary or supplemental?
-5. What can be hidden behind progressive disclosure?
+```
++--------+----------------------------------------------------+
+| Logo   |  Page title              [Search]  [Avatar]       |
++--------+----------------------------------------------------+
+| Nav    |  KPI 1 | KPI 2 | KPI 3 | KPI 4                    |
+|  Home  |--------+-------+-------+--------                   |
+|  Users |                                                    |
+|  Data  |  +-------------------- Chart -------------------+  |
+|  Bills |  |                                              |  |
+|  ...   |  +----------------------------------------------+  |
+|        |                                                    |
+|        |  Recent activity (table, 10 rows, paginated)      |
++--------+----------------------------------------------------+
+```
 
-Rank every content element by importance, then design the layout to serve that ranking. The layout should emerge from the content hierarchy, not the other way around.
+### List/Detail (master-detail, 1280px)
 
-## Common Page Layouts
+```
++----------------+-------------------------------------------+
+| [Search]       |  Subject: Re: Q3 budget review            |
+| [Filter ▾]     |  From: alex@acme.co · 2h ago              |
+|----------------|-------------------------------------------|
+| ● Item 1   2h  |                                           |
+|   Preview…     |  Body of the selected item renders here. |
+|----------------|  Toolbar: Reply | Forward | Archive       |
+|   Item 2   5h  |                                           |
+|   Preview…     |  Attachments (2)                          |
+|----------------|                                           |
+|   Item 3   1d  |                                           |
++----------------+-------------------------------------------+
+```
 
-### Landing Page
-Hero section with value proposition and primary CTA at the top. Feature highlights (3-4 benefits with icons) in the middle. Social proof (testimonials, logos, stats) to build trust. Secondary CTA and footer. The entire page is a persuasion sequence.
+More patterns (settings, form, search results, landing mobile): [wireframe-patterns.md](references/wireframe-patterns.md), [layout-systems.md](references/layout-systems.md).
 
-### Dashboard
-Metrics summary row at the top (3-5 key numbers). Primary data visualization (chart or graph) in the dominant content area. Activity feed or recent items below. Quick actions accessible without scrolling. Navigation to detailed views.
+## Annotation conventions
 
-### Settings Page
-Category sidebar on the left. Form-based content on the right. Group related settings under clear headings. Show current values. Provide save/cancel or auto-save with confirmation. Never require users to navigate away to save.
+| Type | Format |
+|------|--------|
+| Content | Callout with description |
+| Interaction | Numbered note: "On click → opens modal X" |
+| Conditional | "If logged in, show Y; else show Z" |
+| Responsive | "At <768px: stack vertically" |
+| Data source | "Populated from /api/v2/plans" |
+| Constraint | "Max 120 chars", "16:9 ratio" |
 
-### List/Detail (Master-Detail)
-Master list on the left or top, showing items with enough metadata to identify them. Detail panel on the right or bottom, showing full content of the selected item. Common in email clients, file managers, and admin panels.
+## Responsive checkpoints
 
-### Form Page
-Single-column layout for most forms. Group related fields with section headings. Show validation inline. Place primary action button at the bottom. For multi-step forms, show progress and allow backward navigation.
-
-### Search Results
-Search input prominent at the top. Filter panel (left sidebar or collapsible top bar). Results in a list or grid with key metadata. Pagination or infinite scroll. "No results" state with suggestions.
-
-For detailed ASCII wireframe examples and layout rationale, see [Wireframe Patterns](references/wireframe-patterns.md).
-
-## Annotation Conventions
-
-Wireframes communicate through annotations. Establish consistent annotation practices.
-
-| Annotation Type | Purpose | Format |
-|----------------|---------|--------|
-| **Content notes** | Explain what content goes in a region | Callout with description |
-| **Interaction notes** | Describe what happens on click/tap/hover | Numbered callouts with behavior description |
-| **Conditions** | Show conditional content or states | "If [condition], show [element]" |
-| **Responsive notes** | Describe layout changes at breakpoints | "At mobile: stack vertically" |
-| **Data notes** | Specify dynamic content sources | "Populated from user profile API" |
-| **Constraints** | Character limits, image ratios, min/max | "Max 120 characters", "16:9 ratio" |
-
-Number annotations sequentially and reference them in a separate notes panel when the wireframe gets dense.
-
-## Responsive Wireframing
-
-Design wireframes at three key widths to cover the responsive spectrum:
-
-- **Mobile** (375px): Single column, stacked layout, touch targets, simplified navigation
-- **Tablet** (768px): Two-column opportunities, side-by-side comparisons, expanded navigation
-- **Desktop** (1280px): Full layout with sidebars, multi-column grids, hover interactions
-
-For each breakpoint, document:
-- Which elements reflow or stack
-- Which elements hide or collapse (and how to access them)
-- How navigation transforms (tabs to hamburger, sidebar to bottom bar)
-- Touch target adjustments
-
-See [Layout Systems](references/layout-systems.md) for common responsive layout structures.
-
-## Deep Dive References
-
-### [Wireframe Patterns](references/wireframe-patterns.md)
-
-- Header & Navigation Patterns
-- Hero Section Patterns
-- Card Patterns
-- Form Patterns
-- List Patterns
-- Modal & Dialog Patterns
-- Sidebar Patterns
-- Footer Patterns
-- *...and 3 more sections*
-
-### [Layout Systems](references/layout-systems.md)
-
-- Common Page Layouts
-- Responsive Layout Transformations
-- Content Area Proportions
-- Layout by Page Type
-- Grid Overlays for Wireframes
-- Layout Sketching Techniques
-
-### [Content Hierarchy](references/content-hierarchy.md)
-
-- The Hierarchy Pyramid
-- Inverted Pyramid Structure
-- Progressive Disclosure
-- F-Pattern Content Placement
-- Z-Pattern Content Placement
-- Above the Fold
-- Content Prioritization Matrix
-- Heading Hierarchy
-- *...and 3 more sections*
+Document at 375 / 768 / 1280px:
+- What reflows or stacks?
+- What hides or collapses (and how is it accessed)?
+- How does navigation transform (tabs → hamburger, sidebar → bottom bar)?
+- Are touch targets ≥ 44×44 px on mobile?
 
 ## Next Steps
 
-After wireframing, refine the design and build out the system:
-
-- **[Information Architecture](../information-architecture/SKILL.md)**: Validate that wireframe structure aligns with IA decisions
-- **[Visual Design](../visual-design/SKILL.md)**: Apply visual styling, color, typography, and brand identity to wireframes
-- **[Responsive Design](../responsive-design/SKILL.md)**: Implement fluid layouts and breakpoint behavior in code
-- **[Design Handoff](../design-handoff/SKILL.md)**: Prepare annotated wireframes for developer implementation
+- **[Information Architecture](../information-architecture/SKILL.md)**: align wireframe structure with IA
+- **[Visual Design](../visual-design/SKILL.md)**: apply style/color/type to wireframes
+- **[Responsive Design](../responsive-design/SKILL.md)**: implement fluid layouts in code
+- **[Design Handoff](../design-handoff/SKILL.md)**: annotate for engineering

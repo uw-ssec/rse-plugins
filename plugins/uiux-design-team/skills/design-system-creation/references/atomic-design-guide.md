@@ -428,3 +428,39 @@ components/
 ```
 
 Tag the level in Storybook titles (`Atoms/Button`) rather than enforcing it through the file system. This scales better when components are hard to categorize.
+
+## Atomic Tiers Table (Moved from SKILL.md)
+
+| Level | Description | Examples |
+|-------|-------------|---------|
+| Atoms | Smallest UI elements | Button, Input, Label, Icon, Badge, Avatar, Divider |
+| Molecules | Groups of atoms as a unit | Search bar, Form field, Stat card, Toast |
+| Organisms | Composed of molecules+atoms | Header, Sidebar, Card grid, Data table |
+| Templates | Page layouts with placeholders | Dashboard, Settings, Marketing layout |
+| Pages | Templates with real data | Live dashboard, real settings page |
+
+## Component Inventory Methodology (Moved from SKILL.md)
+
+1. Screenshot audit: capture every screen, group by page type.
+2. Component extraction: identify every distinct element; catalog variants.
+3. Inconsistency map: document where same concept implemented differently.
+4. Priority matrix: frequency × inconsistency. Build high/high first.
+
+## Governance Model (Moved from SKILL.md)
+
+| Role | Responsibility |
+|------|---------------|
+| Core team | Tokens, core components, docs, versioning |
+| Contributors | New components, bugs, enhancements |
+| Consumers | Use, feedback, follow guidelines |
+
+Change process: Proposal → Design review → Implementation (tests, docs, migration) → Release.
+
+Versioning (strict semver):
+- Major (X.0.0): breaking API or token rename
+- Minor (0.X.0): new components/variants/tokens, backward-compatible
+- Patch (0.0.X): bug fixes, docs, a11y improvements
+
+## Documentation Strategy (Moved from SKILL.md)
+
+Document per component: usage guidelines, API reference, do/don't examples, a11y notes, code examples. Tooling: Storybook + MDX + Figma annotated pages.

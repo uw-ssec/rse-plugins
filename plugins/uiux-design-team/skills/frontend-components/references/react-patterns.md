@@ -536,3 +536,44 @@ function SearchStatus({ count, isLoading }) {
 - [[../../css-architecture/references/css-in-js-patterns.md]] -- Styling approaches commonly used with React components
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
+
+## Cross-Framework Architecture Principles (moved from SKILL.md)
+
+### Single Responsibility
+
+Each component should do one thing well. Indicators a component needs splitting:
+- It accepts more than 8-10 props
+- It contains multiple conditional rendering branches for unrelated features
+- Its file exceeds 200-300 lines
+- Changes to one part frequently break another
+
+### Prop Drilling vs. Context
+
+Prop drilling is acceptable for 2-3 levels. Beyond that, use Context / Provide-Inject / Stores for:
+- Theme values, locale, auth state, feature flags
+
+Do not use context for frequently-changing values (cursor, scroll) — every consumer re-renders.
+
+### Controlled vs. Uncontrolled
+
+- Controlled: state lives in parent; child takes `value` + `onChange`.
+- Uncontrolled: child owns its state (accordion open, tooltip).
+- Hybrid: accept optional `value` — controlled if provided, otherwise internal.
+
+### Error Boundaries
+
+- React: `ErrorBoundary` class or `react-error-boundary`
+- Vue: `onErrorCaptured` or `<Suspense>` with error slot
+- Svelte: `{#await}` catch clause or SvelteKit `+error.svelte`
+- Web Components: try/catch in lifecycle callbacks
+
+### Loading States
+
+Three states for every async component: loading (skeleton), success, error. Prefer skeletons over spinners — they set expectations about layout and reduce perceived latency.
+
+### Performance Detail
+
+- **CLS prevention**: explicit `width`/`height`, `aspect-ratio`, `min-height` for ads/embeds. Only animate `transform` and `opacity`.
+- **Font loading**: `font-display: swap` for body; `optional` to minimize CLS; preload critical fonts; subset; prefer variable fonts.
+- **Image format**: AVIF > WebP > JPEG fallback. AVIF ~50% smaller than JPEG at equivalent quality.
+- **Virtualization**: render visible items + small buffer; recycle DOM nodes on scroll.

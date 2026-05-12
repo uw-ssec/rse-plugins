@@ -290,3 +290,25 @@ An extended reference for Jakob Nielsen's 10 usability heuristics. Each heuristi
 - [[../../information-architecture/references/navigation-guide.md]] -- Navigation patterns that support H1, H4, and H6
 
 **Back to:** [Usability Evaluation Skill](../SKILL.md)
+
+## Full Heuristic Descriptions (moved from SKILL.md)
+
+1. **Visibility of system status** — Keep users informed through appropriate feedback within reasonable time. Progress bars, loading indicators, state changes must be visible.
+
+2. **Match between system and real world** — Speak users' language; follow real-world conventions; present information in natural and logical order.
+
+3. **User control and freedom** — Provide a clearly marked "emergency exit" for accidental actions. Support undo, redo, cancel.
+
+4. **Consistency and standards** — Follow platform conventions. Internal and external consistency both matter.
+
+5. **Error prevention** — Eliminate error-prone conditions or confirm before commit. Better than good error messages.
+
+6. **Recognition rather than recall** — Make elements, actions, options visible. Don't require users to remember from one screen to another.
+
+7. **Flexibility and efficiency of use** — Accelerators (keyboard shortcuts, saved actions) for experts; sensible defaults for novices.
+
+8. **Aesthetic and minimalist design** — Every extra unit of information competes with relevant information.
+
+9. **Help users recognize, diagnose, recover from errors** — Plain language, precise problem, constructive suggestion.
+
+10. **Help and documentation** — Easy to search, focused on user's task, concrete steps, not too large.

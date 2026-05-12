@@ -219,3 +219,9 @@ Use this checklist to evaluate the emotional design quality of an interface.
 - [[../../ux-writing/references/voice-tone-guide.md]] -- Voice and tone are the primary tools for reflective-level emotional design
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
+
+## Norman's Three Levels (Moved from SKILL.md)
+
+1. Visceral — first 50ms sensory reaction
+2. Behavioral — usability, function, feedback
+3. Reflective — meaning, identity, memory

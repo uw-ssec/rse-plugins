@@ -246,3 +246,16 @@ Nielsen's heuristics have survived 30 years of technological change because they
 - Users are overwhelmed by noise (Heuristic 8)
 
 These are not technology-specific observations. They are observations about humans. That is why heuristics remain the foundation of usability thinking across every platform and medium.
+
+## Nielsen's 10 Heuristics (Moved from SKILL.md)
+
+1. Visibility of system status — timely feedback
+2. Match between system and real world — user-familiar language
+3. User control and freedom — undo, redo, exit paths
+4. Consistency and standards — platform conventions
+5. Error prevention — confirms, constraints, smart defaults
+6. Recognition rather than recall — minimize memory load
+7. Flexibility and efficiency of use — novice + expert paths
+8. Aesthetic and minimalist design — every extra competes
+9. Help users recognize/diagnose/recover from errors — plain language, suggest solution
+10. Help and documentation — searchable, task-focused, concise

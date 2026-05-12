@@ -183,3 +183,16 @@ If any answer is "no," reconsider the decision.
 - [[../../design-case-studies/references/design-systems-in-practice.md]] -- Design systems are the mechanism for applying Rams' principles consistently across products
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
+
+## Rams' 10 Principles (Moved from SKILL.md)
+
+1. Good design is innovative
+2. ...makes a product useful
+3. ...is aesthetic
+4. ...makes a product understandable
+5. ...is unobtrusive
+6. ...is honest (no dark patterns)
+7. ...is long-lasting (avoid fads)
+8. ...is thorough down to the last detail
+9. ...is environmentally friendly (performance, lean code)
+10. ...involves as little design as possible ("less, but better")

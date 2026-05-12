@@ -261,3 +261,32 @@ Progressively remove visual hierarchy tools (color, then size differences, then 
 - [[../../../typography-systems/references/type-scale-guide.md]] - Typographic hierarchy through modular scales
 - [[../../../grid-layout-systems/references/grid-types.md]] - Structural hierarchy through grid systems
 - [[../../../color-systems/references/contrast-requirements.md]] - Contrast ratios that ensure readable hierarchy
+
+## Hierarchy Tools (moved from SKILL.md)
+
+| Tool | Effect | Application |
+|------|--------|-------------|
+| Size | Largest = most important | Hero headlines, primary CTAs |
+| Color/Contrast | High contrast = attention | Error states, active nav, primary buttons |
+| Spacing | More space = more importance | Section padding, breathing room |
+| Position | Top-left in LTR = first seen | Logo, primary nav, page titles |
+| Weight | Bold = emphasis | Headings, key metrics |
+| Motion | Movement = attention | Loading, badges, onboarding highlights |
+
+## Gestalt-Informed Hierarchy
+
+Proximity (group related), Similarity (consistent same-level styling), Figure-Ground (elevation/depth), Continuity (alignment axes), Closure (implied shapes for icon/logo work).
+
+## Scanning Patterns
+
+- F-Pattern: text-heavy pages — prioritize top + left edge.
+- Z-Pattern: minimal pages — logo top-left, CTA top-right or bottom-right.
+
+## Golden Ratio Applications
+
+1:1.618 for content/sidebar split (61.8/38.2), spacing scale progression, type scale ratio.
+
+## Visual Weight & Balance
+
+- Symmetrical: formal, institutional, finance.
+- Asymmetrical: dynamic, editorial; balance a large light element with a small dark one.

@@ -401,3 +401,36 @@ function ProgressBar({ value, max = 100, label }) {
 - [[../../design-handoff/references/qa-process.md]] -- QA process for verifying all state implementations
 
 **Back to:** [Component Library Skill](../SKILL.md)
+
+## Component States Table (Moved from SKILL.md)
+
+| State | Description | Design Requirement |
+|-------|-------------|-------------------|
+| Empty | No data | Helpful message, illustration, add action |
+| Loading | Data being fetched | Skeleton/spinner/progress |
+| Partial | Some data, more coming | Render available, indicate more |
+| Error | Something failed | Clear message, recovery, retry |
+| Ideal | Works as expected | Full content |
+| Disabled | Interaction unavailable | Reduced opacity, no pointer events, tooltip |
+| Hover | Pointer over | Color/elevation shift |
+| Focus | Keyboard focus | Visible focus ring (required) |
+| Active/Pressed | Click/tap | Compressed/darkened |
+
+## A11y Requirements by Component (Moved from SKILL.md)
+
+| Component | Key Requirements |
+|-----------|-----------------|
+| Button | role, disabled+loading announced, Enter/Space activate |
+| Input | Associated label, error linked via aria-describedby, required announced |
+| Modal | Focus trap, Esc closes, focus returns to trigger, aria-modal |
+| Tabs | role=tablist/tab/tabpanel, arrow nav, active state announced |
+| Dropdown | role=listbox/menu, arrow nav, typeahead, Esc closes |
+| Toast | role=alert or aria-live=polite, sufficient time, dismiss action |
+| Table | th/td semantics, scope attrs, sortable announcement |
+
+## Component Inventory (Moved from SKILL.md)
+
+1. Screenshot every screen, group by page type.
+2. Extract unique components — distinct = differs in structure/behavior/purpose.
+3. Catalog variants per component.
+4. Score by frequency × inconsistency; build high/high first.

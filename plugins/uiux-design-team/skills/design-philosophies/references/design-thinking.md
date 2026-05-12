@@ -249,3 +249,23 @@ Post these visibly at the start of every workshop:
 - [[../../user-research/references/synthesis-methods.md]] -- Affinity mapping and synthesis techniques for the define phase
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
+
+## Design Thinking Phases (Moved from SKILL.md)
+
+1. Empathize — observation, interviews, immersion
+2. Define — "How Might We" framing
+3. Ideate — quantity over quality, defer judgment
+4. Prototype — disposable, made to learn
+5. Test — think-aloud, observe behavior, iterate
+
+## Inclusive Design (Moved from SKILL.md)
+
+1. Recognize Exclusion — permanent / temporary / situational
+2. Solve for One, Extend to Many
+3. Learn from Diversity — adapters are experts
+
+## Material vs Apple HIG (Moved from SKILL.md)
+
+- Material: physical material metaphor, dynamic color, systematic completeness
+- Apple HIG: clarity / deference / depth; Liquid Glass (2025)
+- Choice: cross-platform → Material; iOS-only → HIG; Android-only → Material; web → borrow selectively

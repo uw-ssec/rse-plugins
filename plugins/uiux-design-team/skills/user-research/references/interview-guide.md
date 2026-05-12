@@ -247,3 +247,20 @@ After completing all interviews (not after each one individually), synthesize th
 - [[journey-template.md]] -- Map the journeys described in interviews into visual journey maps
 
 **Back to:** [User Research Skill](../SKILL.md)
+
+## Competitive Audit Process (moved from SKILL.md)
+
+1. **Identify competitors** — 4-6 direct (same problem, same audience) + 2-3 indirect (different solution, same JTBD).
+2. **Define criteria** — 8-12 dimensions: onboarding, feature parity, pricing, IA, visual quality, a11y, mobile, performance, content, support, integrations, community.
+3. **Document** — screenshots, recorded task flows, strengths/weaknesses per criterion, consistent 1-5 scoring.
+4. **Gap analysis** — criteria where all competitors score ≤ 2 = market-wide opportunity.
+5. **Opportunity map** — 2×2 matrix on the two most differentiating criteria. Identify underserved quadrants. Position intentionally.
+
+## Best Practices
+
+- Never assume — talk to users.
+- Recruit real users via screener; not friends/family/coworkers.
+- Combine qual (why) + quant (how many).
+- Anchor every recommendation in a specific observation; quote users.
+- Maintain a research repository (Confluence, Dovetail, Notion).
+- Triangulate findings across methods.

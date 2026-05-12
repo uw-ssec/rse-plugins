@@ -239,3 +239,28 @@ When the new context requires elements that do not exist in the current system (
 - [[visual-hierarchy.md]] - Gestalt principles for organizing brand elements
 - [[../../../color-systems/references/color-theory.md]] - Color psychology for brand-appropriate palettes
 - [[../../../typography-systems/references/font-pairing.md]] - Font selection aligned to brand voice
+
+## Brand Audit Checklist (moved from SKILL.md)
+
+- Values: what the brand stands for (innovation, trust, playfulness, authority)
+- Voice: formal/casual/technical/warm
+- Existing visual language: current colors, typography, imagery, iconography
+- Target audience: demographics, psychographics, tech sophistication
+- Competitive landscape: how to differentiate
+
+## Mood Board Methodology
+
+1. Collect 10-15 references across type, color, layout, photography, texture
+2. Identify recurring patterns
+3. Distill into concrete tokens
+4. Validate against brand values
+5. Share and iterate before implementing
+
+## Extending vs Evolving
+
+- Extending: respect existing tokens, fill gaps, match patterns
+- Evolving: propose new directions; always tie rationale to brand values + business goals
+
+## Consistency Tokens
+
+Color (primary/secondary/neutral/semantic), typography (families/sizes/weights/leading), spacing (global scale), shadow/elevation (depth system), border-radius (sharp = serious, rounded = friendly).
