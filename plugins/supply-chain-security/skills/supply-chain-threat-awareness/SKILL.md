@@ -12,7 +12,13 @@ metadata:
 
 # Supply Chain Threat Awareness
 
-The dominant 2025–2026 supply-chain threat is **maintainer account takeover and release-tag hijacking of legitimate, widely-trusted packages**. CVE scanners (Dependabot, Snyk, `npm audit`) do not catch these in the live window between compromise and advisory publication — treat scanner-clean as necessary, not sufficient.
+## Threat Model
+
+Maintainer account takeover and release-tag hijacking of widely-trusted packages are the dominant supply-chain threats in 2025–2026.
+
+## CVE Scanner Limitations
+
+Treat scanner-clean as necessary, not sufficient — the audit below covers what advisories miss.
 
 ## Active Campaigns
 
