@@ -104,7 +104,7 @@ grep -rE '(syft|cyclonedx|spdx|cosign|sigstore|--provenance|attest-build-provena
 - [ ] SBOM generated for releases (CycloneDX or SPDX).
 - [ ] Sigstore or npm provenance attestations applied.
 
-If FAIL: see `supply-chain-sbom-provenance` skill (cross-link; not yet shipped in this PR).
+If FAIL: see `supply-chain-sbom-provenance` skill.
 
 ## Output: Posture Report
 

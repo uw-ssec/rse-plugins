@@ -9,7 +9,7 @@
 2. After `pip install`, the file lives in `site-packages/`.
 3. Every subsequent `python ...` invocation triggers the payload — survives package upgrades and uninstalls if the `.pth` file isn't deleted.
 
-## Detection
+## Indicators of exposure
 
 ```bash
 find $(python -c "import site; print(site.getsitepackages()[0])") -name "*.pth" -exec sh -c 'echo "=== {} ==="; cat {}' \;
