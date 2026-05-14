@@ -100,6 +100,30 @@ Downstream consumers — and the project's own pre-release smoke test — should
 
 If any item fails, treat as unverified — do not install.
 
+## Quick Recipes
+
+**Generate CycloneDX SBOM locally:**
+```bash
+syft dir:. -o cyclonedx-json=sbom.cdx.json
+```
+
+**Sign an artifact with cosign keyless (CI step):**
+```yaml
+- run: cosign sign-blob --yes --bundle artifact.sigstore artifact.tar.gz
+  env:
+    COSIGN_EXPERIMENTAL: "1"
+```
+(Requires `permissions: id-token: write` at the job level.)
+
+**Verify a downstream artifact (consumer side):**
+```bash
+cosign verify-blob \
+  --bundle artifact.sigstore \
+  --certificate-identity-regexp "https://github.com/<owner>/<repo>/.github/workflows/.+" \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  artifact.tar.gz
+```
+
 ## Output: Provenance Posture Report
 
 When invoked for a release-pipeline review, produce a Markdown report with the structure below. Every PASS/WARN/FAIL must cite a `file:line` from the workflows or "absent" if the control is missing entirely.
