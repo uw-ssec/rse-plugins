@@ -1,13 +1,15 @@
 # Supply Chain Security Plugin
 
-Three focused skills for defending research software projects against the 2025–2026 wave of open-source supply-chain attacks — maintainer account takeovers, release-tag hijacking, lifecycle-script execution, and CI secret harvesting. Derived from the UW SSEC Open Source Supply Chain Security document.
+A flagship plugin for defending research software projects against the 2025–2026 wave of open-source supply-chain attacks — maintainer account takeovers, release-tag hijacking, lifecycle-script execution, CI secret harvesting, and persistence-on-Python-restart `.pth` injection. Derived from the UW SSEC Open Source Supply Chain Security document.
 
 ## Overview
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 
 **Contents:**
-- 3 Skills: Supply Chain Hardened CI/CD, Supply Chain Dependency Security, Supply Chain Threat Awareness
+- 2 Agents: `supply-chain-security-expert` (always-on lead), `supply-chain-incident-responder` (active incidents)
+- 5 Commands: `/supply-chain-audit`, `/supply-chain-incident`, `/supply-chain-lockfile-check`, `/supply-chain-pin-actions`, `/supply-chain-harden-workflow`
+- 6 Skills: `supply-chain-hardened-ci-cd`, `supply-chain-dependency-security`, `supply-chain-threat-awareness`, `supply-chain-sbom-provenance`, `supply-chain-incident-response`, `supply-chain-ecosystem-quirks`
 
 ## Why This Exists
 
@@ -18,94 +20,104 @@ CVE scanners and Dependabot catch known-vulnerable versions. They do **not** cat
 - Malicious `.pth` files that persist across Python restarts (LiteLLM 1.82.8)
 - GitHub Actions `@v4` references silently updated to malicious commits
 
-These three skills provide the checklists, patterns, and incident runbooks to close those gaps.
+This plugin provides agents that coordinate the work, slash commands for concrete user actions, and skills that contain the deep checklists, patterns, runbooks, and ecosystem-specific quirks needed to close those gaps.
+
+## When to Use What
+
+| Situation | Start with |
+|-----------|------------|
+| New project — establish baseline supply-chain posture | `/supply-chain-audit` |
+| Reviewing a single workflow file | `supply-chain-hardened-ci-cd` skill |
+| Reviewing dependencies or a lockfile | `/supply-chain-lockfile-check` or `supply-chain-dependency-security` skill |
+| Got a CVE/GHSA/advisory naming a dep we use | `/supply-chain-incident <id>` |
+| Workflows have `@v4` / `@main` / `@latest` refs | `/supply-chain-pin-actions` (dry-run first) |
+| Workflow needs hardening (permissions, two-job split, etc.) | `/supply-chain-harden-workflow <file>` (dry-run first) |
+| Adding SBOM / Sigstore signing to a release pipeline | `supply-chain-sbom-provenance` skill |
+| Question about npm/PyPI/conda/pixi/cargo/Go-specific gotchas | `supply-chain-ecosystem-quirks` skill |
+
+## Agents
+
+### supply-chain-security-expert (always-on lead)
+
+**File:** [agents/supply-chain-security-expert.md](agents/supply-chain-security-expert.md)
+
+Owns proactive posture work, hardening recommendations, SBOM/provenance upgrades, and ecosystem-specific guidance. Read-only by its own actions — writes happen through user-invoked transformation commands. Defers active incidents to the incident responder.
+
+### supply-chain-incident-responder (incident specialist)
+
+**File:** [agents/supply-chain-incident-responder.md](agents/supply-chain-incident-responder.md)
+
+Engages when an advisory, CVE, GHSA, or campaign report names a dependency or GitHub Action this project uses. Owns the lockfile → CI cache → secrets → persistence 4-point check end-to-end and produces a filled incident report.
+
+## Commands
+
+### Read-only
+
+| Command | Purpose |
+|---------|---------|
+| `/supply-chain-audit [path]` | Full posture audit across workflows, lockfiles, install scripts, persistence vectors. Structured Markdown report with FAIL/WARN/PASS findings. |
+| `/supply-chain-incident <id>` | Walk through 4-point check for an advisory/CVE/campaign. Produces a filled incident report. |
+| `/supply-chain-lockfile-check [path]` | Narrow lockfile-only health check. |
+
+### Transformation (dry-run by default; `--apply` to write)
+
+| Command | Purpose |
+|---------|---------|
+| `/supply-chain-pin-actions [path] [--apply]` | Convert mutable `uses:` refs to 40-char SHAs with trailing tag comments. Refuses on branch refs. |
+| `/supply-chain-harden-workflow <file> [--apply]` | Apply the hardening playbook to one workflow. Refuses if the workflow needs a manual restructure (e.g., single-job build+publish). |
+
+## Skills
+
+| Skill | Purpose | Progressive disclosure |
+|-------|---------|------------------------|
+| `supply-chain-hardened-ci-cd` | GitHub Actions release workflow hardening checklist | — |
+| `supply-chain-dependency-security` | Dependency and lockfile security review | — |
+| `supply-chain-threat-awareness` | Posture assessment against active campaigns | `references/campaigns/` (Shai-Hulud, TeamPCP, axios, LiteLLM .pth), `references/posture-report-template.md` |
+| `supply-chain-sbom-provenance` | SBOM generation, Sigstore signing, SLSA levels | `references/` (sigstore cookbook, slsa levels), `assets/sbom-workflow.yml` |
+| `supply-chain-incident-response` | IR runbook owning the 4-point check | `references/` (account-takeover runbook, tag-hijack runbook, secret rotation), `assets/incident-report-template.md` |
+| `supply-chain-ecosystem-quirks` | Ecosystem-specific install-time execution gotchas | `references/` (npm, PyPI, conda/pixi, cargo, Go quirks) |
 
 ## Plugin Structure
 
 ```
 supply-chain-security/
-├── .claude-plugin/
-│   └── plugin.json
-├── skills/
-│   ├── supply-chain-hardened-ci-cd/
-│   │   └── SKILL.md
-│   ├── supply-chain-dependency-security/
-│   │   └── SKILL.md
-│   └── supply-chain-threat-awareness/
-│       └── SKILL.md
-└── README.md
+├── .claude-plugin/plugin.json
+├── README.md
+├── agents/
+│   ├── supply-chain-security-expert.md
+│   └── supply-chain-incident-responder.md
+├── commands/
+│   ├── supply-chain-audit.md
+│   ├── supply-chain-incident.md
+│   ├── supply-chain-lockfile-check.md
+│   ├── supply-chain-pin-actions.md
+│   └── supply-chain-harden-workflow.md
+└── skills/
+    ├── supply-chain-hardened-ci-cd/SKILL.md
+    ├── supply-chain-dependency-security/SKILL.md
+    ├── supply-chain-threat-awareness/
+    │   ├── SKILL.md
+    │   └── references/
+    │       ├── campaigns/{shai-hulud,teampcp,axios,litellm-pth}.md
+    │       └── posture-report-template.md
+    ├── supply-chain-sbom-provenance/
+    │   ├── SKILL.md
+    │   ├── references/{sigstore-cookbook,slsa-levels}.md
+    │   └── assets/sbom-workflow.yml
+    ├── supply-chain-incident-response/
+    │   ├── SKILL.md
+    │   ├── references/{runbook-account-takeover,runbook-tag-hijack,secret-rotation}.md
+    │   └── assets/incident-report-template.md
+    └── supply-chain-ecosystem-quirks/
+        ├── SKILL.md
+        └── references/{npm,pypi,conda-pixi,cargo-go}-quirks.md
 ```
 
-## Available Skills
+## Safety model
 
-### Supply Chain Hardened CI/CD
-
-**File:** [skills/supply-chain-hardened-ci-cd/SKILL.md](skills/supply-chain-hardened-ci-cd/SKILL.md)
-
-**Description:** Hardened GitHub Actions release workflow patterns for supply-chain security. Use when reviewing or writing GitHub Actions release workflows (`.github/workflows/*.yml`).
-
-**Key topics:**
-- SHA-pinning all `uses:` references to 40-character commit SHAs
-- OIDC Trusted Publishing (no long-lived PyPI/npm tokens)
-- Two-job build/publish split with environment-gated publish job
-- Deny-by-default `permissions: {}` with per-job opt-in
-- Pwn Request prevention (`pull_request_target` patterns)
-- `--ignore-scripts` for npm install steps
-- Egress hardening with `harden-runner`
-- SLSA provenance and artifact verification
-
-**When to use:**
-- Reviewing `.github/workflows/*.yml` for release/publish workflows
-- Writing a new release workflow from scratch
-- Responding to a TeamPCP-style tag-hijack incident
-
----
-
-### Supply Chain Dependency Security
-
-**File:** [skills/supply-chain-dependency-security/SKILL.md](skills/supply-chain-dependency-security/SKILL.md)
-
-**Description:** Dependency and lockfile supply-chain security review with 2025–2026 attack campaign patterns. Use when reviewing `package.json`, `pyproject.toml`, `requirements.txt`, `pixi.toml`, `conda-lock.yml`, or any lockfile.
-
-**Key topics:**
-- Lockfile hygiene (committing, using in CI with `npm ci`, `uv sync --frozen`, `pixi install`)
-- Install-time script execution vectors (`preinstall`/`postinstall`, Python `.pth` files)
-- Dependency freshness cooldown (≥7 days before merging new deps)
-- Incident response runbook: affected version range → lockfile check → CI cache check → secret rotation → persistence artifacts
-
-**When to use:**
-- Reviewing any dependency manifest or lockfile
-- Evaluating a new dependency for addition
-- Responding to a supply-chain compromise advisory
-
----
-
-### Supply Chain Threat Awareness
-
-**File:** [skills/supply-chain-threat-awareness/SKILL.md](skills/supply-chain-threat-awareness/SKILL.md)
-
-**Description:** Supply chain threat posture assessment for projects and packages. Use when auditing a project's overall supply-chain posture or assessing exposure to active campaigns.
-
-**Key topics:**
-- Shai-Hulud (500+ npm packages via maintainer account takeover)
-- TeamPCP (Trivy, Checkmarx, LiteLLM, Bitwarden CLI, SAP CAP via release-tag hijacking)
-- axios (100M weekly downloads; maintainer account compromise)
-- LiteLLM 1.82.8 (malicious `.pth` file for persistent Python execution)
-- CVE scanner limitations — what scanners miss and why
-- Posture assessment checklist (lockfiles, action pinning, install-time execution, dependency velocity, SBOM)
-
-**When to use:**
-- Starting a security review of a project
-- Assessing whether a specific package or workflow is at risk
-- Onboarding a project to supply-chain security practices
-
-## Getting Started
-
-Load individual skills when you need focused guidance on a specific area:
-
-- **Reviewing a GitHub Actions workflow** → load `supply-chain-hardened-ci-cd`
-- **Reviewing dependencies or a lockfile** → load `supply-chain-dependency-security`
-- **Starting an overall security posture review** → load `supply-chain-threat-awareness`
+- **Agents are read-only.** They recommend, audit, and walk through runbooks — they don't edit files. Writes happen through slash commands the user invokes deliberately.
+- **Read-only commands** never modify files: `/supply-chain-audit`, `/supply-chain-incident`, `/supply-chain-lockfile-check`.
+- **Transformation commands** preview a unified diff first and require `--apply` to write: `/supply-chain-pin-actions`, `/supply-chain-harden-workflow`. They refuse to write under risky conditions (branch refs, ambiguous SHAs, single-job build+publish workflows).
 
 ## License
 
