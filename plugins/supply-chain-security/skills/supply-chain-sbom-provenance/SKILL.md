@@ -13,7 +13,7 @@ metadata:
 
 ## Threat Model
 
-SBOM and provenance catch tag-hijack and maintainer account-takeover: the artifact digest stops matching the signed attestation even when CVE scanners report clean. TeamPCP (March 2026) would have been catchable downstream with build attestations.
+SBOM and provenance catch tag-hijack and maintainer account-takeover: the artifact digest stops matching the signed attestation even when CVE scanners report clean. CVE scanners cannot detect these attacks; only cryptographic attestations tied to the build pipeline can.
 
 ## Decision Matrix
 
@@ -83,7 +83,7 @@ Drop-in workflow that wires all four steps together: `assets/sbom-workflow.yml`.
 
 ## Verification Checklist
 
-Downstream consumers — and the project's own pre-release smoke test — should run each item below.
+Run each item below downstream or in the project's pre-release smoke test.
 
 - [ ] Bundle present. Check: `gh attestation list <artifact>` or release page for `*.sigstore`.
 - [ ] Signature verifies:
@@ -102,27 +102,25 @@ If any item fails, treat as unverified — do not install.
 
 ## Quick Recipes
 
-**Generate CycloneDX SBOM locally:**
-```bash
-syft dir:. -o cyclonedx-json=sbom.cdx.json
-```
+Complementary recipes for scenarios beyond the standard release pipeline above.
 
-**Sign an artifact with cosign keyless (CI step):**
-```yaml
-- run: cosign sign-blob --yes --bundle artifact.sigstore artifact.tar.gz
-  env:
-    COSIGN_EXPERIMENTAL: "1"
-```
-(Requires `permissions: id-token: write` at the job level.)
-
-**Verify a downstream artifact (consumer side):**
+**npm publish with provenance (alternative to syft+cosign for npm packages):**
 ```bash
-cosign verify-blob \
-  --bundle artifact.sigstore \
-  --certificate-identity-regexp "https://github.com/<owner>/<repo>/.github/workflows/.+" \
-  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-  artifact.tar.gz
+npm publish --provenance --access public
 ```
+Requires `permissions: id-token: write` in the publish job and an OIDC-enabled npm account.
+
+**Verify a GitHub attestation (consumer side, no Sigstore tooling needed):**
+```bash
+gh attestation verify artifact.tar.gz --owner <owner>
+```
+Uses the `gh` CLI to verify build-provenance attestations published via `actions/attest-build-provenance`. Faster than `cosign verify-blob` when the artifact is from a GitHub-hosted repo.
+
+**Generate an SBOM from a built container image (instead of source tree):**
+```bash
+syft <registry>/<image>:<tag> -o spdx-json=sbom.spdx.json
+```
+Use this when shipping container images to GHCR or Docker Hub. Format is SPDX (alternative to CycloneDX); both are accepted by GitHub's attestation infrastructure.
 
 ## Output: Provenance Posture Report
 
