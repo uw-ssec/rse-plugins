@@ -1,0 +1,41 @@
+{
+    "name": "supply-chain-security",
+    "version": "0.2.0",
+    "description": "Supply-chain security plugin for research software. 2 agents (lead expert + incident responder), 5 commands (audit, incident, lockfile-check, pin-actions, harden-workflow), 6 skills covering hardened CI/CD, dependency security, threat awareness, SBOM/provenance, incident response, and ecosystem-specific quirks (npm, PyPI, conda/pixi, cargo, Go). Covers 2025-2026 campaigns: Shai-Hulud, TeamPCP, axios, LiteLLM .pth persistence.",
+    "category": "security",
+    "strict": false,
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "supply-chain-security",
+        "github-actions",
+        "sha-pinning",
+        "oidc",
+        "trusted-publishing",
+        "lockfile",
+        "sbom",
+        "cyclonedx",
+        "spdx",
+        "sigstore",
+        "cosign",
+        "slsa",
+        "provenance",
+        "dependency-security",
+        "threat-awareness",
+        "incident-response",
+        "pwn-request",
+        "harden-runner",
+        "npm",
+        "pypi",
+        "conda",
+        "pixi",
+        "cargo",
+        "go",
+        "research-software"
+    ]
+}
