@@ -7,7 +7,7 @@
         "-i",
         "--rm",
         "-v",
-        "~/.holoviz-mcp:/root/.holoviz-mcp",
+        "${HOME}/.holoviz-mcp:/root/.holoviz-mcp",
         "ghcr.io/marcskovmadsen/holoviz-mcp:latest"
       ],
       "env": {}
