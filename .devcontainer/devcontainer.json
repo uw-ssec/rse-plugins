@@ -1,5 +1,5 @@
 {
-  "name": "RSE Agents Plugin Demo",
+  "name": "RSE Plugins Demo",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
     "ghcr.io/devcontainers/features/python:1": {
@@ -12,13 +12,27 @@
         "GitHub.copilot",
         "GitHub.copilot-chat",
         "johnny-zhao.oai-compatible-copilot",
-        "anthropics.claude-code"
+        "anthropics.claude-code",
+        "ms-python.python"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
   },
+  "secrets": {
+    "LITELLM_BASE_URL": {
+      "description": "Optional: Base URL for a LiteLLM-compatible gateway (e.g. https://your-gateway.example.com). If set along with LITELLM_API_KEY, Copilot will route through this gateway."
+    },
+    "LITELLM_API_KEY": {
+      "description": "Optional: API key for the LiteLLM-compatible gateway."
+    }
+  },
+  "remoteEnv": {
+    "OAI_API_KEY": "${localEnv:LITELLM_API_KEY}"
+  },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+  "postAttachCommand": "bash .devcontainer/install-vsix.sh",
   "remoteUser": "vscode"
 }
