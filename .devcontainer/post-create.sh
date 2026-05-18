@@ -30,7 +30,7 @@ fi
 
 # --- Register RSE plugins marketplace ---
 log "Registering uw-ssec/rse-plugins marketplace..."
-copilot marketplace add uw-ssec/rse-plugins
+copilot plugin marketplace add uw-ssec/rse-plugins
 
 # --- Install all RSE plugins ---
 log "Installing RSE plugins..."
@@ -48,7 +48,7 @@ PLUGINS=(
 
 for plugin in "${PLUGINS[@]}"; do
     log "  Installing ${plugin}..."
-    copilot install "${plugin}"
+    copilot plugin install "${plugin}"
 done
 
 # --- Copy agents and skills to .github/ for workspace discovery ---
