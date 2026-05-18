@@ -122,7 +122,7 @@ else
             fi
 
             if [ "${NEEDS_DOWNLOAD}" = "true" ]; then
-                DOWNLOAD_URL="https://github.com/uw-ssec/rse-plugins/releases/download/${VSIX_RELEASE_TAG}/${VSIX_FILENAME}"
+                DOWNLOAD_URL="https://github.com/uw-ssec/oai-compatible-copilot/releases/download/${VSIX_RELEASE_TAG}/${VSIX_FILENAME}"
                 log "Downloading VSIX from ${DOWNLOAD_URL}..."
 
                 DOWNLOAD_OK=true
