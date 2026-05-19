@@ -198,65 +198,83 @@ Now write the comprehensive plan document.
 
 Read from: `${CLAUDE_PLUGIN_ROOT}/skills/research-workflow-management/assets/plan-template.md`
 
-### Fill Out All Sections Thoroughly
+### Write the Plan One Section at a Time — REQUIRED
 
-**Required sections:**
+Create `.agents/` directory if needed: `mkdir -p .agents`
 
-1. **Overview** — What, why, and high-level how
-2. **Current State Analysis** — Existing code with file:line references
-3. **Desired End State** — What success looks like
-4. **What We're NOT Doing** — Explicit scope boundaries
-5. **Implementation Approach** — Technical strategy and key decisions
-6. **Implementation Phases** — Detailed, phased steps with checkboxes
-7. **Success Criteria** — Split into Automated and Manual sections
-8. **Testing Strategy** — Unit, integration, and manual tests
-9. **References** — Research docs, files analyzed, external docs
+1. **Write each section directly to the file — do NOT output section content as response text first.** Generate the content only inside the Write/Edit tool call.
+2. **One section = one Write/Edit tool call = one save.** Never batch multiple sections into one tool call.
+3. **After each save, output only a one-line confirmation** (e.g., `✓ Section 1/10 saved`) before proceeding to the next section.
+4. If you feel the urge to "draft" a section in your response before saving it — stop. Write directly to the file instead.
 
-**Critical requirements:**
+**Before writing:** resolve any remaining open questions by researching code or asking the user. Every decision must be made before you start writing.
 
-- **Each phase must have:**
-  - Clear objective stating what's accomplished
-  - Specific tasks with file paths and line numbers
-  - Dependencies on prior phases if any
-  - Verification steps
+---
 
-- **Success Criteria must be split:**
-  - **Automated Verification** — Commands that can be run without human intervention (`make test`, `pytest`, file existence checks, etc.)
-  - **Manual Verification** — Steps requiring human testing (UI behavior, UX, edge cases, performance under real conditions)
+Write and save the plan in the following 10 sequential single-section writes:
 
-- **Each task must include:**
-  - Specific files to modify: `path/to/file.ext:lines`
-  - What changes to make
-  - How to verify the change
+**Section 1 — Overview**
+- Write directly to `.agents/plan-<slug>.md` (creates the file)
+- Content: What, why, and high-level how (2-3 paragraphs max)
+- After saving: output `✓ Section 1/10 saved (Overview)`
 
-**Write with specificity:**
-- Not: "Add authentication"
-- But: "Add JWT token validation in `api/middleware/auth.py:45` following the pattern from `api/middleware/session.py:23-34`"
+**Section 2 — Current State Analysis**
+- Append to `.agents/plan-<slug>.md`
+- Content: Existing code with file:line references, current behavior, current limitations
+- After saving: output `✓ Section 2/10 saved (Current State Analysis)`
 
-### Ensure NO Open Questions Remain
+**Section 3 — Desired End State**
+- Append to `.agents/plan-<slug>.md`
+- Content: New behavior description, success observable outcomes
+- After saving: output `✓ Section 3/10 saved (Desired End State)`
 
-**CRITICAL:** The final plan must NOT contain any open questions.
+**Section 4 — What We're NOT Doing**
+- Append to `.agents/plan-<slug>.md`
+- Content: Explicit scope boundaries with rationale
+- After saving: output `✓ Section 4/10 saved (Scope Boundaries)`
 
-If you encounter uncertainties while writing:
-1. STOP writing the plan
-2. Research the code to find answers, OR
-3. Ask the user to get clarification
-4. Resume writing only after questions are resolved
+**Section 5 — Assumptions**
+- Append to `.agents/plan-<slug>.md`
+- Content: Genuinely unverified beliefs, each with Basis / Impact if wrong / How to verify
+- After saving: output `✓ Section 5/10 saved (Assumptions)`
 
-**Unacceptable:**
-```markdown
-## Open Questions
-- Should we use JWT or sessions? (TBD)
-- Which database table should store this? (Need to investigate)
-```
+**Section 6 — Implementation Approach**
+- Append to `.agents/plan-<slug>.md`
+- Content: Technical strategy, key architectural decisions with rationale and trade-offs, patterns to follow
+- After saving: output `✓ Section 6/10 saved (Implementation Approach)`
+
+**Section 7 — Implementation Phases**
+- Append to `.agents/plan-<slug>.md`
+- Content: All phases with objectives, tasks (file:line references), dependencies, and verification steps
+- Write with specificity — not "Add authentication" but "Add JWT token validation in `api/middleware/auth.py:45` following the pattern from `api/middleware/session.py:23-34`"
+- After saving: output `✓ Section 7/10 saved (Implementation Phases)`
+
+**Section 8 — Success Criteria**
+- Append to `.agents/plan-<slug>.md`
+- Content: Split into Automated Verification (runnable commands) and Manual Verification (human-tested steps)
+- After saving: output `✓ Section 8/10 saved (Success Criteria)`
+
+**Section 9 — Testing Strategy**
+- Append to `.agents/plan-<slug>.md`
+- Content: Unit tests, integration tests, manual testing, test data requirements
+- After saving: output `✓ Section 9/10 saved (Testing Strategy)`
+
+**Section 10 — References and Metadata**
+- Append to `.agents/plan-<slug>.md`
+- Content: Research docs, experiment reports, files analyzed, external docs, review history
+- After saving: output `✓ Section 10/10 saved (References)`
+
+---
+
+**After all 10 sections are saved**, confirm successful save and proceed to Step 5.
+
+**CRITICAL:** The final plan must NOT contain any open questions. If you encounter uncertainties while writing any chunk:
+1. STOP writing
+2. Research the code to find answers, OR ask the user
+3. Resume only after questions are resolved
 
 **Every decision must be made before the plan is complete.**
 
-### Save the Plan
-
-- Create `.agents/` directory if needed: `mkdir -p .agents`
-- Write to `.agents/plan-<slug>.md`
-- Confirm successful save
 
 ## Step 5: Review & Iterate
 
@@ -340,6 +358,39 @@ This is a BLOCKING REQUIREMENT:
 
 **The plan is a specification, not a brainstorming document.**
 
+# Assumptions Guidelines
+
+Assumptions are beliefs the plan depends on that you have NOT fully verified through direct code inspection or testing. They are distinct from:
+
+- **Verified facts** (belong in Current State Analysis) — things you confirmed by reading code
+- **Prerequisites** (belong in Testing Strategy or Dependencies) — things that must exist before running
+- **Decisions** (belong in Implementation Approach) — choices you made deliberately
+- **Open questions** (must be resolved before plan is final) — things you haven't decided yet
+
+## How to identify real assumptions
+
+Ask yourself: "If this turns out to be false, would my plan break?"
+
+- If yes AND you verified it by reading code - it's a **fact**, put in Current State Analysis
+- If yes AND you inferred it from docs/convention - it's an **assumption**, document it
+- If yes AND you haven't decided yet - it's an **open question**, resolve it first
+
+## Categories to check
+
+When writing the Assumptions section, consider these categories:
+
+1. **Library/framework internals** — behavior you rely on but didn't verify in source code
+2. **Concurrency & isolation** — thread safety, data separation under parallel access
+3. **Data characteristics** — volume, format stability, schema guarantees
+4. **Environment & infrastructure** — services, network, permissions assumed available
+5. **External API contracts** — response formats, rate limits, idempotency guarantees
+
+## Relationship to other sections
+
+- During `/implement`: assumptions should be verified as implementation proceeds
+- During `/validate`: check whether any assumptions were invalidated
+- During `/iterate-plan`: if an assumption proves wrong, update the plan accordingly
+
 # Success Criteria Guidelines
 
 Always separate success criteria into two categories:
@@ -413,6 +464,7 @@ Before completing the plan, verify:
 - [ ] Success criteria are split into Automated and Manual
 - [ ] Success criteria are measurable and concrete
 - [ ] "What We're NOT Doing" section is filled out
+- [ ] Assumptions are genuinely unverified beliefs (not restated facts or prerequisites)
 - [ ] NO open questions remain in the plan
 - [ ] References section links to research and experiment docs
 - [ ] Task list shows plan completion
