@@ -175,10 +175,8 @@ distributable packages); standalone `pixi.toml` is the leaner alternative.
 | You want pip/build/uv compatibility | You want the leanest possible manifest |
 | `pixi init --format pyproject` | `pixi init` (the default) |
 
-Everything in this skill maps to both formats. The only difference is table
-prefixes: `pyproject.toml` uses `[tool.pixi.*]` (e.g. `[tool.pixi.workspace]`,
-`[tool.pixi.dependencies]`); a standalone `pixi.toml` drops the prefix
-(`[workspace]`, `[dependencies]`).
+All examples map to both: `pyproject.toml` prefixes tables with `[tool.pixi.*]`;
+standalone `pixi.toml` drops it (`[tool.pixi.workspace]` → `[workspace]`).
 
 ### 7. Global Tools and One-Off Execution
 
@@ -231,23 +229,10 @@ pixi shell
 python analyze.py
 ```
 
-## Patterns
+## Deeper References
 
-See [references/patterns.md](references/patterns.md) for detailed patterns including:
-- Converting existing projects to Pixi
-- Multi-environment scientific workflows
-- Scientific library development
-- Conda + PyPI dependency strategy
-- Reproducible research environments
-- Task dependencies and workflows
-
-## File Templates
-
-Ready-to-use templates are available in the `assets/` directory:
-
-- **[assets/pyproject-pixi-example.toml](assets/pyproject-pixi-example.toml)** - Basic pixi project configuration
-- **[assets/pyproject-multi-env.toml](assets/pyproject-multi-env.toml)** - Multi-environment configuration example
-- **[assets/github-actions-pixi.yml](assets/github-actions-pixi.yml)** - GitHub Actions workflow for pixi
+- **[references/patterns.md](references/patterns.md)** — migrating existing projects, multi-environment workflows, library development, conda + PyPI strategy, reproducible research, task pipelines.
+- **`assets/`** — ready-to-use templates: `pyproject-pixi-example.toml`, `pyproject-multi-env.toml`, and a SHA-pinned `github-actions-pixi.yml` CI workflow.
 
 ## Troubleshooting
 
