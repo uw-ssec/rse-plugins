@@ -69,6 +69,17 @@ pixi update                              # update all
 # List packages
 pixi list
 pixi tree numpy                          # show dependency tree
+
+# Global tools (replaces pipx / condax for CLI utilities)
+pixi global install ruff                  # install a CLI tool globally
+pixi global list                          # list globally installed tools
+
+# Run a tool in a temporary throwaway environment (no project needed)
+pixi exec ruff check .                    # run ruff without installing it
+pixi exec --spec python=3.12 python -V    # one-off env with a pinned spec
+
+# Print activation for use in scripts / CI without a subshell
+pixi shell-hook                           # emit activation commands
 ```
 
 ### Quick Decision Tree: Pixi vs UV vs Both
@@ -219,6 +230,19 @@ prefixes: `pyproject.toml` uses `[tool.pixi.*]` (e.g. `[tool.pixi.workspace]`,
 `[tool.pixi.dependencies]`); a standalone `pixi.toml` drops the prefix
 (`[workspace]`, `[dependencies]`).
 
+### 8. Global Tools and One-Off Execution
+
+Not every tool belongs in a project environment:
+
+- **`pixi global install <tool>`** installs a CLI tool into an isolated global
+  environment on your `PATH` — the pixi-native replacement for `pipx`/`condax`
+  (e.g. `ruff`, `pre-commit`, `jupyterlab`).
+- **`pixi exec <cmd>`** runs a command in a temporary environment that is
+  discarded afterward — ideal for trying a tool without adding a dependency, or
+  for CI one-offs (`pixi exec --spec python=3.12 python -V`).
+- **`pixi shell-hook`** prints the activation script for an environment without
+  spawning a subshell, which is what you want in CI steps and wrapper scripts.
+
 ## Quick Start
 
 ### Minimal Example: Data Analysis Project
@@ -314,6 +338,7 @@ See [references/common-issues.md](references/common-issues.md) for solutions to:
 - [ ] Keep environments minimal (only necessary dependencies)
 - [ ] Use solve groups to isolate independent environments
 - [ ] Clean old packages with `pixi clean cache`
+- [ ] Pin GitHub Actions to commit SHAs (not mutable tags) in CI — see `assets/github-actions-pixi.yml`; a tag like `@v5` can be repointed to malicious code, a SHA cannot
 
 ### Development Workflow
 - [ ] Define tasks for common operations (test, lint, format)
@@ -330,6 +355,8 @@ See [references/common-issues.md](references/common-issues.md) for solutions to:
 - **Documentation**: https://pixi.sh/latest/
 - **GitHub Repository**: https://github.com/prefix-dev/pixi
 - **Configuration Reference**: https://pixi.sh/latest/reference/project_configuration/
+- **Building packages (`pixi build`)**: https://pixi.sh/latest/build/getting_started/
+- **Migration guides (conda, poetry, uv)**: https://pixi.sh/latest/switching_from/conda/
 
 ### Community & Support
 - **Discord**: https://discord.gg/kKV8ZxyzY4
