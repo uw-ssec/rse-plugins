@@ -33,8 +33,8 @@ iwr -useb https://pixi.sh/install.ps1 | iex
 # Initialize new project with pyproject.toml
 pixi init --format pyproject
 
-# Initialize existing Python project
-pixi init --format pyproject --import-environment
+# Import from an existing environment.yml
+pixi init --format pyproject --import environment.yml
 ```
 
 ### Essential Commands

@@ -34,7 +34,7 @@ while IFS= read -r package; do
 done < requirements.txt
 
 # From environment.yml
-pixi init --format pyproject --import-environment environment.yml
+pixi init --format pyproject --import environment.yml
 
 # Verify installation
 pixi install
@@ -255,7 +255,7 @@ pixi install  # installs exact versions from pixi.lock
 pixi run full-pipeline
 
 # Archive for long-term preservation
-pixi list --export environment.yml  # backup as conda format
+pixi list --json > environment-snapshot.json  # backup package list (--export removed in 0.40+)
 ```
 
 ## Pattern 6: Task Dependencies and Workflows
@@ -304,7 +304,7 @@ pixi run pipeline-with-tests
 # Check what will run
 pixi task list --summary
 
-# Visualize task dependencies
-pixi task info full-pipeline
+# List all tasks with details
+pixi task list
 ```
 
