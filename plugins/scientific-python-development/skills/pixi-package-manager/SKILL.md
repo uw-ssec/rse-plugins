@@ -194,6 +194,12 @@ Pixi reads standard Python project metadata from `pyproject.toml`, enabling:
 - Compatibility with pip, uv, and other tools
 - Standard Python packaging workflows
 
+> **Terminology note:** pixi renamed the project-level table to
+> `[tool.pixi.workspace]` (standalone manifests use `[workspace]`). The older
+> `[tool.pixi.project]` / `[project]`-style pixi table still works as a
+> deprecated alias, so existing manifests keep functioning — but new projects
+> should use `workspace`.
+
 ## Quick Start
 
 ### Minimal Example: Data Analysis Project
