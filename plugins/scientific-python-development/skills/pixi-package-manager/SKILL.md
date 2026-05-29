@@ -202,6 +202,23 @@ Pixi reads standard Python project metadata from `pyproject.toml`, enabling:
 > deprecated alias, so existing manifests keep functioning — but new projects
 > should use `workspace`.
 
+### 7. Manifest Format: `pixi.toml` vs `pyproject.toml`
+
+Pixi supports two manifest formats. This skill leads with `pyproject.toml`
+because scientific Python work usually involves a distributable package, and
+`pyproject.toml` is the standard single source of truth.
+
+| Use `pyproject.toml` (this skill's default) | Use standalone `pixi.toml` |
+|---------------------------------------------|----------------------------|
+| You are building an installable Python package | The project is a workflow, analysis, or app, not a package |
+| You want pip/build/uv compatibility | You want the leanest possible manifest |
+| `pixi init --format pyproject` | `pixi init` (the default) |
+
+Everything in this skill maps to both formats. The only difference is table
+prefixes: `pyproject.toml` uses `[tool.pixi.*]` (e.g. `[tool.pixi.workspace]`,
+`[tool.pixi.dependencies]`); a standalone `pixi.toml` drops the prefix
+(`[workspace]`, `[dependencies]`).
+
 ## Quick Start
 
 ### Minimal Example: Data Analysis Project
