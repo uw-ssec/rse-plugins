@@ -1,6 +1,6 @@
 ---
 name: pixi-package-manager
-description: Manage scientific Python dependencies and environments using pixi package manager with unified conda-forge and PyPI support, task automation, and reproducible lockfiles.
+description: "Manage scientific Python dependencies and environments with the pixi package manager: create environments, add conda-forge and PyPI packages, define and run tasks, and generate reproducible multi-platform lockfiles. Use when the user mentions pixi, pixi.toml, pixi.lock, pixi init/add/run, conda-forge, or needs reproducible scientific Python environments combining conda and PyPI packages."
 metadata:
   pixi-version: "0.69.0"
   last-verified: "2026-05-29"
@@ -15,7 +15,7 @@ metadata:
 
 # Pixi Package Manager for Scientific Python
 
-Master **pixi**, the modern package manager that unifies conda and PyPI ecosystems for fast, reproducible scientific Python development. Learn how to manage complex scientific dependencies, create isolated environments, and build reproducible workflows using `pyproject.toml` integration.
+**pixi** is a package manager that unifies the conda and PyPI ecosystems for reproducible scientific Python development. Use it to manage scientific dependencies, create isolated environments, and build reproducible workflows via `pyproject.toml` integration.
 
 **Official Documentation**: https://pixi.sh
 **GitHub**: https://github.com/prefix-dev/pixi
@@ -102,7 +102,7 @@ Need reproducible environments across platforms?
 └─ LESS CRITICAL → uv also provides lockfiles
 
 Want to use both conda-forge AND PyPI packages?
-├─ YES → Use pixi (seamless integration)
+├─ YES → Use pixi (integrates both in one graph)
 └─ ONLY PYPI → uv is simpler and faster
 
 Legacy conda environment files (environment.yml)?
@@ -112,15 +112,10 @@ Legacy conda environment files (environment.yml)?
 
 ## When to Use This Skill
 
-- **Setting up scientific Python projects** with complex compiled dependencies (NumPy, SciPy, Pandas, scikit-learn, GDAL, netCDF4)
-- **Building reproducible research environments** that work identically across different machines and platforms
-- **Managing multi-language projects** that combine Python with R, Julia, C++, or Fortran
-- **Creating multiple environment configurations** for different hardware (GPU/CPU), testing scenarios, or deployment targets
-- **Replacing conda/mamba workflows** with faster, more reliable dependency resolution
-- **Developing packages that depend on both conda-forge and PyPI** packages
-- **Migrating from environment.yml or requirements.txt** to modern, reproducible workflows
-- **Running automated scientific workflows** with task runners and CI/CD integration
-- **Working with geospatial, climate, or astronomy packages** that require complex C/Fortran dependencies
+- **Compiled scientific dependencies** (NumPy, SciPy, GDAL, netCDF4) that need conda-forge pre-built binaries
+- **Reproducible multi-platform environments** that work identically across Linux, macOS, and Windows
+- **Mixed conda-forge + PyPI** dependency graphs in a single project
+- **Multiple environment configurations** (dev, test, GPU/CPU) defined via features
 
 ## Core Concepts
 
@@ -140,10 +135,7 @@ dependencies = [
 my-custom-pkg = ">=1.0"        # PyPI-only package
 ```
 
-**Why this matters for scientific Python:**
-- Get optimized NumPy/SciPy builds from conda-forge (MKL, OpenBLAS)
-- Use PyPI packages not available in conda
-- Single lockfile ensures all dependencies are compatible
+A single lockfile guarantees conda-forge (MKL/OpenBLAS-optimized) and PyPI-only packages stay compatible.
 
 ### 2. Multi-Platform Lockfiles
 
@@ -156,10 +148,7 @@ Pixi generates `pixi.lock` with dependency specifications for **all platforms** 
 # - win-64
 ```
 
-**Benefits:**
-- Commit lockfile to git → everyone gets identical environments
-- Works on collaborator's different OS without changes
-- CI/CD uses exact same versions as local development
+Commit the lockfile to git so collaborators and CI get identical versions across any OS.
 
 ### 3. Feature-Based Environments
 
@@ -192,13 +181,9 @@ docs = "sphinx-build docs/ docs/_build"
 analyse = { cmd = "python scripts/analyze.py", depends-on = ["test"] }
 ```
 
-### 5. Fast Dependency Resolution
+### 5. Dependency Resolution
 
-Pixi uses **rattler** (Rust-based conda resolver) for 10-100x faster resolution than conda:
-
-- Parallel package downloads
-- Efficient caching
-- Smart dependency solver
+Pixi uses **rattler** (a Rust-based conda resolver) with parallel downloads and caching for fast resolution.
 
 ### 6. pyproject.toml Integration
 
@@ -271,6 +256,10 @@ EOF
 
 # Run in pixi environment
 pixi run python analyze.py
+
+# Verify the environment and lockfile
+pixi list                 # confirm packages installed
+ls pixi.lock              # confirm lockfile was generated
 
 # Or activate shell
 pixi shell
@@ -373,21 +362,3 @@ See [references/common-issues.md](references/common-issues.md) for solutions to:
 - **scientific-python-packaging**: Modern Python packaging patterns
 - **scientific-python-testing**: Testing strategies with pytest
 - **uv-package-manager**: Fast pure-Python package management
-
-## Summary
-
-Pixi revolutionizes scientific Python development by unifying conda and PyPI ecosystems with blazing-fast dependency resolution, reproducible multi-platform lockfiles, and seamless environment management. By leveraging `pyproject.toml` integration, pixi provides a modern, standards-compliant approach to managing complex scientific dependencies while maintaining compatibility with the broader Python ecosystem.
-
-**Key advantages for scientific computing:**
-
-1. **Optimized Scientific Packages**: Access conda-forge's pre-built binaries for NumPy, SciPy, and other compiled packages with MKL/OpenBLAS optimizations
-2. **Complex Dependencies Made Simple**: Handle challenging packages like GDAL, netCDF4, and HDF5 that require C/Fortran/C++ system libraries
-3. **True Reproducibility**: Multi-platform lockfiles ensure identical environments across Linux, macOS, and Windows
-4. **Flexible Environment Management**: Feature-based environments for dev/test/prod, GPU/CPU, or any custom configuration
-5. **Fast and Reliable**: 10-100x faster than conda with Rust-based parallel dependency resolution
-6. **Task Automation**: Built-in task runner for scientific workflows, testing, and documentation
-7. **Best of Both Worlds**: Seamlessly mix conda-forge optimized packages with PyPI's vast ecosystem
-
-Whether you're conducting reproducible research, developing scientific software, or managing complex data analysis pipelines, pixi provides the robust foundation for modern scientific Python development. By replacing conda/mamba with pixi, you gain speed, reliability, and modern workflows while maintaining full access to the scientific Python ecosystem.
-
-**Ready to get started?** Install pixi, initialize your project with `pixi init --format pyproject`, and experience the future of scientific Python package management.
