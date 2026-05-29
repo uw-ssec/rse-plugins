@@ -9,6 +9,7 @@ metadata:
     - assets/pyproject-multi-env.toml
     - assets/pyproject-pixi-example.toml
   references:
+    - references/best-practices.md
     - references/common-issues.md
     - references/patterns.md
 ---
@@ -82,46 +83,15 @@ pixi exec --spec python=3.12 python -V    # one-off env with a pinned spec
 pixi shell-hook                           # emit activation commands
 ```
 
-### Quick Decision Tree: Pixi vs UV vs Both
+### Pixi vs uv
 
-```
-Need compiled scientific libraries (NumPy, SciPy, GDAL)?
-├─ YES → Use pixi (conda-forge has pre-built binaries)
-└─ NO → Consider uv for pure Python projects
-
-Need multi-language support (Python + R, Julia, C++)?
-├─ YES → Use pixi (supports conda ecosystem)
-└─ NO → uv sufficient for Python-only
-
-Need multiple environments (dev, test, prod, GPU, CPU)?
-├─ YES → Use pixi features for environment management
-└─ NO → Single environment projects work with either
-
-Need reproducible environments across platforms?
-├─ CRITICAL → Use pixi (lockfiles include all platforms)
-└─ LESS CRITICAL → uv also provides lockfiles
-
-Want to use both conda-forge AND PyPI packages?
-├─ YES → Use pixi (integrates both in one graph)
-└─ ONLY PYPI → uv is simpler and faster
-
-Legacy conda environment files (environment.yml)?
-├─ YES → pixi can import and modernize
-└─ NO → Start fresh with pixi or uv
-```
-
-## When to Use This Skill
-
-- **Compiled scientific dependencies** (NumPy, SciPy, GDAL, netCDF4) that need conda-forge pre-built binaries
-- **Reproducible multi-platform environments** that work identically across Linux, macOS, and Windows
-- **Mixed conda-forge + PyPI** dependency graphs in a single project
-- **Multiple environment configurations** (dev, test, GPU/CPU) defined via features
+Choose **pixi** for compiled/conda-forge packages (NumPy, SciPy, GDAL), multi-language stacks, mixed conda + PyPI graphs, or multi-platform lockfiles. Choose **uv** for pure-Python, PyPI-only projects where it is simpler and faster.
 
 ## Core Concepts
 
 ### 1. Unified Package Management (conda + PyPI)
 
-Pixi resolves dependencies from **both conda-forge and PyPI** in a single unified graph, ensuring compatibility:
+Conda-forge and PyPI packages resolve in one graph:
 
 ```toml
 [project]
@@ -139,7 +109,7 @@ A single lockfile guarantees conda-forge (MKL/OpenBLAS-optimized) and PyPI-only 
 
 ### 2. Multi-Platform Lockfiles
 
-Pixi generates `pixi.lock` with dependency specifications for **all platforms** (Linux, macOS, Windows, different architectures):
+`pixi.lock` captures resolved versions for every platform:
 
 ```toml
 # pixi.lock includes:
@@ -181,11 +151,7 @@ docs = "sphinx-build docs/ docs/_build"
 analyse = { cmd = "python scripts/analyze.py", depends-on = ["test"] }
 ```
 
-### 5. Dependency Resolution
-
-Pixi uses **rattler** (a Rust-based conda resolver) with parallel downloads and caching for fast resolution.
-
-### 6. pyproject.toml Integration
+### 5. pyproject.toml Integration
 
 Pixi reads standard Python project metadata from `pyproject.toml`, enabling:
 - Single source of truth for project configuration
@@ -198,11 +164,10 @@ Pixi reads standard Python project metadata from `pyproject.toml`, enabling:
 > deprecated alias, so existing manifests keep functioning — but new projects
 > should use `workspace`.
 
-### 7. Manifest Format: `pixi.toml` vs `pyproject.toml`
+### 6. Manifest Format: `pixi.toml` vs `pyproject.toml`
 
-Pixi supports two manifest formats. This skill leads with `pyproject.toml`
-because scientific Python work usually involves a distributable package, and
-`pyproject.toml` is the standard single source of truth.
+This skill leads with `pyproject.toml` (the standard single source of truth for
+distributable packages); standalone `pixi.toml` is the leaner alternative.
 
 | Use `pyproject.toml` (this skill's default) | Use standalone `pixi.toml` |
 |---------------------------------------------|----------------------------|
@@ -215,7 +180,7 @@ prefixes: `pyproject.toml` uses `[tool.pixi.*]` (e.g. `[tool.pixi.workspace]`,
 `[tool.pixi.dependencies]`); a standalone `pixi.toml` drops the prefix
 (`[workspace]`, `[dependencies]`).
 
-### 8. Global Tools and One-Off Execution
+### 7. Global Tools and One-Off Execution
 
 Not every tool belongs in a project environment:
 
@@ -284,81 +249,36 @@ Ready-to-use templates are available in the `assets/` directory:
 - **[assets/pyproject-multi-env.toml](assets/pyproject-multi-env.toml)** - Multi-environment configuration example
 - **[assets/github-actions-pixi.yml](assets/github-actions-pixi.yml)** - GitHub Actions workflow for pixi
 
-## Common Issues and Solutions
+## Troubleshooting
 
-See [references/common-issues.md](references/common-issues.md) for solutions to:
-- Package not found in conda-forge
-- Conflicting dependencies
-- Slow environment creation
-- Platform-specific failures
-- PyPI package installation fails
-- Lockfile merge conflicts
-- Editable install of local package
+Quick fixes for the most common failures (full guide in
+[references/common-issues.md](references/common-issues.md)):
 
-## Best Practices Checklist
+- **`pixi add` fails with "package not found"** → it may be PyPI-only; retry with
+  `pixi add --pypi <pkg>`, or check the conda name with `pixi search <pkg>`.
+- **Solver reports a conflict** → relax pins (`numpy>=1.24,<2` instead of `==`),
+  or isolate the environment with its own `solve-group`; inspect with
+  `pixi tree <pkg>`.
+- **Lockfile didn't generate / is stale** → run `pixi install` to regenerate
+  `pixi.lock`; after a git merge conflict, take one side then re-run `pixi install`.
+- **Works on one OS, fails on another** → guard OS-specific deps under
+  `[tool.pixi.target.<platform>.dependencies]` and confirm the platform is in
+  `[tool.pixi.workspace].platforms`.
 
-### Project Setup
-- [ ] Use `pixi init --format pyproject` for new projects
-- [ ] Set explicit Python version constraint (`python>=3.11,<3.13`)
-- [ ] Organize dependencies by source (conda vs PyPI)
-- [ ] Create separate features for dev, test, docs environments
-- [ ] Define useful tasks for common workflows
-- [ ] Set up `.gitignore` to exclude `.pixi/` directory
+See the reference for editable local installs, slow environment creation, and
+PyPI build failures.
 
-### Dependency Management
-- [ ] Prefer conda-forge for compiled scientific packages (NumPy, SciPy, GDAL)
-- [ ] Use PyPI only for pure Python or conda-unavailable packages
-- [ ] Pin exact versions for reproducible research
-- [ ] Use version ranges for libraries (allow updates)
-- [ ] Specify solve groups for independent environment solving
-- [ ] Use `pixi update` regularly to get security patches
+## Best Practices
 
-### Reproducibility
-- [ ] Commit `pixi.lock` to version control
-- [ ] Include all platforms in lockfile for cross-platform teams
-- [ ] Document environment recreation steps in README
-- [ ] Use exact version pins for published research
-- [ ] Test environment from scratch periodically
-- [ ] Archive environments for long-term preservation
-
-### Performance
-- [ ] Use pixi's parallel downloads (automatic)
-- [ ] Leverage caching in CI/CD (`prefix-dev/setup-pixi` action)
-- [ ] Keep environments minimal (only necessary dependencies)
-- [ ] Use solve groups to isolate independent environments
-- [ ] Clean old packages with `pixi clean cache`
-- [ ] Pin GitHub Actions to commit SHAs (not mutable tags) in CI — see `assets/github-actions-pixi.yml`; a tag like `@v5` can be repointed to malicious code, a SHA cannot
-
-### Development Workflow
-- [ ] Define tasks for common operations (test, lint, format)
-- [ ] Use task dependencies for complex workflows
-- [ ] Create environment-specific tasks when needed
-- [ ] Use `pixi shell` for interactive development
-- [ ] Use `pixi run` for automated scripts and CI
-- [ ] Test in clean environment before releasing
+See [references/best-practices.md](references/best-practices.md) for checklists
+covering project setup, dependency management, reproducibility, performance, and
+development workflow — including pinning GitHub Actions to commit SHAs (not
+mutable tags) in CI; a tag like `@v5` can be repointed to malicious code, a SHA
+cannot (see [assets/github-actions-pixi.yml](assets/github-actions-pixi.yml)).
 
 ## Resources
 
-### Official Documentation
-- **Pixi Website**: https://pixi.sh
-- **Documentation**: https://pixi.sh/latest/
-- **GitHub Repository**: https://github.com/prefix-dev/pixi
-- **Configuration Reference**: https://pixi.sh/latest/reference/project_configuration/
+- **Documentation**: https://pixi.sh/latest/ · **GitHub**: https://github.com/prefix-dev/pixi
+- **Configuration reference**: https://pixi.sh/latest/reference/project_configuration/
 - **Building packages (`pixi build`)**: https://pixi.sh/latest/build/getting_started/
 - **Migration guides (conda, poetry, uv)**: https://pixi.sh/latest/switching_from/conda/
-
-### Community & Support
-- **Discord**: https://discord.gg/kKV8ZxyzY4
-- **GitHub Discussions**: https://github.com/prefix-dev/pixi/discussions
-- **Issue Tracker**: https://github.com/prefix-dev/pixi/issues
-
-### Related Technologies
-- **Conda-forge**: https://conda-forge.org/
-- **Rattler**: https://github.com/mamba-org/rattler (underlying solver)
-- **PyPI**: https://pypi.org/
-- **UV Package Manager**: https://github.com/astral-sh/uv
-
-### Complementary Skills
-- **scientific-python-packaging**: Modern Python packaging patterns
-- **scientific-python-testing**: Testing strategies with pytest
-- **uv-package-manager**: Fast pure-Python package management
