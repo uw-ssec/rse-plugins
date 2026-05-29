@@ -2,6 +2,8 @@
 name: pixi-package-manager
 description: Manage scientific Python dependencies and environments using pixi package manager with unified conda-forge and PyPI support, task automation, and reproducible lockfiles.
 metadata:
+  pixi-version: "0.69.0"
+  last-verified: "2026-05-29"
   assets:
     - assets/github-actions-pixi.yml
     - assets/pyproject-multi-env.toml
