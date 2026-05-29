@@ -105,8 +105,6 @@ dependencies = [
 my-custom-pkg = ">=1.0"        # PyPI-only package
 ```
 
-A single lockfile guarantees conda-forge (MKL/OpenBLAS-optimized) and PyPI-only packages stay compatible.
-
 ### 2. Multi-Platform Lockfiles
 
 `pixi.lock` captures resolved versions for every platform:
@@ -153,10 +151,7 @@ analyse = { cmd = "python scripts/analyze.py", depends-on = ["test"] }
 
 ### 5. pyproject.toml Integration
 
-Pixi reads standard Python project metadata from `pyproject.toml`, enabling:
-- Single source of truth for project configuration
-- Compatibility with pip, uv, and other tools
-- Standard Python packaging workflows
+Put pixi config under `[tool.pixi.*]` in a standard `pyproject.toml`; it coexists with pip/uv tooling.
 
 > **Terminology note:** pixi renamed the project-level table to
 > `[tool.pixi.workspace]` (standalone manifests use `[workspace]`). The older
@@ -240,15 +235,17 @@ Quick fixes for the most common failures (full guide in
 [references/common-issues.md](references/common-issues.md)):
 
 - **`pixi add` fails with "package not found"** → it may be PyPI-only; retry with
-  `pixi add --pypi <pkg>`, or check the conda name with `pixi search <pkg>`.
-- **Solver reports a conflict** → relax pins (`numpy>=1.24,<2` instead of `==`),
-  or isolate the environment with its own `solve-group`; inspect with
-  `pixi tree <pkg>`.
+  `pixi add --pypi <pkg>` (or check the conda name with `pixi search <pkg>`), then
+  run `pixi list` to confirm it installed.
+- **Solver reports a conflict** → inspect with `pixi tree <pkg>`, relax pins
+  (`numpy>=1.24,<2` instead of `==`) or isolate the environment with its own
+  `solve-group`, then re-run `pixi install` and confirm it resolves cleanly.
 - **Lockfile didn't generate / is stale** → run `pixi install` to regenerate
-  `pixi.lock`; after a git merge conflict, take one side then re-run `pixi install`.
+  `pixi.lock`, then verify with `ls pixi.lock`; after a git merge conflict, take
+  one side and re-run `pixi install`.
 - **Works on one OS, fails on another** → guard OS-specific deps under
-  `[tool.pixi.target.<platform>.dependencies]` and confirm the platform is in
-  `[tool.pixi.workspace].platforms`.
+  `[tool.pixi.target.<platform>.dependencies]`, confirm the platform is listed in
+  `[tool.pixi.workspace].platforms`, then re-run `pixi install` on that platform.
 
 See the reference for editable local installs, slow environment creation, and
 PyPI build failures.
