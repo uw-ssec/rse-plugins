@@ -1,4 +1,7 @@
 # .github/workflows/test.yml
+# Actions are pinned to full commit SHAs (with the tag in a comment) as a
+# supply-chain hardening measure: a mutable tag like @v5 can be repointed to
+# malicious code, a commit SHA cannot. Update the SHA when you bump the tag.
 name: Tests
 
 on: [push, pull_request]
@@ -11,10 +14,10 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd            # v6.0.2
 
       - name: Setup Pixi
-        uses: prefix-dev/setup-pixi@v0.4.1
+        uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11       # v0.9.6
         with:
           pixi-version: latest
           cache: true
@@ -26,26 +29,25 @@ jobs:
         run: pixi run test
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354      # v6.0.1
         with:
-          file: ./coverage.xml
+          files: ./coverage.xml
 
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.4.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd            # v6.0.2
+      - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11       # v0.9.6
       - run: pixi run format --check
       - run: pixi run lint
 
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.4.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd            # v6.0.2
+      - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11       # v0.9.6
       - run: pixi run --environment docs docs-build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a     # v7.0.1
         with:
           name: documentation
           path: docs/_build/html
-
