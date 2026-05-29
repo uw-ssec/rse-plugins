@@ -127,18 +127,22 @@ configuration reference) against the current pixi docs structure.
 
 ## Acceptance Criteria
 
-- [ ] `SKILL.md` frontmatter has `pixi-version: "0.69.0"` and
+- [x] `SKILL.md` frontmatter has `pixi-version: "0.69.0"` and
       `last-verified: "2026-05-29"`.
-- [ ] No remaining `[tool.pixi.project]` occurrences; `[tool.pixi.workspace]`
-      used instead, with a deprecation note.
-- [ ] Manifest-format subsection present; pyproject.toml remains primary.
-- [ ] `pixi global`, `pixi exec`, and `pixi shell-hook` are covered concisely.
-- [ ] `assets/github-actions-pixi.yml` pins all four actions to real commit
-      SHAs with version comments; checkout on v5, upload-artifact v4, codecov v5,
-      setup-pixi v0.9.6.
-- [ ] Body contains a one-line rationale for SHA-pinning.
-- [ ] CLI flags shown in the skill verified against pixi 0.69.0.
-- [ ] Resource links verified current.
+- [x] No remaining `[tool.pixi.project]` table headers; `[tool.pixi.workspace]`
+      used instead, with a deprecation note (the old name still appears once, as
+      a prose mention inside that deprecation note — intentional).
+- [x] Manifest-format subsection present; pyproject.toml remains primary.
+- [x] `pixi global`, `pixi exec`, and `pixi shell-hook` are covered concisely.
+- [x] `assets/github-actions-pixi.yml` pins all four actions to real commit
+      SHAs (independently re-resolved) with version comments. Pinned to the
+      actual latest stable tags at implementation time: checkout v6.0.2,
+      upload-artifact v7.0.1, codecov v6.0.1, setup-pixi v0.9.6 (newer than the
+      v5/v4/v5 estimated in this spec).
+- [x] Body contains a one-line rationale for SHA-pinning.
+- [x] CLI flags shown in the skill verified against the installed pixi 0.69.0
+      binary (`--import`, no `pixi list --export`, no `pixi task info`).
+- [x] Resource links verified current (all 200, no `http://`).
 
 ## Files Touched
 
