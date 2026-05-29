@@ -11,6 +11,7 @@ metadata:
   references:
     - references/best-practices.md
     - references/common-issues.md
+    - references/manifest-and-tooling.md
     - references/patterns.md
 ---
 
@@ -83,11 +84,12 @@ pixi exec --spec python=3.12 python -V    # one-off env with a pinned spec
 pixi shell-hook                           # emit activation commands
 ```
 
-### Pixi vs uv
-
-Choose **pixi** for compiled/conda-forge packages (NumPy, SciPy, GDAL), multi-language stacks, mixed conda + PyPI graphs, or multi-platform lockfiles. Choose **uv** for pure-Python, PyPI-only projects where it is simpler and faster.
-
 ## Core Concepts
+
+Pixi uses the `[tool.pixi.workspace]` table (formerly `project`; still a
+deprecated alias). For `pixi.toml` vs `pyproject.toml`, pyproject integration,
+and pixi-vs-uv guidance, see
+[references/manifest-and-tooling.md](references/manifest-and-tooling.md).
 
 ### 1. Unified Package Management (conda + PyPI)
 
@@ -107,20 +109,11 @@ my-custom-pkg = ">=1.0"        # PyPI-only package
 
 ### 2. Multi-Platform Lockfiles
 
-`pixi.lock` captures resolved versions for every platform:
-
-```toml
-# pixi.lock includes:
-# - linux-64
-# - osx-64, osx-arm64
-# - win-64
-```
-
-Commit the lockfile to git so collaborators and CI get identical versions across any OS.
+Commit `pixi.lock` (covers linux-64, osx-64/arm64, win-64) so collaborators and CI resolve identical versions.
 
 ### 3. Feature-Based Environments
 
-Create multiple environments using **features** without duplicating dependencies:
+Compose environments from features without duplicating dependencies:
 
 ```toml
 [tool.pixi.feature.test.dependencies]
@@ -149,31 +142,7 @@ docs = "sphinx-build docs/ docs/_build"
 analyse = { cmd = "python scripts/analyze.py", depends-on = ["test"] }
 ```
 
-### 5. pyproject.toml Integration
-
-Put pixi config under `[tool.pixi.*]` in a standard `pyproject.toml`; it coexists with pip/uv tooling.
-
-> **Terminology note:** pixi renamed the project-level table to
-> `[tool.pixi.workspace]` (standalone manifests use `[workspace]`). The older
-> `[tool.pixi.project]` / `[project]`-style pixi table still works as a
-> deprecated alias, so existing manifests keep functioning — but new projects
-> should use `workspace`.
-
-### 6. Manifest Format: `pixi.toml` vs `pyproject.toml`
-
-This skill leads with `pyproject.toml` (the standard single source of truth for
-distributable packages); standalone `pixi.toml` is the leaner alternative.
-
-| Use `pyproject.toml` (this skill's default) | Use standalone `pixi.toml` |
-|---------------------------------------------|----------------------------|
-| You are building an installable Python package | The project is a workflow, analysis, or app, not a package |
-| You want pip/build/uv compatibility | You want the leanest possible manifest |
-| `pixi init --format pyproject` | `pixi init` (the default) |
-
-All examples map to both: `pyproject.toml` prefixes tables with `[tool.pixi.*]`;
-standalone `pixi.toml` drops it (`[tool.pixi.workspace]` → `[workspace]`).
-
-### 7. Global Tools and One-Off Execution
+### 5. Global Tools and One-Off Execution
 
 Not every tool belongs in a project environment:
 
@@ -226,6 +195,7 @@ python analyze.py
 
 ## Deeper References
 
+- **[references/manifest-and-tooling.md](references/manifest-and-tooling.md)** — `pixi.toml` vs `pyproject.toml`, the `workspace` terminology, pyproject integration, and pixi-vs-uv selection.
 - **[references/patterns.md](references/patterns.md)** — migrating existing projects, multi-environment workflows, library development, conda + PyPI strategy, reproducible research, task pipelines.
 - **`assets/`** — ready-to-use templates: `pyproject-pixi-example.toml`, `pyproject-multi-env.toml`, and a SHA-pinned `github-actions-pixi.yml` CI workflow.
 
