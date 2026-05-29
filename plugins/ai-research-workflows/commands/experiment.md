@@ -17,6 +17,26 @@ This step is OPTIONAL in the workflow — only use when the best approach is gen
 - Every solution has downsides
 - Document both successes and failures
 
+## When to use
+
+Invoke `/experiment` when:
+
+- The user is genuinely uncertain about the best technical approach
+- Multiple valid solutions exist with real trade-offs
+- Performance or integration characteristics are unknown
+- An architectural decision has significant trade-offs worth measuring
+
+**Example triggers:**
+- "Should I use JWT or sessions?"
+- "Which caching strategy is better?"
+- "How should we structure the microservices?"
+
+**Do not invoke `/experiment`** for:
+- Decisions that are obvious from existing codebase patterns
+- Low-risk choices where being wrong is cheap
+- Preference questions dressed up as uncertainty
+- End-to-end feasibility questions — those are `/prototype` (v0.2.0+)
+
 # Initial Setup
 
 When this command is invoked:
@@ -455,3 +475,14 @@ Before completing experimentation, verify:
 - [ ] Code snippets include file paths or locations
 
 Remember: Good experiments provide evidence for decisions. They trade short-term investment for long-term confidence.
+
+# Retreat Paths
+
+If experimentation cannot produce a defensible recommendation, do not invent one — retreat.
+
+| If this happens | Go to |
+|---|---|
+| None of the tested approaches meet the success criteria | `/plan` (revisit requirements) or `/research <missing-context>` |
+| The experiment reveals the plan's assumptions are wrong | `/iterate-plan <plan-file>` to update approach and success criteria |
+| The experiment exposes missing context about the codebase | `/research <topic>` first, then re-run `/experiment` with that context |
+| The trade-offs are genuinely tied; no approach dominates | Report the tie honestly and ask the user to choose based on product priorities |

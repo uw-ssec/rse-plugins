@@ -3,6 +3,30 @@ description: Update an existing implementation plan based on feedback
 user-invocable: true
 ---
 
+## When to use
+
+`/iterate-plan` is a **floating utility** — it can be invoked from any point in the workflow, not just after `/plan`.
+
+Invoke `/iterate-plan` when:
+
+- Scope needs to change (adding or removing features)
+- A phase needs to be split, merged, or reordered
+- Research, experiment, or validate findings require plan updates
+- Success criteria need to be adjusted
+- An `/implement` run hit a plan-vs-reality mismatch
+- A `/validate` run flagged a conformance or empirical failure
+- An `/optimize` run (v0.2.0+) surfaced out-of-scope issues
+
+**Example triggers:**
+- "Let's not implement email notifications yet"
+- "Add a phase for database migration"
+- "Update the plan based on the experiment results"
+- "The validate report found we missed Phase 2; fix the plan"
+
+**Do not invoke `/iterate-plan`** for:
+- A plan that does not yet exist — use `/plan` first
+- Cosmetic rewrites with no substantive change
+
 # Initial Response
 
 When this command is invoked, parse the input to identify the plan file path and requested changes.

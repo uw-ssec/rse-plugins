@@ -3,6 +3,23 @@ description: Create a handoff document to transfer work context to another sessi
 user-invocable: true
 ---
 
+## When to use
+
+Invoke `/handoff` when:
+
+- The current session will end (timebox, context limit, end of workday) and work is not complete
+- You want another session or contributor to resume the same work without losing context
+- A long-running workflow has paused between phases and needs a clean restart point
+
+**Example triggers:**
+- "Create a handoff so I can resume tomorrow"
+- "Summarize context for the next session"
+- "I'm running low on context — hand off to a new conversation"
+
+**Do not invoke `/handoff`** for:
+- Completed work that needs documentation — use `/implement` or `/validate` outputs, or a standard commit message
+- Work that fits in the current session with no resume step needed
+
 # Create Handoff
 
 You are tasked with writing a handoff document to transfer your work context to another agent in a new session. The handoff must be **thorough but concise** — compact and summarize your context without losing key details of what you're working on.

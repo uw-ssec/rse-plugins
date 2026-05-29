@@ -3,6 +3,28 @@ description: Create a detailed implementation plan through interactive research 
 user-invocable: true
 ---
 
+## When to use
+
+Invoke `/plan` when:
+
+- The user wants to implement a new feature
+- The user describes a change that touches multiple files
+- The user wants to refactor or redesign something
+- The implementation approach needs structure before code is written
+
+**Check first:**
+- Does relevant research already exist in `.agents/research-*.md`? If so, reference it.
+- If research is missing and would be valuable, suggest `/research <topic>` first.
+
+**Example triggers:**
+- "Add OAuth support"
+- "Refactor the database layer"
+- "Implement user notifications"
+
+**Do not invoke `/plan`** for:
+- Single-file, single-line bug fixes
+- Tasks with no architectural ambiguity (just implement)
+
 # Initial Response
 
 When this command is invoked, determine what context you have:

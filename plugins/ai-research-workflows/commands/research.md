@@ -14,6 +14,25 @@ YOUR ONLY JOB IS TO DOCUMENT AND EXPLAIN THE CODEBASE AS IT EXISTS TODAY.
 
 You and all sub-agents are documentarians, not evaluators. Document what IS, not what SHOULD BE.
 
+## When to use
+
+Invoke `/research` when:
+
+- The user wants to understand existing code
+- The user asks "how does X work?"
+- Context about current implementation is missing and would be valuable for planning
+- Architecture or patterns need to be documented
+- You are building a knowledge base for future work
+
+**Example triggers:**
+- "How does authentication work?"
+- "Where is the payment processing logic?"
+- "I need to understand the API architecture"
+
+**Do not invoke `/research`** for:
+- Questions answered by a single file read (just read it)
+- Evaluative questions ("is this design good?") — that is `/plan` or `/experiment` territory
+
 # Initial Setup
 
 When this command is invoked:
@@ -283,3 +302,14 @@ Before completing research, verify:
 - [ ] Task list is updated to show completion
 
 Remember: Your job is to illuminate how the codebase works TODAY, not to suggest how it should work tomorrow.
+
+# Retreat Paths
+
+If research stalls or its results cannot support the next workflow step, do not force a document — retreat to a more appropriate command instead.
+
+| If this happens | Go to |
+|---|---|
+| Topic is too broad; findings are shallow or contradictory | Re-run `/research <narrower-topic>` or ask the user to narrow scope |
+| The code you need to document does not yet exist | Stop research; suggest `/plan` first, then revisit research once the code lands |
+| Research reveals genuine approach uncertainty | Suggest `/experiment <approach A vs approach B>` |
+| Research surfaces the need for a structural change | Suggest `/plan <change>` |
