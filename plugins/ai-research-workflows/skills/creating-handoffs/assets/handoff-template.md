@@ -68,7 +68,7 @@
 2. [ ] [Next action]
 3. [ ] [Next action]
 
-**Recommended Next Command:** `/research`, `/plan`, `/iterate-plan`, `/experiment`, `/implement`, or `/validate`
+**Recommended Next Skill:** name the skill the receiving session should use next — one of `researching-codebases`, `researching-prior-art`, `planning-implementations`, `iterating-plans`, `running-experiments`, `implementing-plans`, `validating-implementations`, `ensuring-reproducibility`, or `hardening-research-code`. (The matching slash commands — `/research`, `/plan`, `/implement`, `/validate`, etc. — still work as shortcuts.)
 
 ## Other Notes
 
