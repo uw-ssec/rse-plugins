@@ -1,11 +1,9 @@
 ---
 name: creating-handoffs
 description: >-
-  Use when work context must transfer to another session or person — produces a
-  concise but thorough handoff document capturing state, artifacts, key files,
-  learnings, and next steps. Trigger phrases: create a handoff, hand off this
-  work, summarize context for the next session, write a handoff, prepare a
-  handoff.
+  Use when work context must transfer to another session or person. Triggers:
+  create a handoff, hand off this work, summarize context for the next session,
+  prepare a handoff.
 ---
 
 # Creating Handoffs
@@ -14,12 +12,7 @@ Produce a handoff document that transfers full working context to the next sessi
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Direct**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Process
 
@@ -104,3 +97,17 @@ Or to continue with the workflow:
 - **Cross-reference workflow artifacts.** Link to research, plan, experiment, and implementation documents by filename so the next session can read them.
 - **Name the recommended next skill.** Based on where you are in the workflow, tell the next session which skill to invoke next (e.g., `implementing-plans`, `validating-implementations`).
 - **Include learnings.** Capture non-obvious insights about the codebase, patterns that matter, or gotchas encountered.
+
+## Common Mistakes
+
+- **Dumping raw history instead of a focused summary** — pasting the full conversation or every git commit message produces an unreadable wall of text. Distil to what the next session actually needs to act.
+- **Omitting the critical files to read first** — the most common cause of a slow hand-off restart is not knowing where to begin. Always name the 2–3 files the next session must read before doing anything else.
+- **Not naming the recommended next skill** — leaving "next steps" vague forces the receiving session to re-derive the workflow position. Always state the exact skill to invoke next (e.g., `implementing-plans`).
+- **Missing learnings and gotchas** — documenting what was done without capturing why certain decisions were made, or what dead ends were hit, forces the next session to rediscover them.
+
+## Cross-references
+
+- Use `implementing-plans` as the recommended next skill when a plan is approved and ready to execute.
+- Use `validating-implementations` when implementation is complete and needs verification.
+- Use `planning-implementations` or `iterating-plans` when the next session needs to (re-)design the approach.
+- All handoff documents are picked up automatically by `using-research-workflows` when it surveys `.agents/`.

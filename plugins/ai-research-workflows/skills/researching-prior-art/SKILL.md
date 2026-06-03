@@ -1,22 +1,19 @@
 ---
 name: researching-prior-art
 description: >-
-  Use when you need to research a topic, prior work, methods, papers, or
-  existing tools beyond the current codebase before designing a solution —
-  produces a cited synthesis. Triggers: research prior art, what tools exist
-  for X, literature on X, has this been done before, survey approaches to X.
+  Use when you need to research prior work, papers, methods, or existing tools
+  outside the current codebase before designing a solution. Triggers: research
+  prior art, what tools exist for X, literature on X, has this been done
+  before, survey approaches to X.
 ---
+
+# Researching Prior Art
 
 Research the space *outside* the current codebase — papers, existing tools, methods, and comparable approaches — and produce a cited synthesis that informs design decisions. Use `researching-codebases` instead when you need to understand the *current* code.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Collaborative**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Process
 
@@ -77,3 +74,11 @@ This document feeds the `planning-implementations` skill; use a slug consistent 
 - [ ] At least one disconfirming search was attempted and the result noted.
 - [ ] Document is self-contained — a reader with no prior context can follow it.
 - [ ] Sources section contains working links or full citations.
+
+## Common Mistakes
+
+- **Uncited claims** — stating "Tool X is widely used" or "Method Y outperforms Z" without a linked source makes the synthesis untrustworthy. Every factual claim must cite a primary source.
+- **Skipping primary sources** — relying on blog posts or secondary summaries instead of the original paper, official docs, or project README risks propagating errors. Label secondary sources as such.
+- **No disconfirming search** — only searching for evidence that supports the preferred approach produces a biased synthesis. Always run at least one search for known limitations, critiques, or failures.
+- **Confusing this skill with researching-codebases** — this skill covers external tools, methods, and literature; for understanding the current codebase use `researching-codebases` instead.
+- **Scope drift** — starting with a narrow question and gradually expanding it until the document is unfocused. Lock scope in Step 1 and document any intentional scope changes.

@@ -1,23 +1,18 @@
 ---
 name: researching-codebases
 description: >-
-  Use when you need to understand how existing code works — document where
-  functionality lives, how components interact, and what patterns the codebase
-  follows, without critiquing or changing it. Triggers: how does X work, where
-  is X implemented, research the codebase, understand the architecture, trace
-  call paths, map component dependencies, catalog API endpoints.
+  Use when you need to understand how an existing codebase works before planning
+  or changing it. Triggers: how does X work, where is X implemented, research
+  the codebase, understand the architecture, trace the call path.
 ---
+
+# Researching Codebases
 
 Explore and document an existing codebase as it stands today: where things live, how components interact, and what patterns are in use — without evaluating or suggesting changes.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Direct**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## CRITICAL DIRECTIVE
 
@@ -104,6 +99,14 @@ Read the existing document, run additional research as needed, and append:
 - [ ] Synthesis connects findings across components
 - [ ] No suggestions or critiques (unless explicitly requested)
 - [ ] Document is self-contained
+
+## Common Mistakes
+
+- **Critiquing instead of documenting** — the directive is to record what IS, not what should be. If you catch yourself writing "this could be improved" or "this pattern is problematic", delete it.
+- **Partial file reads** — skimming only the first or last portion of a file leads to missed context. Read mentioned files completely before delegating sub-tasks.
+- **Vague findings without file:line references** — "the auth logic lives somewhere in the auth module" is not useful. Every finding must cite a specific `file:line` so the next session can navigate directly.
+- **Scoping too narrowly** — stopping at the first matching file when call paths span multiple components. Trace data flows end-to-end.
+- **Confusing this skill with researching-prior-art** — use this skill for the current codebase only; use `researching-prior-art` for external tools, papers, and methods.
 
 ## Cross-references
 

@@ -1,18 +1,10 @@
 ---
 name: using-research-workflows
 description: >-
-  Routes among the named research-software workflow skills
-  (researching-codebases, researching-prior-art, planning-implementations,
-  iterating-plans, running-experiments, implementing-plans,
-  validating-implementations, ensuring-reproducibility,
-  hardening-research-code, creating-handoffs) by analyzing the current project
-  state and recommending the next step; also selects Collaborative vs. Direct
-  interaction mode for each invoked skill. Use when starting or continuing any
-  structured research-software project. Triggers: research workflow, which
-  skill should I use, where do I start, guide me through research and
-  implementation, structured development workflow, set up the research
-  workflow, what step next, development process, project workflow, how to
-  start a research project, workflow steps, what should I do next.
+  Use when starting or continuing research-software work and you need to decide
+  which workflow skill to use next or how interactive to be. Triggers: research
+  workflow, which skill should I use, where do I start, guide me through the
+  workflow, structured development.
 ---
 
 # Using Research Workflows
@@ -122,3 +114,10 @@ than re-implementing their guidance here.
 | Community / handoff readiness | `project-management:community-health-files` |
 | Project handoff | `project-management:project-handoff` |
 | Heavy multi-source research | `deep-research` |
+
+## Common Mistakes
+
+- **Forcing the full workflow when a single skill suffices** — invoking the entire chain for a minor change wastes time. Use the decision tree to pick exactly the skill that matches the current need.
+- **Skipping research or prior-art before planning** — jumping straight to `planning-implementations` without first understanding the codebase or existing approaches produces plans that miss critical context.
+- **Not picking an interaction mode** — every workflow skill defaults to a mode, but failing to confirm the right mode for the task leads to unnecessary interruptions (Collaborative when Direct is wanted) or unreviewed decisions (Direct when Collaborative is needed).
+- **Treating this skill as a substitute for the specialist skills** — this meta-skill routes and orients; the actual work happens in the individual skills. Invoke the right specialist skill rather than asking this one to execute.
