@@ -81,23 +81,27 @@ Domain-specific scientific computing agents and skills for astronomy, geospatial
 
 ### AI Research Workflows Plugin
 
-Structured AI-enabled workflow for complex software development tasks with explicit phases for research, planning, experimentation, implementation, and validation.
+Skills-first research workflows for Research Software Engineers and researchers — covering the full arc from understanding code and surveying prior art through planning, experimentation, implementation, validation, reproducibility, and handoff.
 
 **Agent:**
 - **Research Workflow Orchestrator** - Guides users through structured development workflows from research to validated implementation
 
 **Commands:**
-- `/research` - Document and understand existing code, patterns, and architecture
-- `/plan` - Create detailed, testable implementation plans through interactive research
-- `/iterate-plan` - Refine existing plans based on feedback or changed requirements
-- `/experiment` - Try multiple approaches before committing to implementation (optional)
-- `/implement` - Execute the plan phase by phase with verification checkpoints
-- `/validate` - Systematically verify implementation against plan criteria
+- `/research` - Document how existing code works
+- `/plan` - Create a phased implementation plan
+- `/iterate-plan` - Revise an existing plan
+- `/experiment` - Compare approaches with real prototype code
+- `/implement` - Execute an approved plan phase by phase
+- `/validate` - Verify implementation against plan criteria
+- `/handoff` - Write a context-transfer document
+- `/prior-art` - Survey tools, papers, and methods outside the codebase
+- `/reproduce` - Capture provenance so a result can be reproduced
+- `/harden` - Add correctness and regression tests to research code
 
-**Skill:**
-- **research-workflow-management** - Systematic workflow methodology creating auditable trail of technical decisions in `.agents/` directory
+**Skills (11):**
+- **using-research-workflows** (meta), **researching-codebases**, **planning-implementations**, **iterating-plans**, **running-experiments**, **implementing-plans**, **validating-implementations**, **creating-handoffs**, **researching-prior-art**, **ensuring-reproducibility**, **hardening-research-code**
 
-**When to use:** Complex feature development, architectural changes, exploratory implementation, technical research tasks, systematic code refactoring, documented decision-making
+**When to use:** Complex feature development, architectural changes, exploratory implementation, prior-art surveys, reproducibility capture, research code hardening, context-transfer handoffs
 
 ### Project Management Plugin
 
@@ -182,26 +186,26 @@ rse-plugins/
 │   │   └── skills/
 │   │       ├── xarray-for-multidimensional-data/
 │   │       └── astropy-fundamentals/
-│   ├── ai-research-workflows/                          # AI-enabled research workflow plugin
+│   ├── ai-research-workflows/                          # Skills-first research workflow plugin
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
 │   │   ├── agents/
 │   │   │   └── research-workflow-orchestrator.md
-│   │   ├── commands/
-│   │   │   ├── research.md
-│   │   │   ├── plan.md
-│   │   │   ├── iterate-plan.md
-│   │   │   ├── experiment.md
-│   │   │   ├── implement.md
-│   │   │   └── validate.md
-│   │   └── skills/
-│   │       └── research-workflow-management/
-│   │           ├── SKILL.md
-│   │           └── assets/
-│   │               ├── research-template.md
-│   │               ├── plan-template.md
-│   │               ├── experiment-template.md
-│   │               └── implement-template.md
+│   │   ├── commands/                                 # 10 thin wrappers (research, plan, iterate-plan,
+│   │   │   └── ...                                   #   experiment, implement, validate, handoff,
+│   │   │                                             #   prior-art, reproduce, harden)
+│   │   └── skills/                                   # 11 skills
+│   │       ├── using-research-workflows/             #   meta-skill
+│   │       ├── researching-codebases/
+│   │       ├── planning-implementations/
+│   │       ├── iterating-plans/
+│   │       ├── running-experiments/
+│   │       ├── implementing-plans/
+│   │       ├── validating-implementations/
+│   │       ├── creating-handoffs/
+│   │       ├── researching-prior-art/
+│   │       ├── ensuring-reproducibility/
+│   │       └── hardening-research-code/
 │   └── project-management/                              # Project lifecycle management plugin
 │       ├── .claude-plugin/
 │       │   └── plugin.json
