@@ -1,10 +1,13 @@
 ---
 name: running-experiments
 description: >-
-  Use when the best technical approach is genuinely uncertain and you want to
-  compare 2-3 options with real prototype code and measurements before
-  committing. Triggers: should I use X or Y, compare approaches, experiment
-  with, prototype and benchmark.
+  Use when the best technical approach is genuinely uncertain and a decision
+  cannot be made by reasoning alone. Writes throwaway prototype implementations,
+  executes them with real commands, collects performance benchmarks and memory
+  measurements, and produces a comparison matrix with quantitative results and
+  an evidence-based recommendation — not architecture discussion or code review.
+  Triggers: should I use X or Y, compare approaches, prototype and benchmark,
+  experiment with, which is faster/simpler/more maintainable.
 ---
 
 # Running Experiments
@@ -37,8 +40,7 @@ proceeding.
 - Read all referenced research/plan documents **completely**.
 - From those docs, identify: the problem, constraints, codebase patterns, and
   integration points.
-- Clarify the specific question the experiment must answer. Vague questions lead
-  to vague experiments — be precise.
+- Clarify the specific, measurable question the experiment must answer.
 
 ### Step 2: Define hypothesis
 
@@ -140,20 +142,14 @@ experiment needed.
 
 ## Important guidelines
 
-**Actually run code** — execute real prototypes, measure real performance.
-Speculation is not experimentation.
-
-**Be honest about trade-offs** — every approach has downsides; document them.
-Do not cherry-pick results or oversell an approach.
-
 **Keep experiments focused** — test one architectural variable at a time;
 control for other factors.
 
-**Record ALL observations** — negative results are data. Future work depends on
-knowing what was tried and why it was rejected.
+**Record ALL observations** — negative results are data; document what was tried
+and why it was rejected.
 
-**Reference specific file paths** — show how prototypes integrate with existing
-code; use `path/to/file.ext:lines` notation.
+**Reference specific file paths** — use `path/to/file.ext:lines` notation to
+show how prototypes integrate with existing code.
 
 ## Cross-references
 
