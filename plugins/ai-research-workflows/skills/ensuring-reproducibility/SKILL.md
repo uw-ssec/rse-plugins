@@ -13,7 +13,7 @@ else — or future you — can reproduce it exactly.
 
 ## Interaction mode
 
-This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Purpose
 
@@ -105,6 +105,6 @@ Before marking reproducibility capture complete:
 
 ## Cross-references
 
-Integrates with the `running-experiments` and `implementing-plans` skills.
+Integrates with the `ai-research-workflows:running-experiments` and `ai-research-workflows:implementing-plans` skills.
 Both write `.agents/` artifacts that become the natural home for the
 `## Reproducibility` section this skill appends.

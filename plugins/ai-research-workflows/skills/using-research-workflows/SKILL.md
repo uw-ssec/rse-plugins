@@ -31,6 +31,10 @@ Research code needs to be made robust?       → hardening-research-code
 Transferring work to another session?        → creating-handoffs
 ```
 
+Invoke any skill by its fully-qualified id `ai-research-workflows:<name>` (e.g.
+`ai-research-workflows:planning-implementations`). The short names in the tree
+above and the workflow chains below refer to these.
+
 ## Interaction modes
 
 Every workflow skill starts by selecting one of two interaction modes.
@@ -44,7 +48,7 @@ vague or exploratory requests default to Collaborative, specific directives with
 enough context default to Direct. Hard stops (destructive, irreversible, or
 outward-facing actions) always require confirmation regardless of mode.
 
-Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+Full protocol: `references/interaction-modes.md`.
 
 ## Document naming & cross-references
 
@@ -118,6 +122,6 @@ than re-implementing their guidance here.
 ## Common Mistakes
 
 - **Forcing the full workflow when a single skill suffices** — invoking the entire chain for a minor change wastes time. Use the decision tree to pick exactly the skill that matches the current need.
-- **Skipping research or prior-art before planning** — jumping straight to `planning-implementations` without first understanding the codebase or existing approaches produces plans that miss critical context.
+- **Skipping research or prior-art before planning** — jumping straight to `ai-research-workflows:planning-implementations` without first understanding the codebase or existing approaches produces plans that miss critical context.
 - **Not picking an interaction mode** — every workflow skill defaults to a mode, but failing to confirm the right mode for the task leads to unnecessary interruptions (Collaborative when Direct is wanted) or unreviewed decisions (Direct when Collaborative is needed).
 - **Treating this skill as a substitute for the specialist skills** — this meta-skill routes and orients; the actual work happens in the individual skills. Invoke the right specialist skill rather than asking this one to execute.

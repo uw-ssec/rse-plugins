@@ -15,7 +15,7 @@ targeted tests.
 
 ## Interaction mode
 
-This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Purpose
 
@@ -101,7 +101,7 @@ same principles to R, Julia, Fortran, or any other runtime.
 3. **Run** — confirm tests pass on the current codebase.
 4. **Record tolerances and reference-data location** — note the tolerance
    values and where reference/golden data lives. Cross-reference the
-   `ensuring-reproducibility` skill for test-data provenance (content hashes,
+   `ai-research-workflows:ensuring-reproducibility` skill for test-data provenance (content hashes,
    retrieval dates, lockfile references).
 
 ## Common Mistakes
@@ -123,7 +123,7 @@ Before marking hardening complete:
 
 ## Cross-references
 
-Integrates with the `validating-implementations` skill (confirming the
+Integrates with the `ai-research-workflows:validating-implementations` skill (confirming the
 hardened code still satisfies its plan's success criteria) and the
-`ensuring-reproducibility` skill (provenance for reference data and pinned
+`ai-research-workflows:ensuring-reproducibility` skill (provenance for reference data and pinned
 baselines).

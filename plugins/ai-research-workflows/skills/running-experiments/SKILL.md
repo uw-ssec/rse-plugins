@@ -14,7 +14,7 @@ recommend one based on evidence.
 
 ## Interaction mode
 
-This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Starting the skill
 
@@ -93,7 +93,7 @@ Identify conditions under which an alternative approach would be preferable.
 Derive a slug from the experiment question (lowercase, hyphenated).
 
 Read the template:
-`${CLAUDE_PLUGIN_ROOT}/skills/running-experiments/assets/experiment-template.md`
+`assets/experiment-template.md`
 
 Fill all sections: goal, hypothesis, approaches, actual code snippets with file
 paths, execution commands and outputs, observations (positive and negative),
@@ -145,8 +145,8 @@ show how prototypes integrate with existing code.
 ## Cross-references
 
 Experiments reference research and plan documents in `.agents/`. Results inform
-the `iterating-plans` and `planning-implementations` skills. To make a chosen
-approach reproducible, use `ensuring-reproducibility`.
+the `ai-research-workflows:iterating-plans` and `ai-research-workflows:planning-implementations` skills. To make a chosen
+approach reproducible, use `ai-research-workflows:ensuring-reproducibility`.
 
 ## Common Mistakes
 
@@ -168,6 +168,6 @@ Before completing, verify:
 - [ ] Recommendation is clear with honest reasoning
 - [ ] Trade-offs explicitly documented
 - [ ] Conditions for alternative approaches identified
-- [ ] Template used from `${CLAUDE_PLUGIN_ROOT}/skills/running-experiments/assets/experiment-template.md`
+- [ ] Template used from `assets/experiment-template.md`
 - [ ] Document saved to `.agents/experiment-<slug>.md`
 - [ ] Code snippets include file paths or locations

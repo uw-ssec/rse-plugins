@@ -13,7 +13,7 @@ criterion in its plan, producing an inline validation report.
 
 ## Interaction mode
 
-This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Starting the skill
 
@@ -124,7 +124,7 @@ testing is still needed.
 
 Output the report inline in the conversation. Use the section templates and
 presentation/special-case blocks from
-`${CLAUDE_PLUGIN_ROOT}/skills/validating-implementations/references/report-templates.md`.
+`references/report-templates.md`.
 
 The report contains these sections in order:
 
@@ -171,5 +171,5 @@ Before delivering the report:
 
 ## Cross-references
 
-Validates the plan from the `planning-implementations` skill. For failures, fix
-and re-run, or use `iterating-plans` if the plan itself was wrong.
+Validates the plan from the `ai-research-workflows:planning-implementations` skill. For failures, fix
+and re-run, or use `ai-research-workflows:iterating-plans` if the plan itself was wrong.

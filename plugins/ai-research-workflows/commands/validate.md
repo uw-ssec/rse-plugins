@@ -3,7 +3,7 @@ description: Validate that an implementation was correctly executed against its 
 user-invocable: true
 ---
 
-Use the `validating-implementations` skill (via the Skill tool) to handle this request.
+Use the `ai-research-workflows:validating-implementations` skill to handle this request.
 
 Arguments (topic, file references, or instructions): $ARGUMENTS
 

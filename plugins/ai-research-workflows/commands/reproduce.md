@@ -3,7 +3,7 @@ description: Capture environment, data, seeds, and config so a result can be rep
 user-invocable: true
 ---
 
-Use the `ensuring-reproducibility` skill (via the Skill tool) to handle this request.
+Use the `ai-research-workflows:ensuring-reproducibility` skill to handle this request.
 
 Target result / experiment: $ARGUMENTS
 

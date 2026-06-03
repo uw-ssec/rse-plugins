@@ -3,7 +3,7 @@ description: Make research/scientific code robust with correctness, regression, 
 user-invocable: true
 ---
 
-Use the `hardening-research-code` skill (via the Skill tool) to handle this request.
+Use the `ai-research-workflows:hardening-research-code` skill to handle this request.
 
 Target code / module: $ARGUMENTS
 

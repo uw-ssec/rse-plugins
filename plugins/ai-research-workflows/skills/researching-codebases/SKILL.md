@@ -12,7 +12,7 @@ Explore and document an existing codebase as it stands today: where things live,
 
 ## Interaction mode
 
-This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## CRITICAL DIRECTIVE
 
@@ -39,6 +39,8 @@ Assign a task for each sub-question. Each task must be read-only; frame all quer
 
 **Launch all tasks concurrently** — 3–5 parallel tasks beats sequential investigation.
 
+**No subagents?** If your platform has no parallel sub-agent support, investigate each sub-question sequentially in the main context instead. The skill works the same way — gather the same evidence, just one query at a time.
+
 ### 4. Synthesize findings
 
 Wait until every task reports back. Then:
@@ -56,7 +58,7 @@ mkdir -p .agents
 Derive a slug from the topic (lowercase, hyphenated). Read the template:
 
 ```
-${CLAUDE_PLUGIN_ROOT}/skills/researching-codebases/assets/research-template.md
+assets/research-template.md
 ```
 
 Fill every section with synthesized findings and write to `.agents/research-<slug>.md`.
@@ -106,9 +108,9 @@ Read the existing document, run additional research as needed, and append:
 - **Partial file reads** — skimming only the first or last portion of a file leads to missed context. Read mentioned files completely before delegating sub-tasks.
 - **Vague findings without file:line references** — "the auth logic lives somewhere in the auth module" is not useful. Every finding must cite a specific `file:line` so the next session can navigate directly.
 - **Scoping too narrowly** — stopping at the first matching file when call paths span multiple components. Trace data flows end-to-end.
-- **Confusing this skill with researching-prior-art** — use this skill for the current codebase only; use `researching-prior-art` for external tools, papers, and methods.
+- **Confusing this skill with researching-prior-art** — use this skill for the current codebase only; use `ai-research-workflows:researching-prior-art` for external tools, papers, and methods.
 
 ## Cross-references
 
 - Plans automatically pick up `.agents/research-<slug>.md` files — use consistent naming.
-- For broader topic/prior-art research beyond this codebase, use the `researching-prior-art` skill.
+- For broader topic/prior-art research beyond this codebase, use the `ai-research-workflows:researching-prior-art` skill.

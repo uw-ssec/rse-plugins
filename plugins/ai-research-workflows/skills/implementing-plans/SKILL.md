@@ -13,7 +13,7 @@ tracking progress in real-time and verifying each phase before advancing.
 
 ## Interaction mode
 
-This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Starting the skill
 
@@ -43,7 +43,7 @@ When a plan is identified:
 
 When what you find does not match the plan, **stop** and present the issue using
 the mismatch report template in
-`${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/references/templates.md`.
+`references/templates.md`.
 
 Wait for user guidance before continuing. Let the user decide whether to adjust
 the plan, proceed with original intent, or research further.
@@ -98,12 +98,12 @@ Do NOT check off manual testing items in the plan until confirmed by the user.
 For each phase:
 
 1. Read phase details from plan.
-2. Mark phase task as in_progress in task list.
+2. Mark the phase as in progress in your task list.
 3. Implement all tasks in the phase.
-4. Check off completed tasks in the plan file using Edit.
+4. Check off completed tasks in the plan file.
 5. Run automated verification checks.
 6. Fix any failures immediately.
-7. Mark phase task as completed in task list.
+7. Mark the phase as done in your task list.
 8. Pause for manual verification (unless doing consecutive phases).
 9. Wait for user confirmation before proceeding.
 
@@ -120,7 +120,7 @@ If the plan has existing checkmarks (`- [x]`):
 
 1. Make sure you have read all relevant files completely (no partial reads).
 2. Consider whether the codebase has evolved since the plan was written.
-3. Present the mismatch using the "Issue in Phase" template in `${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/references/templates.md`.
+3. Present the mismatch using the "Issue in Phase" template in `references/templates.md`.
 4. Do not guess or make assumptions.
 5. Use sub-tasks sparingly — mainly for targeted debugging or exploring
    unfamiliar territory, never for implementation itself.
@@ -133,7 +133,7 @@ Upon completing all phases:
 `plan-jwt-auth.md` → `implement-jwt-auth.md`.
 
 **Read the template:**
-`${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/assets/implement-template.md`
+`assets/implement-template.md`
 
 **Fill all sections:** plan reference, phases completed, files modified, tests
 run, verification results (automated and manual), issues encountered, key
@@ -143,7 +143,7 @@ changes summary, remaining work, next steps.
 
 **Present completion summary** using the implementation completion summary
 template in
-`${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/references/templates.md`.
+`references/templates.md`.
 
 ## Common Mistakes
 
@@ -160,9 +160,9 @@ template in
 
 ## Cross-references
 
-Follows the `planning-implementations` skill; verify with
-`validating-implementations`. For research code, capture provenance with
-`ensuring-reproducibility` and robustness with `hardening-research-code`.
+Follows the `ai-research-workflows:planning-implementations` skill; verify with
+`ai-research-workflows:validating-implementations`. For research code, capture provenance with
+`ai-research-workflows:ensuring-reproducibility` and robustness with `ai-research-workflows:hardening-research-code`.
 
 ## Quality checklist
 
@@ -175,7 +175,7 @@ Before marking a phase as complete:
 - [ ] Tests are written and passing
 - [ ] No regressions introduced in existing functionality
 - [ ] Error handling is robust
-- [ ] Phase task is marked completed in task list
+- [ ] Phase is marked done in the task list
 - [ ] Ready for manual verification (if applicable)
 
 Before marking implementation as complete:
@@ -184,5 +184,5 @@ Before marking implementation as complete:
 - [ ] All automated verification passes
 - [ ] Implementation document generated at `.agents/implement-<slug>.md`
 - [ ] Manual verification steps clearly listed for user
-- [ ] All task list items completed
+- [ ] All task-list items are done
 - [ ] No open issues or blockers remain

@@ -13,7 +13,7 @@ preserve good content and maintain internal consistency.
 
 ## Interaction mode
 
-This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Starting the skill
 
@@ -149,7 +149,7 @@ unresolved questions; plans must be complete specifications.
 
 For the five detailed patterns (adding a phase, updating success criteria,
 adjusting scope, incorporating experiment results, splitting a complex phase),
-see `${CLAUDE_PLUGIN_ROOT}/skills/iterating-plans/references/iteration-patterns.md`.
+see `references/iteration-patterns.md`.
 
 ## Common Mistakes
 
@@ -167,7 +167,7 @@ see `${CLAUDE_PLUGIN_ROOT}/skills/iterating-plans/references/iteration-patterns.
 
 ## Cross-references
 
-After iterating, execute with the `implementing-plans` skill. Incorporate
+After iterating, execute with the `ai-research-workflows:implementing-plans` skill. Incorporate
 `.agents/experiment-*.md` results when revising the technical approach.
 
 ## Quality checklist

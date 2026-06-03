@@ -3,7 +3,7 @@ description: Update an existing implementation plan based on feedback
 user-invocable: true
 ---
 
-Use the `iterating-plans` skill (via the Skill tool) to handle this request.
+Use the `ai-research-workflows:iterating-plans` skill to handle this request.
 
 Arguments (topic, file references, or instructions): $ARGUMENTS
 

@@ -3,7 +3,7 @@ description: Create a handoff document to transfer work context to another sessi
 user-invocable: true
 ---
 
-Use the `creating-handoffs` skill (via the Skill tool) to handle this request.
+Use the `ai-research-workflows:creating-handoffs` skill to handle this request.
 
 Arguments (topic, file references, or instructions): $ARGUMENTS
 

@@ -9,11 +9,11 @@ description: >-
 
 # Researching Prior Art
 
-Research the space *outside* the current codebase — papers, existing tools, methods, and comparable approaches — and produce a cited synthesis that informs design decisions. Use `researching-codebases` instead when you need to understand the *current* code.
+Research the space *outside* the current codebase — papers, existing tools, methods, and comparable approaches — and produce a cited synthesis that informs design decisions. Use `ai-research-workflows:researching-codebases` instead when you need to understand the *current* code.
 
 ## Interaction mode
 
-This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Process
 
@@ -51,7 +51,7 @@ Group findings by theme. For each candidate tool or method: note what it does, w
 
 ## Deferral
 
-For heavy multi-source, fact-checked research, prefer the `deep-research` skill if it is available; otherwise use the built-in `WebSearch` and `WebFetch` tools.
+For heavy multi-source, fact-checked research, prefer the `deep-research` skill if it is available; otherwise use your available web-search and fetch tools.
 
 ## Output
 
@@ -65,7 +65,7 @@ Write `.agents/prior-art-<slug>.md` (create `.agents/` if needed). The document 
 6. **Sources** — full list of links and citations.
 7. **How this informs the work** — explicit connection to the design decision or plan.
 
-This document feeds the `planning-implementations` skill; use a slug consistent with the planned `.agents/plan-<slug>.md`.
+This document feeds the `ai-research-workflows:planning-implementations` skill; use a slug consistent with the planned `.agents/plan-<slug>.md`.
 
 ## Quality checklist
 
@@ -80,5 +80,5 @@ This document feeds the `planning-implementations` skill; use a slug consistent 
 - **Uncited claims** — stating "Tool X is widely used" or "Method Y outperforms Z" without a linked source makes the synthesis untrustworthy. Every factual claim must cite a primary source.
 - **Skipping primary sources** — relying on blog posts or secondary summaries instead of the original paper, official docs, or project README risks propagating errors. Label secondary sources as such.
 - **No disconfirming search** — only searching for evidence that supports the preferred approach produces a biased synthesis. Always run at least one search for known limitations, critiques, or failures.
-- **Confusing this skill with researching-codebases** — this skill covers external tools, methods, and literature; for understanding the current codebase use `researching-codebases` instead.
+- **Confusing this skill with researching-codebases** — this skill covers external tools, methods, and literature; for understanding the current codebase use `ai-research-workflows:researching-codebases` instead.
 - **Scope drift** — starting with a narrow question and gradually expanding it until the document is unfocused. Lock scope in Step 1 and document any intentional scope changes.

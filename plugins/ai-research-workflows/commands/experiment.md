@@ -3,7 +3,7 @@ description: Experiment with different approaches before committing to implement
 user-invocable: true
 ---
 
-Use the `running-experiments` skill (via the Skill tool) to handle this request.
+Use the `ai-research-workflows:running-experiments` skill to handle this request.
 
 Arguments (topic, file references, or instructions): $ARGUMENTS
 

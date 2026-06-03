@@ -13,14 +13,14 @@ research, with measurable success criteria and no unresolved decisions.
 
 ## Interaction mode
 
-This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
 ## Starting the skill
 
 If no topic is given, enter Collaborative mode and ask what to plan (and check
 `.agents/` for existing research/prior-art). If the topic is given without a
 research doc, look for `.agents/research-*.md` matches and suggest running
-`researching-codebases` first if none are found — then proceed on user
+`ai-research-workflows:researching-codebases` first if none are found — then proceed on user
 preference.
 
 ## Process
@@ -52,7 +52,7 @@ preference.
 ### Step 4: Plan Writing
 
 Generate filename from the topic slug (`plan-<slug>.md`). Read the template:
-`${CLAUDE_PLUGIN_ROOT}/skills/planning-implementations/assets/plan-template.md`.
+`assets/plan-template.md`.
 
 **Required sections:**
 
@@ -88,7 +88,7 @@ section titled "Open Questions" with unresolved items is **not acceptable**.
 Present a summary (approach, phase count, criteria counts) and ask for feedback
 on phasing, success criteria, technical approach, and edge cases.
 
-For major revisions use the `iterating-plans` skill.
+For major revisions use the `ai-research-workflows:iterating-plans` skill.
 
 ## References and output
 
@@ -96,8 +96,8 @@ For major revisions use the `iterating-plans` skill.
   incorporate `.agents/experiment-*.md` when present.
 - List all referenced docs in the References section with relative markdown links.
 - Create `.agents/` if needed; write to `.agents/plan-<slug>.md`.
-- To revise an existing plan use `iterating-plans`; to execute use
-  `implementing-plans`.
+- To revise an existing plan use `ai-research-workflows:iterating-plans`; to execute use
+  `ai-research-workflows:implementing-plans`.
 
 ## Common Mistakes
 
