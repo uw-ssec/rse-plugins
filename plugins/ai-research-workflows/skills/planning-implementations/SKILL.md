@@ -69,6 +69,32 @@ Generate filename from the topic slug (`plan-<slug>.md`). Read the template:
 Each phase needs: a clear objective, tasks with `path/to/file.ext:lines`,
 dependencies on prior phases, and verification steps.
 
+#### Bite-sized, test-first tasks
+
+Each phase's tasks must be **executable steps an engineer can follow without
+guessing**, sequenced test-first. Write the actual content, not a description:
+
+- Sequence each unit of work as: write the failing test → run it, watch it fail
+  → implement the minimal code → run the test, watch it pass → commit.
+- Show the actual code or the exact command for any step that changes code or
+  runs something — never a paraphrase.
+- Reference an exact `path/to/file.ext:line` for every task.
+
+(For numerical/research code, the "failing test" is an assertion against a known
+result, analytic case, or invariant — see `ai-research-workflows:hardening-research-code`.)
+
+#### Blocking rule: NO placeholders
+
+A step that says *what* to do without showing *how* is a plan failure. Never
+ship any of these — resolve each before saving:
+
+- "TBD", "TODO", "implement later", "fill in details".
+- "Add appropriate error handling" / "add validation" / "handle edge cases" —
+  name the specific cases and show how each is handled.
+- "Write tests for the above" without the actual test code.
+- "Similar to Phase N" — repeat the code; phases may be executed out of order.
+- Any reference to a type, function, or file not defined in some task.
+
 #### Success Criteria split
 
 **Automated Verification** — commands agents can run without human intervention
@@ -102,6 +128,8 @@ For major revisions use the `ai-research-workflows:iterating-plans` skill.
 ## Common Mistakes
 
 - **Confirming approach too late** — writing a detailed multi-phase plan before the user has approved the overall strategy wastes effort; in Collaborative mode, get approach sign-off after Step 2.
+- **Placeholder tasks** — "add appropriate error handling", "write tests for the above", or any step that states intent without the concrete code/command is a plan the executor cannot follow; write the actual content.
+- **Tests bolted on at the end** — lumping all tests into a trailing Testing Strategy section produces tests-last code; sequence tasks test-first (the failing test before the implementation) within each phase.
 - **Vague success criteria** — "works well" or "passes tests" is not a criterion; every item must be a concrete, runnable command or an observable human-verifiable outcome.
 - **Unsplit Automated vs Manual** — lumping all criteria together hides what requires human judgment; always separate the two categories explicitly.
 - **Leaving open questions in the "final" plan** — a plan section titled "Open Questions" with unresolved items ships ambiguity to the implementer; resolve or explicitly defer every question before saving the plan.
@@ -117,6 +145,8 @@ Before completing the plan verify:
 - [ ] Official template used
 - [ ] Saved to `.agents/plan-<slug>.md`
 - [ ] Every phase has `file:line` references
+- [ ] Phase tasks are bite-sized and test-first (failing test before implementation)
+- [ ] No placeholder tasks ("add appropriate error handling", "write tests for the above", or intent-without-code)
 - [ ] Success criteria split into Automated and Manual
 - [ ] Criteria are measurable and concrete
 - [ ] "What We're NOT Doing" section is filled out

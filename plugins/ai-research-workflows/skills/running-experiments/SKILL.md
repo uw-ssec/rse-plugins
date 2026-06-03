@@ -12,6 +12,16 @@ An OPTIONAL step — only use when the best approach is genuinely uncertain.
 Prototype 2-3 distinct approaches with real code, measure them honestly, then
 recommend one based on evidence.
 
+## Iron Law: an experiment is real measured code, or it is not an experiment
+
+Every approach you compare must be **actually built and run**. You may never
+estimate, reason about, or "fill in" an approach's result — not even the one
+everyone is "sure" is slower. A comparison with one side measured and the other
+assumed is an opinion with a number stapled to one half; do not present it as an
+experiment, and never let it be cited as one in a design doc. If you genuinely
+cannot build an approach, say so and label the claim an *unverified assumption*
+— never dress it up as a benchmark.
+
 ## Interaction mode
 
 This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
@@ -63,6 +73,11 @@ For each approach:
    time python benchmark.py
    pytest tests/test_experiment.py -v
    ```
+
+   For any performance claim, run each benchmark **multiple times and report
+   variance** (not a single number), fix seeds, and hold the environment and
+   input constant across approaches — you are comparing the design, not the
+   noise. Capture the conditions per `ai-research-workflows:ensuring-reproducibility`.
 
 4. **Record observations honestly** — successes and failures both. Include
    performance metrics, complexity assessment (lines of code, dependencies,
@@ -148,9 +163,19 @@ Experiments reference research and plan documents in `.agents/`. Results inform
 the `ai-research-workflows:iterating-plans` and `ai-research-workflows:planning-implementations` skills. To make a chosen
 approach reproducible, use `ai-research-workflows:ensuring-reproducibility`.
 
+## Red flags — STOP, you're fabricating a comparison
+
+| Thought | Reality |
+|---|---|
+| "We both know X is slower, no need to build it" | Then it costs little to confirm. An unbuilt side is not an experiment. Build both. |
+| "No time to build the other approach" | Then it is not an experiment — label it an unverified assumption, don't write it up as a benchmark. |
+| "I'll estimate the loop version from experience" | Estimates are opinions. Measure it, or don't claim a comparison. |
+| "One run is enough for the number" | One run is noise. Repeat, report variance, fix seeds, hold inputs constant. |
+
 ## Common Mistakes
 
 - **Theorizing instead of running code** — describing what an approach "would probably do" without actually writing and executing a prototype produces opinions, not data; always run real commands.
+- **Estimating one side of the comparison** — building the favored approach and assuming the other's result is not a head-to-head experiment; measure every approach you compare.
 - **Cherry-picking results** — reporting only the winning approach's successes while omitting failures skews the comparison; document what was tried and why it was rejected for every approach.
 - **Approaches that are not meaningfully distinct** — comparing two configuration variants (e.g., HS256 vs RS256) instead of architecturally different designs collapses into a config choice, not a real experiment.
 - **Running an experiment when the answer is already known** — if the codebase already uses a pattern consistently, follow it; experimentation on settled questions wastes time and produces noise.

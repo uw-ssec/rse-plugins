@@ -11,6 +11,16 @@ description: >-
 Systematically verify that a completed implementation satisfies every success
 criterion in its plan, producing an inline validation report.
 
+## Iron Law: no verdict without fresh output you produced yourself
+
+A validation verdict is only as good as the evidence behind it. Checkmarks in
+the plan (`- [x]`), a teammate's "all 45 tests green, ready for PR" report, and
+"it looks done" are **claims, not evidence**. Do not give a verdict until you
+have re-run every automated verification command yourself and read the actual
+code against each success criterion. Trust nothing you did not see with your own
+eyes — no matter who reported it or how reliable they seem. "Just confirm it's
+good" is a request to validate, not to rubber-stamp someone else's report.
+
 ## Interaction mode
 
 This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
@@ -76,6 +86,13 @@ Verify code, schema, and test coverage concurrently when possible:
   plan's design.
 - **Test coverage** — find tests added for the feature; verify they cover the
   scenarios listed in the plan's Testing Strategy section.
+- **Reproducibility & correctness (research code)** — if the implementation
+  produces results, metrics, or figures, confirm seeds, data versions,
+  environment, and exact commands were captured
+  (`ai-research-workflows:ensuring-reproducibility`) and that numerical results
+  meet their stated criteria/tolerances
+  (`ai-research-workflows:hardening-research-code`). Re-run to confirm reported
+  numbers actually reproduce.
 
 Wait for ALL verification to complete before synthesizing.
 
@@ -135,8 +152,20 @@ The report contains these sections in order:
 4. **Manual Testing Required** — actionable steps for items needing human testing
 5. **Recommendations** — grouped by Critical / Important / Nice to Have / Follow-Up
 
+## Red flags — STOP, you're about to rubber-stamp
+
+| Thought | Reality |
+|---|---|
+| "The engineer said all tests pass, I'll confirm" | A teammate's green report is an unverified claim, same as a checkmark. Re-run it yourself. |
+| "All phases are checked `[x]`, looks done" | Checkmarks are claims. Nothing is verified until you see fresh output. |
+| "Re-running takes 10 minutes, just sign off" | The 10 minutes is the cost of a verdict you can stand behind. Run it. |
+| "The numbers look reasonable" | For research results, "reasonable" isn't reproduced. Confirm they re-run within tolerance. |
+
 ## Common Mistakes
 
+- **Trusting a teammate's green report** — a Slack "all tests pass, ready for
+  PR" is an unverified claim exactly like a checkmark; re-run every command
+  yourself before any verdict.
 - **Trusting plan checkmarks without running the checks** — a `- [x]` in the
   plan means nothing until you execute the verification command and confirm the
   output yourself.
@@ -157,7 +186,8 @@ The report contains these sections in order:
 Before delivering the report:
 
 - [ ] Read the entire plan
-- [ ] Ran all automated verification commands from the plan
+- [ ] Ran all automated verification commands from the plan **myself** (not trusting reports or checkmarks)
+- [ ] For research results: confirmed reproducibility capture and that reported numbers re-run within tolerance
 - [ ] Documented pass/fail for each automated check
 - [ ] Investigated root causes of any failures
 - [ ] Reviewed actual code against plan specifications
