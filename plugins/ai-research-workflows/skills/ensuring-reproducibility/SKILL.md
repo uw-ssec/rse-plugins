@@ -20,6 +20,20 @@ This skill leans **Direct** by default. For the full Collaborative-vs-Direct pro
 Capture a provenance record sufficient for independent reproduction. A result
 without a provenance record is a claim; with one, it is a reproducible finding.
 
+## Iron Law: a record is not done until it has been reproduced
+
+Capturing the environment, code, data, seeds, and commands is **necessary but
+not sufficient**. An unverified provenance record is a hypothesis, not a
+reproducible finding. You MUST reproduce the result in a clean environment
+before calling it reproducible.
+
+**Deferring the clean-room reproduction is allowed ONLY when a fresh run is
+technically impossible** — the original hardware, proprietary data, or licensed
+software is genuinely unavailable. **Being short on time is never a valid
+reason.** If a full re-run is too long for the time you have, run a *minimal*
+reproduction (a smaller subset, fewer steps, one seed) in a clean environment —
+verify something, never nothing.
+
 ## What to capture
 
 A complete provenance record includes:
@@ -27,6 +41,12 @@ A complete provenance record includes:
 - **Environment** — interpreter or compiler version (e.g., `python 3.12.3`),
   OS, and the dependency lockfile that was active (e.g., `pixi.lock`,
   `uv.lock`, `requirements-frozen.txt`).
+- **Code version** — the commit hash of the analysis/model code itself
+  (`git rev-parse HEAD`); note if the working tree was dirty. Pinning the
+  environment but not the code that produced the result defeats reproduction.
+- **Hardware / accelerator** — for GPU, accelerated, or parallel runs, record
+  the device, CUDA/driver version, and thread/process counts; these change
+  numerical results and explain nondeterminism.
 - **Data inputs** — file paths or URLs, plus a version tag, commit hash, or
   content hash (e.g., `sha256:abc123`) for each dataset. For remote data,
   record the retrieval date.
@@ -66,8 +86,9 @@ provenance principles to R, Julia, Rust, or any other runtime.
 
 ## Verify
 
-Where feasible, reproduce from the record in a clean environment and confirm
-the result matches. Steps:
+Reproduce from the record in a clean environment and confirm the result
+matches. This is **required, not optional** (see the Iron Law above) — bounded
+only by technical impossibility, never by time pressure. Steps:
 
 1. Start from a fresh environment (new venv, container, or clean pixi/uv
    environment).
@@ -86,6 +107,17 @@ Expected: 0.847 ± 0.003 (3 independent runs with seeds 42, 123, 999)
 Document the reproduction attempt — success, failure, and any tolerance
 applied — in the provenance record.
 
+## Red flags — STOP, you're rationalizing the skip
+
+The clean-room reproduction is exactly the step a deadline tempts you to drop:
+
+| Thought | Reality |
+|---|---|
+| "The env is right here, it'll reproduce fine" | "Right here" is not a clean room. An unverified record is a hypothesis. Run it fresh. |
+| "No time to spin up a clean environment" | Time is never a valid deferral. Do a *minimal* clean-room run, don't skip. |
+| "I'll do the clean-room run after submission" | Later never comes — and the number is already in the paper. Verify before you report it. |
+| "It's deterministic, so it obviously reproduces" | Determinism is a claim until a fresh environment confirms it; deps, hardware, and unseeded RNG drift silently. |
+
 ## Common Mistakes
 
 - **Environment without data provenance** — recording the lockfile but omitting dataset versions, content hashes, or retrieval dates leaves the biggest reproducibility gap; pin both environment and data.
@@ -100,8 +132,10 @@ Before marking reproducibility capture complete:
 - [ ] Environment pinned: runtime version + lockfile reference recorded
 - [ ] Data inputs referenced with versions or content hashes
 - [ ] All random seeds recorded
+- [ ] Code version (commit hash) and hardware/accelerator recorded where relevant
 - [ ] Commands are complete and copy-pasteable as written
-- [ ] A reproduction attempt is documented (or explicitly deferred with reason)
+- [ ] The result was reproduced in a clean environment (at least a minimal run);
+      deferral documented ONLY if a fresh run is technically impossible — never for time
 
 ## Cross-references
 
