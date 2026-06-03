@@ -2,7 +2,7 @@
 
 A skills-first Claude Code plugin for Research Software Engineers and researchers. It covers the full arc of research-software work — from understanding code and surveying prior art through planning, experimentation, implementation, validation, reproducibility, and handoff. The plugin is interactive when you want collaboration (ask questions, propose options, gate on approval) and direct when you don't (act on intent, narrate briefly, stop only when blocked). Skills auto-trigger from natural language — no slash command required.
 
-**Version:** 0.3.0
+**Version:** 0.2.0
 
 ## Contents
 

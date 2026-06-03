@@ -1,6 +1,6 @@
 {
     "name": "ai-research-workflows",
-    "version": "0.3.0",
+    "version": "0.2.0",
     "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, plan, experiment, implement, validate, reproduce, harden, and handoff — interactive when you want collaboration, direct when you don't.",
     "category": "development",
     "strict": false,
