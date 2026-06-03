@@ -1,14 +1,9 @@
 ---
 name: implementing-plans
 description: >-
-  Use when an approved software implementation plan exists (.agents/plan-*.md)
-  and you are ready to write code, run tests, and track progress phase-by-phase.
-  Reads the full plan, implements each phase completely, runs automated
-  verification (tests, linters, type-checks) after each phase, pauses for human
-  manual verification, updates plan checkboxes in real-time, and writes a final
-  implementation-summary document to .agents/ when all phases are done. Triggers:
-  implement the plan, execute the plan, start building, run the plan, build the
-  feature, code the solution, implement the architecture.
+  Use when an approved implementation plan (a .agents/plan-*.md file) exists
+  and the next step is writing the code. Triggers: implement the plan, execute
+  the plan, start building, run the plan.
 ---
 
 # Implementing Plans
@@ -18,12 +13,7 @@ tracking progress in real-time and verifying each phase before advancing.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Direct**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Starting the skill
 
@@ -51,26 +41,9 @@ When a plan is identified:
 
 ## Handling mismatches
 
-When what you find does not match the plan, **stop** and present the issue:
-
-```
-## Issue in Phase [N]:
-
-**Expected (from plan):**
-[What the plan says should exist]
-
-**Found (actual situation):**
-[What actually exists in the codebase]
-
-**Why this matters:**
-[Explain the impact of this mismatch]
-
-**Possible approaches:**
-1. [Option 1 with trade-offs]
-2. [Option 2 with trade-offs]
-
-How should I proceed?
-```
+When what you find does not match the plan, **stop** and present the issue using
+the mismatch report template in
+`${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/references/templates.md`.
 
 Wait for user guidance before continuing. Let the user decide whether to adjust
 the plan, proceed with original intent, or research further.
@@ -147,7 +120,7 @@ If the plan has existing checkmarks (`- [x]`):
 
 1. Make sure you have read all relevant files completely (no partial reads).
 2. Consider whether the codebase has evolved since the plan was written.
-3. Present the mismatch clearly using the "Issue in Phase" template above.
+3. Present the mismatch using the "Issue in Phase" template in `${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/references/templates.md`.
 4. Do not guess or make assumptions.
 5. Use sub-tasks sparingly — mainly for targeted debugging or exploring
    unfamiliar territory, never for implementation itself.
@@ -168,33 +141,22 @@ changes summary, remaining work, next steps.
 
 **Save to** `.agents/implement-<slug>.md` and confirm.
 
-**Present completion summary:**
+**Present completion summary** using the implementation completion summary
+template in
+`${CLAUDE_PLUGIN_ROOT}/skills/implementing-plans/references/templates.md`.
 
-```
-# Implementation Complete
+## Common Mistakes
 
-All phases of the plan have been executed.
-
-## Summary:
-- Phases completed: [N]
-- Files created: [count]
-- Files modified: [count]
-- Tests added: [count]
-- All automated verification: ✅ Passing
-
-## Implementation documented at:
-`.agents/implement-[slug].md`
-
-## Verification Status:
-✅ Automated verification complete
-⏸️ Manual verification pending (see plan for steps)
-
-## Next Steps:
-1. Complete manual verification as listed in the plan
-2. Run the validating-implementations skill for systematic validation
-3. Create commit
-4. Create pull request
-```
+- **Implementing multiple phases before verifying** — always run automated
+  checks and pause for manual verification after each phase before advancing.
+- **Not pausing for manual verification** — automated checks passing is not
+  sufficient; stop and explicitly request human confirmation of manual steps.
+- **Checking off manual items the user has not confirmed** — do not mark manual
+  verification tasks `[x]` until the user reports them done.
+- **Plowing past a plan/reality mismatch** — when the codebase differs from the
+  plan, stop and present the mismatch report; never silently adapt and continue.
+- **Partial file reads causing bugs** — always read all files mentioned in the
+  plan completely before starting implementation.
 
 ## Cross-references
 

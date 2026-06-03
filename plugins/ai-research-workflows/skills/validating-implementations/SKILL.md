@@ -1,11 +1,9 @@
 ---
 name: validating-implementations
 description: >-
-  Use when an implementation is (claimed) complete and must be verified against
-  its plan's success criteria — run automated checks, review code vs. spec, list
-  manual tests, and produce an inline validation report. Triggers: validate the
-  implementation, verify it matches the plan, is the implementation correct,
-  check before PR.
+  Use when an implementation is (claimed) complete and must be checked against
+  its plan before shipping. Triggers: validate the implementation, verify it
+  matches the plan, is the implementation correct, check before PR.
 ---
 
 # Validating Implementations
@@ -15,12 +13,7 @@ criterion in its plan, producing an inline validation report.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Direct**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Starting the skill
 
@@ -129,161 +122,35 @@ testing is still needed.
 
 ## Validation report
 
-Output the report inline in the conversation (no template file is used for
-this skill).
+Output the report inline in the conversation. Use the section templates and
+presentation/special-case blocks from
+`${CLAUDE_PLUGIN_ROOT}/skills/validating-implementations/references/report-templates.md`.
 
-### Implementation status per phase
+The report contains these sections in order:
 
-```markdown
-## Implementation Status
+1. **Implementation Status** — per-phase completion status with task-level detail
+2. **Automated Verification Results** — pass/fail for each command, with root
+   cause and recommendation for failures
+3. **Code Review Findings** — what matches the plan, deviations, potential issues
+4. **Manual Testing Required** — actionable steps for items needing human testing
+5. **Recommendations** — grouped by Critical / Important / Nice to Have / Follow-Up
 
-### Phase 1: [Name]
-**Status:** ✅ Fully implemented | ⚠️ Partially implemented | ❌ Not started
+## Common Mistakes
 
-**Details:**
-- [Task 1]: ✅ Complete
-- [Task 2]: ✅ Complete
-- [Task 3]: ⚠️ Partially complete (details…)
-
-### Phase 2: [Name]
-[Continue for all phases…]
-```
-
-### Automated verification results
-
-```markdown
-## Automated Verification Results
-
-### Passing Checks:
-- ✅ `make test` — All 45 tests passing
-- ✅ `npm run lint` — No linting errors
-- ✅ `mypy src/` — Type checking passed
-
-### Failing Checks:
-- ❌ `pytest tests/test_auth.py::test_token_refresh` — failing with timeout error
-  - **Root Cause:** Token refresh endpoint not handling concurrent requests
-  - **Location:** `api/auth.py:123`
-  - **Recommendation:** Add lock mechanism or queue
-
-[No failing checks? State "All automated verification checks passed."]
-```
-
-### Code review findings
-
-```markdown
-## Code Review Findings
-
-### What Matches Plan:
-- [List items that match]
-
-### Deviations from Plan:
-- **Deviation 1:** [Description]
-  - **Reason:** [If known]
-  - **Impact:** [Operational / complexity effect]
-  - **Assessment:** Acceptable | Problematic
-
-[No deviations? State "Implementation matches plan exactly."]
-
-### Potential Issues:
-- [Issue with file:line reference and description]
-
-[No issues? State "No issues identified."]
-```
-
-### Manual testing required
-
-```markdown
-## Manual Testing Required
-
-1. **[Test area]**
-   - [Step-by-step instructions]
-   - [Expected outcome]
-
-[Mark items completed if already tested in this session]
-```
-
-### Recommendations
-
-```markdown
-## Recommendations
-
-### Critical (Must Fix Before Merge):
-- [Item]
-
-### Important (Should Fix):
-- [Item]
-
-### Nice to Have:
-- [Item]
-
-### Follow-Up Work:
-- [Item]
-```
-
-## Presenting the report
-
-After completing validation, open with:
-
-```
-# Validation Complete
-
-I've validated the implementation against `.agents/plan-[slug].md`.
-
-## Overall Status: ✅ Ready | ⚠️ Issues Found | ❌ Incomplete
-
-## Summary:
-- Phases: [X] of [Y] fully implemented
-- Automated Checks: [X] passing, [Y] failing
-- Manual Testing: [X] items require human verification
-- Critical Issues: [X]
-- Important Issues: [Y]
-```
-
-Then append the full report sections above.
-
-Close with:
-
-```
-Would you like me to:
-1. Fix the identified issues
-2. Provide more detail on any specific finding
-3. Run additional verification checks
-```
-
-## Special cases
-
-### Implementation incomplete
-
-```markdown
-## Implementation Status: ❌ Incomplete
-
-### Completed Phases:
-- Phase 1: ✅ Complete
-
-### Incomplete Phases:
-- Phase 3: ⚠️ Partially complete (tasks 1-3 done, tasks 4-5 not started)
-- Phase 4: ❌ Not started
-
-**Recommendation:** Complete Phase 3 before validating further.
-```
-
-### No automated checks defined
-
-```markdown
-## Automated Verification: ⚠️ No Checks Defined
-
-The plan does not include automated verification checks. Manual validation only
-is insufficient for complex changes.
-
-**Recommendation:** Add test commands, file-existence checks, or scripts to the
-plan before re-validating.
-```
-
-### Failing tests
-
-Document each failure using the "Failing Checks" format shown in the report
-template above: command, error output, root cause, location, recommendation,
-and priority (Critical / Important / Nice to Have).
+- **Trusting plan checkmarks without running the checks** — a `- [x]` in the
+  plan means nothing until you execute the verification command and confirm the
+  output yourself.
+- **Reporting "looks done" without executing automated verification** — always
+  run every command in the plan's "Automated Verification" section; do not
+  substitute code inspection for running the checks.
+- **Not separating automated vs. manual results** — clearly distinguish what was
+  machine-verified from what still requires human testing; never mark manual
+  items done unless the user confirmed them in this session.
+- **Speculating about intent on deviations** — in a fresh session, document
+  deviations as observable facts and ask if their reason matters; do not invent
+  explanations.
+- **Stopping at the first failure** — run all checks regardless of early
+  failures so the report captures the full picture.
 
 ## Quality checklist
 
