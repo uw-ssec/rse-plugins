@@ -21,9 +21,23 @@ both.
 
 Leans **Collaborative** by default; see `ai-research-workflows:using-research-workflows` for the full protocol.
 
+## Checklist
+
+Work through these in order and track them as tasks. Do not skip the review gates (steps 5, 7, and 8):
+
+1. **Explore context** — the request, existing `.agents/` docs, recent commits
+2. **Scope** — internal / external / both; what counts as relevant; depth
+3. **Propose the research plan** — sub-questions + sources; get a quick OK
+4. **Investigate** — run the codebase and/or prior-art pass
+5. **Present findings** — in sections; confirm understanding *before* writing anything out
+6. **Write the research document** — `.agents/research-<slug>.md` from the template
+7. **Self-review** — read the written doc with fresh eyes; fix issues inline
+8. **User reviews the document** — have them go through the written doc before you move on
+9. **Hand off** — point to the next skill
+
 ## Process
 
-Scope → plan → investigate → present → write → review → hand off.
+Scope → plan → investigate → present → write → self-review → user review → hand off.
 
 ### 1. Explore context
 
@@ -67,10 +81,23 @@ Derive a slug (lowercase, hyphenated). Read the template:
 
 ### 7. Self-review
 
-Check for gaps, uncited prior-art claims, contradictions, unanswered
-sub-questions, and scope drift. Fix inline.
+Before showing the document, read it through with fresh eyes and fix issues inline:
 
-### 8. Hand off
+- **Placeholders** — no "TBD"/"TODO", empty sections, or vague findings.
+- **Anchors & citations** — every codebase finding cites a `file:line`; every prior-art claim cites a source.
+- **Consistency & coverage** — sections don't contradict, the synthesis matches the findings, and every scoped sub-question is answered (or its gap is named).
+
+Confirm the doc meets the Quality checklist below.
+
+### 8. User reviews the document
+
+Surface the written document and let the user go through it before you move on:
+
+> Research doc written to `.agents/research-<slug>.md`. Please review it and tell me if anything is missing or off before we move on to planning.
+
+In Collaborative mode, wait for their response; if they request changes, revise and re-run the self-review. In Direct mode, present the doc and proceed, noting it is ready for their review.
+
+### 9. Hand off
 
 Point to the next skill — usually `ai-research-workflows:planning-implementations`
 (or `ai-research-workflows:running-experiments` when an approach is uncertain).
@@ -91,6 +118,7 @@ Point to the next skill — usually `ai-research-workflows:planning-implementati
 - [ ] Synthesis connects findings and names gaps
 - [ ] Template used; saved to `.agents/research-<slug>.md`
 - [ ] Document is self-contained
+- [ ] Findings presented before writing; written doc self-reviewed and offered for user review before hand-off
 - [ ] Next skill suggested
 
 ## Cross-references
