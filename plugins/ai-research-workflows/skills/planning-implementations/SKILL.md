@@ -20,7 +20,7 @@ This skill leans **Collaborative** by default. For the full Collaborative-vs-Dir
 If no topic is given, enter Collaborative mode and ask what to plan (and check
 `.agents/` for existing research/prior-art). If the topic is given without a
 research doc, look for `.agents/research-*.md` matches and suggest running
-`ai-research-workflows:researching-codebases` first if none are found — then proceed on user
+`ai-research-workflows:researching` first if none are found — then proceed on user
 preference.
 
 ## Process
@@ -28,7 +28,7 @@ preference.
 ### Step 1: Context Gathering
 
 - Read all mentioned files **completely** before anything else.
-- Check `.agents/research-*.md`, `.agents/prior-art-*.md` for relevant context.
+- Check `.agents/research-*.md` (and legacy `.agents/prior-art-*.md`) for relevant context.
 - Investigate related files, existing patterns, integration points, and test
   coverage in parallel where possible.
 - Only ask questions that code cannot answer (product decisions, ambiguous
@@ -92,7 +92,7 @@ For major revisions use the `ai-research-workflows:iterating-plans` skill.
 
 ## References and output
 
-- Ground the plan in `.agents/research-*.md` and `.agents/prior-art-*.md`;
+- Ground the plan in `.agents/research-*.md` (and legacy `.agents/prior-art-*.md`);
   incorporate `.agents/experiment-*.md` when present.
 - List all referenced docs in the References section with relative markdown links.
 - Create `.agents/` if needed; write to `.agents/plan-<slug>.md`.

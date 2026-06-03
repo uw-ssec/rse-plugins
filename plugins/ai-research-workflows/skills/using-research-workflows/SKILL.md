@@ -19,8 +19,7 @@ code.
 ## Choosing a skill (decision tree)
 
 ```text
-Need to understand existing code?            → researching-codebases
-Need to research a topic / prior work/tools? → researching-prior-art
+Need to understand code or survey prior art? → researching
 Ready to design an implementation?           → planning-implementations
 Need to adjust an existing plan?             → iterating-plans
 Unsure which technical approach is best?     → running-experiments
@@ -55,8 +54,8 @@ Full protocol: `references/interaction-modes.md`.
 All workflow documents are saved to `.agents/` in the project root. Naming
 conventions:
 
-- `research-<slug>.md` — codebase research (e.g. `research-auth-system.md`)
-- `prior-art-<slug>.md` — prior-art / topic research (e.g. `prior-art-jwt-libraries.md`)
+- `research-<slug>.md` — research: codebase and/or prior art (e.g. `research-auth-system.md`)
+  (Legacy `prior-art-<slug>.md` documents from earlier versions are still read when present.)
 - `plan-<slug>.md` — implementation plan (e.g. `plan-auth-system.md`)
 - `experiment-<slug>.md` — experiment report (e.g. `experiment-jwt-vs-session.md`)
 - `implement-<slug>.md` — implementation summary (e.g. `implement-auth-system.md`)
@@ -72,8 +71,8 @@ Docs cross-link via relative markdown links:
 
 This creates a navigable graph of technical decisions and their context:
 
-- **Plan documents** list research and prior-art docs consulted.
-- **Experiment documents** reference research, prior-art, and plan docs.
+- **Plan documents** list the research docs consulted (including any legacy `prior-art-*.md`).
+- **Experiment documents** reference research and plan docs.
 - **Implement documents** reference the specific plan being executed.
 - **Validation reports** reference both the plan and the implementation document.
 - **Handoff documents** reference all prior documents for the feature.
@@ -82,12 +81,12 @@ This creates a navigable graph of technical decisions and their context:
 
 ### Full workflow (complex architectural change)
 
-`researching-codebases` → `planning-implementations` → `running-experiments` →
+`researching` → `planning-implementations` → `running-experiments` →
 `iterating-plans` → `implementing-plans` → `validating-implementations`
 
 ### Simple feature addition
 
-`researching-codebases` → `planning-implementations` → `implementing-plans`
+`researching` → `planning-implementations` → `implementing-plans`
 
 ### Rapid iteration
 
@@ -96,12 +95,12 @@ This creates a navigable graph of technical decisions and their context:
 
 ### Research-only / investigation
 
-`researching-codebases` → `researching-codebases` (follow-up) — use docs for
+`researching` → `researching` (follow-up) — use docs for
 future planning sessions.
 
 ### Research-first (unknown problem space)
 
-`researching-prior-art` → `planning-implementations`
+`researching` → `planning-implementations`
 
 ## Cross-plugin deferral
 

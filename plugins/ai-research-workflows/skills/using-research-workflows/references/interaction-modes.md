@@ -40,13 +40,12 @@ reverse. The execution feel.
 
 | Skill | Default lean |
 |---|---|
-| researching-codebases | Direct |
+| researching | Collaborative |
 | planning-implementations | Collaborative |
 | iterating-plans | Collaborative |
 | running-experiments | Collaborative |
 | implementing-plans | Direct |
 | validating-implementations | Direct |
 | creating-handoffs | Direct |
-| researching-prior-art | Collaborative |
 | ensuring-reproducibility | Direct |
 | hardening-research-code | Direct |

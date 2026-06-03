@@ -68,7 +68,7 @@
 2. [ ] [Next action]
 3. [ ] [Next action]
 
-**Recommended Next Skill:** name the skill the receiving session should use next — one of `ai-research-workflows:researching-codebases`, `ai-research-workflows:researching-prior-art`, `ai-research-workflows:planning-implementations`, `ai-research-workflows:iterating-plans`, `ai-research-workflows:running-experiments`, `ai-research-workflows:implementing-plans`, `ai-research-workflows:validating-implementations`, `ai-research-workflows:ensuring-reproducibility`, or `ai-research-workflows:hardening-research-code`. (The matching slash commands — `/research`, `/plan`, `/implement`, `/validate`, etc. — still work as shortcuts.)
+**Recommended Next Skill:** name the skill the receiving session should use next — one of `ai-research-workflows:researching`, `ai-research-workflows:planning-implementations`, `ai-research-workflows:iterating-plans`, `ai-research-workflows:running-experiments`, `ai-research-workflows:implementing-plans`, `ai-research-workflows:validating-implementations`, `ai-research-workflows:ensuring-reproducibility`, or `ai-research-workflows:hardening-research-code`. (The matching slash commands — `/research`, `/plan`, `/implement`, `/validate`, etc. — still work as shortcuts.)
 
 ## Other Notes
 

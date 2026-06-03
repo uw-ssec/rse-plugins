@@ -1,9 +1,9 @@
 ---
-description: Research a codebase or topic to build context for a task
+description: Research the codebase and/or external prior art to build context for a task
 user-invocable: true
 ---
 
-Use the `ai-research-workflows:researching-codebases` skill to handle this request.
+Use the `ai-research-workflows:researching` skill to handle this request.
 
 Arguments (topic, file references, or instructions): $ARGUMENTS
 

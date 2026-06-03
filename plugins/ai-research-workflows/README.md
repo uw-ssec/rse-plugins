@@ -2,15 +2,15 @@
 
 A skills-first Claude Code plugin for Research Software Engineers and researchers. It covers the full arc of research-software work — from understanding code and surveying prior art through planning, experimentation, implementation, validation, reproducibility, and handoff. The plugin is interactive when you want collaboration (ask questions, propose options, gate on approval) and direct when you don't (act on intent, narrate briefly, stop only when blocked). Skills auto-trigger from natural language — no slash command required.
 
-**Version:** 0.2.0
+**Version:** 0.3.0
 
 ## Contents
 
-This plugin ships with 1 agent, 11 skills, and 10 commands.
+This plugin ships with 1 agent, 10 skills, and 9 commands.
 
 - **1 Agent:** Research Workflow Orchestrator
-- **11 Skills:** 7 workflow skills + 3 research-software skills + 1 meta-skill
-- **10 Commands:** thin wrappers that invoke the corresponding skill
+- **10 Skills:** 7 workflow skills + 2 research-software skills + 1 meta-skill
+- **9 Commands:** thin wrappers that invoke the corresponding skill
 
 ## Skills
 
@@ -18,7 +18,7 @@ This plugin ships with 1 agent, 11 skills, and 10 commands.
 
 | Skill | What it does | Default lean | Output |
 |---|---|---|---|
-| `researching-codebases` | Explore and document an existing codebase as it stands today — where things live, how components interact, what patterns are in use — without evaluating or suggesting changes | Direct | `.agents/research-<slug>.md` |
+| `researching` | Understand existing code and/or survey external prior work, tools, and methods — produces a combined research doc | Collaborative | `.agents/research-<slug>.md` |
 | `planning-implementations` | Design a feature, refactor, or multi-file change before coding — phased approach, component dependencies, Automated and Manual success criteria | Collaborative | `.agents/plan-<slug>.md` |
 | `iterating-plans` | Revise an existing plan with surgical edits — add/remove/split phases, adjust scope, update success criteria, incorporate experiment results | Collaborative | Updated `.agents/plan-<slug>.md` |
 | `running-experiments` | Compare 2–3 technical approaches with real prototype code and measurements before committing to a design | Collaborative | `.agents/experiment-<slug>.md` |
@@ -26,11 +26,10 @@ This plugin ships with 1 agent, 11 skills, and 10 commands.
 | `validating-implementations` | Systematically verify a completed implementation against its plan's success criteria — run automated checks, review code vs. spec, list manual tests | Direct | Inline validation report |
 | `creating-handoffs` | Produce a handoff document that transfers full working context — state, artifacts, key files, learnings, and next steps — to the next session with no information loss | Direct | `.agents/handoff-<timestamp>-<slug>.md` |
 
-### Research-software skills (3)
+### Research-software skills (2)
 
 | Skill | What it does | Default lean | Output |
 |---|---|---|---|
-| `researching-prior-art` | Research topics, prior work, methods, papers, or existing tools outside the current codebase — produces a cited synthesis that informs design decisions | Collaborative | `.agents/prior-art-<slug>.md` |
 | `ensuring-reproducibility` | Capture environment, data references, random seeds, config, and exact commands as a provenance record for a result, analysis, or experiment; verify by re-running | Direct | `## Reproducibility` section in relevant `.agents/` doc |
 | `hardening-research-code` | Make research/scientific code trustworthy — define correctness criteria, add golden/reference tests, numerical-tolerance checks, and regression guards | Direct | Tests added to codebase |
 
@@ -46,14 +45,13 @@ Commands are thin wrappers — each invokes the corresponding skill. Skills also
 
 | Command | Invokes skill | Short description |
 |---|---|---|
-| `/research` | `researching-codebases` | Document how existing code works |
+| `/research` | `researching` | Understand existing code and/or survey external prior art |
 | `/plan` | `planning-implementations` | Create a phased implementation plan |
 | `/iterate-plan` | `iterating-plans` | Revise an existing plan |
 | `/experiment` | `running-experiments` | Compare approaches with real prototype code |
 | `/implement` | `implementing-plans` | Execute an approved plan phase by phase |
 | `/validate` | `validating-implementations` | Verify implementation against plan criteria |
 | `/handoff` | `creating-handoffs` | Write a context-transfer document |
-| `/prior-art` | `researching-prior-art` | Survey tools, papers, and methods outside the codebase |
 | `/reproduce` | `ensuring-reproducibility` | Capture provenance so a result can be reproduced |
 | `/harden` | `hardening-research-code` | Add correctness and regression tests to research code |
 
@@ -79,14 +77,13 @@ All workflow documents are saved to `.agents/` in the project root. The director
 
 | Document type | Naming pattern | Example |
 |---|---|---|
-| Codebase research | `research-<slug>.md` | `research-auth-system.md` |
-| Prior-art research | `prior-art-<slug>.md` | `prior-art-jwt-libraries.md` |
+| Research (codebase and/or prior art) | `research-<slug>.md` | `research-auth-system.md` |
 | Implementation plan | `plan-<slug>.md` | `plan-oauth-support.md` |
 | Experiment report | `experiment-<slug>.md` | `experiment-jwt-vs-session.md` |
 | Implementation summary | `implement-<slug>.md` | `implement-oauth-support.md` |
 | Handoff | `handoff-<timestamp>-<slug>.md` | `handoff-20240315-auth-system.md` |
 
-Documents cross-link using relative paths (`## References` sections), creating a navigable graph of technical decisions: a plan links to the research and prior-art docs that informed it; an implementation summary links back to the plan; a handoff document cites all relevant artifacts.
+Documents cross-link using relative paths (`## References` sections), creating a navigable graph of technical decisions: a plan links to the research docs that informed it; an implementation summary links back to the plan; a handoff document cites all relevant artifacts. Legacy `prior-art-<slug>.md` documents from earlier versions are still read when present.
 
 ## Cross-plugin deferral
 
@@ -110,8 +107,7 @@ Some activities are intentionally delegated to specialist plugins:
 For significant features or architectural changes requiring thorough documentation:
 
 ```
-/prior-art [topic]          → Survey external tools/papers (optional)
-/research [topic]           → Document current codebase state
+/research [topic]           → Understand current code and/or external prior art
 /plan [feature]             → Create phased implementation plan
 /experiment [comparison]    → (Optional) Prototype and compare approaches
 /iterate-plan [adjustments] → Refine plan based on findings
@@ -156,8 +152,8 @@ For understanding a codebase without immediate implementation intent:
 For work where design decisions depend on what already exists in the field:
 
 ```
-/prior-art [domain / question]   → Cited synthesis of external approaches
-/plan [feature]                  → planning-implementations picks up prior-art doc automatically
+/research [domain / question]    → Understand existing code and/or survey external approaches
+/plan [feature]                  → planning-implementations picks up research doc automatically
 ```
 
 ## Installation
