@@ -1,11 +1,18 @@
 ---
 name: using-research-workflows
 description: >-
-  Use at the start of research-software work to choose and sequence the right
-  workflow skill (research, prior-art, plan, experiment, implement, validate,
-  handoff, reproduce, harden) and to apply the Collaborative vs. Direct
-  interaction modes. Triggers: research workflow, structured development,
-  which step should I use, guide me through the workflow.
+  Routes among the named research-software workflow skills
+  (researching-codebases, researching-prior-art, planning-implementations,
+  iterating-plans, running-experiments, implementing-plans,
+  validating-implementations, ensuring-reproducibility,
+  hardening-research-code, creating-handoffs) by analyzing the current project
+  state and recommending the next step; also selects Collaborative vs. Direct
+  interaction mode for each invoked skill. Use when starting or continuing any
+  structured research-software project. Triggers: research workflow, which
+  skill should I use, where do I start, guide me through research and
+  implementation, structured development workflow, set up the research
+  workflow, what step next, development process, project workflow, how to
+  start a research project, workflow steps, what should I do next.
 ---
 
 # Using Research Workflows
