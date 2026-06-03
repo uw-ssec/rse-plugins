@@ -15,6 +15,19 @@ tracking progress in real-time and verifying each phase before advancing.
 
 This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill.
 
+## Checklist
+
+Work through these in order and track them as tasks. Do not skip the review gates (steps 2, 5, and 7):
+
+1. **Load the plan** — read the plan and every file it references, completely
+2. **Review the plan critically** — raise concerns and confirm the working branch *before* writing code
+3. **Implement one phase** — follow the plan, adapt to reality, record every deviation
+4. **Verify the phase** — run automated checks; fix failures before advancing
+5. **Pause for manual verification** — wait for human confirmation before the next phase (except consecutive phases)
+6. **Repeat steps 3–5** until every phase is done
+7. **Confirm completion** — all automated verification passes; nothing left unaccounted for on the branch
+8. **Summarize & hand off** — write `.agents/implement-<slug>.md`; route to `ai-research-workflows:validating-implementations`
+
 ## Starting the skill
 
 If no plan path is given, list `ls -lt .agents/plan-*.md` and, in Collaborative
@@ -28,6 +41,26 @@ When a plan is identified:
 - Understand the full scope, architecture, and dependency ordering before starting.
 - Create a task for each phase to track progress.
 
+## Review the plan before building
+
+Before writing any code, review the plan critically — do not treat it as
+infallible:
+
+- **Sanity-check the approach.** Identify questions, gaps, or concerns about the
+  plan's design, phase ordering, or success criteria. If anything looks wrong or
+  unclear, raise it with the user before starting — do not silently "fix" the
+  plan by improvising.
+- **Confirm the plan's assumptions still hold.** Research code often depends on
+  data availability, specific dependency versions, random seeds, or a particular
+  environment. Verify these are in place; if a prerequisite is missing, surface
+  it now rather than failing mid-phase.
+- **Confirm the working branch.** Never start implementation on `main`/`master`
+  without explicit user consent — work on a feature branch. This is a hard stop
+  regardless of interaction mode.
+
+If the plan is sound and the branch is set, proceed. If not, stop and resolve
+the concerns first.
+
 ## Implementation rules
 
 - Implement one phase fully before moving to the next; do not jump ahead.
@@ -38,6 +71,9 @@ When a plan is identified:
   complete. The user can track progress by reading the plan.
 - Adapt to reality when the codebase differs from the plan, but communicate
   every deviation before proceeding.
+- When a phase produces a result, figure, metric, or trained artifact, capture
+  its provenance — environment, data version, seeds, exact commands — with
+  `ai-research-workflows:ensuring-reproducibility` so the result can be reproduced.
 
 ## Handling mismatches
 
@@ -127,7 +163,9 @@ If the plan has existing checkmarks (`- [x]`):
 
 ## Final implementation summary
 
-Upon completing all phases:
+Upon completing all phases, first confirm the work is genuinely done: every
+phase's automated verification passes, no checklist item was silently skipped,
+and you are not leaving changes on `main`/`master`. Then:
 
 **Generate filename** — derive slug from plan filename:
 `plan-jwt-auth.md` → `implement-jwt-auth.md`.
@@ -147,6 +185,9 @@ template in
 
 ## Common Mistakes
 
+- **Diving into code without reviewing the plan** — read and critically review
+  the whole plan first; raise design or assumption concerns, and confirm you are
+  on a feature branch (not `main`/`master`), before writing any code.
 - **Implementing multiple phases before verifying** — always run automated
   checks and pause for manual verification after each phase before advancing.
 - **Not pausing for manual verification** — automated checks passing is not
@@ -180,6 +221,7 @@ Before marking a phase as complete:
 
 Before marking implementation as complete:
 
+- [ ] Plan reviewed critically and working branch confirmed before building
 - [ ] All phases are implemented
 - [ ] All automated verification passes
 - [ ] Implementation document generated at `.agents/implement-<slug>.md`
