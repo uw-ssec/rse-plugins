@@ -4,6 +4,22 @@ A skills-first Claude Code plugin for Research Software Engineers and researcher
 
 **Version:** 0.2.0
 
+## Background & Motivation
+
+Research software is written under pressures that general-purpose development rarely faces all at once: it is exploratory and fast-changing, its correctness is often the actual research result, it must be reproducible by others (and by your future self), and it is frequently handed between students, collaborators, and sessions. AI coding assistants are excellent at *writing* code — but used ad hoc, they tend to skip the very rigor research demands. They jump into edits before understanding the existing code or the prior art, lose the reasoning behind decisions when a session ends, and rarely stop to capture provenance or to verify that a result actually holds.
+
+This plugin exists to put that structure back. It encodes the research-software lifecycle — understand, survey prior art, plan, experiment, implement, validate, reproduce, harden, hand off — as a set of composable **skills** that trigger from plain natural language. Each phase produces a durable, cross-linked Markdown document under `.agents/`, so the *context and the decisions* survive beyond a single conversation and transfer cleanly to the next person or session. The aim is to keep an AI assistant honest about the parts of research engineering that are easiest to skip and most expensive to lose.
+
+### Principles
+
+- **Skills, not ceremony.** Describe the task in natural language and the right skill loads; slash commands are just shortcuts. You are never forced through a rigid pipeline — invoke a single skill or chain the whole arc.
+- **Durable context.** Every phase writes a versionable artifact to `.agents/`. Plans cite the research that informed them; implementations cite their plan; handoffs cite everything. Context is a file, not a chat log.
+- **Adaptive interaction.** Collaborative when you want to think together, Direct when you just want the work done — chosen per request (see [Interaction modes](#interaction-modes)).
+- **Strategy over mechanics.** The skills decide *what* and *why*, and defer the *how* of environments, tests, packaging, and docs to specialist plugins (see [Cross-plugin deferral](#cross-plugin-deferral)) — so this plugin stays language-agnostic and avoids duplicating their guidance.
+- **Research-grade rigor is first-class.** Reproducibility (provenance capture) and hardening (correctness, regression, and stability checks) are dedicated skills, not afterthoughts.
+
+It is built for the needs of Research Software Engineers and researchers. Examples lean toward scientific Python, but the strategy-level guidance applies to any language or runtime.
+
 ## Contents
 
 This plugin ships with 1 agent, 10 skills, and 9 commands.
