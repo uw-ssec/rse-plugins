@@ -1,11 +1,9 @@
 ---
 name: ensuring-reproducibility
 description: >-
-  Use when a result, analysis, or experiment must be reproducible — capture
-  environment, data references, random seeds, config, and exact commands as a
-  provenance record, and verify by re-running. Triggers: make this
-  reproducible, capture provenance, pin the environment for this result, why
-  can't I reproduce X.
+  Use when a result, experiment, or analysis must be reproducible by others or
+  by a future session. Triggers: make this reproducible, capture provenance, pin
+  the environment for this result, why can't I reproduce X.
 ---
 
 # Ensuring Reproducibility
@@ -15,12 +13,7 @@ else — or future you — can reproduce it exactly.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Direct**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Purpose
 
@@ -92,6 +85,13 @@ Expected: 0.847 ± 0.003 (3 independent runs with seeds 42, 123, 999)
 
 Document the reproduction attempt — success, failure, and any tolerance
 applied — in the provenance record.
+
+## Common Mistakes
+
+- **Environment without data provenance** — recording the lockfile but omitting dataset versions, content hashes, or retrieval dates leaves the biggest reproducibility gap; pin both environment and data.
+- **Seeds in prose but not in config** — noting "we used seed 42" in a comment is not enough if the code reads seeds from a config file that was not pinned; capture the exact config state.
+- **Never attempting a clean-room reproduction** — a provenance record that was never verified is a hypothesis, not a proof; always attempt at least one reproduction in a fresh environment, even a minimal one.
+- **Commands that are not runnable as written** — paraphrased or abbreviated commands ("run the training script") fail when someone tries to follow them; every command must be copy-pasteable and correct.
 
 ## Quality checklist
 

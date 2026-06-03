@@ -1,11 +1,10 @@
 ---
 name: hardening-research-code
 description: >-
-  Use when research or scientific code must be made robust and trustworthy —
-  define correctness criteria and add reference/golden tests,
-  numerical-tolerance and regression checks, and stability checks. Triggers:
-  harden this code, is this numerically correct, add regression tests vs known
-  results, make the research code robust.
+  Use when research or scientific code must be trustworthy — verifiably correct,
+  regression-safe, and numerically stable. Triggers: harden this code, is this
+  numerically correct, add regression tests vs known results, make the research
+  code robust.
 ---
 
 # Hardening Research Code
@@ -16,12 +15,7 @@ targeted tests.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Direct**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Direct** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Purpose
 
@@ -109,6 +103,13 @@ same principles to R, Julia, Fortran, or any other runtime.
    values and where reference/golden data lives. Cross-reference the
    `ensuring-reproducibility` skill for test-data provenance (content hashes,
    retrieval dates, lockfile references).
+
+## Common Mistakes
+
+- **Exact float equality** — using `==` on floating-point results fails on trivially different hardware or library versions; always use absolute or relative tolerances appropriate to the domain.
+- **Tests with no stated correctness criterion** — a test that asserts a specific number without explaining why that number is correct is uninterpretable when it fails; document the analytical, reference, or published-result source for each expected value.
+- **Un-versioned reference data** — storing golden outputs in a file without a version tag, content hash, or commit reference means a silent data change can break tests with no explanation; version reference data alongside the tests.
+- **Testing implementation details** — asserting internal intermediate values rather than observable outputs couples tests to the implementation; test at the boundary where the correctness criterion applies.
 
 ## Quality checklist
 

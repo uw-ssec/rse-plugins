@@ -2,10 +2,8 @@
 name: planning-implementations
 description: >-
   Use when a feature, refactor, or multi-file change needs to be designed before
-  coding — breaks work into testable phases, identifies component dependencies,
-  defines Automated and Manual success criteria, and produces a saved plan in
-  .agents/ (plan-SLUG.md). Triggers: plan X, design the implementation, how
-  should we build X, create an implementation plan.
+  coding. Triggers: plan X, design the implementation, how should we build X,
+  create an implementation plan.
 ---
 
 # Planning Implementations
@@ -15,12 +13,7 @@ research, with measurable success criteria and no unresolved decisions.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Collaborative**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Starting the skill
 
@@ -105,6 +98,14 @@ For major revisions use the `iterating-plans` skill.
 - Create `.agents/` if needed; write to `.agents/plan-<slug>.md`.
 - To revise an existing plan use `iterating-plans`; to execute use
   `implementing-plans`.
+
+## Common Mistakes
+
+- **Confirming approach too late** — writing a detailed multi-phase plan before the user has approved the overall strategy wastes effort; in Collaborative mode, get approach sign-off after Step 2.
+- **Vague success criteria** — "works well" or "passes tests" is not a criterion; every item must be a concrete, runnable command or an observable human-verifiable outcome.
+- **Unsplit Automated vs Manual** — lumping all criteria together hides what requires human judgment; always separate the two categories explicitly.
+- **Leaving open questions in the "final" plan** — a plan section titled "Open Questions" with unresolved items ships ambiguity to the implementer; resolve or explicitly defer every question before saving the plan.
+- **Skipping scope boundaries** — omitting the "What We're NOT Doing" section lets scope creep in silently; fill it out even when the answer seems obvious.
 
 ## Quality checklist
 

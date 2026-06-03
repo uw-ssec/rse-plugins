@@ -1,13 +1,9 @@
 ---
 name: running-experiments
 description: >-
-  Use when the best technical approach is genuinely uncertain and a decision
-  cannot be made by reasoning alone. Writes throwaway prototype implementations,
-  executes them with real commands, collects performance benchmarks and memory
-  measurements, and produces a comparison matrix with quantitative results and
-  an evidence-based recommendation — not architecture discussion or code review.
-  Triggers: should I use X or Y, compare approaches, prototype and benchmark,
-  experiment with, which is faster/simpler/more maintainable.
+  Use when the best technical approach is genuinely uncertain and a head-to-head
+  prototype comparison is needed before committing to a design. Triggers: should
+  I use X or Y, compare approaches, benchmark, which is faster or simpler.
 ---
 
 # Running Experiments
@@ -18,12 +14,7 @@ recommend one based on evidence.
 
 ## Interaction mode
 
-Choose a mode before acting. Full protocol: `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
-
-1. **Explicit override wins** — "brainstorm / walk me through / help me think" → Collaborative; "just do it / don't ask / go ahead" → Direct.
-2. **Else infer** — vague/exploratory phrasing, or required inputs missing → Collaborative; a specific directive with enough context → Direct.
-3. **Else default** — this skill leans **Collaborative**.
-4. **Hard stops, regardless of mode** — destructive, irreversible, or outward-facing actions always get a confirmation first.
+This skill leans **Collaborative** by default. For the full Collaborative-vs-Direct protocol and override rules, see `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`.
 
 ## Starting the skill
 
@@ -156,6 +147,13 @@ show how prototypes integrate with existing code.
 Experiments reference research and plan documents in `.agents/`. Results inform
 the `iterating-plans` and `planning-implementations` skills. To make a chosen
 approach reproducible, use `ensuring-reproducibility`.
+
+## Common Mistakes
+
+- **Theorizing instead of running code** — describing what an approach "would probably do" without actually writing and executing a prototype produces opinions, not data; always run real commands.
+- **Cherry-picking results** — reporting only the winning approach's successes while omitting failures skews the comparison; document what was tried and why it was rejected for every approach.
+- **Approaches that are not meaningfully distinct** — comparing two configuration variants (e.g., HS256 vs RS256) instead of architecturally different designs collapses into a config choice, not a real experiment.
+- **Running an experiment when the answer is already known** — if the codebase already uses a pattern consistently, follow it; experimentation on settled questions wastes time and produces noise.
 
 ## Quality checklist
 
