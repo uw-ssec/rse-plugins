@@ -30,6 +30,7 @@ Run these in parallel where possible:
 - `plan-*.md` — plan documents
 - `experiment-*.md` — experiment documents
 - `implement-*.md` — implementation documents
+- `validation-*.md` — validation reports
 - `handoff-*.md` — previous handoff documents
 
 **Session context:**
