@@ -79,6 +79,10 @@ Derive a slug (lowercase, hyphenated). Read the template:
 `assets/research-template.md`. Fill the sections that apply and write to
 `.agents/research-<slug>.md`. Omit sections for any dimension not investigated.
 
+If the internal pass ran, record the codebase state you researched against —
+the commit SHA (`git rev-parse --short HEAD`) and the date — so `file:line`
+findings can be re-checked as the code evolves.
+
 ### 7. Self-review
 
 Before showing the document, read it through with fresh eyes and fix issues inline:
@@ -116,6 +120,7 @@ Point to the next skill — usually `ai-research-workflows:planning-implementati
 - [ ] Codebase findings carry `file:line` references (if the internal pass ran)
 - [ ] Every prior-art claim is cited and ≥1 disconfirming search ran (if the external pass ran)
 - [ ] Synthesis connects findings and names gaps
+- [ ] Codebase state recorded (commit SHA + date) if the internal pass ran
 - [ ] Template used; saved to `.agents/research-<slug>.md`
 - [ ] Document is self-contained
 - [ ] Findings presented before writing; written doc self-reviewed and offered for user review before hand-off

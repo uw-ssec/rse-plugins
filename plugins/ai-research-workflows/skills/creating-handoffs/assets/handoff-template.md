@@ -52,6 +52,24 @@
 - `path/to/file.ext:lines` — [What was changed]
 - `path/to/file.ext:lines` — [What was changed]
 
+## Reproducibility & Data State
+
+[For research/scientific work — what's needed to resume and reproduce. Remove if not applicable. See `ai-research-workflows:ensuring-reproducibility`.]
+
+- **Seeds:** [random seeds in use]
+- **Environment:** [active env / lockfile, e.g. `pixi.lock`, `uv.lock`]
+- **Data:** [dataset paths / versions / checksums]
+- **Partial results / checkpoints:** [intermediate outputs, saved models, and their locations]
+- **In-flight jobs:** [any long-running experiment/training still running; how to check or resume it]
+
+## Verification State / Known-Broken
+
+[The true state — never imply green when it isn't]
+
+- **Tests:** [passing / failing / not run — be specific]
+- **Uncommitted / unpushed:** [what's in the working tree but not committed or pushed]
+- **Unverified / unreproducible:** [results or claims not yet verified]
+
 ## Learnings
 
 [Important discoveries, patterns, root causes, or insights the next session should know]

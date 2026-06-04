@@ -110,6 +110,17 @@ Ensure consistency: new phases follow existing structure; scope changes update
 "What We're NOT Doing"; approach changes update "Implementation Approach"; new
 tasks reference actual codebase examples.
 
+After editing, run a **consistency scan**: phase numbering is monotonic and
+contiguous; every cross-reference (to a phase, file, or success criterion) still
+resolves; no task references a type, function, or file removed elsewhere; and the
+Automated/Manual split is intact. Fix any drift before presenting.
+
+When a change alters the technical approach or adds a results-producing phase,
+**re-check the plan's research criteria** too — reproducibility, seeds/provenance,
+and numerical-correctness success criteria (`ai-research-workflows:ensuring-reproducibility`,
+`ai-research-workflows:hardening-research-code`) — so an edit doesn't silently
+invalidate them.
+
 ### Step 5: Present the changes
 
 ```

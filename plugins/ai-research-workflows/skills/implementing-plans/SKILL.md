@@ -129,20 +129,6 @@ If instructed to execute multiple phases consecutively (e.g., "implement phases
 
 Do NOT check off manual testing items in the plan until confirmed by the user.
 
-## Phase completion workflow
-
-For each phase:
-
-1. Read phase details from plan.
-2. Mark the phase as in progress in your task list.
-3. Implement all tasks in the phase.
-4. Check off completed tasks in the plan file.
-5. Run automated verification checks.
-6. Fix any failures immediately.
-7. Mark the phase as done in your task list.
-8. Pause for manual verification (unless doing consecutive phases).
-9. Wait for user confirmation before proceeding.
-
 ## Resuming work
 
 If the plan has existing checkmarks (`- [x]`):

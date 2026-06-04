@@ -168,9 +168,13 @@ when the change produces no reported result):
 
 ## Testing Strategy
 
-**Unit Tests:**
-- [ ] Test [component 1] behavior at `path/to/test_file.py`
-- [ ] Test [component 2] edge cases at `path/to/test_file.py`
+Unit tests are written **test-first within each phase** (see Implementation
+Phases) — do not re-list them here as a tests-last batch. This section captures
+the *additional* integration and manual coverage beyond those per-phase unit
+tests, plus the test data needed.
+
+**Unit Test Coverage (summary, written in-phase):**
+- [ ] [Which behaviors/components are covered by the per-phase unit tests]
 - [ ] Mock external dependencies: [list dependencies]
 
 **Integration Tests:**
