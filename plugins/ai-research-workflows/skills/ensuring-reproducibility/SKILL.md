@@ -64,11 +64,11 @@ A complete provenance record includes:
 
 ### Where the record lives
 
-Append a `## Reproducibility` section to the relevant artifact in `.agents/`:
+Append a `## Reproducibility` section to the relevant artifact in `docs/rse/specs/` (or its legacy `.agents/` location):
 
-- experiment result → `.agents/experiment-<slug>.md`
-- implementation result → `.agents/implement-<slug>.md`
-- no existing artifact → create `.agents/reproducibility-<slug>.md`
+- experiment result → `docs/rse/specs/experiment-<slug>.md`
+- implementation result → `docs/rse/specs/implement-<slug>.md`
+- no existing artifact → create `docs/rse/specs/reproducibility-<slug>.md`
 
 If reproducing someone else's work, note what was missing from their record.
 
@@ -140,5 +140,5 @@ Before marking reproducibility capture complete:
 ## Cross-references
 
 Integrates with the `ai-research-workflows:running-experiments` and `ai-research-workflows:implementing-plans` skills.
-Both write `.agents/` artifacts that become the natural home for the
+Both write `docs/rse/specs/` artifacts that become the natural home for the
 `## Reproducibility` section this skill appends.
