@@ -39,7 +39,7 @@ This plugin ships with 1 agent, 10 skills, and 9 commands.
 | `iterating-plans` | Revise an existing plan with surgical edits — add/remove/split phases, adjust scope, update success criteria, incorporate experiment results | Collaborative | Updated `docs/rse/specs/plan-<slug>.md` |
 | `running-experiments` | Compare 2–3 technical approaches with real prototype code and measurements before committing to a design | Collaborative | `docs/rse/specs/experiment-<slug>.md` |
 | `implementing-plans` | Execute an approved plan phase by phase — write code, run automated verification after each phase, pause for human verification, track progress with real-time checkmarks | Direct | `docs/rse/specs/implement-<slug>.md` + updated plan |
-| `validating-implementations` | Systematically verify a completed implementation against its plan's success criteria — run automated checks, review code vs. spec, list manual tests | Direct | Inline validation report |
+| `validating-implementations` | Systematically verify a completed implementation against its plan's success criteria — run automated checks, review code vs. spec, list manual tests | Direct | `docs/rse/specs/validation-<slug>.md` (also shown inline) |
 | `creating-handoffs` | Produce a handoff document that transfers full working context — state, artifacts, key files, learnings, and next steps — to the next session with no information loss | Direct | `docs/rse/specs/handoff-<timestamp>-<slug>.md` |
 
 ### Research-software skills (2)
@@ -99,6 +99,7 @@ Documents from an earlier version of this plugin may live in a legacy `.agents/`
 | Implementation plan | `plan-<slug>.md` | `plan-oauth-support.md` |
 | Experiment report | `experiment-<slug>.md` | `experiment-jwt-vs-session.md` |
 | Implementation summary | `implement-<slug>.md` | `implement-oauth-support.md` |
+| Validation report | `validation-<slug>.md` | `validation-oauth-support.md` |
 | Handoff | `handoff-<timestamp>-<slug>.md` | `handoff-20240315-auth-system.md` |
 
 Documents cross-link using relative paths (`## References` sections), creating a navigable graph of technical decisions: a plan links to the research docs that informed it; an implementation summary links back to the plan; a handoff document cites all relevant artifacts. Legacy `prior-art-<slug>.md` documents from earlier versions are still read when present.
