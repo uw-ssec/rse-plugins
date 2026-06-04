@@ -88,14 +88,17 @@
 - [Item]
 ```
 
-## Presenting the Report
+## Writing & presenting the report
 
-After completing validation, open with:
+Write the full report to `docs/rse/specs/validation-<slug>.md` (overwriting any
+prior validation of the same plan — git preserves earlier verdicts) and present
+the same content inline. Both open with the provenance line and header:
 
 ```
 # Validation Complete
 
-I've validated the implementation against `docs/rse/specs/plan-[slug].md`.
+> Validated against `docs/rse/specs/plan-[slug].md` / `docs/rse/specs/implement-[slug].md`
+> at commit `[short-sha]` on `[date]`.
 
 ## Overall Status: ✅ Ready | ⚠️ Issues Found | ❌ Incomplete
 
@@ -107,7 +110,14 @@ I've validated the implementation against `docs/rse/specs/plan-[slug].md`.
 - Important Issues: [Y]
 ```
 
-Then append the full report sections above.
+Append the full report sections above, then close the document with a References
+section:
+
+```markdown
+## References
+- Plan: `docs/rse/specs/plan-[slug].md`
+- Implementation: `docs/rse/specs/implement-[slug].md`
+```
 
 Close with:
 
