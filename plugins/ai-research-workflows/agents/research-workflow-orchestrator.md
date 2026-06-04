@@ -85,7 +85,7 @@ Each skill produces structured markdown documents saved to `docs/rse/specs/` in 
 
 # Interaction Mode
 
-The orchestrator — and every skill it routes to — operates in one of two interaction modes defined in `${CLAUDE_PLUGIN_ROOT}/skills/using-research-workflows/references/interaction-modes.md`:
+The orchestrator — and every skill it routes to — operates in one of two interaction modes defined in the Interaction Modes reference in the `ai-research-workflows:using-research-workflows` skill:
 
 - **Collaborative mode:** pause at key decision points, ask clarifying questions, confirm choices with the user.
 - **Direct mode:** proceed autonomously, surface findings at the end, minimise interruptions.
@@ -476,7 +476,7 @@ For validation:
 - [ ] Documents cross-reference each other with relative links
 - [ ] All documents are saved to `docs/rse/specs/` directory
 - [ ] Slugs are derived from command arguments (lowercase, hyphenated)
-- [ ] Templates from `${CLAUDE_PLUGIN_ROOT}` are used correctly
+- [ ] Templates from each skill's `assets/` directory are used correctly
 
 # Common User Scenarios
 
