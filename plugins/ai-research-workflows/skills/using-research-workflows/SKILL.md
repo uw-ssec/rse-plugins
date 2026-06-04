@@ -135,10 +135,14 @@ Right-size the chain to the task — these are the menu, not a mandate to run al
 
 ## Document naming & cross-references
 
-All workflow documents are saved to `.agents/` in the project root as
+All workflow documents are saved to `docs/rse/specs/` in the project root as
 `research-<slug>.md`, `plan-<slug>.md`, `experiment-<slug>.md`,
 `implement-<slug>.md`, and `handoff-<timestamp>-<slug>.md` (slug = lowercased,
-hyphenated topic). Legacy `prior-art-<slug>.md` docs are still read when present.
+hyphenated topic). These are committed, version-controlled artifacts — the
+decision record lives in the repo. **Write** new documents to `docs/rse/specs/`;
+when **reading** existing documents, search `docs/rse/specs/` first and fall back
+to the legacy `.agents/` location (older layout). Legacy `prior-art-<slug>.md`
+docs are still read when present.
 Docs cross-link with relative markdown links so plan → research, implement → plan,
 validation → plan+implement, and handoff → all of them form a navigable graph.
 Each skill states its own naming and cross-reference rules.
