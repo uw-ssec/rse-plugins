@@ -8,7 +8,7 @@ description: >-
 
 # Iterating Plans
 
-Revise an existing `.agents/plan-*.md` with focused, surgical edits that
+Revise an existing `docs/rse/specs/plan-*.md` with focused, surgical edits that
 preserve good content and maintain internal consistency.
 
 ## Interaction mode
@@ -18,7 +18,7 @@ This skill leans **Collaborative** by default. For the full Collaborative-vs-Dir
 ## Starting the skill
 
 If the plan file or the requested change is missing, enter Collaborative mode
-and ask for it (list recent plans with `ls -lt .agents/plan-*.md | head -5`).
+and ask for it (list recent plans with `ls -lt docs/rse/specs/plan-*.md .agents/plan-*.md 2>/dev/null | head -5`).
 
 ## Process
 
@@ -80,7 +80,7 @@ Get user confirmation. If the user says no, clarify and adjust; only proceed on 
 
 ### Step 4: Update the plan — surgical edits
 
-Make focused, precise edits to the plan in place (`.agents/plan-*.md`).
+Make focused, precise edits to the plan in place (at its existing path — `docs/rse/specs/plan-*.md`, or a legacy `.agents/plan-*.md`).
 
 **Good edits:** add a new phase section between existing phases; update specific
 success criteria items; modify task descriptions within a phase; add file
@@ -126,7 +126,7 @@ invalidate them.
 ```
 # Plan Updated
 
-Changes to `.agents/plan-[slug].md`:
+Changes to `docs/rse/specs/plan-[slug].md`:
 
 ## Changes Made
 - [Change 1 — specific section]
@@ -179,7 +179,7 @@ see `references/iteration-patterns.md`.
 ## Cross-references
 
 After iterating, execute with the `ai-research-workflows:implementing-plans` skill. Incorporate
-`.agents/experiment-*.md` results when revising the technical approach.
+`docs/rse/specs/experiment-*.md` (or legacy `.agents/experiment-*.md`) results when revising the technical approach.
 
 ## Quality checklist
 
