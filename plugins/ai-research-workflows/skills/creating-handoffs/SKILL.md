@@ -25,7 +25,7 @@ Run these in parallel where possible:
 - Current commit hash (short)
 - Summary of uncommitted changes (`git status` and `git diff --stat`)
 
-**Workflow artifacts** — search `.agents/` for:
+**Workflow artifacts** — search `docs/rse/specs/` (then legacy `.agents/`) for:
 - `research-*.md` — research documents
 - `plan-*.md` — plan documents
 - `experiment-*.md` — experiment documents
@@ -49,7 +49,7 @@ From the gathered context, identify:
 
 - **Tasks:** What was being worked on and the status of each (completed, in progress, planned).
 - **Current phase:** Where in the workflow cycle the work sits.
-- **Artifacts:** Which `.agents/` documents are relevant.
+- **Artifacts:** Which `docs/rse/specs/` documents are relevant.
 - **Critical files:** The 2–3 most important files the next session must read first.
 - **Recent changes:** What code was modified (use `file:line` references).
 - **Learnings:** Important discoveries, patterns, or gotchas.
@@ -91,7 +91,7 @@ down a false trail.
 - Be specific — use `file:line` references, not vague descriptions.
 - Name the recommended next skill for the receiving session based on the current phase (e.g., `ai-research-workflows:implementing-plans`, `ai-research-workflows:validating-implementations`).
 
-**Save to** `.agents/handoff-YYYY-MM-DD-HH-MM-<slug>.md`.
+**Save to** `docs/rse/specs/handoff-YYYY-MM-DD-HH-MM-<slug>.md`.
 
 ### 4. Present the handoff
 
@@ -100,7 +100,7 @@ After saving, present a concise summary:
 ```
 ## Handoff Created
 
-**File:** `.agents/handoff-<filename>.md`
+**File:** `docs/rse/specs/handoff-<filename>.md`
 **Current Phase:** [phase]
 **Status:** [brief status of work]
 
@@ -109,7 +109,7 @@ After saving, present a concise summary:
 
 ### For the Next Session
 Start by running:
-> Read the handoff document at `.agents/handoff-<filename>.md` and resume the work described within.
+> Read the handoff document at `docs/rse/specs/handoff-<filename>.md` and resume the work described within.
 
 Or to continue with the workflow:
 > [recommended-skill] [relevant arguments]
@@ -138,4 +138,4 @@ Or to continue with the workflow:
 - Use `ai-research-workflows:implementing-plans` as the recommended next skill when a plan is approved and ready to execute.
 - Use `ai-research-workflows:validating-implementations` when implementation is complete and needs verification.
 - Use `ai-research-workflows:planning-implementations` or `ai-research-workflows:iterating-plans` when the next session needs to (re-)design the approach.
-- All handoff documents are picked up automatically by `ai-research-workflows:using-research-workflows` when it surveys `.agents/`.
+- All handoff documents are picked up automatically by `ai-research-workflows:using-research-workflows` when it surveys `docs/rse/specs/` (and legacy `.agents/`).
