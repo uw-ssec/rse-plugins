@@ -411,6 +411,7 @@ I see you have research at `docs/rse/specs/research-auth-system.md`. Let's use t
 - Code review findings are summarized
 - Manual testing steps are clearly listed
 - Recommendations for fixes are provided
+- A validation document is saved to `docs/rse/specs/validation-<slug>.md`
 - User understands what needs attention
 
 ## Reproducibility is Done When:
@@ -467,6 +468,7 @@ For validation:
 - [ ] Code review findings are summarized
 - [ ] Manual testing steps are clearly listed
 - [ ] Recommendations are categorized by priority
+- [ ] Saved to `docs/rse/specs/validation-<slug>.md`
 
 ## Workflow Consistency Checks
 
