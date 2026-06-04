@@ -30,8 +30,8 @@ This skill leans **Collaborative** by default. For the full Collaborative-vs-Dir
 
 If no question is given, enter Collaborative mode and ask what to compare and why.
 
-If a question is provided, look for matching context in `.agents/` (glob
-`.agents/{research,plan}-*.md`) and read any relevant documents fully before
+If a question is provided, look for matching context in `docs/rse/specs/` (glob
+`docs/rse/specs/{research,plan}-*.md`, then legacy `.agents/{research,plan}-*.md`) and read any relevant documents fully before
 proceeding.
 
 ## Process
@@ -114,7 +114,7 @@ Fill all sections: goal, hypothesis, approaches, actual code snippets with file
 paths, execution commands and outputs, observations (positive and negative),
 comparison matrix, key insights, recommendation, and conditions for alternatives.
 
-Save to `.agents/experiment-<slug>.md` (create `.agents/` if needed).
+Save to `docs/rse/specs/experiment-<slug>.md` (create `docs/rse/specs/` if needed).
 
 ### Step 6: Present findings
 
@@ -123,7 +123,7 @@ Summarize concisely:
 ```
 # Experiment Complete: [Topic]
 
-Documented at `.agents/experiment-[slug].md`.
+Documented at `docs/rse/specs/experiment-[slug].md`.
 
 Approaches: [Approach 1] / [Approach 2] / [Approach 3]
 
@@ -159,7 +159,7 @@ show how prototypes integrate with existing code.
 
 ## Cross-references
 
-Experiments reference research and plan documents in `.agents/`. Results inform
+Experiments reference research and plan documents in `docs/rse/specs/` (or legacy `.agents/`). Results inform
 the `ai-research-workflows:iterating-plans` and `ai-research-workflows:planning-implementations` skills. To make a chosen
 approach reproducible, use `ai-research-workflows:ensuring-reproducibility`.
 
@@ -194,5 +194,5 @@ Before completing, verify:
 - [ ] Trade-offs explicitly documented
 - [ ] Conditions for alternative approaches identified
 - [ ] Template used from `assets/experiment-template.md`
-- [ ] Document saved to `.agents/experiment-<slug>.md`
+- [ ] Document saved to `docs/rse/specs/experiment-<slug>.md`
 - [ ] Code snippets include file paths or locations
