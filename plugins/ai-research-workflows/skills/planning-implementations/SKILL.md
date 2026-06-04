@@ -18,8 +18,8 @@ This skill leans **Collaborative** by default. For the full Collaborative-vs-Dir
 ## Starting the skill
 
 If no topic is given, enter Collaborative mode and ask what to plan (and check
-`.agents/` for existing research/prior-art). If the topic is given without a
-research doc, look for `.agents/research-*.md` matches and suggest running
+`docs/rse/specs/` (then legacy `.agents/`) for existing research/prior-art). If the topic is given without a
+research doc, look for `docs/rse/specs/research-*.md` matches and suggest running
 `ai-research-workflows:researching` first if none are found — then proceed on user
 preference.
 
@@ -28,7 +28,7 @@ preference.
 ### Step 1: Context Gathering
 
 - Read all mentioned files **completely** before anything else.
-- Check `.agents/research-*.md` (and legacy `.agents/prior-art-*.md`) for relevant context.
+- Check `docs/rse/specs/research-*.md` (and legacy `.agents/research-*.md`, `.agents/prior-art-*.md`) for relevant context.
 - Investigate related files, existing patterns, integration points, and test
   coverage in parallel where possible.
 - Only ask questions that code cannot answer (product decisions, ambiguous
@@ -118,10 +118,10 @@ For major revisions use the `ai-research-workflows:iterating-plans` skill.
 
 ## References and output
 
-- Ground the plan in `.agents/research-*.md` (and legacy `.agents/prior-art-*.md`);
-  incorporate `.agents/experiment-*.md` when present.
+- Ground the plan in `docs/rse/specs/research-*.md` (and legacy `.agents/research-*.md`, `.agents/prior-art-*.md`);
+  incorporate `docs/rse/specs/experiment-*.md` (or legacy `.agents/experiment-*.md`) when present.
 - List all referenced docs in the References section with relative markdown links.
-- Create `.agents/` if needed; write to `.agents/plan-<slug>.md`.
+- Create `docs/rse/specs/` if needed; write to `docs/rse/specs/plan-<slug>.md`.
 - To revise an existing plan use `ai-research-workflows:iterating-plans`; to execute use
   `ai-research-workflows:implementing-plans`.
 
@@ -143,7 +143,7 @@ Before completing the plan verify:
 - [ ] All research completed and incorporated
 - [ ] User consulted on approach and structure (Collaborative mode)
 - [ ] Official template used
-- [ ] Saved to `.agents/plan-<slug>.md`
+- [ ] Saved to `docs/rse/specs/plan-<slug>.md`
 - [ ] Every phase has `file:line` references
 - [ ] Phase tasks are bite-sized and test-first (failing test before implementation)
 - [ ] No placeholder tasks ("add appropriate error handling", "write tests for the above", or intent-without-code)
