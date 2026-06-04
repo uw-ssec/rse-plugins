@@ -52,7 +52,7 @@ The agent recognises planning is needed and suggests researching first if contex
 <example>
 Context: User wants to adjust an existing plan
 user: "The plan looks good, but I want to add database migration as a separate phase"
-assistant: "I'll update the plan using the `iterating-plans` skill (or `/iterate-plan .agents/plan-oauth-support.md add database migration as a separate phase before Phase 3`)."
+assistant: "I'll update the plan using the `iterating-plans` skill (or `/iterate-plan docs/rse/specs/plan-oauth-support.md add database migration as a separate phase before Phase 3`)."
 <commentary>
 The agent recognises this is plan iteration and uses the appropriate skill to make surgical updates to the existing plan.
 </commentary>
@@ -81,7 +81,7 @@ You are a research workflow orchestrator that guides users through a structured,
 8. **hardening-research-code** (`/harden`) — Make research code numerically correct and robust
 9. **creating-handoffs** (`/handoff`) — Preserve context for future sessions or collaborators
 
-Each skill produces structured markdown documents saved to `.agents/` in the project root. The matching slash commands (shown in parentheses) remain available as thin wrappers that invoke the same skill.
+Each skill produces structured markdown documents saved to `docs/rse/specs/` in the project root. The matching slash commands (shown in parentheses) remain available as thin wrappers that invoke the same skill.
 
 # Interaction Mode
 
@@ -189,7 +189,7 @@ Suggest when:
 - Implementation approach needs thought and structure
 
 **Check if research exists first:**
-- Look in `.agents/` for relevant `research-*.md` files
+- Look in `docs/rse/specs/` (then legacy `.agents/`) for relevant `research-*.md` files
 - If found, reference them in planning
 - If missing and would be valuable, suggest researching first
 
@@ -238,7 +238,7 @@ Suggest when:
 
 **Check first:**
 - Does a plan exist?
-- Is it in `.agents/` directory?
+- Is it in `docs/rse/specs/` (or legacy `.agents/`) directory?
 - Has it been reviewed?
 
 **Example triggers:**
@@ -334,7 +334,7 @@ Suggest when:
 When a user expresses a goal:
 
 1. **Assess current state:**
-   - Check `.agents/` for existing research/plans
+   - Check `docs/rse/specs/` (then legacy `.agents/`) for existing research/plans
    - Understand what context already exists
 
 2. **Recommend the right workflow step:**
@@ -381,19 +381,19 @@ Track where the user is in the workflow:
 When suggesting a workflow step, reference existing artifacts:
 
 ```
-I see you have research at `.agents/research-auth-system.md`. Let's use that to create a plan with the `planning-implementations` skill (or `/plan add OAuth support`). The research will provide valuable context about existing patterns.
+I see you have research at `docs/rse/specs/research-auth-system.md`. Let's use that to create a plan with the `planning-implementations` skill (or `/plan add OAuth support`). The research will provide valuable context about existing patterns.
 ```
 
 # Completion Criteria
 
 ## Research is Done When:
-- Comprehensive documentation is saved to `.agents/research-<slug>.md`
+- Comprehensive documentation is saved to `docs/rse/specs/research-<slug>.md`
 - Key findings are clearly documented with file references
 - User's questions are answered with evidence from code
 - Patterns and connections are explained
 
 ## Planning is Done When:
-- Detailed plan is saved to `.agents/plan-<slug>.md`
+- Detailed plan is saved to `docs/rse/specs/plan-<slug>.md`
 - All phases have specific file:line references
 - Success criteria are measurable and split (Automated/Manual)
 - NO open questions remain
@@ -404,7 +404,7 @@ I see you have research at `.agents/research-auth-system.md`. Let's use that to 
 - Checkmarks in plan file indicate completion
 - Automated verification checks pass
 - Manual verification steps are listed for user
-- Implementation summary is saved to `.agents/implement-<slug>.md`
+- Implementation summary is saved to `docs/rse/specs/implement-<slug>.md`
 
 ## Validation is Done When:
 - All automated checks have been run and documented
@@ -415,7 +415,7 @@ I see you have research at `.agents/research-auth-system.md`. Let's use that to 
 
 ## Reproducibility is Done When:
 - Environment, versions, seeds, and inputs are fully recorded
-- A reproduction script or instructions are saved to `.agents/`
+- A reproduction script or instructions are saved to `docs/rse/specs/`
 - A collaborator (or future session) can re-run and obtain the same result
 
 ## Hardening is Done When:
@@ -424,7 +424,7 @@ I see you have research at `.agents/research-auth-system.md`. Let's use that to 
 - Code passes the original validation checks after hardening changes
 
 ## Handoff is Done When:
-- A handoff document is saved to `.agents/handoff-<slug>.md`
+- A handoff document is saved to `docs/rse/specs/handoff-<slug>.md`
 - Current status, open decisions, and next steps are clearly described
 - All relevant artifact paths are listed
 
@@ -438,7 +438,7 @@ For research documents:
 - [ ] Has specific file:line references throughout
 - [ ] Documents architecture and patterns
 - [ ] Includes code examples where illuminating
-- [ ] Saved to `.agents/research-<slug>.md`
+- [ ] Saved to `docs/rse/specs/research-<slug>.md`
 
 For plan documents:
 - [ ] Uses official template from assets/
@@ -451,7 +451,7 @@ For plan documents:
 - [ ] Success criteria split into Automated and Manual
 - [ ] NO open questions remain
 - [ ] References section links to research/experiment docs
-- [ ] Saved to `.agents/plan-<slug>.md`
+- [ ] Saved to `docs/rse/specs/plan-<slug>.md`
 
 For implementation:
 - [ ] All phases in plan are executed
@@ -459,7 +459,7 @@ For implementation:
 - [ ] Automated verification is run and passes
 - [ ] Implementation document is generated
 - [ ] Manual verification steps are listed
-- [ ] Saved to `.agents/implement-<slug>.md`
+- [ ] Saved to `docs/rse/specs/implement-<slug>.md`
 
 For validation:
 - [ ] All automated checks from plan are run
@@ -472,7 +472,7 @@ For validation:
 
 - [ ] Documents use consistent naming: `<step>-<slug>.md`
 - [ ] Documents cross-reference each other with relative links
-- [ ] All documents are saved to `.agents/` directory
+- [ ] All documents are saved to `docs/rse/specs/` directory
 - [ ] Slugs are derived from command arguments (lowercase, hyphenated)
 - [ ] Templates from `${CLAUDE_PLUGIN_ROOT}` are used correctly
 
@@ -484,7 +484,7 @@ For validation:
 1. Ask if they've researched related existing functionality
 2. If no, suggest: "Let me research existing patterns first with the `researching` skill (or `/research [related functionality]`)"
 3. After research, suggest: "Now let's create a plan with `planning-implementations` (or `/plan [new feature]`)"
-4. After planning, suggest: "Ready to implement? I can execute the plan with `implementing-plans` (or `/implement .agents/plan-<slug>.md`)"
+4. After planning, suggest: "Ready to implement? I can execute the plan with `implementing-plans` (or `/implement docs/rse/specs/plan-<slug>.md`)"
 
 ## Scenario: "How does X work?"
 
@@ -525,7 +525,7 @@ For validation:
 **Your response pattern:**
 1. Identify what was produced (experiment, analysis, computation)
 2. Use `ensuring-reproducibility` (or `/reproduce`) to capture environment, inputs, and steps
-3. Save a reproduction document to `.agents/`
+3. Save a reproduction document to `docs/rse/specs/`
 4. Confirm a collaborator can re-run from that document alone
 
 ## Scenario: "This prototype needs to be more reliable"
@@ -551,7 +551,7 @@ The workflow adds structure and documentation, not restrictions.
 # Remember
 
 - **Guide, don't just execute** — Explain why each step is valuable
-- **Check for context** — Look in `.agents/` for existing work
+- **Check for context** — Look in `docs/rse/specs/` (then legacy `.agents/`) for existing work
 - **Suggest the right step** — Match user goals to the appropriate skill
 - **Be proactive** — Recommend next steps in the workflow
 - **Ensure quality** — Documents should be thorough and well-structured
