@@ -9,7 +9,7 @@ description: >-
 # Validating Implementations
 
 Systematically verify that a completed implementation satisfies every success
-criterion in its plan, producing an inline validation report.
+criterion in its plan, producing a validation report — written to `docs/rse/specs/validation-<slug>.md` and also presented inline.
 
 ## Iron Law: no verdict without fresh output you produced yourself
 
@@ -139,11 +139,31 @@ testing is still needed.
 
 ## Validation report
 
-Output the report inline in the conversation. Use the section templates and
-presentation/special-case blocks from
+Produce the report once, then **both** write it to a durable file and present it
+inline. Use the section templates and presentation/special-case blocks from
 `references/report-templates.md`.
 
-The report contains these sections in order:
+### Write the validation document
+
+Derive the slug from the plan being validated (`docs/rse/specs/plan-<slug>.md` →
+`<slug>`; e.g. `plan-oauth-support.md` → `oauth-support`). Write the full report
+to `docs/rse/specs/validation-<slug>.md`, overwriting any previous validation of
+the same plan — git history preserves earlier verdicts. Create `docs/rse/specs/`
+if it does not exist.
+
+Record provenance at the top so a reader knows exactly what this verdict covers:
+
+> Validated against `plan-<slug>.md` / `implement-<slug>.md` at commit
+> `<short-sha>` (`git rev-parse --short HEAD`) on `<date>`.
+
+End the document with a `## References` section linking back to the plan and
+implementation docs with relative paths.
+
+### Present inline
+
+Present the same report inline in the conversation (Direct mode: write the file,
+then show the report and confirm its path). The report contains these sections in
+order:
 
 1. **Implementation Status** — per-phase completion status with task-level detail
 2. **Automated Verification Results** — pass/fail for each command, with root
@@ -195,6 +215,7 @@ Before delivering the report:
 - [ ] Listed clear manual testing steps
 - [ ] Provided actionable recommendations
 - [ ] Categorized issues by severity (critical, important, nice-to-have)
+- [ ] Saved the report to `docs/rse/specs/validation-<slug>.md` with provenance + References
 - [ ] All phases marked complete are actually done
 - [ ] No regressions introduced in existing functionality
 - [ ] Documentation updated if needed (README, API docs, docstrings)
