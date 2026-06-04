@@ -137,7 +137,7 @@ Right-size the chain to the task — these are the menu, not a mandate to run al
 
 All workflow documents are saved to `docs/rse/specs/` in the project root as
 `research-<slug>.md`, `plan-<slug>.md`, `experiment-<slug>.md`,
-`implement-<slug>.md`, and `handoff-<timestamp>-<slug>.md` (slug = lowercased,
+`implement-<slug>.md`, `validation-<slug>.md`, and `handoff-<timestamp>-<slug>.md` (slug = lowercased,
 hyphenated topic). These are committed, version-controlled artifacts — the
 decision record lives in the repo. **Write** new documents to `docs/rse/specs/`;
 when **reading** existing documents, search `docs/rse/specs/` first and fall back
