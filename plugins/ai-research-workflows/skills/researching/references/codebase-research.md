@@ -43,4 +43,4 @@ Wait until every sub-question reports back, then:
 - Trace data flows and call hierarchies.
 - Surface repeating patterns and any gaps you noticed.
 
-The result becomes the **Codebase Findings** section of `.agents/research-<slug>.md`.
+The result becomes the **Codebase Findings** section of `docs/rse/specs/research-<slug>.md`.

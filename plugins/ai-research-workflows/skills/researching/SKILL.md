@@ -25,12 +25,12 @@ Leans **Collaborative** by default; see `ai-research-workflows:using-research-wo
 
 Work through these in order and track them as tasks. Do not skip the review gates (steps 5, 7, and 8):
 
-1. **Explore context** — the request, existing `.agents/` docs, recent commits
+1. **Explore context** — the request, existing `docs/rse/specs/` (and legacy `.agents/`) docs, recent commits
 2. **Scope** — internal / external / both; what counts as relevant; depth
 3. **Propose the research plan** — sub-questions + sources; get a quick OK
 4. **Investigate** — run the codebase and/or prior-art pass
 5. **Present findings** — in sections; confirm understanding *before* writing anything out
-6. **Write the research document** — `.agents/research-<slug>.md` from the template
+6. **Write the research document** — `docs/rse/specs/research-<slug>.md` from the template
 7. **Self-review** — read the written doc with fresh eyes; fix issues inline
 8. **User reviews the document** — have them go through the written doc before you move on
 9. **Hand off** — point to the next skill
@@ -41,7 +41,7 @@ Scope → plan → investigate → present → write → self-review → user re
 
 ### 1. Explore context
 
-Read the request. Scan `.agents/` for existing research and plan documents
+Read the request. Scan `docs/rse/specs/` (then legacy `.agents/`) for existing research and plan documents
 (`research-*.md`, and legacy `prior-art-*.md`). Note recent commits if relevant.
 
 ### 2. Scope the question
@@ -77,7 +77,7 @@ citations for external sources.
 
 Derive a slug (lowercase, hyphenated). Read the template:
 `assets/research-template.md`. Fill the sections that apply and write to
-`.agents/research-<slug>.md`. Omit sections for any dimension not investigated.
+`docs/rse/specs/research-<slug>.md`. Omit sections for any dimension not investigated.
 
 If the internal pass ran, record the codebase state you researched against —
 the commit SHA (`git rev-parse --short HEAD`) and the date — so `file:line`
@@ -97,7 +97,7 @@ Confirm the doc meets the Quality checklist below.
 
 Surface the written document and let the user go through it before you move on:
 
-> Research doc written to `.agents/research-<slug>.md`. Please review it and tell me if anything is missing or off before we move on to planning.
+> Research doc written to `docs/rse/specs/research-<slug>.md`. Please review it and tell me if anything is missing or off before we move on to planning.
 
 In Collaborative mode, wait for their response; if they request changes, revise and re-run the self-review. In Direct mode, present the doc and proceed, noting it is ready for their review.
 
@@ -121,7 +121,7 @@ Point to the next skill — usually `ai-research-workflows:planning-implementati
 - [ ] Every prior-art claim is cited and ≥1 disconfirming search ran (if the external pass ran)
 - [ ] Synthesis connects findings and names gaps
 - [ ] Codebase state recorded (commit SHA + date) if the internal pass ran
-- [ ] Template used; saved to `.agents/research-<slug>.md`
+- [ ] Template used; saved to `docs/rse/specs/research-<slug>.md`
 - [ ] Document is self-contained
 - [ ] Findings presented before writing; written doc self-reviewed and offered for user review before hand-off
 - [ ] Next skill suggested

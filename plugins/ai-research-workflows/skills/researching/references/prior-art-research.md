@@ -2,7 +2,7 @@
 
 How to research the space *outside* the current codebase — papers, tools,
 methods, comparable approaches — for the `researching` skill. Produces the
-**Prior Art** section of `.agents/research-<slug>.md`.
+**Prior Art** section of `docs/rse/specs/research-<slug>.md`.
 
 ## Steps
 
