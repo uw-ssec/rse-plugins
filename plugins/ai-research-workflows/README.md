@@ -8,12 +8,12 @@ A skills-first Claude Code plugin for Research Software Engineers and researcher
 
 Research software is written under pressures that general-purpose development rarely faces all at once: it is exploratory and fast-changing, its correctness is often the actual research result, it must be reproducible by others (and by your future self), and it is frequently handed between students, collaborators, and sessions. AI coding assistants are excellent at *writing* code — but used ad hoc, they tend to skip the very rigor research demands. They jump into edits before understanding the existing code or the prior art, lose the reasoning behind decisions when a session ends, and rarely stop to capture provenance or to verify that a result actually holds.
 
-This plugin exists to put that structure back. It encodes the research-software lifecycle — understand, survey prior art, plan, experiment, implement, validate, reproduce, harden, hand off — as a set of composable **skills** that trigger from plain natural language. Each phase produces a durable, cross-linked Markdown document under `.agents/`, so the *context and the decisions* survive beyond a single conversation and transfer cleanly to the next person or session. The aim is to keep an AI assistant honest about the parts of research engineering that are easiest to skip and most expensive to lose.
+This plugin exists to put that structure back. It encodes the research-software lifecycle — understand, survey prior art, plan, experiment, implement, validate, reproduce, harden, hand off — as a set of composable **skills** that trigger from plain natural language. Each phase produces a durable, cross-linked Markdown document under `docs/rse/specs/`, so the *context and the decisions* survive beyond a single conversation and transfer cleanly to the next person or session. The aim is to keep an AI assistant honest about the parts of research engineering that are easiest to skip and most expensive to lose.
 
 ### Principles
 
 - **Skills, not ceremony.** Describe the task in natural language and the right skill loads; slash commands are just shortcuts. You are never forced through a rigid pipeline — invoke a single skill or chain the whole arc.
-- **Durable context.** Every phase writes a versionable artifact to `.agents/`. Plans cite the research that informed them; implementations cite their plan; handoffs cite everything. Context is a file, not a chat log.
+- **Durable context.** Every phase writes a versionable artifact to `docs/rse/specs/`, committed to version control alongside the code it describes. Plans cite the research that informed them; implementations cite their plan; handoffs cite everything. Context is a file in your repo, not a chat log.
 - **Adaptive interaction.** Collaborative when you want to think together, Direct when you just want the work done — chosen per request (see [Interaction modes](#interaction-modes)).
 - **Strategy over mechanics.** The skills decide *what* and *why*, and defer the *how* of environments, tests, packaging, and docs to specialist plugins (see [Cross-plugin deferral](#cross-plugin-deferral)) — so this plugin stays language-agnostic and avoids duplicating their guidance.
 - **Research-grade rigor is first-class.** Reproducibility (provenance capture) and hardening (correctness, regression, and stability checks) are dedicated skills, not afterthoughts.
@@ -34,19 +34,19 @@ This plugin ships with 1 agent, 10 skills, and 9 commands.
 
 | Skill | What it does | Default lean | Output |
 |---|---|---|---|
-| `researching` | Understand existing code and/or survey external prior work, tools, and methods — produces a combined research doc | Collaborative | `.agents/research-<slug>.md` |
-| `planning-implementations` | Design a feature, refactor, or multi-file change before coding — phased approach, component dependencies, Automated and Manual success criteria | Collaborative | `.agents/plan-<slug>.md` |
-| `iterating-plans` | Revise an existing plan with surgical edits — add/remove/split phases, adjust scope, update success criteria, incorporate experiment results | Collaborative | Updated `.agents/plan-<slug>.md` |
-| `running-experiments` | Compare 2–3 technical approaches with real prototype code and measurements before committing to a design | Collaborative | `.agents/experiment-<slug>.md` |
-| `implementing-plans` | Execute an approved plan phase by phase — write code, run automated verification after each phase, pause for human verification, track progress with real-time checkmarks | Direct | `.agents/implement-<slug>.md` + updated plan |
+| `researching` | Understand existing code and/or survey external prior work, tools, and methods — produces a combined research doc | Collaborative | `docs/rse/specs/research-<slug>.md` |
+| `planning-implementations` | Design a feature, refactor, or multi-file change before coding — phased approach, component dependencies, Automated and Manual success criteria | Collaborative | `docs/rse/specs/plan-<slug>.md` |
+| `iterating-plans` | Revise an existing plan with surgical edits — add/remove/split phases, adjust scope, update success criteria, incorporate experiment results | Collaborative | Updated `docs/rse/specs/plan-<slug>.md` |
+| `running-experiments` | Compare 2–3 technical approaches with real prototype code and measurements before committing to a design | Collaborative | `docs/rse/specs/experiment-<slug>.md` |
+| `implementing-plans` | Execute an approved plan phase by phase — write code, run automated verification after each phase, pause for human verification, track progress with real-time checkmarks | Direct | `docs/rse/specs/implement-<slug>.md` + updated plan |
 | `validating-implementations` | Systematically verify a completed implementation against its plan's success criteria — run automated checks, review code vs. spec, list manual tests | Direct | Inline validation report |
-| `creating-handoffs` | Produce a handoff document that transfers full working context — state, artifacts, key files, learnings, and next steps — to the next session with no information loss | Direct | `.agents/handoff-<timestamp>-<slug>.md` |
+| `creating-handoffs` | Produce a handoff document that transfers full working context — state, artifacts, key files, learnings, and next steps — to the next session with no information loss | Direct | `docs/rse/specs/handoff-<timestamp>-<slug>.md` |
 
 ### Research-software skills (2)
 
 | Skill | What it does | Default lean | Output |
 |---|---|---|---|
-| `ensuring-reproducibility` | Capture environment, data references, random seeds, config, and exact commands as a provenance record for a result, analysis, or experiment; verify by re-running | Direct | `## Reproducibility` section in relevant `.agents/` doc |
+| `ensuring-reproducibility` | Capture environment, data references, random seeds, config, and exact commands as a provenance record for a result, analysis, or experiment; verify by re-running | Direct | `## Reproducibility` section in relevant `docs/rse/specs/` doc |
 | `hardening-research-code` | Make research/scientific code trustworthy — define correctness criteria, add golden/reference tests, numerical-tolerance checks, and regression guards | Direct | Tests added to codebase |
 
 ### Meta-skill (1)
@@ -87,9 +87,11 @@ Every skill begins by choosing one of two modes:
 
 Full protocol: [`skills/using-research-workflows/references/interaction-modes.md`](skills/using-research-workflows/references/interaction-modes.md)
 
-## `.agents/` documents and cross-references
+## `docs/rse/specs/` — workflow artifacts
 
-All workflow documents are saved to `.agents/` in the project root. The directory is created automatically on first use.
+All workflow documents are saved to `docs/rse/specs/` in the project root, and are **meant to be committed to version control** alongside the code they describe — they are the durable decision record, not scratch files. The directory is created automatically on first use.
+
+Documents from an earlier version of this plugin may live in a legacy `.agents/` directory. Skills still **read** from `.agents/` as a fallback when a document isn't found under `docs/rse/specs/`, but always **write** new documents to `docs/rse/specs/`.
 
 | Document type | Naming pattern | Example |
 |---|---|---|
@@ -160,7 +162,7 @@ For understanding a codebase without immediate implementation intent:
 ```
 /research [system A]
 /research [system B]
-[Documents in .agents/ available for future planning]
+[Documents in docs/rse/specs/ available for future planning]
 ```
 
 ### Pattern 5: Research-first (prior art informs design)
