@@ -43,7 +43,7 @@ All phases of the plan have been executed.
 - All automated verification: ✅ Passing
 
 ## Implementation documented at:
-`.agents/implement-[slug].md`
+`docs/rse/specs/implement-[slug].md`
 
 ## Verification Status:
 ✅ Automated verification complete

@@ -1,7 +1,7 @@
 ---
 name: implementing-plans
 description: >-
-  Use when an approved implementation plan (a .agents/plan-*.md file) exists
+  Use when an approved implementation plan (a docs/rse/specs/plan-*.md file) exists
   and the next step is writing the code. Triggers: implement the plan, execute
   the plan, start building, run the plan.
 ---
@@ -26,11 +26,11 @@ Work through these in order and track them as tasks. Do not skip the review gate
 5. **Pause for manual verification** — wait for human confirmation before the next phase (except consecutive phases)
 6. **Repeat steps 3–5** until every phase is done
 7. **Confirm completion** — all automated verification passes; nothing left unaccounted for on the branch
-8. **Summarize & hand off** — write `.agents/implement-<slug>.md`; route to `ai-research-workflows:validating-implementations`
+8. **Summarize & hand off** — write `docs/rse/specs/implement-<slug>.md`; route to `ai-research-workflows:validating-implementations`
 
 ## Starting the skill
 
-If no plan path is given, list `ls -lt .agents/plan-*.md` and, in Collaborative
+If no plan path is given, list `ls -lt docs/rse/specs/plan-*.md .agents/plan-*.md 2>/dev/null` and, in Collaborative
 mode, ask which to implement; otherwise proceed (Direct).
 
 When a plan is identified:
@@ -163,7 +163,7 @@ and you are not leaving changes on `main`/`master`. Then:
 run, verification results (automated and manual), issues encountered, key
 changes summary, remaining work, next steps.
 
-**Save to** `.agents/implement-<slug>.md` and confirm.
+**Save to** `docs/rse/specs/implement-<slug>.md` and confirm.
 
 **Present completion summary** using the implementation completion summary
 template in
@@ -210,7 +210,7 @@ Before marking implementation as complete:
 - [ ] Plan reviewed critically and working branch confirmed before building
 - [ ] All phases are implemented
 - [ ] All automated verification passes
-- [ ] Implementation document generated at `.agents/implement-<slug>.md`
+- [ ] Implementation document generated at `docs/rse/specs/implement-<slug>.md`
 - [ ] Manual verification steps clearly listed for user
 - [ ] All task-list items are done
 - [ ] No open issues or blockers remain
