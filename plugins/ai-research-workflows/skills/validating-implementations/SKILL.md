@@ -30,7 +30,7 @@ This skill leans **Direct** by default. For the full Collaborative-vs-Direct pro
 **If a plan path is provided**, read it completely — this is the specification
 to validate against.
 
-**If no plan path is given**, search `.agents/{plan,implement}-*.md`. If
+**If no plan path is given**, search `docs/rse/specs/{plan,implement}-*.md` (then legacy `.agents/{plan,implement}-*.md`). If
 multiple match, ask which to validate (Collaborative); if exactly one, proceed
 (Direct). If none found, explain that validation requires a plan.
 

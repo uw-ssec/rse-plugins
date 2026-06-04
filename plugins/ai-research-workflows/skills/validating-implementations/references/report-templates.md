@@ -95,7 +95,7 @@ After completing validation, open with:
 ```
 # Validation Complete
 
-I've validated the implementation against `.agents/plan-[slug].md`.
+I've validated the implementation against `docs/rse/specs/plan-[slug].md`.
 
 ## Overall Status: ✅ Ready | ⚠️ Issues Found | ❌ Incomplete
 
