@@ -206,11 +206,12 @@ Read from: `${CLAUDE_PLUGIN_ROOT}/skills/research-workflow-management/assets/pla
 2. **Current State Analysis** — Existing code with file:line references
 3. **Desired End State** — What success looks like
 4. **What We're NOT Doing** — Explicit scope boundaries
-5. **Implementation Approach** — Technical strategy and key decisions
-6. **Implementation Phases** — Detailed, phased steps with checkboxes
-7. **Success Criteria** — Split into Automated and Manual sections
-8. **Testing Strategy** — Unit, integration, and manual tests
-9. **References** — Research docs, files analyzed, external docs
+5. **Assumptions** — Unverified beliefs the plan depends on
+6. **Implementation Approach** — Technical strategy and key decisions
+7. **Implementation Phases** — Detailed, phased steps with checkboxes
+8. **Success Criteria** — Split into Automated and Manual sections
+9. **Testing Strategy** — Unit, integration, and manual tests
+10. **References** — Research docs, files analyzed, external docs
 
 **Critical requirements:**
 
@@ -340,6 +341,39 @@ This is a BLOCKING REQUIREMENT:
 
 **The plan is a specification, not a brainstorming document.**
 
+# Assumptions Guidelines
+
+Assumptions are beliefs the plan depends on that you have NOT fully verified through direct code inspection or testing. They are distinct from:
+
+- **Verified facts** (belong in Current State Analysis) — things you confirmed by reading code
+- **Prerequisites** (belong in Testing Strategy or Dependencies) — things that must exist before running
+- **Decisions** (belong in Implementation Approach) — choices you made deliberately
+- **Open questions** (must be resolved before plan is final) — things you haven't decided yet
+
+## How to identify real assumptions
+
+Ask yourself: "If this turns out to be false, would my plan break?"
+
+- If yes AND you verified it by reading code - it's a **fact**, put in Current State Analysis
+- If yes AND you inferred it from docs/convention - it's an **assumption**, document it
+- If yes AND you haven't decided yet - it's an **open question**, resolve it first
+
+## Categories to check
+
+When writing the Assumptions section, consider these categories:
+
+1. **Library/framework internals** — behavior you rely on but didn't verify in source code
+2. **Concurrency & isolation** — thread safety, data separation under parallel access
+3. **Data characteristics** — volume, format stability, schema guarantees
+4. **Environment & infrastructure** — services, network, permissions assumed available
+5. **External API contracts** — response formats, rate limits, idempotency guarantees
+
+## Relationship to other sections
+
+- During `/implement`: assumptions should be verified as implementation proceeds
+- During `/validate`: check whether any assumptions were invalidated
+- During `/iterate-plan`: if an assumption proves wrong, update the plan accordingly
+
 # Success Criteria Guidelines
 
 Always separate success criteria into two categories:
@@ -413,6 +447,7 @@ Before completing the plan, verify:
 - [ ] Success criteria are split into Automated and Manual
 - [ ] Success criteria are measurable and concrete
 - [ ] "What We're NOT Doing" section is filled out
+- [ ] Assumptions are genuinely unverified beliefs (not restated facts or prerequisites)
 - [ ] NO open questions remain in the plan
 - [ ] References section links to research and experiment docs
 - [ ] Task list shows plan completion
