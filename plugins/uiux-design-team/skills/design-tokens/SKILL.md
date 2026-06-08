@@ -1,6 +1,6 @@
 ---
 name: design-tokens
-description: Use when implementing or refactoring design tokens, setting up Style Dictionary, defining a three-tier token architecture, wiring multi-platform output (web/iOS/Android), or auditing existing tokens for naming and reference integrity.
+description: Guides design token architecture and Style Dictionary configuration, generates token files for web CSS variables, iOS, and Android, and audits token naming and reference integrity. Use when implementing or refactoring design tokens, setting up Style Dictionary, defining a three-tier token architecture, wiring multi-platform output (web/iOS/Android), or auditing existing tokens for naming and reference integrity.
 metadata:
    references:
    - references/naming-conventions.md
@@ -50,6 +50,23 @@ Validate after each step before proceeding.
   }
 }
 ```
+
+`tokens/components/button.json` (step 3 — component tokens referencing alias tier):
+
+```json
+{
+  "button": {
+    "bg":             { "value": "{color.primary}",        "type": "color" },
+    "bg-hover":       { "value": "{color.primary-hover}",  "type": "color" },
+    "bg-disabled":    { "value": "{color.surface}",        "type": "color" },
+    "text":           { "value": "{color.on-surface}",     "type": "color" },
+    "padding-x":      { "value": "{spacing.4}",            "type": "dimension" },
+    "padding-y":      { "value": "{spacing.2}",            "type": "dimension" }
+  }
+}
+```
+
+Component tokens always reference alias names, never global names directly.
 
 ## Style Dictionary Config (`style-dictionary.config.js`)
 

@@ -1,6 +1,6 @@
 ---
 name: accessibility-audit
-description: Use when auditing a web interface for WCAG 2.2 AA/AAA compliance, fixing reported accessibility violations, verifying ARIA usage, checking keyboard navigation or color contrast, or preparing accessibility documentation for a release.
+description: Runs axe-core/pa11y/Lighthouse scans, identifies WCAG 2.2 violations by success criterion, generates structured findings reports, fixes ARIA misuse and missing labels, checks keyboard navigation and color contrast ratios, and produces VPAT-ready accessibility documentation. Use when auditing a web interface for WCAG 2.2 AA/AAA compliance, fixing reported accessibility violations, verifying ARIA usage, checking keyboard navigation or color contrast, or preparing accessibility documentation for a release.
 metadata:
    references:
    - references/aria-patterns.md

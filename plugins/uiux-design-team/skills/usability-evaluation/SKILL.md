@@ -1,6 +1,6 @@
 ---
 name: usability-evaluation
-description: Use when auditing an existing interface for usability issues, when running a heuristic evaluation or cognitive walkthrough, when scoring an SUS survey, or when prioritizing UX bugs by severity.
+description: Audits interfaces against usability heuristics, conducts cognitive walkthroughs, calculates and interprets SUS scores, and produces severity-ranked usability findings reports. Use when auditing an existing interface for usability issues, when running a heuristic evaluation or cognitive walkthrough, when scoring an SUS survey, or when prioritizing UX bugs by severity.
 metadata:
    references:
    - references/nielsen-heuristics.md

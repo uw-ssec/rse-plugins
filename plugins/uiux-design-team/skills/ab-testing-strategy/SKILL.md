@@ -1,6 +1,6 @@
 ---
 name: ab-testing-strategy
-description: Use when designing or analyzing an A/B test, calculating sample size for an experiment, evaluating whether a variant won, debugging surprising experiment results, or choosing between frequentist and Bayesian analysis for a design change.
+description: Designs A/B tests, writes structured hypotheses, computes required sample sizes and test duration, performs significance analysis (chi-squared, confidence intervals), produces ship/no-ship/inconclusive recommendations, and advises on frequentist vs Bayesian approach selection. Use when designing or analyzing an A/B test, calculating sample size for an experiment, evaluating whether a variant won, debugging surprising experiment results, or choosing between frequentist and Bayesian analysis for a design change.
 metadata:
    references:
    - references/analysis-methods.md

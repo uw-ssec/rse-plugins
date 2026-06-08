@@ -1,6 +1,6 @@
 ---
 name: typography-systems
-description: Use when building a new type scale, converting fixed sizes to fluid clamp() values, choosing or pairing fonts, fixing readability issues (line height, measure, tracking), or encoding typography as design tokens / CSS custom properties.
+description: Guides creation and refinement of web typography systems including fluid type scales, font selection and pairing, readability optimization, and design token encoding. Use when building a new type scale, converting fixed sizes to fluid clamp() values, choosing or pairing fonts, fixing readability issues (line height, measure, tracking), or encoding typography as design tokens / CSS custom properties.
 metadata:
    references:
    - references/font-pairing-guide.md

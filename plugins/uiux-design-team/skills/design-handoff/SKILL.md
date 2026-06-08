@@ -1,6 +1,6 @@
 ---
 name: design-handoff
-description: Use when packaging a design for developer implementation, writing component specifications, running design QA against a built UI, exporting assets from Figma, or resolving design-vs-code drift before a release.
+description: Bridges design and development by generating component spec sheets, running five-gate visual QA checks, producing asset export packages, and writing redline annotations. Use when packaging a design for developer implementation, writing component specifications, running design QA against a built UI, exporting assets from Figma, or resolving design-vs-code drift before a release.
 metadata:
    references:
    - references/annotation-guide.md

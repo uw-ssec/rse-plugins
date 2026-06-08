@@ -1,6 +1,6 @@
 ---
 name: responsive-design
-description: Use when building or refactoring an interface that must work across phone, tablet, and desktop; setting breakpoints; sizing touch targets; serving responsive images; or testing layout across viewports.
+description: Generates responsive layouts with media queries, fluid grids, and container queries, creates breakpoint configurations, optimizes images for multiple resolutions, and validates layouts across viewports. Use when building or refactoring an interface that must work across phone, tablet, and desktop; setting breakpoints; sizing touch targets; serving responsive images; or testing layout across viewports.
 metadata:
    references:
    - references/breakpoint-strategy.md

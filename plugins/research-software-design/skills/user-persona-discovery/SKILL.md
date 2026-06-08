@@ -1,234 +1,140 @@
 ---
 name: user-persona-discovery
-description: Creative user persona discovery through ideation and exploration. Use for open-ended brainstorming sessions to elucidate and reveal user personas for cultural probes in research through design. This is useful for settings for thinking about a range of user personas that might be relevant to a design process.
+description: "Use when the user asks to brainstorm personas, define target users, create user profiles, or plan cultural probes for design research. Generates persona clusters, persona hypothesis cards (name, goal statement, behavioral summary, constraints, design implications), and probe design briefs through a structured conversational workflow. Produces living hypotheses grounded in observed evidence rather than invented demographics. Trigger phrases: create personas, define target users, user profiles, who are my users, user research, cultural probes, research through design, persona discovery."
 metadata:
   references:
     - references/user-persona-examples.md
+    - references/persona-design-principles.md
 ---
 
 # User Persona Discovery
 
-## Overview
+Generate evidence-grounded persona hypotheses through a structured conversation.
 
-User personas are research-based representations of key user groups that guide design, engineering, and decision-making. They are not fictional characters invented for creativity, but analytical tools grounded in evidence that help teams maintain a consistent focus on real user needs, goals, and constraints. This approach is complemented by a brainstorming approach via a conversational process for generating ideas, challenge assumptions about users personas and avoid sterotyping. Apply this skill for creative generation of user personas in a conversation form.
-
-## When to Use This Skill
-
-This skill should be used when:
-* The user asks to discover or create user personas
-* The user asks for help brainstorming user personas
-* The user asks to have a conversation about user persona discovery or creation or writing
-* The user asks for help writing user personas and user stories
-* Generating novel research ideas or directions that involve user personas
-* Exploring interdisciplinary connections and analogies in user personas
-* Challenging assumptions in user personas
-* Identifying research gaps or opportunities in the context of user personas and user stories
-* Overcoming creative blocks in problem-solving in user persona generation
-
-## Core Principles
-
-1. Evidence based
-Ideally, these personas are based in evidence, but this approach requires you to imagine who might be consulted for interviews and digital probes.
-
-Principle: Evidence bases should be used where possible vs. the imagination.
-
-2. Goal-Oriented
-At their core, personas represent what users are trying to accomplish, not just who they are.
-
-Effective personas clearly articulate:
-
-* Primary and secondary goals
-* Success criteria from the user’s perspective
-* Motivations and values that shape decisions
-* Demographics are secondary to intent.
-
-Principle: Design should optimize for user goals, not user traits.
-
-3. Behavior-Centered
-Personas focus on observable behaviors rather than abstract characteristics.
-
-This includes:
-
-* How users interact with systems
-* Workflows and decision strategies
-* Coping mechanisms, shortcuts, and workarounds
-* Responses to constraints such as time, risk, or uncertainty
-* Principle: What users do matters more than what they say they prefer.
-
-4. Representative, Not Exhaustive
-A persona represents a meaningful user archetype, not every possible user.
-
-Well-constructed personas:
-
-* Capture dominant patterns across many users
-* Abstract away irrelevant variation
-* Prioritize distinctions that affect design decisions
-* Too many personas dilute focus; too few oversimplify reality.
-
-Principle: Personas trade completeness for clarity.
-
-5. Contextually Grounded
-Personas exist within specific contexts of use, including:
-
-* Physical, social, and organizational environments
-* Technical and regulatory constraints
-* Cultural norms and institutional practices
-* Without context, personas become generic and non-actionable.
-
-Principle: Users cannot be understood outside the situations in which they act.
-
-6. Actionable for Design Decisions
-A persona is only valuable if it changes decisions.
-
-Effective personas:
-
-* Highlight tensions, tradeoffs, and unmet needs
-* Inform requirements, feature prioritization, and evaluation
-* Enable teams to ask, “What would this persona need here?”
-* If a persona cannot be used to justify or reject a design choice, it is incomplete.
-
-Principle: Personas exist to support action, not documentation.
-
-7. Internally Coherent and Plausible
-Each persona must present a consistent logic linking goals, behaviors, constraints, and motivations.
-
-Contradictions should be intentional and explained (e.g., competing incentives), not accidental.
-
-Principle: A persona should feel inevitable given its constraints.
-
-8. Explicit About Assumptions and Limits
-Personas always simplify reality. High-quality personas make this visible by:
-
-* Stating the data sources used
-* Identifying assumptions and uncertainties
-* Clarifying which populations are not represented
-* This transparency prevents misuse and overgeneralization.
-
-Principle: Responsible personas acknowledge what they do not capture.
-
-9. Living Artifacts
-Personas are not static deliverables.
-
-They should evolve as:
-
-* New data becomes available
-* Systems, users, or contexts change
-* Design questions shift over time
-
-Principle: Personas are hypotheses that can be refined, not truths to be preserved.
-
-## Conversational Workflow
-
-### Phase 1: Align on Purpose
-Conversation 1: Why Do We Need Personas Now?
-Questions
-
-What design decisions are we currently blocked on?
-What do we disagree about regarding users?
-What would a better understanding of users allow us to try or stop trying?
-
-Capture decisions personas should inform (e.g., requirements, tradeoffs, evaluation criteria)
-Output
-
-A short statement:
-“These personas exist to help us decide ______.”
-
-### Phase 2: Share Evidence, Not Opinions
-
-Conversation 2: What Have We Actually Observed?
-Each team member answers, in turn:
-
-What user interactions, data, or experiences am I drawing from?
-What surprised me?
-What felt inconsistent or unresolved?
-#### Rules
-
-* No interpretation yet
-* No persona names
-* No solutions
-#### Artifacts
-
-Markdown document with:
-* Observed behaviors
-* Goals expressed or implied
-* Constraints and workarounds
-* Emotional or cognitive tensions
-
-### Phase 3: Cluster and Name Patterns
-Conversation 3: What Patterns Are Emerging?
-
-Cluster observations by behavior and goal
-Ignore demographics unless they directly affect behavior
-Ask:
-“If we designed for this cluster, what would change?”
-
-Key Question
-Are these differences meaningful for design?
-
-#### Artifacts
-
-2–4 candidate persona clusters, each defined by:
-Core goal
-Dominant behaviors
-Primary constraints
-
-### Phase 4: Construct Persona Hypotheses
-Conversation 4: Who Is This Persona, Really?
-For each cluster, the team collaboratively answers:
-What is this persona trying to accomplish?
-What do they optimize for (time, safety, accuracy, cost, autonomy)?
-What do they avoid?
-What breaks when the system doesn’t support them?
-
-Required Tension Question
-What internal conflict does this persona live with?
-
-#### Artifacts
-Output (Draft Persona)
-* Name (functional, not cute)
-* One‑sentence goal statement
-* Behavioral summary
-* Key constraints
-* Design implications
-
-### Phase 5: Stress-Test with Design Scenarios
-Conversation 5: Would This Persona Change Our Design?
-
-Run 2–3 realistic scenarios:
-* How would this persona use our current design?
-* Where would they struggle?
-* What would they do instead?
-
-Critical Question:
-If this persona disappeared, would our design change?
-If not, revise or discard.
-
-### Phase 6: Make Assumptions Explicit
-Conversation 6: What Are We Guessing?
-
-For each persona, identify:
-* Evidence sources
-* Weak or missing data
-* Assumptions carried forward
-
-
-Label each persona with:
-High confidence
-Medium confidence
-Exploratory
-
-### Phase 7: Reflect and Reposition
-Conversation 7: What Did We Learn by Doing This?
-
-Team reflection prompts:
-* How did persona construction reshape our understanding of the problem?
-* What surprised us?
-* What design questions became sharper?
-
-Document:
-How persona creation itself changed the design space
+**Constraints:** Never cluster by demographics unless they directly cause behavioral differences. Never assign persona names before clustering. Never advance a phase without confirming the checkpoint.
 
 ## Resources
 
-### references/user-persona-examples.md
+| File | Contents |
+|------|----------|
+| `references/user-persona-examples.md` | 20 filled-in personas covering common research software archetypes |
+| `references/persona-design-principles.md` | Core principles for evidence-based, behavior-centered persona design |
 
+## Persona Output Format
+
+```
+**Name:** [Functional label, e.g. "The Batch Job Runner"]
+**Goal:** [One sentence — what they are trying to accomplish]
+**Behaviors:** [3–5 bullet points of observable actions and strategies]
+**Constraints:** [What limits or pressures shape their behavior]
+**Tension:** [The core tradeoff they live with, e.g. "speed vs. correctness"]
+**Design implications:** [What the system must do to support or not obstruct them]
+**Confidence:** [High / Medium / Exploratory] — based on evidence quality
+```
+
+### Worked Example
+
+```
+**Name:** The Reproducibility Advocate
+**Goal:** Ensure every analysis result can be independently verified months later
+**Behaviors:**
+- Pins every dependency version explicitly
+- Runs analyses twice with different seeds before reporting
+- Documents environment setup in exhaustive detail
+- Treats "it works on my machine" as a failure condition
+**Constraints:** Works in a team that moves fast and resists documentation overhead
+**Tension:** Rigor vs. team velocity — they slow down the workflow to protect correctness
+**Design implications:** The tool must make reproducible runs the default, not an opt-in. Version pinning should be automatic. Audit logs cannot be optional.
+**Confidence:** High — grounded in 6 interviews; all described the same friction
+```
+
+## Conversational Workflow
+
+Run phases in order. Each phase ends with a checkpoint — confirm before advancing.
+
+### Phase 1: Align on Purpose
+
+**Ask:**
+- What design decisions are you currently blocked on?
+- What would a better understanding of your users allow you to try or stop trying?
+
+**Output:** One sentence — *"These personas exist to help us decide ______."*
+
+**Checkpoint:** Confirm the decision scope before gathering evidence.
+
+---
+
+### Phase 2: Surface Evidence
+
+**Ask:**
+- What user interactions, data, interviews, or observations are you drawing from?
+- What surprised you? What felt inconsistent?
+
+**Rule:** Observations only at this stage — no interpretations, no persona names, no solutions.
+
+**Output:** A raw list of observed behaviors, expressed goals, constraints, and tensions.
+
+**Checkpoint:** Confirm the evidence list is complete before clustering.
+
+---
+
+### Phase 3: Cluster Patterns
+
+Group observations by behavior and goal.
+
+**Ask:** If we designed specifically for this cluster, what would change?
+
+**Output:** 2–4 candidate clusters, each with: core goal · dominant behaviors · primary constraints.
+
+**Checkpoint:** Confirm clusters are meaningfully distinct. If clusters overlap, merge or split before proceeding.
+
+---
+
+### Phase 4: Draft Persona Hypotheses
+
+For each cluster, collaboratively answer:
+- What is this persona trying to accomplish?
+- What do they optimize for (speed, safety, accuracy, autonomy)?
+- What breaks when the system fails to support them?
+- What internal conflict does this persona live with?
+
+**Output:** One persona card per cluster using the format above. Assign a confidence level.
+
+**Checkpoint:** Does each card feel inevitable given its constraints? If a card contains contradictions not explained by competing incentives, revise before continuing.
+
+---
+
+### Phase 5: Stress-Test with Scenarios
+
+Run 2–3 realistic use scenarios per persona:
+- How would this persona use the current design?
+- Where would they struggle or work around it?
+
+**Critical question:** If this persona disappeared, would the design change? If not, revise or discard.
+
+**Output:** Annotated scenario walkthroughs with friction points identified.
+
+**Checkpoint:** Discard any persona that survives all scenarios without forcing a design change.
+
+---
+
+### Phase 6: Make Assumptions Explicit
+
+For each surviving persona:
+- List evidence sources used
+- Flag weak or missing data
+- Name assumptions carried forward
+
+Assign or revise confidence labels (High / Medium / Exploratory).
+
+**Output:** Final persona cards with explicit confidence and assumption annotations.
+
+---
+
+### Phase 7: Reflect
+
+- How did building these personas reshape the design problem?
+- What design questions became sharper?
+- Which personas need more fieldwork to validate?
+
+**Output:** A brief reflection note capturing how the persona set changed the team's understanding.

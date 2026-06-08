@@ -1,0 +1,233 @@
+name: Evaluate All Skills
+on: workflow_dispatch
+
+env:
+  PASS_THRESHOLD: '80'
+  TEST_REPO: ${{ github.repository_owner }}/rse-plugins-testcases
+  TEST_BRANCH: main
+  TEST_DIR: .testcases
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  list-models:
+    runs-on: ubuntu-latest
+    outputs:
+      models: ${{ steps.list.outputs.models }}
+      count: ${{ steps.list.outputs.count }}
+    steps:
+      - name: Fetch available models from LiteLLM proxy
+        id: list
+        run: |
+          response=$(curl -fsSL \
+            -H "Authorization: Bearer ${{ secrets.LITELLM_API_KEY }}" \
+            "${{ secrets.LITELLM_PROXY_URL }}/v1/models")
+          models=$(echo "$response" | jq -c '[.data[].id] | sort')
+          echo "models=$models" >> "$GITHUB_OUTPUT"
+          echo "count=$(echo "$models" | jq length)" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: echo "Found ${{ steps.list.outputs.count }} models"
+
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      all-skills: ${{ steps.discover.outputs.all-skills }}
+      count: ${{ steps.discover.outputs.count }}
+      eval-skills: ${{ steps.discover.outputs.eval-skills }}
+      eval-count: ${{ steps.discover.outputs.eval-count }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - name: Checkout evals testcases
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          repository: ${{ env.TEST_REPO }}
+          ref: ${{ env.TEST_BRANCH }}
+          path: ${{ env.TEST_DIR }}
+          persist-credentials: false
+          # If the testcases repo is private, set TEST_REPO_TOKEN (fine-grained PAT with Contents: Read).
+          # Otherwise the workflow will fall back to GITHUB_TOKEN (only works for the same repo or public repos).
+          token: ${{ secrets.TEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+          sparse-checkout: |
+            plugins/**/skills/**/evals
+            community-plugins/**/skills/**/evals
+          sparse-checkout-cone-mode: false
+
+      - name: Discover all skills
+        id: discover
+        run: |
+          all=$(find plugins community-plugins -name "SKILL.md" -exec dirname {} \; | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "all-skills=$all" >> "$GITHUB_OUTPUT"
+          echo "count=$(echo $all | jq length)" >> "$GITHUB_OUTPUT"
+
+          eval_skills=$(find "${{ env.TEST_DIR }}/plugins" "${{ env.TEST_DIR }}/community-plugins" -type d -name "evals" | sed "s|^${{ env.TEST_DIR }}/||" | sed 's|/evals$||' | sort -u | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "eval-skills=$eval_skills" >> "$GITHUB_OUTPUT"
+          echo "eval-count=$(echo $eval_skills | jq length)" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: echo "Found ${{ steps.discover.outputs.count }} skills (${{ steps.discover.outputs.eval-count }} with evals)"
+
+  review:
+    needs: [discover]
+    if: needs.discover.outputs.count > 0
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        skill: ${{ fromJSON(needs.discover.outputs.all-skills) }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Install Tessl
+        uses: tesslio/setup-tessl@v2
+
+      - name: Derive skill name
+        id: skill-name
+        run: echo "value=$(basename '${{ matrix.skill }}')" >> "$GITHUB_OUTPUT"
+
+      - name: Review SKILL.md
+        continue-on-error: true
+        id: review
+        run: |
+          set +e
+          output=$(tessl skill review ${{ matrix.skill }} --threshold ${{ env.PASS_THRESHOLD }} 2>&1)
+          review_exit=$?
+          set -e
+          echo "$output"
+
+          # Parse validation checks result
+          validation=$(echo "$output" | grep -oP 'Overall: \K(PASSED|FAILED)')
+          errors=$(echo "$output" | grep -oP '\d+(?= errors)')
+          warnings=$(echo "$output" | grep -oP '\d+(?= warnings)')
+
+          # Parse judge evaluation result
+          score=$(echo "$output" | grep -oP 'Review Score: \K\d+')
+          description=$(echo "$output" | grep -oP '(?<=Description: )\d+')
+          content=$(echo "$output" | grep -oP '(?<=Content: )\d+')
+
+          # Extract validation checks block (everything before "Judge Evaluation")
+          validation_block=$(echo "$output" | sed -n '/^Validation Checks/,/^Judge Evaluation/{ /^Judge Evaluation/d; p }')
+
+          # Extract judge evaluation block (everything between "Judge Evaluation" and "Review Score")
+          judge_block=$(echo "$output" | sed -n '/^Judge Evaluation/,/^Review Score/{ /^Judge Evaluation/d; /^Review Score/d; p }')
+
+          # Emit scalar outputs
+          echo "exit-code=$review_exit"     >> "$GITHUB_OUTPUT"
+          echo "validation=$validation"     >> "$GITHUB_OUTPUT"
+          echo "errors=$errors"             >> "$GITHUB_OUTPUT"
+          echo "warnings=$warnings"         >> "$GITHUB_OUTPUT"
+          echo "score=$score"               >> "$GITHUB_OUTPUT"
+          echo "description=$description"   >> "$GITHUB_OUTPUT"
+          echo "content=$content"           >> "$GITHUB_OUTPUT"
+
+          # Emit multi-line outputs using EOF delimiters
+          {
+            echo "validation-block<<__EOF__"
+            echo "$validation_block"
+            echo "__EOF__"
+          } >> "$GITHUB_OUTPUT"
+          {
+            echo "judge-block<<__EOF__"
+            echo "$judge_block"
+            echo "__EOF__"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Save review JSON
+        if: always()
+        env:
+          VAL_BLOCK: ${{ steps.review.outputs.validation-block }}
+          JUDGE_BLOCK: ${{ steps.review.outputs.judge-block }}
+        run: |
+          skill_name='${{ steps.skill-name.outputs.value }}'
+          skill_path='${{ matrix.skill }}'
+          mkdir -p /tmp/review-results
+
+          printf '%s' "$VAL_BLOCK"   > /tmp/val_block.txt
+          printf '%s' "$JUDGE_BLOCK" > /tmp/judge_block.txt
+
+          jq -n \
+            --arg  skill       "$skill_path" \
+            --arg  validation  '${{ steps.review.outputs.validation }}' \
+            --arg  errors      '${{ steps.review.outputs.errors }}' \
+            --arg  warnings    '${{ steps.review.outputs.warnings }}' \
+            --arg  score       '${{ steps.review.outputs.score }}' \
+            --arg  description '${{ steps.review.outputs.description }}' \
+            --arg  content     '${{ steps.review.outputs.content }}' \
+            --rawfile val_block   /tmp/val_block.txt \
+            --rawfile judge_block /tmp/judge_block.txt \
+            '{
+              skill:            $skill,
+              validation:       $validation,
+              errors:           $errors,
+              warnings:         $warnings,
+              review_score:     $score,
+              description:      $description,
+              content:          $content,
+              validation_block: $val_block,
+              judge_block:      $judge_block
+            }' \
+            > "/tmp/review-results/${skill_name}.json"
+
+      - name: Upload review JSON
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: review-result--${{ steps.skill-name.outputs.value }}
+          path: /tmp/review-results/
+          retention-days: 1
+
+  evaluate:
+    needs: [list-models, discover]
+    if: needs.discover.outputs.eval-count > 0 && needs.list-models.outputs.count > 0
+    strategy:
+      fail-fast: false
+      matrix:
+        model: ${{ fromJSON(needs.list-models.outputs.models) }}
+    uses: ./.github/workflows/evaluate-per-model.yml
+    # env context is unavailable in reusable workflow `with` blocks; values duplicated from top-level env.
+    with:
+      model: ${{ matrix.model }}
+      skills: ${{ needs.discover.outputs.eval-skills }}
+      pass-threshold: '80'
+      test-repo: ${{ github.repository_owner }}/rse-plugins-testcases
+      test-branch: main
+      test-dir: .testcases
+      sleep-seconds: 300
+    secrets: inherit
+
+  summarize:
+    needs: [review, evaluate]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - name: Download all review JSONs
+        uses: actions/download-artifact@v8.0.1
+        with:
+          pattern: review-result--*
+          path: /tmp/all-reviews
+          merge-multiple: true
+
+      - name: Download all eval JSONs
+        uses: actions/download-artifact@v8.0.1
+        with:
+          pattern: eval-result--*
+          path: /tmp/all-evals
+          merge-multiple: true
+
+      - name: Render merged summaries
+        run: |
+          python3 .github/scripts/render-eval-summary.py \
+            --reviews-dir /tmp/all-reviews \
+            --evals-dir   /tmp/all-evals \
+            --threshold   ${{ env.PASS_THRESHOLD }} \
+            --output      "$GITHUB_STEP_SUMMARY"

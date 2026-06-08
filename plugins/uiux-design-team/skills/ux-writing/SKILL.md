@@ -1,6 +1,6 @@
 ---
 name: ux-writing
-description: Use when writing or auditing UI copy — button labels, error messages, empty states, onboarding flows, confirmation dialogs, tooltips, success toasts — or when establishing voice and tone documentation for a product.
+description: Writes, reviews, and refines UI microcopy for digital products including button labels, error messages, empty states, and voice and tone documentation. Use when writing or auditing UI copy — button labels, error messages, empty states, onboarding flows, confirmation dialogs, tooltips, success toasts — or when establishing voice and tone documentation for a product.
 metadata:
    references:
    - references/error-message-patterns.md

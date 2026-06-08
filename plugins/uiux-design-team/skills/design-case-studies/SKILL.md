@@ -1,6 +1,6 @@
 ---
 name: design-case-studies
-description: Use when analyzing a product's UI/UX to extract transferable patterns, benchmarking your own design against a category leader, looking up how a specific product (Stripe, Linear, Notion, Apple, Spotify, Netflix, Tinder, Airbnb, etc.) solves a design problem, or building a competitive teardown.
+description: Produces structured teardown documents, principle-to-application comparison matrices, and pattern libraries by applying a five-layer analysis framework to real products. Use when analyzing a product's UI/UX to extract transferable patterns, benchmarking your own design against a category leader, looking up how a specific product (Stripe, Linear, Notion, Apple, Spotify, Netflix, Tinder, Airbnb, etc.) solves a design problem, or building a competitive teardown.
 metadata:
    references:
    - references/brand-experiences.md

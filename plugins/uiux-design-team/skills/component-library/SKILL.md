@@ -23,37 +23,11 @@ metadata:
 
 Gate per tier: a11y audit clean + visual regression reviewed before next tier.
 
-## Compound Component (Select)
+## Compound Components
 
-```tsx
-import { createContext, useContext, useState, ReactNode } from "react";
+Use the compound component pattern (context-based parent–child) for stateful widgets like `Select`, `Tabs`, `Accordion`, and `Modal`. The parent owns shared state via context; children consume it to coordinate behavior.
 
-type Ctx = { value: string | null; setValue: (v: string) => void };
-const SelectCtx = createContext<Ctx | null>(null);
-
-export function Select({ children, defaultValue = null }:
-  { children: ReactNode; defaultValue?: string | null }) {
-  const [value, setValue] = useState<string | null>(defaultValue);
-  return (
-    <SelectCtx.Provider value={{ value, setValue }}>
-      <div role="listbox" className="rounded-md border">{children}</div>
-    </SelectCtx.Provider>
-  );
-}
-
-Select.Option = function Option({ value, children }:
-  { value: string; children: ReactNode }) {
-  const ctx = useContext(SelectCtx)!;
-  const selected = ctx.value === value;
-  return (
-    <button role="option" aria-selected={selected}
-      onClick={() => ctx.setValue(value)}
-      className={selected ? "bg-[var(--color-brand-500)] text-white" : ""}>
-      {children}
-    </button>
-  );
-};
-```
+See [references/composition-patterns.md](references/composition-patterns.md) for complete React/Vue/Svelte examples including Select, Accordion, headless components, and polymorphic `as`-prop patterns.
 
 ## CVA Variant Definition
 

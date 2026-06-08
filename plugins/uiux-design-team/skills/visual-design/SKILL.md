@@ -1,6 +1,6 @@
 ---
 name: visual-design
-description: Use when designing or coding a new interface that needs a distinctive aesthetic direction, when reviewing visuals for hierarchy/brand alignment, or when an existing UI feels generic ("AI slop") and needs production-grade visual polish.
+description: Defines aesthetic direction, color palettes, typography pairings, spacing systems, and component visual styles for UI interfaces. Use when designing or coding a new interface that needs a distinctive look and feel, theme, or aesthetic direction; when reviewing visuals for hierarchy or brand alignment; when choosing colors, typography, or styling for a design system; or when an existing UI feels generic ("AI slop") and needs production-grade visual polish.
 metadata:
    references:
    - references/aesthetic-principles.md

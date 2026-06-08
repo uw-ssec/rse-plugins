@@ -1,6 +1,6 @@
 ---
 name: grid-layout-systems
-description: Use when laying out a page or component, choosing between CSS Grid and Flexbox, setting up a column grid, aligning nested components to a parent grid, or building responsive card/dashboard layouts.
+description: Provides CSS layout code and recommendations using Grid and Flexbox, creates responsive column systems, and selects the right layout approach for pages and components. Use when laying out a page or component, choosing between CSS Grid and Flexbox, setting up a column grid, aligning nested components to a parent grid, or building responsive card/dashboard layouts.
 metadata:
    references:
    - references/grid-patterns.md

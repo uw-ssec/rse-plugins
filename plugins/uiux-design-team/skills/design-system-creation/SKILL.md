@@ -1,10 +1,11 @@
 ---
 name: design-system-creation
-description: Use when bootstrapping a new design system from scratch, auditing an existing UI for systemization, setting up Storybook + Style Dictionary scaffolding, or defining governance and versioning for a shared component system.
+description: Scaffolds design system infrastructure, generates Style Dictionary token configs, produces component templates and Storybook setups, and creates UI audit reports. Use when bootstrapping a new design system from scratch, auditing an existing UI for systemization, setting up Storybook + Style Dictionary scaffolding, or defining governance and versioning for a shared component system.
 metadata:
    references:
    - references/atomic-design-guide.md
    - references/component-api-guide.md
+   - references/component-template.md
    - references/theming-patterns.md
    - references/token-architecture.md
 ---
@@ -49,44 +50,9 @@ module.exports = {
 };
 ```
 
-## Component Template (React + CVA)
+## Component Template & Storybook Config
 
-```tsx
-// src/components/Button/Button.tsx
-import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef } from "react";
-
-const button = cva("inline-flex items-center justify-center font-medium rounded-md", {
-  variants: {
-    intent: { primary: "bg-[var(--color-brand-500)] text-white",
-              ghost:   "bg-transparent text-[var(--color-brand-500)]" },
-    size:   { sm: "h-8 px-3 text-sm", md: "h-10 px-4" }
-  },
-  defaultVariants: { intent: "primary", size: "md" }
-});
-
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-                          VariantProps<typeof button>;
-
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ intent, size, className, ...props }, ref) =>
-    <button ref={ref} className={button({ intent, size, className })} {...props} />
-);
-Button.displayName = "Button";
-```
-
-## Storybook Config (`.storybook/main.ts`)
-
-```ts
-import type { StorybookConfig } from "@storybook/react-vite";
-const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(ts|tsx|mdx)"],
-  addons: ["@storybook/addon-essentials", "@storybook/addon-a11y",
-           "@storybook/addon-interactions"],
-  framework: { name: "@storybook/react-vite", options: {} }
-};
-export default config;
-```
+See [component-template.md](references/component-template.md) for the full React + CVA Button template, Storybook `main.ts` config, and a matching `Button.stories.tsx` example.
 
 ## Validation Checkpoints
 
@@ -108,7 +74,7 @@ Pass criteria per checkpoint: (1) exits clean, (2) zero a11y violations on built
 
 ## References
 
-- [token-architecture.md](references/token-architecture.md), [component-api-guide.md](references/component-api-guide.md), [theming-patterns.md](references/theming-patterns.md), [atomic-design-guide.md](references/atomic-design-guide.md)
+- [token-architecture.md](references/token-architecture.md), [component-api-guide.md](references/component-api-guide.md), [theming-patterns.md](references/theming-patterns.md), [atomic-design-guide.md](references/atomic-design-guide.md), [component-template.md](references/component-template.md)
 
 ## Next Steps
 

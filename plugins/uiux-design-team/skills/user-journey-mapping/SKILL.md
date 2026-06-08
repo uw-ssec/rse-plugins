@@ -1,6 +1,6 @@
 ---
 name: user-journey-mapping
-description: Use when visualizing a user's end-to-end experience for a specific scenario, identifying pain points and emotion lows, aligning teams on user flow, planning improvements to onboarding/checkout/support, or producing a service blueprint.
+description: Creates customer journey maps and service blueprints that visualize touchpoints, user emotions, pain points, and opportunities across an end-to-end experience. Use when creating a journey map, customer journey, or CX map; visualizing a user's end-to-end experience for a specific scenario; identifying pain points and emotion lows; aligning teams on user flow; planning improvements to onboarding/checkout/support; or producing a service blueprint.
 metadata:
    references:
    - references/blueprint-guide.md

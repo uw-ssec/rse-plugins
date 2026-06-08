@@ -10,20 +10,21 @@ troubleshooting tool configuration. Complements `references/VALE_CONFIGURATION.m
 
 ## Contents
 
-| Section | Lines | Description |
-|---------|-------|-------------|
-| Tool Decision Matrix | 30–46 | Which tool for which job |
-| markdownlint | 48–135 | Markdown formatting and syntax validation |
-| HTMLProofer | 137–218 | Link checking and HTML validation for generated docs |
-| doc8 | 220–262 | reStructuredText linting |
-| Link Checking | 264–316 | Dedicated link validation tools and strategies |
-| Language-Specific Doc Testing | 318–439 | Doctest tools for Python, Rust, R, Go, Julia |
-| Notebook Validation | 441–483 | Testing Jupyter notebooks with nbval and pytest-notebook |
-| CI Pipeline Assembly | 485–545 | Combining tools in GitHub Actions workflows |
-| Pre-commit Integration | 547–580 | Adding doc validation to pre-commit hooks |
-| Makefile Targets | 582–601 | Standard make targets for documentation validation |
-| Performance Tips | 603–633 | Speeding up validation in large projects |
-| External Resources | 635–648 | Tool repositories and documentation links |
+| Section | Description |
+|---------|-------------|
+| Tool Decision Matrix | Which tool for which job |
+| markdownlint | Markdown formatting and syntax validation |
+| HTMLProofer | Link checking and HTML validation for generated docs |
+| doc8 | reStructuredText linting |
+| Link Checking | Dedicated link validation tools and strategies |
+| Language-Specific Doc Testing | Doctest tools for Python, Rust, R, Go, Julia |
+| Notebook Validation | Testing Jupyter notebooks with nbval and pytest-notebook |
+| CI Pipeline Assembly | Combining tools in GitHub Actions workflows |
+| Pre-commit Integration | Adding doc validation to pre-commit hooks |
+| Makefile Targets | Standard make targets for documentation validation |
+| Performance Tips | Speeding up validation in large projects |
+| Container-Based Instruction Testing | Testing setup instructions in clean containers |
+| External Resources | Tool repositories and documentation links |
 
 ---
 
@@ -631,6 +632,104 @@ validate-docs: lint-docs check-links test-docs
 | lychee (external) | 30-120 seconds | Network-bound, flaky |
 | HTMLProofer | 10-60 seconds | Depends on doc size and external links |
 | pytest doctest | Varies | Depends on example complexity |
+
+## Container-Based Instruction Testing
+
+The most common documentation failure is "works on my machine" syndrome.
+Testing setup instructions in a clean container catches undocumented
+dependencies and pre-existing configuration that new users won't have.
+
+### Dockerfile.test-docs Template
+
+Create a `Dockerfile.test-docs` that simulates a new user following the README:
+
+```dockerfile
+# Dockerfile.test-docs
+# Replace the base image with your language's image:
+#   python:3.12-slim, rust:1.75, node:20-slim, etc.
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+COPY . .
+
+# Replace with your project's install command:
+#   Python:  pip install -e ".[dev,docs]"
+#   Rust:    cargo build
+#   Node.js: npm ci
+#   R:       Rscript -e "devtools::install('.')"
+#   Go:      go build ./...
+RUN echo "Add your install command here"
+
+# Replace with a verification command:
+#   Python:  python -c "import my_package; print(my_package.__version__)"
+#   Rust:    cargo test --no-run
+#   Node.js: node -e "require('./index')"
+RUN echo "Add your verification command here"
+
+# Run the quickstart example from the documentation
+RUN echo "Add your quickstart test command here"
+```
+
+Build and run the test:
+
+```bash
+docker build -f Dockerfile.test-docs -t docs-test .
+echo "Documentation instructions validated successfully"
+```
+
+### Multi-OS / Multi-Version Matrix
+
+Test instructions across multiple environments in GitHub Actions:
+
+```yaml
+# .github/workflows/test-docs-instructions.yml
+name: Test Documentation Instructions
+on:
+  push:
+    paths: ['docs/**', 'README.md', 'INSTALL.md']
+  pull_request:
+    paths: ['docs/**', 'README.md', 'INSTALL.md']
+
+jobs:
+  test-instructions:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Follow installation instructions
+        run: pip install -e ".[dev,docs]"
+      - name: Verify import works
+        run: python -c "import my_package; print(my_package.__version__)"
+      - name: Run quickstart example
+        run: python docs/getting-started/quickstart_test.py
+```
+
+### Automated README Validation Script
+
+Extract and run code blocks from README in a clean Docker container:
+
+```bash
+#!/usr/bin/env bash
+# scripts/test-readme.sh
+set -euo pipefail
+
+docker run --rm -v "$(pwd)":/workspace -w /workspace python:3.12-slim bash -c '
+    set -euo pipefail
+    pip install -e ".[dev]" 2>&1 | tail -5
+    python -c "import my_package; print(f\"Version: {my_package.__version__}\")"
+    echo "All README instructions passed"
+'
+```
 
 ## External Resources
 

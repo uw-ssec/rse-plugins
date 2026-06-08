@@ -1,0 +1,150 @@
+name: Evaluate Skills per Model
+on:
+  workflow_call:
+    inputs:
+      model:
+        required: true
+        type: string
+      skills:
+        required: true
+        type: string
+      pass-threshold:
+        required: true
+        type: string
+      test-repo:
+        required: true
+        type: string
+      test-branch:
+        required: true
+        type: string
+      test-dir:
+        required: true
+        type: string
+      sleep-seconds:
+        required: false
+        type: number
+        default: 0
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        skill: ${{ fromJSON(inputs.skills) }}
+        mode: [baseline, skill]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Checkout evals for skill
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          repository: ${{ inputs.test-repo }}
+          ref: ${{ inputs.test-branch }}
+          path: ${{ inputs.test-dir }}
+          persist-credentials: false
+          token: ${{ secrets.TEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+          sparse-checkout: |
+            ${{ matrix.skill }}/evals
+          sparse-checkout-cone-mode: false
+
+      - name: Sync evals into skill directory
+        run: |
+          source_dir="${{ inputs.test-dir }}/${{ matrix.skill }}/evals"
+          dest_dir="${{ matrix.skill }}/evals"
+          if [ -d "$source_dir" ]; then
+            mkdir -p "$dest_dir"
+            cp -R "$source_dir"/. "$dest_dir"/
+          else
+            echo "No evals found for ${{ matrix.skill }}"
+          fi
+
+      - name: Derive skill name
+        id: skill-name
+        run: echo "value=$(basename '${{ matrix.skill }}')" >> "$GITHUB_OUTPUT"
+
+      - name: Evaluate skill
+        id: evaluate
+        uses: yongsinp/skill-eval-action@main
+        env:
+          COPILOT_PROVIDER_BASE_URL: ${{ secrets.LITELLM_PROXY_URL }}
+          COPILOT_PROVIDER_TYPE: openai
+          COPILOT_PROVIDER_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+          COPILOT_MODEL: ${{ inputs.model }}
+        with:
+          skill-name: ${{ steps.skill-name.outputs.value }}
+          skill-path: ${{ matrix.skill }}
+          api-key: ${{ secrets.LITELLM_API_KEY }}
+          model: ${{ inputs.model }}
+          pass-threshold: ${{ inputs.pass-threshold }}
+          upload-viewer: 'true'
+          post-comment: 'false'
+          write-summary: 'false'
+          baseline: ${{ matrix.mode == 'baseline' }}
+
+      - name: Sleep after evaluation
+        if: inputs.sleep-seconds > 0
+        run: sleep ${{ inputs.sleep-seconds }}
+
+      - name: Save eval JSON
+        if: always()
+        env:
+          PASS_RATE: ${{ steps.evaluate.outputs.pass-rate }}
+          PASSED: ${{ steps.evaluate.outputs.passed }}
+          TOTAL: ${{ steps.evaluate.outputs.total }}
+        run: |
+          skill_name='${{ steps.skill-name.outputs.value }}'
+          skill_path='${{ matrix.skill }}'
+          model_name='${{ inputs.model }}'
+          mode='${{ matrix.mode }}'
+          safe_model=$(echo "$model_name" | tr '/: ' '---')
+          mkdir -p /tmp/eval-results
+
+          pass_rate="${PASS_RATE}"
+          passed="${PASSED}"
+          total="${TOTAL}"
+
+          # Read token usage and per-case results from summary.json
+          summary_file="$RUNNER_TEMP/skill-eval/${skill_name}/summary.json"
+          if [ -f "$summary_file" ]; then
+            total_tokens=$(jq -r '.total_tokens // ""' "$summary_file")
+            total_time=$(jq -r '.total_time // ""' "$summary_file")
+            results=$(jq -c '.results // []' "$summary_file")
+          else
+            total_tokens=''
+            total_time=''
+            results='[]'
+          fi
+
+          jq -n \
+            --arg skill        "$skill_path" \
+            --arg model        "$model_name" \
+            --arg mode         "$mode" \
+            --arg pass_rate    "$pass_rate" \
+            --arg passed       "$passed" \
+            --arg total        "$total" \
+            --arg total_tokens "$total_tokens" \
+            --arg total_time   "$total_time" \
+            --argjson results  "$results" \
+            '{
+              skill:        $skill,
+              model:        $model,
+              mode:         $mode,
+              pass_rate:    $pass_rate,
+              passed:       $passed,
+              total:        $total,
+              total_tokens: $total_tokens,
+              total_time:   $total_time,
+              results:      $results
+            }' \
+            > "/tmp/eval-results/${skill_name}__${safe_model}__${mode}.json"
+
+      - name: Upload eval JSON
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: eval-result--${{ steps.skill-name.outputs.value }}--${{ inputs.model }}--${{ matrix.mode }}
+          path: /tmp/eval-results/
+          retention-days: 1

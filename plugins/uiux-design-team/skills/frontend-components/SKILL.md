@@ -1,6 +1,6 @@
 ---
 name: frontend-components
-description: Use when implementing or scaffolding a reusable UI component in React, Vue, Svelte, or Web Components/Lit; when porting a design across frameworks; or when a component needs hooks, composables, reactive state, slots, or shadow-DOM encapsulation.
+description: Generates and scaffolds reusable UI components with proper state management, props interfaces, lifecycle hooks, and styling encapsulation across React, Vue, Svelte, and Web Components. Use when implementing or scaffolding a reusable UI component in React, Vue, Svelte, or Web Components/Lit; when porting a design across frameworks; or when a component needs hooks, composables, reactive state, slots, or shadow-DOM encapsulation.
 metadata:
    references:
    - references/react-patterns.md

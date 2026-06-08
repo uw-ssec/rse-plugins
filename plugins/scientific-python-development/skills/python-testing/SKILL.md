@@ -1,6 +1,6 @@
 ---
 name: python-testing
-description: Write and organize tests for scientific Python packages using pytest. Covers fixtures, parametrization, numerical testing with NumPy utilities, property-based testing with Hypothesis, and CI integration.
+description: Use when writing or organizing tests for scientific Python code, or when the user mentions pytest, test fixtures, parametrization, numerical assertions, or property-based testing. Write and organize tests for scientific Python packages using pytest. Covers fixtures, parametrization, numerical testing with NumPy utilities, property-based testing with Hypothesis, and CI integration.
 metadata:
   assets:
     - assets/conftest-example.py
@@ -14,384 +14,171 @@ metadata:
 
 # Scientific Python Testing with pytest
 
-A comprehensive guide to writing effective tests for scientific Python packages using pytest, following the [Scientific Python Community guidelines](https://learn.scientific-python.org/development/guides/pytest/) and [testing tutorial](https://learn.scientific-python.org/development/tutorials/test/). This skill focuses on modern testing patterns, fixtures, parametrization, and best practices specific to scientific computing.
+## Quick Reference
 
-## Quick Reference Card
-
-**Common Testing Tasks - Quick Decisions:**
+### Choose the right assertion
 
 ```python
-# 1. Basic test → Use simple assert
-def test_function():
-    assert result == expected
-
-# 2. Floating-point comparison → Use approx
+# Scalar floating-point → pytest.approx (default rel=1e-6)
 from pytest import approx
 assert result == approx(0.333, rel=1e-6)
+assert result == approx(0.0, abs=1e-10)   # near-zero: use abs tolerance
 
-# 3. Testing exceptions → Use pytest.raises
+# NumPy array, element-wise → approx works; for complex tolerances use numpy.testing
+assert np.array([0.1, 0.2]) == approx(np.array([0.1, 0.2]))
+np.testing.assert_allclose(result, expected, rtol=1e-7, atol=1e-10)
+
+# Exact integer arrays
+np.testing.assert_array_equal(result, expected)
+
+# Exceptions
 with pytest.raises(ValueError, match="must be positive"):
-    function(-1)
+    compute_sqrt(-1)
 
-# 4. Multiple inputs → Use parametrize
-@pytest.mark.parametrize("input,expected", [(1,1), (2,4), (3,9)])
-def test_square(input, expected):
-    assert input**2 == expected
+# Warnings
+with pytest.warns(DeprecationWarning):
+    old_function()
 
-# 5. Reusable setup → Use fixture
+# Multiple inputs → parametrize
+@pytest.mark.parametrize("x,expected", [(0, 0), (2, 4), (-2, 4)])
+def test_square(x, expected):
+    assert x**2 == expected
+
+# Reusable setup → fixture
 @pytest.fixture
 def sample_data():
-    return np.array([1, 2, 3, 4, 5])
+    return np.array([1.0, 2.0, 3.0, 4.0, 5.0])
 
-# 6. NumPy arrays → Use approx or numpy.testing
-assert np.mean(data) == approx(3.0)
+def test_mean(sample_data):
+    assert np.mean(sample_data) == approx(3.0)
+
+# Property-based (Hypothesis)
+from hypothesis import given, strategies as st
+from hypothesis.extra.numpy import arrays
+
+@given(arrays(np.float64, shape=st.integers(1, 50),
+              elements=st.floats(-100, 100, allow_nan=False)))
+def test_mean_bounded(arr):
+    assert np.min(arr) <= np.mean(arr) <= np.max(arr)
 ```
 
-**Decision Tree:**
-- Need multiple test cases with same logic? → **Parametrize**
-- Need reusable test data/setup? → **Fixture**
-- Testing floating-point results? → **pytest.approx**
-- Testing exceptions/warnings? → **pytest.raises / pytest.warns**
-- Complex numerical arrays? → **numpy.testing.assert_allclose**
-- Organizing by speed? → **Markers and separate directories**
+### pytest configuration (`pyproject.toml`)
 
-## When to Use This Skill
+```toml
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+testpaths = ["tests"]
+markers = [
+    "slow: mark test as slow",
+    "integration: mark as integration test",
+]
 
-- Writing tests for scientific Python packages and libraries
-- Testing numerical algorithms and scientific computations
-- Setting up test infrastructure for research software
-- Implementing continuous integration for scientific code
-- Testing data analysis pipelines and workflows
-- Validating scientific simulations and models
-- Ensuring reproducibility and correctness of research code
-- Testing code that uses NumPy, SciPy, Pandas, and other scientific libraries
+[tool.coverage.run]
+source = ["src"]
+branch = true
 
-## Core Concepts
+[tool.coverage.report]
+fail_under = 80
+```
 
-### 1. Why pytest for Scientific Python
+See `assets/pyproject-pytest.toml` for the complete annotated configuration and `assets/conftest-example.py` for shared fixtures.
 
-pytest is the de facto standard for testing Python packages because it:
+### Project layout
 
-- **Simple syntax**: Just use Python's `assert` statement
-- **Detailed reporting**: Clear, informative failure messages
-- **Powerful features**: Fixtures, parametrization, marks, plugins
-- **Scientific ecosystem**: Native support for NumPy arrays, approximate comparisons
-- **Community standard**: Used by NumPy, SciPy, Pandas, scikit-learn, and more
-
-### 2. Test Structure and Organization
-
-**Standard test directory layout:**
-
-```text
+```
 my-package/
-├── src/
-│   └── my_package/
-│       ├── __init__.py
-│       ├── analysis.py
-│       └── utils.py
+├── src/my_package/
 ├── tests/
-│   ├── conftest.py
+│   ├── conftest.py        ← shared fixtures
 │   ├── test_analysis.py
 │   └── test_utils.py
 └── pyproject.toml
 ```
 
-**Key principles:**
+No `__init__.py` in `tests/`. Install with `pip install -e .` so tests run against the installed package.
 
-- Tests directory separate from source code (alongside `src/`)
-- Test files named `test_*.py` (pytest discovery)
-- Test functions named `test_*` (pytest discovery)
-- No `__init__.py` in tests directory (avoid importability issues)
-- Test against installed package, not local source
+---
 
-### 3. pytest Configuration
+## Patterns and Reference
 
-See [assets/pyproject-pytest.toml](assets/pyproject-pytest.toml) for a complete pytest configuration example.
+| Reference | Contents |
+|-----------|----------|
+| `references/test-patterns.md` | Focused tests (Arrange-Act-Assert), exceptions/warnings, floating-point comparisons, fixtures with scope and teardown, parametrization with custom IDs, markers (slow/skip/xfail), directory-based test suites, mocking/monkeypatching |
+| `references/scientific-patterns.md` | Numerical stability and convergence tests, dtype parametrization, stochastic code with fixed seeds, data pipeline testing, Hypothesis property-based testing |
+| `references/common-pitfalls.md` | Testing implementation vs. behaviour, non-deterministic tests, exact float comparisons, testing too much in one test |
 
-Basic configuration in `pyproject.toml`:
+Non-obvious gotchas:
+- **`approx` vs `assert_allclose`**: `pytest.approx` is cleaner for most cases; use `numpy.testing.assert_allclose` when you need different `rtol`/`atol` per element or need better error messages for large arrays.
+- **`abs` tolerance near zero**: `approx(0.0)` with default relative tolerance always passes — always pass `abs=` when the expected value is or could be zero.
+- **`--strict-markers`**: add it from day one; it turns typo'd marker names into errors rather than silent no-ops.
+- **Fixture scope**: `scope="session"` fixtures are shared across the whole run — any mutation bleeds into other tests. Use `scope="module"` for read-only shared data; keep mutable fixtures at `scope="function"`.
+- **Random seeds**: prefer `np.random.default_rng(42)` over `np.random.seed(42)`; the latter sets global state and can interact with other tests.
+- **`tmp_path` built-in**: pytest provides `tmp_path` (a `pathlib.Path` to a per-test temp dir) for free — no need to write your own temp-file fixture.
 
-```toml
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = [
-    "-ra",              # Show summary of all test outcomes
-    "--showlocals",     # Show local variables in tracebacks
-    "--strict-markers", # Error on undefined markers
-    "--strict-config",  # Error on config issues
-]
-testpaths = ["tests"]
-```
+---
 
-## Testing Principles
-
-Following the [Scientific Python testing recommendations](https://learn.scientific-python.org/development/principles/testing/), effective testing provides multiple benefits and should follow key principles:
-
-### Advantages of Testing
-
-- **Trustworthy code**: Well-tested code behaves as expected and can be relied upon
-- **Living documentation**: Tests communicate intent and expected behavior, validated with each run
-- **Preventing failure**: Tests protect against implementation errors and unexpected dependency changes
-- **Confidence when making changes**: Thorough test suites enable adding features, fixing bugs, and refactoring with confidence
-
-### Fundamental Principles
-
-**1. Any test case is better than none**
-
-When in doubt, write the test that makes sense at the time:
-- Test critical behaviors, features, and logic
-- Write clear, expressive, well-documented tests
-- Tests are documentation of developer intentions
-- Good tests make it clear what they are testing and how
-
-Don't get bogged down in taxonomy when learning—focus on writing tests that work.
-
-**2. As long as that test is correct**
-
-It's surprisingly easy to write tests that pass when they should fail:
-- **Check that your test fails when it should**: Deliberately break the code and verify the test fails
-- **Keep it simple**: Excessive mocks and fixtures make it difficult to know what's being tested
-- **Test one thing at a time**: A single test should test a single behavior
-
-**3. Start with Public Interface Tests**
-
-Begin by testing from the perspective of a user:
-- Test code as users will interact with it
-- Keep tests simple and readable for documentation purposes
-- Focus on supported use cases
-- Avoid testing private attributes
-- Minimize use of mocks/patches
-
-**4. Organize Tests into Suites**
-
-Divide tests by type and execution time for efficiency:
-- **Unit tests**: Fast, isolated tests of individual components
-- **Integration tests**: Tests of component interactions and dependencies
-- **End-to-end tests**: Complete workflow testing
-
-Benefits:
-- Run relevant tests quickly and frequently
-- "Fail fast" by running fast suites first
-- Easier to read and reason about
-- Avoid false positives from expected external failures
-
-### Outside-In Testing Approach
-
-The recommended approach is **outside-in**, starting from the user's perspective:
-
-1. **Public Interface Tests**: Test from user perspective, focusing on behavior and features
-2. **Integration Tests**: Test that components work together and with dependencies
-3. **Unit Tests**: Test individual units in isolation, optimized for speed
-
-This approach ensures you're building the right thing before optimizing implementation details.
-
-## Quick Start
-
-### Minimal Test Example
-
-```python
-# tests/test_basic.py
-
-def test_simple_math():
-    """Test basic arithmetic."""
-    assert 4 == 2**2
-
-def test_string_operations():
-    """Test string methods."""
-    result = "hello world".upper()
-    assert result == "HELLO WORLD"
-    assert "HELLO" in result
-```
-
-### Scientific Test Example
-
-```python
-# tests/test_scientific.py
-import numpy as np
-from pytest import approx
-
-from my_package.analysis import compute_mean, fit_linear
-
-def test_compute_mean():
-    """Test mean calculation."""
-    data = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
-    result = compute_mean(data)
-    assert result == approx(3.0)
-
-def test_fit_linear():
-    """Test linear regression."""
-    x = np.array([0, 1, 2, 3, 4])
-    y = np.array([0, 2, 4, 6, 8])
-    slope, intercept = fit_linear(x, y)
-    
-    assert slope == approx(2.0)
-    assert intercept == approx(0.0)
-```
-
-## Testing Patterns
-
-See [references/test-patterns.md](references/test-patterns.md) for detailed patterns including:
-- Writing simple, focused tests
-- Testing for failures
-- Approximate comparisons
-- Using fixtures
-- Parametrized tests
-- Test organization with markers
-- Mocking and monkeypatching
-- Testing against installed version
-- Import best practices
-
-## Scientific Python Testing Patterns
-
-See [references/scientific-patterns.md](references/scientific-patterns.md) for scientific-specific patterns:
-- Testing numerical algorithms
-- Testing with different NumPy dtypes
-- Testing random/stochastic code
-- Testing data pipelines
-- Property-based testing with Hypothesis
-
-## Running pytest
-
-### Basic Usage
+## Commands
 
 ```bash
-# Run all tests
-pytest
+# Run
+pytest                              # all tests
+pytest tests/test_analysis.py      # one file
+pytest tests/test_analysis.py::test_mean  # one test
+pytest -k "mean or median"          # pattern match
+pytest -m "not slow"                # skip slow tests
 
-# Run specific file
-pytest tests/test_analysis.py
+# Debug
+pytest -x                           # stop at first failure
+pytest --lf                         # rerun last failures only
+pytest --pdb                        # drop into debugger on failure
+pytest --collect-only               # dry run (see what would run)
 
-# Run specific test
-pytest tests/test_analysis.py::test_mean
-
-# Run tests matching pattern
-pytest -k "mean or median"
-
-# Verbose output
-pytest -v
-
-# Show local variables in failures
-pytest -l  # or --showlocals
-
-# Stop at first failure
-pytest -x
-
-# Show stdout/stderr
-pytest -s
+# Coverage
+pytest --cov=src --cov-report=term-missing
+pytest --cov=src --cov-fail-under=80
 ```
 
-### Debugging Tests
+---
 
-```bash
-# Drop into debugger on failure
-pytest --pdb
+## Workflow: Write → Verify → Ship
 
-# Drop into debugger at start of each test
-pytest --trace
+```
+1. Write the test
+   └─ Run it: pytest tests/test_foo.py::test_new -v
+      └─ It should FAIL (if it passes on unwritten code, the test is wrong)
 
-# Run last failed tests
-pytest --lf
+2. Write the implementation
 
-# Run failed tests first, then rest
-pytest --ff
+3. Run the test again
+   └─ It should now PASS
 
-# Show which tests would be run (dry run)
-pytest --collect-only
+4. Run the full suite
+   └─ pytest -x   (stop on first regression)
+
+5. Check coverage
+   └─ pytest --cov=src --cov-report=term-missing
+      └─ Are the new lines covered?
+
+6. Commit
+   └─ All tests green, coverage threshold met
 ```
 
-### Coverage
+**Checkpoint: always verify a new test fails before the implementation exists.**  
+A test that passes on broken code gives false confidence and will never catch regressions.
 
-```bash
-# Install pytest-cov
-pip install pytest-cov
+---
 
-# Run with coverage
-pytest --cov=my_package
+## CI Integration
 
-# With coverage report
-pytest --cov=my_package --cov-report=html
+See `assets/github-actions-tests.yml` for a ready-to-use GitHub Actions workflow (matrix across Python versions, coverage upload).
 
-# With missing lines
-pytest --cov=my_package --cov-report=term-missing
+Minimal workflow step:
 
-# Fail if coverage below threshold
-pytest --cov=my_package --cov-fail-under=90
+```yaml
+- name: Run tests
+  run: pytest --cov=src --cov-report=xml
+
+- name: Upload coverage
+  uses: codecov/codecov-action@v4
 ```
-
-See [assets/pyproject-pytest.toml](assets/pyproject-pytest.toml) for complete coverage configuration.
-
-## File Templates and Examples
-
-Ready-to-use templates are available in the `assets/` directory:
-
-- **[assets/pyproject-pytest.toml](assets/pyproject-pytest.toml)** - Complete pytest configuration with coverage
-- **[assets/conftest-example.py](assets/conftest-example.py)** - Example conftest.py with shared fixtures
-- **[assets/github-actions-tests.yml](assets/github-actions-tests.yml)** - GitHub Actions workflow for testing
-
-## Common Pitfalls and Solutions
-
-See [references/common-pitfalls.md](references/common-pitfalls.md) for solutions to:
-- Testing implementation instead of behavior
-- Non-deterministic tests
-- Exact floating-point comparisons
-- Testing too much in one test
-
-## Testing Checklist
-
-- [ ] Tests are in `tests/` directory separate from source
-- [ ] Test files named `test_*.py`
-- [ ] Test functions named `test_*`
-- [ ] Tests run against installed package (use src/ layout)
-- [ ] pytest configured in `pyproject.toml`
-- [ ] Using `pytest.approx` for floating-point comparisons
-- [ ] Tests check exceptions with `pytest.raises`
-- [ ] Tests check warnings with `pytest.warns`
-- [ ] Parametrized tests for multiple inputs
-- [ ] Fixtures for reusable setup
-- [ ] Markers used for test organization
-- [ ] Random tests use fixed seeds
-- [ ] Tests are independent (can run in any order)
-- [ ] Each test focuses on one behavior
-- [ ] Coverage > 80% (preferably > 90%)
-- [ ] All tests pass before committing
-- [ ] Slow tests marked with `@pytest.mark.slow`
-- [ ] Integration tests marked appropriately
-- [ ] CI configured to run tests automatically
-
-## Continuous Integration
-
-See [assets/github-actions-tests.yml](assets/github-actions-tests.yml) for a complete GitHub Actions workflow example.
-
-## Resources
-
-- **Scientific Python pytest Guide**: <https://learn.scientific-python.org/development/guides/pytest/>
-- **Scientific Python Testing Tutorial**: <https://learn.scientific-python.org/development/tutorials/test/>
-- **Scientific Python Testing Principles**: <https://learn.scientific-python.org/development/principles/testing/>
-- **pytest Documentation**: <https://docs.pytest.org/>
-- **pytest-cov**: <https://pytest-cov.readthedocs.io/>
-- **pytest-mock**: <https://pytest-mock.readthedocs.io/>
-- **Hypothesis (property-based testing)**: <https://hypothesis.readthedocs.io/>
-- **NumPy testing utilities**: <https://numpy.org/doc/stable/reference/routines.testing.html>
-- **Testing best practices**: <https://docs.python-guide.org/writing/tests/>
-
-## Summary
-
-Testing scientific Python code with pytest, following Scientific Python community principles, provides:
-
-1. **Confidence**: Know your code works correctly
-2. **Reproducibility**: Ensure consistent behavior across environments
-3. **Documentation**: Tests show how code should be used and communicate developer intent
-4. **Refactoring safety**: Change code without breaking functionality
-5. **Regression prevention**: Catch bugs before they reach users
-6. **Scientific rigor**: Validate numerical accuracy and physical correctness
-
-**Key testing principles:**
-
-- Start with **public interface tests** from the user's perspective
-- Organize tests into **suites** (unit, integration, e2e) by type and speed
-- Follow **outside-in** approach: public interface → integration → unit tests
-- Keep tests **simple, focused, and independent**
-- Test **behavior rather than implementation**
-- Use pytest's powerful features (fixtures, parametrization, markers) effectively
-- Always verify tests **fail when they should** to avoid false confidence
-
-**Remember**: Any test is better than none, but well-organized tests following these principles create trustworthy, maintainable scientific software that the community can rely on.

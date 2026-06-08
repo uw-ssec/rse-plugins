@@ -83,6 +83,48 @@ function AccordionItem({ value, children }) {
 }
 ```
 
+### Select Example (React)
+
+A minimal compound Select showing context-based parent–child coordination:
+
+```tsx
+import { createContext, useContext, useState, ReactNode } from "react";
+
+type Ctx = { value: string | null; setValue: (v: string) => void };
+const SelectCtx = createContext<Ctx | null>(null);
+
+export function Select({ children, defaultValue = null }:
+  { children: ReactNode; defaultValue?: string | null }) {
+  const [value, setValue] = useState<string | null>(defaultValue);
+  return (
+    <SelectCtx.Provider value={{ value, setValue }}>
+      <div role="listbox" className="rounded-md border">{children}</div>
+    </SelectCtx.Provider>
+  );
+}
+
+Select.Option = function Option({ value, children }:
+  { value: string; children: ReactNode }) {
+  const ctx = useContext(SelectCtx)!;
+  const selected = ctx.value === value;
+  return (
+    <button role="option" aria-selected={selected}
+      onClick={() => ctx.setValue(value)}
+      className={selected ? "bg-[var(--color-brand-500)] text-white" : ""}>
+      {children}
+    </button>
+  );
+};
+```
+
+Usage:
+```tsx
+<Select defaultValue="react">
+  <Select.Option value="react">React</Select.Option>
+  <Select.Option value="vue">Vue</Select.Option>
+</Select>
+```
+
 ### Implementation Pattern (Vue)
 
 ```vue

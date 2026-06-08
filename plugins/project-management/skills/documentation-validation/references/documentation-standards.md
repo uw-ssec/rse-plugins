@@ -10,20 +10,22 @@ new project documentation.
 
 ## Contents
 
-| Section | Lines | Description |
-|---------|-------|-------------|
-| The Diataxis Framework | 30–116 | Four documentation types: tutorials, how-to, reference, explanation |
-| Applying Diataxis | 118–160 | Mapping the framework to research software documentation |
-| Completeness Criteria | 162–210 | What "complete documentation" means at each maturity level |
-| README Standards | 212–252 | What makes a great README for research software |
-| API Documentation | 254–285 | Standards for function/class/module reference docs |
-| Readability Metrics | 287–314 | Flesch-Kincaid, sentence length, and practical guidelines |
-| Documentation Debt | 316–345 | Identifying, measuring, and reducing documentation debt |
-| The Documentation System | 347–375 | docs-as-code, build tools, hosting |
-| Accessibility | 376–392 | Making documentation accessible to all users |
-| Internationalization | 393–401 | Supporting non-English documentation |
-| Quality Checklist | 403–431 | Quick pass/fail checklist for documentation reviews |
-| External Resources | 433–444 | Frameworks, guides, and community standards |
+| Section | Description |
+|---------|-------------|
+| The Diataxis Framework | Four documentation types: tutorials, how-to, reference, explanation |
+| Applying Diataxis | Mapping the framework to research software documentation |
+| Completeness Criteria | What "complete documentation" means at each maturity level |
+| Definition of Documentation Complete | 10-point checklist for release readiness |
+| README Standards | What makes a great README for research software |
+| API Documentation | Standards for function/class/module reference docs |
+| Readability Metrics | Flesch-Kincaid, sentence length, and practical guidelines |
+| Link Health Metrics | Tracking and maintaining link quality over time |
+| Documentation Debt | Identifying, measuring, and reducing documentation debt |
+| The Documentation System | docs-as-code, build tools, hosting |
+| Accessibility | Making documentation accessible to all users |
+| Internationalization | Supporting non-English documentation |
+| Quality Checklist | Quick pass/fail checklist for documentation reviews |
+| External Resources | Frameworks, guides, and community standards |
 
 ---
 
@@ -209,6 +211,22 @@ Projects with active community adoption:
 To determine a project's documentation level, use the
 `assets/validation-checklist.md` for a detailed item-by-item assessment.
 
+## Definition of Documentation Complete
+
+A project's documentation is release-ready when all 10 of the following
+criteria pass:
+
+1. **Buildable** — Documentation builds without warnings (`sphinx-build -W`, `mkdocs build --strict`)
+2. **Linkable** — All internal and external links resolve (checked by HTMLProofer or lychee)
+3. **Testable** — All code examples in docs execute successfully (pytest doctest, cargo test --doc)
+4. **Linted** — Prose passes Vale checks with zero errors; Markdown passes markdownlint
+5. **Structured** — Content follows Diataxis (tutorials, how-to, reference, explanation) or equivalent organization
+6. **Accessible** — Meets basic accessibility standards: alt text on images, logical heading hierarchy, no color-only information
+7. **Complete** — Passes the handoff checklist at `assets/validation-checklist.md`
+8. **Reviewed** — At least one person other than the author has reviewed the documentation
+9. **Findable** — Search works and navigation is logical
+10. **Current** — No documentation references deprecated APIs or removed features
+
 ## README Standards
 
 A research software README should follow this structure:
@@ -312,6 +330,22 @@ For quantitative measurement:
 - **Vale:** Built-in readability metrics via custom rules
 - **Hemingway Editor:** Web-based readability analysis (hemingwayapp.com)
 - **readability-score (npm):** CLI tool for batch readability analysis
+
+## Link Health Metrics
+
+Track link health over time to prevent documentation rot:
+
+| Metric | Target | Action if Below Target |
+|--------|--------|------------------------|
+| Internal links resolving | 100% | Fix immediately — block PR merge |
+| External links resolving | >95% | Investigate; ignore transient 429/503 errors |
+| Links with redirects | <10% | Update to final URLs |
+| Links older than 3 years | <20% | Verify content is still relevant |
+
+**Strategy:** Check internal links on every PR (fast, reliable). Check
+external links on a weekly schedule (slow, flaky, network-dependent). See
+`references/validation-tools.md#ci-pipeline-assembly` for a scheduled
+external-link-check workflow.
 
 ## Documentation Debt
 

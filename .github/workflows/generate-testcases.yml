@@ -1,0 +1,133 @@
+name: Generate Testcases for New Skill
+
+on:
+  pull_request_target:
+    paths:
+      - 'plugins/**/SKILL.md'
+      - 'community-plugins/**/SKILL.md'
+
+env:
+  TESTCASES_REPO: ${{ github.repository_owner }}/rse-plugins-testcases
+  GENERATION_MODEL: claude-sonnet-4-6
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: pr-content
+          persist-credentials: false
+
+      - name: Find added SKILL.md files
+        id: find-skills
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          added=$(gh api \
+            "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --jq '[.[] | select(.status == "added") | select(.filename | test("SKILL\\.md$")) | .filename] | @json')
+
+          count=$(echo "$added" | jq 'length')
+          echo "skills=$added" >> "$GITHUB_OUTPUT"
+          echo "count=$count"  >> "$GITHUB_OUTPUT"
+
+          if [ "$count" -eq "0" ]; then
+            echo "No new SKILL.md files found in this PR (modification only)"
+          else
+            echo "Found $count new skill(s):"
+            echo "$added" | jq -r '.[]'
+          fi
+
+      - name: Setup Python
+        if: steps.find-skills.outputs.count > 0
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        if: steps.find-skills.outputs.count > 0
+        run: pip install openai pyyaml
+
+      - name: Generate testcases
+        if: steps.find-skills.outputs.count > 0
+        env:
+          SKILLS: ${{ steps.find-skills.outputs.skills }}
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+          LITELLM_PROXY_URL: ${{ secrets.LITELLM_PROXY_URL }}
+        run: |
+          python .github/scripts/generate-testcases.py \
+            --skills "$SKILLS" \
+            --skill-root pr-content \
+            --output-dir generated-testcases \
+            --model "${{ env.GENERATION_MODEL }}"
+
+      - name: Checkout testcases repo
+        if: steps.find-skills.outputs.count > 0
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.TESTCASES_REPO }}
+          # TEST_REPO_TOKEN: fine-grained PAT with Contents: Read/Write and Pull requests: Read/Write
+          token: ${{ secrets.TEST_REPO_TOKEN }}
+          path: testcases-repo
+
+      - name: Push branch and open PR in testcases repo
+        if: steps.find-skills.outputs.count > 0
+        env:
+          GH_TOKEN: ${{ secrets.TEST_REPO_TOKEN }}
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          BRANCH="auto/testcases-pr-${PR_NUM}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+
+          cd testcases-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+
+          cp -r ../generated-testcases/. .
+
+          git add .
+          if git diff --cached --quiet; then
+            echo "No testcase files were generated; skipping PR creation"
+            exit 0
+          fi
+
+          git commit -m "feat: add generated testcases for ${{ github.repository }}#${PR_NUM}"
+          git push origin "$BRANCH" --force
+
+          existing=$(gh pr list \
+            --repo "${{ env.TESTCASES_REPO }}" \
+            --head "$BRANCH" \
+            --json number \
+            --jq '.[0].number')
+
+          BODY=$(printf 'Automatically generated testcases for %s.\n\nReview and adjust the generated cases before merging.' "$PR_URL")
+          if [ -f "../generated-testcases/.validation-warnings" ]; then
+            BODY="${BODY}$(printf '\n\n**Validation warnings** (these files may need manual fixes):\n')"
+            while IFS= read -r line; do
+              BODY="${BODY}$(printf '\n- %s' "$line")"
+            done < "../generated-testcases/.validation-warnings"
+          fi
+
+          if [ -z "$existing" ]; then
+            gh pr create \
+              --repo "${{ env.TESTCASES_REPO }}" \
+              --base main \
+              --head "$BRANCH" \
+              --title "testcases: ${PR_TITLE}" \
+              --body "$BODY"
+          else
+            echo "PR #${existing} already exists for branch ${BRANCH}; branch updated"
+          fi
