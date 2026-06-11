@@ -71,12 +71,12 @@ suppress_warnings = ["toc.not_readable"]
 
 **Solution**:
 ```bash
-pip install sphinx-extension-name
+pip install <extension-name>  # e.g. sphinx-rtd-theme, myst-parser, nbsphinx
 ```
 
 Check installed extensions:
 ```bash
-python -c "import sphinx_extension_name; print(sphinx_extension_name.__version__)"
+python -c "import <extension_name>; print(<extension_name>.__version__)"
 ```
 
 ## Autodoc Issues
@@ -456,7 +456,7 @@ except ImportError:
 **Solution**: Check compatibility
 ```bash
 pip install "sphinx>=7.0"
-pip install --upgrade sphinx-extension-name
+pip install --upgrade <extension-name>  # e.g. sphinx-rtd-theme, myst-parser
 ```
 
 ## Debugging Tips
