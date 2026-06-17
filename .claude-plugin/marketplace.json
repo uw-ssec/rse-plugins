@@ -70,7 +70,7 @@
         {
             "name": "ai-research-workflows",
             "source": "./plugins/ai-research-workflows",
-            "description": "Structured AI-enabled research workflows for software development: Research, Plan, Experiment, Implement",
+            "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, prior-art, plan, experiment, implement, validate, reproduce, harden, and handoff — interactive when you want collaboration, direct when you don't.",
             "homepage": "https://github.com/uw-ssec/rse-plugins",
             "repository": "https://github.com/uw-ssec/rse-plugins",
             "license": "BSD-3-Clause",
@@ -82,7 +82,11 @@
                 "experimentation",
                 "validation",
                 "software-development",
-                "research-software-engineering"
+                "research-software-engineering",
+                "skills",
+                "reproducibility",
+                "prior-art",
+                "research-software"
             ],
             "category": "development",
             "strict": false

@@ -74,39 +74,57 @@
 
 ## Implementation Phases
 
+Each phase's tasks are **bite-sized, test-first steps with real code/commands** —
+no placeholders ("add appropriate error handling", "write tests for the above").
+Sequence each unit of work as: failing test → run it (watch it fail) → minimal
+implementation → run it (watch it pass) → commit.
+
 ### Phase 1: [Phase Name]
 
 **Objective:** [What this phase accomplishes]
 
 **Tasks:**
-- [ ] Task 1 description
-  - Files: `path/to/file.ext:lines`
-  - Changes: [Specific changes to make]
+- [ ] **Write the failing test** for [specific behavior]
+  - File: `tests/path/test_x.py` (new)
 
-- [ ] Task 2 description
-  - Files: `path/to/file.ext:lines`
-  - Changes: [Specific changes to make]
+  ```python
+  def test_specific_behavior():
+      assert function(input) == expected
+  ```
+
+- [ ] **Run it, watch it fail:** `pytest tests/path/test_x.py::test_specific_behavior -v`
+  → expect FAIL (function not defined)
+- [ ] **Implement the minimal code** to pass — show the actual code, not a description
+  - File: `src/path/x.py:lines`
+
+  ```python
+  def function(input):
+      ...  # the real implementation
+  ```
+
+- [ ] **Run it, watch it pass:** `pytest tests/path/test_x.py::test_specific_behavior -v`
+  → expect PASS
+- [ ] **Commit:** `git commit -m "feat: [specific change]"`
 
 **Dependencies:**
 - [External dependency or prerequisite if any]
 
 **Verification:**
-- [ ] [How to verify this phase is complete]
+- [ ] [Exact command that confirms this phase is complete, with expected output]
 
 ### Phase 2: [Phase Name]
 
 **Objective:** [What this phase accomplishes]
 
 **Tasks:**
-- [ ] Task 1 description
-  - Files: `path/to/file.ext:lines`
-  - Changes: [Specific changes to make]
+- [ ] [Same bite-sized, test-first structure as Phase 1 — failing test → fail →
+      minimal code → pass → commit, with real code and exact commands]
 
 **Dependencies:**
 - Requires Phase 1 completion
 
 **Verification:**
-- [ ] [How to verify this phase is complete]
+- [ ] [Exact command that confirms this phase is complete, with expected output]
 
 ### Phase N: [Continue as needed]
 
@@ -136,11 +154,27 @@ These require human testing and judgment:
 - [ ] Edge case: [describe edge case] behaves correctly
 - [ ] [Add more manual checks]
 
+### Reproducibility & Correctness (research code)
+
+For plans that produce a result, figure, metric, or trained artifact (omit only
+when the change produces no reported result):
+
+- [ ] Seeds, data versions, environment, and exact commands captured per
+      `ai-research-workflows:ensuring-reproducibility`
+- [ ] Numerical correctness criterion: expected value vs analytic case /
+      reference implementation / invariant, with a justified tolerance
+      (`ai-research-workflows:hardening-research-code`)
+- [ ] The result reproduces in a clean environment
+
 ## Testing Strategy
 
-**Unit Tests:**
-- [ ] Test [component 1] behavior at `path/to/test_file.py`
-- [ ] Test [component 2] edge cases at `path/to/test_file.py`
+Unit tests are written **test-first within each phase** (see Implementation
+Phases) — do not re-list them here as a tests-last batch. This section captures
+the *additional* integration and manual coverage beyond those per-phase unit
+tests, plus the test data needed.
+
+**Unit Test Coverage (summary, written in-phase):**
+- [ ] [Which behaviors/components are covered by the per-phase unit tests]
 - [ ] Mock external dependencies: [list dependencies]
 
 **Integration Tests:**

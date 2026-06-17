@@ -1,7 +1,7 @@
 {
     "name": "ai-research-workflows",
-    "version": "0.1.0",
-    "description": "Structured AI-enabled research workflows for software development. Guides users through six phases: Research, Plan, Iterate Plan, Experiment, Implement, and Validate.",
+    "version": "0.2.0",
+    "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, plan, experiment, implement, validate, reproduce, harden, and handoff — interactive when you want collaboration, direct when you don't.",
     "category": "development",
     "strict": false,
     "author": {
@@ -18,6 +18,9 @@
         "code-exploration",
         "structured-development",
         "experimentation",
-        "validation"
+        "validation",
+        "skills",
+        "reproducibility",
+        "research-software"
     ]
 }
