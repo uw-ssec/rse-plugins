@@ -28,7 +28,7 @@ Pick by use case (full table in [type-scale-theory.md](references/type-scale-the
 
 ### Step 2 — Generate the scale
 
-Base 16px (or 1rem). Multiply up, divide down. Tools: `npx type-scale-generator`, or by hand. Worked example in [type-scale-theory.md](references/type-scale-theory.md).
+Base 16px (or 1rem). Multiply up, divide down — by hand, or with any browser-based type-scale calculator. Worked example in [type-scale-theory.md](references/type-scale-theory.md).
 
 ```css
 :root {
