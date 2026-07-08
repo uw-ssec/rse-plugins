@@ -4,9 +4,11 @@ on:
   pull_request:
     paths:
       - 'plugins/**'
+      - 'community-plugins/**'
       - '.claude-plugin/**'
       - 'marketplace/**'
       - '.github/workflows/validate-plugins.yml'
+      - '.github/scripts/**'
   push:
     branches: [ main ]
 
@@ -29,6 +31,15 @@ jobs:
               fi
             done
           ' sh {} +
+
+      - name: Check for duplicate JSON keys
+        run: |
+          echo "Checking for duplicate JSON keys..."
+          # `jq empty` above accepts duplicate keys (JSON parsers keep the last
+          # value), so a duplicated key silently collapses two objects into one.
+          # In marketplace.json that can drop a plugin from the catalog — and thus
+          # from the catalog-driven scans below — with no validation error.
+          python3 .github/scripts/check_duplicate_json_keys.py .
 
       - name: Check plugin structure
         run: |
@@ -83,8 +94,10 @@ jobs:
           echo "Scanning for hardcoded secrets..."
           FOUND_SECRETS=0
 
-          # Get all local plugin directories from marketplace
-          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json | tr '\n' ' ')
+          # Enumerate plugin directories from the filesystem (not just the catalog)
+          # so unlisted or mis-cataloged plugins are still scanned. A duplicate-key
+          # defect or a missing catalog entry must not silently skip a plugin here.
+          PLUGIN_DIRS=$(find plugins community-plugins -mindepth 1 -maxdepth 1 -type d 2>/dev/null | tr '\n' ' ')
           if [ -z "$PLUGIN_DIRS" ]; then
             echo "No local plugins to scan"
             exit 0
@@ -151,8 +164,10 @@ jobs:
           echo "Scanning for dangerous command patterns..."
           FOUND_ISSUES=0
 
-          # Get all local plugin directories from marketplace
-          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json | tr '\n' ' ')
+          # Enumerate plugin directories from the filesystem (not just the catalog)
+          # so unlisted or mis-cataloged plugins are still scanned. A duplicate-key
+          # defect or a missing catalog entry must not silently skip a plugin here.
+          PLUGIN_DIRS=$(find plugins community-plugins -mindepth 1 -maxdepth 1 -type d 2>/dev/null | tr '\n' ' ')
           if [ -z "$PLUGIN_DIRS" ]; then
             echo "No local plugins to scan"
             exit 0
@@ -196,8 +211,10 @@ jobs:
         run: |
           echo "Scanning for suspicious URLs..."
 
-          # Get all local plugin directories from marketplace
-          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json | tr '\n' ' ')
+          # Enumerate plugin directories from the filesystem (not just the catalog)
+          # so unlisted or mis-cataloged plugins are still scanned. A duplicate-key
+          # defect or a missing catalog entry must not silently skip a plugin here.
+          PLUGIN_DIRS=$(find plugins community-plugins -mindepth 1 -maxdepth 1 -type d 2>/dev/null | tr '\n' ' ')
           if [ -z "$PLUGIN_DIRS" ]; then
             echo "No local plugins to scan"
             exit 0
@@ -219,8 +236,9 @@ jobs:
         run: |
           echo "Scanning MCP plugin dependencies..."
 
-          # Get all local plugin directories from marketplace
-          PLUGIN_DIRS=$(jq -r '.plugins[].source | select(startswith("./"))' .claude-plugin/marketplace.json)
+          # Enumerate plugin directories from the filesystem (not just the catalog)
+          # so unlisted or mis-cataloged plugins are still scanned.
+          PLUGIN_DIRS=$(find plugins community-plugins -mindepth 1 -maxdepth 1 -type d 2>/dev/null)
           if [ -z "$PLUGIN_DIRS" ]; then
             echo "No local plugins to scan"
             exit 0
