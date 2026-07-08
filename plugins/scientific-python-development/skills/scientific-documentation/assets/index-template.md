@@ -10,10 +10,10 @@ A powerful scientific Python package for [describe main purpose].
 
 ## Quick Start
 
-Install the package:
+Install the package (replace the placeholder with your published package name):
 
 ```bash
-pip install mypackage
+pip install <mypackage>
 ```
 
 Basic usage:
