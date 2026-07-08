@@ -16,15 +16,15 @@
 
 ## Issue: Package Not Found in Conda-forge
 
-**Problem**: Running `pixi add my-package` fails with "package not found"
+**Problem**: Running `pixi add <my-package>` fails with "package not found"
 
 **Solution**:
 ```bash
-# Search conda-forge
-pixi search my-package
+# Search conda-forge (replace the placeholder with the real package name)
+pixi search <my-package>
 
 # If not in conda-forge, use PyPI
-pixi add --pypi my-package
+pixi add --pypi <my-package>
 
 # Check if package has different name in conda
 # Example: scikit-learn (PyPI) vs sklearn (conda)

@@ -69,14 +69,14 @@ suppress_warnings = ["toc.not_readable"]
 
 **Problem**: Required extension not installed
 
-**Solution**:
+**Solution**: Install the extension named in the error (replace the placeholder):
 ```bash
-pip install sphinx-extension-name
+pip install <sphinx-extension-name>  # e.g. pip install sphinx-copybutton
 ```
 
-Check installed extensions:
+Verify it is importable:
 ```bash
-python -c "import sphinx_extension_name; print(sphinx_extension_name.__version__)"
+python -c "import sphinx_copybutton; print(sphinx_copybutton.__version__)"
 ```
 
 ## Autodoc Issues
@@ -456,7 +456,7 @@ except ImportError:
 **Solution**: Check compatibility
 ```bash
 pip install "sphinx>=7.0"
-pip install --upgrade sphinx-extension-name
+pip install --upgrade <sphinx-extension-name>  # replace with the failing extension
 ```
 
 ## Debugging Tips

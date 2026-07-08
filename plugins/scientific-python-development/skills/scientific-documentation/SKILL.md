@@ -747,7 +747,7 @@ Doe, J. (2024). My Scientific Package (Version 0.1.0) [Computer software]. https
 
 Install exact versions:
 \`\`\`bash
-pip install package==0.1.0
+pip install <package-name>==0.1.0
 \`\`\`
 
 Or from `requirements.txt`:

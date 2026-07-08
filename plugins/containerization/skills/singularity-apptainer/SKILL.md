@@ -469,7 +469,7 @@ SIF images are read-only by default. Use overlays to add a writable layer.
 apptainer overlay create --size 500 my_overlay.img
 
 # Run with the overlay -- writes persist in my_overlay.img
-apptainer exec --overlay my_overlay.img image.sif pip install new_package
+apptainer exec --overlay my_overlay.img image.sif pip install <package-name>
 
 # Shell with overlay for interactive modification
 apptainer shell --overlay my_overlay.img image.sif
@@ -495,7 +495,7 @@ apptainer build final_image.sif my_sandbox/
 apptainer overlay create --size 200 image.sif
 
 # Now writes go into the embedded overlay
-apptainer exec --writable image.sif pip install new_package
+apptainer exec --writable image.sif pip install <package-name>
 ```
 
 ## Common Mistakes

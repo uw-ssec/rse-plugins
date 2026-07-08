@@ -15,13 +15,15 @@ A Python package for [brief description of scientific purpose].
 
 ## Installation
 
+<!-- Replace <my-sci-package> with your published package name -->
+
 ```bash
-pip install my-sci-package
+pip install <my-sci-package>
 ```
 
 For plotting capabilities:
 ```bash
-pip install my-sci-package[plotting]
+pip install <my-sci-package>[plotting]
 ```
 
 ## Quick Start

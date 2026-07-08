@@ -68,8 +68,8 @@ Solutions for common issues across the HoloViz ecosystem. Organized by library f
 
 **Solution**:
 ```bash
-# Install missing library
-pip install X
+# Install the missing library named in the error (replace the placeholder)
+pip install <missing-library>
 
 # Or install with specific extra
 pip install panel[recommended]
@@ -379,8 +379,8 @@ pip install panel holoviews datashader
 # Reinstall Jupyter extensions
 jupyter labextension install @pyviz/jupyterlab_pyviz
 
-# Or for JupyterLab 3+
-pip install jupyterlab_pyviz
+# Or for JupyterLab 3+ (the extension ships with pyviz_comms)
+pip install pyviz_comms
 ```
 
 ## Quick Reference: Error → Solution

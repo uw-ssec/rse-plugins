@@ -102,11 +102,11 @@ all = [
 ]
 ```
 
-**Install with extras:**
+**Install with extras** (replace the placeholder with your package name):
 ```bash
-pip install my-sci-package[plotting]
-pip install my-sci-package[plotting,ml]
-pip install my-sci-package[all]
+pip install <my-sci-package>[plotting]
+pip install <my-sci-package>[plotting,ml]
+pip install <my-sci-package>[all]
 ```
 
 ## Development Dependencies (Dependency Groups)

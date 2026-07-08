@@ -40,13 +40,13 @@
 
 ```bash
 # Example for Python (PyPI):
-pip install package-name
+pip install <package-name>
 
 # Example for Rust (crates.io):
-# cargo add package-name
+# cargo add <package-name>
 
 # Example for Node.js (npm):
-# npm install package-name
+# npm install <package-name>
 ```
 
 ### From source (for development)
