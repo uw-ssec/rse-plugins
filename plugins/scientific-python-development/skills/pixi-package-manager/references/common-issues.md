@@ -49,8 +49,8 @@ env2 = { features = ["feat2"], solve-group = "group2" }  # separate solver
 # Instead of: numpy==1.26.0
 # Use: numpy>=1.24,<2.0
 
-# Force specific channel priority
-pixi add numpy -c conda-forge --force-reinstall
+# Pin a package to a specific channel with MatchSpec syntax
+pixi add "conda-forge::numpy"
 ```
 
 ## Issue: Slow Environment Creation
@@ -67,8 +67,9 @@ test = { features = ["test"], solve-group = "default" }  # reuses default solve
 # Clean cache if corrupted
 pixi clean cache
 
-# Check for large dependency trees
-pixi tree --depth 2
+# Inspect the dependency tree (add -i/--invert to trace why a package is pulled in)
+pixi tree
+pixi tree -i numpy
 
 # Update pixi to latest version
 pixi self-update

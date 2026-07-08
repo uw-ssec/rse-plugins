@@ -206,6 +206,9 @@ dependencies = [
     "scikit-learn=1.3.2",
 ]
 
+[tool.pixi.workspace]
+requires-pixi = ">=0.72"  # pin minimum pixi version (pixi workspace requires-pixi set)
+
 [tool.pixi.pypi-dependencies]
 # Pin with exact hashes for ultimate reproducibility
 seaborn = "==0.13.0"
@@ -254,8 +257,9 @@ pixi install  # installs exact versions from pixi.lock
 # Run complete pipeline
 pixi run full-pipeline
 
-# Archive for long-term preservation
-pixi list --json > environment-snapshot.json  # backup package list (--export removed in 0.40+)
+# Archive for long-term preservation: export the exact locked environment
+pixi workspace export conda-environment environment-snapshot.yml  # portable environment.yaml
+pixi workspace export conda-explicit-spec ./locked-specs          # fully pinned URLs per platform
 ```
 
 ## Pattern 6: Task Dependencies and Workflows

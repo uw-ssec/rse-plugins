@@ -19,6 +19,7 @@
 ## Reproducibility
 - [ ] Commit `pixi.lock` to version control
 - [ ] Include all platforms in lockfile for cross-platform teams
+- [ ] Pin a minimum pixi version (`pixi workspace requires-pixi set ">=0.72"`) so collaborators and CI use a compatible pixi
 - [ ] Document environment recreation steps in README
 - [ ] Use exact version pins for published research
 - [ ] Test environment from scratch periodically

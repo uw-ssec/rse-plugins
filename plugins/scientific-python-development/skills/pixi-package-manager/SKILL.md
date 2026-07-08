@@ -2,8 +2,8 @@
 name: pixi-package-manager
 description: "Manage scientific Python dependencies and environments with the pixi package manager: create environments, add conda-forge and PyPI packages, define and run tasks, and generate reproducible multi-platform lockfiles. Use when the user mentions pixi, pixi.toml, pixi.lock, pixi init/add/run, conda-forge, or needs reproducible scientific Python environments combining conda and PyPI packages."
 metadata:
-  pixi-version: "0.69.0"
-  last-verified: "2026-05-29"
+  pixi-version: "0.72.1"
+  last-verified: "2026-07-08"
   assets:
     - assets/github-actions-pixi.yml
     - assets/pyproject-multi-env.toml
@@ -30,7 +30,7 @@ metadata:
 curl -fsSL https://pixi.sh/install.sh | bash
 
 # Install pixi (Windows)
-iwr -useb https://pixi.sh/install.ps1 | iex
+irm -useb https://pixi.sh/install.ps1 | iex
 
 # Initialize new project with pyproject.toml
 pixi init --format pyproject
@@ -144,16 +144,9 @@ analyse = { cmd = "python scripts/analyze.py", depends-on = ["test"] }
 
 ### 5. Global Tools and One-Off Execution
 
-Not every tool belongs in a project environment:
-
-- **`pixi global install <tool>`** installs a CLI tool into an isolated global
-  environment on your `PATH` — the pixi-native replacement for `pipx`/`condax`
-  (e.g. `ruff`, `pre-commit`, `jupyterlab`).
-- **`pixi exec <cmd>`** runs a command in a temporary environment that is
-  discarded afterward — ideal for trying a tool without adding a dependency, or
-  for CI one-offs (`pixi exec --spec python=3.12 python -V`).
-- **`pixi shell-hook`** prints the activation script for an environment without
-  spawning a subshell, which is what you want in CI steps and wrapper scripts.
+Not every tool belongs in a project environment — install persistent CLI tools,
+run throwaway one-offs, or emit a subshell-free activation script for CI using
+the `global` / `exec` / `shell-hook` commands in the Quick Reference Card above.
 
 ## Quick Start
 
@@ -224,9 +217,8 @@ PyPI build failures.
 
 See [references/best-practices.md](references/best-practices.md) for checklists
 covering project setup, dependency management, reproducibility, performance, and
-development workflow — including pinning GitHub Actions to commit SHAs (not
-mutable tags) in CI; a tag like `@v5` can be repointed to malicious code, a SHA
-cannot (see [assets/github-actions-pixi.yml](assets/github-actions-pixi.yml)).
+development workflow — including SHA-pinning GitHub Actions in CI (see
+[assets/github-actions-pixi.yml](assets/github-actions-pixi.yml)).
 
 ## Resources
 
