@@ -9,7 +9,6 @@ description: >
   context of downloading or processing data. Provides templates, configuration
   validation, and debugging guidance for hydroclimatological data download scripts
   used in the GAIA project.
-version: 2026-03-20
 ---
 
 # Download Script Development Skill
