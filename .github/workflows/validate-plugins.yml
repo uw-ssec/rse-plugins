@@ -4,9 +4,11 @@ on:
   pull_request:
     paths:
       - 'plugins/**'
+      - 'community-plugins/**'
       - '.claude-plugin/**'
       - 'marketplace/**'
       - '.github/workflows/validate-plugins.yml'
+      - '.github/scripts/**'
   push:
     branches: [ main ]
 
@@ -29,6 +31,15 @@ jobs:
               fi
             done
           ' sh {} +
+
+      - name: Check for duplicate JSON keys
+        run: |
+          echo "Checking for duplicate JSON keys..."
+          # `jq empty` above accepts duplicate keys (JSON parsers keep the last
+          # value), so a duplicated key silently collapses two objects into one.
+          # In marketplace.json that can drop a plugin from the catalog — and thus
+          # from the catalog-driven scans below — with no validation error.
+          python3 .github/scripts/check_duplicate_json_keys.py .
 
       - name: Check plugin structure
         run: |
