@@ -190,6 +190,28 @@
             ],
             "category": "research",
             "strict": false
+        },
+        {
+            "name": "uiux-design-team",
+            "source": "./plugins/uiux-design-team",
+            "description": "Comprehensive UI/UX design team simulation with 10 specialized agents covering user research, information architecture, interaction and visual design, accessibility auditing, design systems, and design review orchestration",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "BSD-3-Clause",
+            "keywords": [
+                "ui",
+                "ux",
+                "design-systems",
+                "accessibility",
+                "wcag",
+                "user-research",
+                "interaction-design",
+                "visual-design",
+                "responsive-design",
+                "design-review"
+            ],
+            "category": "design",
+            "strict": false
         }
     ]
 }

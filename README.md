@@ -157,6 +157,21 @@ Generate and develop hydroclimatological data download scripts for the GAIA proj
 
 **When to use:** Downloading hydroclimatological data for GAIA geoscience research, creating reproducible data pipelines, setting up new data download workflows
 
+### UI/UX Design Team Plugin
+
+Comprehensive UI/UX design team simulation with 10 specialized agents covering the full design lifecycle — user research, information architecture, interaction design, visual design, motion design, design systems engineering, accessibility auditing, UX writing, and design operations.
+
+**Agent:**
+- **UX Design Lead** - Coordinator agent that facilitates design thinking, conducts design critiques, and orchestrates 9 specialist agents (research, information architecture, interaction, visual, motion, design systems, accessibility, writing, ops) across the full design lifecycle
+
+**Commands (10):**
+- `/design-review`, `/audit-accessibility`, `/create-design-system`, `/create-persona`, `/create-type-scale`, `/design-handoff`, `/evaluate-usability`, `/frontend-design`, `/generate-palette`, `/map-journey`
+
+**Skills (22):**
+- **user-research**, **information-architecture**, **wireframing**, **visual-design**, **motion-design**, **design-tokens**, **design-system-creation**, **component-library**, **accessibility-audit**, **ux-writing**, **responsive-design**, **css-architecture**, **frontend-components**, **usability-evaluation**, **design-philosophies**, **design-case-studies**, **user-journey-mapping**, **ab-testing-strategy**, **design-handoff**, **color-systems**, **typography-systems**, **grid-layout-systems**
+
+**When to use:** UI/UX design work, design system creation, accessibility audits, usability evaluation, user research and persona creation, design reviews, frontend component design, design-to-development handoff
+
 Browse the [plugins directory](plugins/) and [community-plugins directory](community-plugins/) to explore all available plugins.
 
 ## Repository Structure
