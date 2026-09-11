@@ -37,6 +37,8 @@ This repository provides specialized agents and skills that understand the uniqu
 
 ## Installation
 
+### Claude Code
+
 To use these agents and skills in Claude Code, add this repository to your plugin marketplace:
 
 ```bash
@@ -44,6 +46,20 @@ To use these agents and skills in Claude Code, add this repository to your plugi
 ```
 
 Once installed, the agents and skills will be available in your Claude Code environment and can be invoked when working on scientific software projects.
+
+### VS Code
+
+To configure plugin marketplaces in VS Code, use the `chat.plugins.marketplaces` setting.
+
+Here's an example that can be added to the `settings.json` file.
+
+```json
+"chat.plugins.marketplaces": [
+    "uw-ssec/rse-plugins"
+]
+```
+
+([Documentation link](https://code.visualstudio.com/docs/agent-customization/agent-plugins#_configure-plugin-marketplaces))
 
 ## Available Plugins
 
