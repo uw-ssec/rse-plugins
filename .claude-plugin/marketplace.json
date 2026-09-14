@@ -70,7 +70,7 @@
         {
             "name": "ai-research-workflows",
             "source": "./plugins/ai-research-workflows",
-            "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, prior-art, plan, experiment, implement, validate, reproduce, harden, and handoff — interactive when you want collaboration, direct when you don't.",
+            "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, prior-art, plan, experiment, implement, validate, reproduce, harden, and handoff \u2014 interactive when you want collaboration, direct when you don't.",
             "homepage": "https://github.com/uw-ssec/rse-plugins",
             "repository": "https://github.com/uw-ssec/rse-plugins",
             "license": "BSD-3-Clause",
@@ -94,7 +94,7 @@
         {
             "name": "project-management",
             "source": "./plugins/project-management",
-            "description": "Project lifecycle management — onboarding, documentation quality, handoff readiness, and community health for research software projects",
+            "description": "Project lifecycle management \u2014 onboarding, documentation quality, handoff readiness, and community health for research software projects",
             "homepage": "https://github.com/uw-ssec/rse-plugins",
             "repository": "https://github.com/uw-ssec/rse-plugins",
             "license": "BSD-3-Clause",
@@ -211,6 +211,26 @@
                 "design-review"
             ],
             "category": "design",
+            "strict": false
+        },
+        {
+            "name": "git-workflows",
+            "source": "./plugins/git-workflows",
+            "description": "Git and GitHub workflow skills: commit, push, open and merge pull requests, file issues, record decisions, prune branches, cut releases, and document work",
+            "homepage": "https://github.com/uw-ssec/rse-plugins",
+            "repository": "https://github.com/uw-ssec/rse-plugins",
+            "license": "MIT",
+            "keywords": [
+                "git",
+                "github",
+                "version-control",
+                "conventional-commits",
+                "pull-requests",
+                "code-review",
+                "release-management",
+                "branch-hygiene"
+            ],
+            "category": "development",
             "strict": false
         }
     ]
