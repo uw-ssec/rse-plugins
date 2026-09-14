@@ -1,0 +1,26 @@
+{
+    "name": "git-workflows",
+    "version": "0.1.0",
+    "description": "Git and GitHub workflow skills for Research Software Engineers: commit, push, open and merge pull requests, file issues, record decisions, prune branches, cut releases, and document work — consistent conventions whether you type the command or just describe what you want.",
+    "category": "development",
+    "strict": false,
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "MIT",
+    "keywords": [
+        "git",
+        "github",
+        "version-control",
+        "conventional-commits",
+        "pull-requests",
+        "code-review",
+        "release-management",
+        "branch-hygiene",
+        "skills",
+        "research-software"
+    ]
+}
