@@ -55,6 +55,15 @@
 
 **Rationale:** [Why these are deliberately excluded]
 
+## Assumptions
+
+[Beliefs this plan relies on that have NOT been confirmed by reading code or running something. Confirmed facts go in Current State Analysis, setup steps in Testing Strategy, and choices in Implementation Approach. If every belief was confirmed, write "None" and list what was checked.]
+
+- **Assumption:** [Description]
+  - **Basis:** [Why you believe this — documentation, convention, or inference]
+  - **Impact if wrong:** [What parts of this plan would need to change]
+  - **How to verify:** [Concrete step to confirm during implementation]
+
 ## Implementation Approach
 
 [High-level technical approach. What patterns will you follow? What architectural decisions have been made?]
