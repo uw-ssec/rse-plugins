@@ -2,6 +2,10 @@
 name: design-tokens
 description: Guides design token architecture and Style Dictionary configuration, generates token files for web CSS variables, iOS, and Android, and audits token naming and reference integrity. Use when implementing or refactoring design tokens, setting up Style Dictionary, defining a three-tier token architecture, wiring multi-platform output (web/iOS/Android), or auditing existing tokens for naming and reference integrity.
 metadata:
+   style-dictionary-version: "4.x / 5.x"
+   last-verified: "2026-10-27"
+   assets:
+   - assets/validate-tokens.mjs
    references:
    - references/naming-conventions.md
    - references/platform-output.md
@@ -43,13 +47,21 @@ Validate after each step before proceeding.
 ```json
 {
   "color": {
-    "primary":       { "value": "{color.blue.500}" },
-    "primary-hover": { "value": "{color.blue.600}" },
-    "surface":       { "value": "{color.gray.100}" },
-    "on-surface":    { "value": "{color.gray.900}" }
+    "primary":       { "value": "{color.blue.500}", "type": "color" },
+    "primary-hover": { "value": "{color.blue.600}", "type": "color" },
+    "surface":       { "value": "{color.gray.100}", "type": "color" },
+    "on-surface":    { "value": "{color.gray.900}", "type": "color" }
+  },
+  "spacing": {
+    "inset-x":       { "value": "{spacing.4}", "type": "dimension" },
+    "inset-y":       { "value": "{spacing.2}", "type": "dimension" }
   }
 }
 ```
+
+Give every alias an explicit `type`. A reference does not inherit the type of
+the token it points to, and type-filtered formats such as `android/colors`
+silently drop untyped tokens.
 
 `tokens/components/button.json` (step 3 — component tokens referencing alias tier):
 
@@ -60,18 +72,24 @@ Validate after each step before proceeding.
     "bg-hover":       { "value": "{color.primary-hover}",  "type": "color" },
     "bg-disabled":    { "value": "{color.surface}",        "type": "color" },
     "text":           { "value": "{color.on-surface}",     "type": "color" },
-    "padding-x":      { "value": "{spacing.4}",            "type": "dimension" },
-    "padding-y":      { "value": "{spacing.2}",            "type": "dimension" }
+    "padding-x":      { "value": "{spacing.inset-x}",      "type": "dimension" },
+    "padding-y":      { "value": "{spacing.inset-y}",      "type": "dimension" }
   }
 }
 ```
 
 Component tokens always reference alias names, never global names directly.
+This applies to every category (spacing, radius, weight), not just color. The
+only literals allowed are keywords such as `transparent` or `none`.
 
-## Style Dictionary Config (`style-dictionary.config.js`)
+## Style Dictionary Config (`style-dictionary.config.mjs`)
+
+Targets Style Dictionary v4 or v5 (ESM, async API). v3 used a different API
+(`require(...).extend()`, synchronous builds); pin `style-dictionary@^5` or
+`@^4` in `package.json`.
 
 ```js
-module.exports = {
+export default {
   source: ["tokens/**/*.json"],
   platforms: {
     css: {
@@ -84,7 +102,7 @@ module.exports = {
       transformGroup: "ios-swift",
       buildPath: "build/ios/",
       files: [{ destination: "Tokens.swift", format: "ios-swift/class.swift",
-                className: "Tokens" }]
+                options: { className: "Tokens" } }]
     },
     android: {
       transformGroup: "android",
@@ -103,34 +121,35 @@ module.exports = {
 };
 ```
 
-Run: `npx style-dictionary build`
+Run: `npx style-dictionary build --config style-dictionary.config.mjs`
+
+A build that exits 0 can still emit unusable output. Check that
+`build/ios/Tokens.swift` declares `public class Tokens` and that
+`build/android/colors.xml` contains the alias colors (`color_primary`, ...).
 
 ## Validation Checkpoints
 
-Run each between steps. Fail closed.
+Run after each workflow step. Fail closed: any failure exits nonzero.
 
 ```bash
-# 1. Lint token names match convention: --category-property-variant-state
-rg -o '"[a-z]+(\.[a-z0-9-]+)+"' tokens/ | \
-  rg -v '^"(color|spacing|size|font|shadow|radius|opacity|duration|z)\.' && \
-  echo "FAIL: tokens violate naming convention"
-
-# 2. Verify no broken alias references
-node -e "
-const sd = require('style-dictionary').extend('./style-dictionary.config.js');
-try { sd.buildAllPlatforms(); } catch(e) { process.exit(1); }
-"
-
-# 3. Detect unused tokens (build CSS, then grep components for usage)
-diff <(rg -o -- '--[a-z0-9-]+' build/css/tokens.css | sort -u) \
-     <(rg -o -- '--[a-z0-9-]+' src/ | sort -u) | rg '^<' && \
-  echo "WARN: unused tokens above"
-
-# 4. No raw hex values in components (tokens-only enforcement)
-rg '#[0-9a-fA-F]{3,8}\b' src/components/ && echo "FAIL: raw hex in components"
+cp <skill>/assets/validate-tokens.mjs scripts/validate-tokens.mjs
+node scripts/validate-tokens.mjs
 ```
 
-Pass criteria: lint exits clean, build succeeds, no raw hex in `src/components/`.
+[`assets/validate-tokens.mjs`](assets/validate-tokens.mjs) loads the config through the Style
+Dictionary v4+/v5 API and checks:
+
+1. **Names.** Every token path segment is lowercase kebab-case.
+2. **References and tiers.** All references resolve. Globals hold raw values,
+   aliases reference globals, and components reference aliases.
+3. **No raw hex** in `src/components/`. A missing directory is an error, not a pass.
+4. **Unused tokens** (warning only). These are component tokens that no
+   `var(--…)` in `src/components/` uses, plus aliases and globals that nothing
+   references.
+
+Pass criteria: the script exits 0 and the build succeeds. Test the checks
+themselves by injecting a bad name, a broken reference and a raw hex value;
+each must make the script exit 1.
 
 ## Three-Tier Naming Pattern
 

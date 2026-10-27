@@ -111,6 +111,29 @@ Alias tokens map primitives to functional names. They answer "what is this token
 }
 ```
 
+### Dimension Semantics
+
+Spacing, radius and weight need aliases too. Component tokens never point at
+the raw scale, so a density or brand change happens in one place.
+
+```json
+{
+  "spacing": {
+    "inset-sm": { "value": "{spacing.3}", "description": "Compact control padding" },
+    "inset-md": { "value": "{spacing.4}", "description": "Default control padding" },
+    "inset-lg": { "value": "{spacing.6}", "description": "Roomy control padding" }
+  },
+  "radius": {
+    "control": { "value": "{border.radius.md}", "description": "Buttons, inputs, selects" }
+  },
+  "font": {
+    "weight": {
+      "emphasis": { "value": "{font.weight.medium}", "description": "Labels and buttons" }
+    }
+  }
+}
+```
+
 ---
 
 ## Component Tokens (Specific Bindings)
@@ -132,11 +155,11 @@ Component tokens bind semantic tokens to specific component properties.
       "bg-hover": { "value": "{color.background.subtle}" },
       "text": { "value": "{color.text.primary}" }
     },
-    "border-radius": { "value": "{border.radius.md}" },
-    "font-weight": { "value": "{font.weight.medium}" },
-    "padding-x-sm": { "value": "{spacing.3}" },
-    "padding-x-md": { "value": "{spacing.4}" },
-    "padding-x-lg": { "value": "{spacing.6}" }
+    "border-radius": { "value": "{radius.control}" },
+    "font-weight": { "value": "{font.weight.emphasis}" },
+    "padding-x-sm": { "value": "{spacing.inset-sm}" },
+    "padding-x-md": { "value": "{spacing.inset-md}" },
+    "padding-x-lg": { "value": "{spacing.inset-lg}" }
   },
   "input": {
     "bg": { "value": "{color.background.default}" },
@@ -145,7 +168,7 @@ Component tokens bind semantic tokens to specific component properties.
     "border-error": { "value": "{color.border.error}" },
     "text": { "value": "{color.text.primary}" },
     "placeholder": { "value": "{color.text.tertiary}" },
-    "border-radius": { "value": "{border.radius.md}" }
+    "border-radius": { "value": "{radius.control}" }
   }
 }
 ```
