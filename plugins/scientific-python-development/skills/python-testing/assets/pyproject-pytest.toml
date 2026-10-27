@@ -1,10 +1,11 @@
 [tool.pytest.ini_options]
-minversion = "7.0"
+minversion = "8.0"
 addopts = [
     "-ra",                          # Show summary of all test outcomes
     "--showlocals",                 # Show local variables in tracebacks
     "--strict-markers",             # Error on undefined markers
     "--strict-config",              # Error on config issues
+    "--import-mode=importlib",      # Allow same-named test files in different dirs
     "--cov=my_package",             # Coverage for package
     "--cov-report=term-missing",    # Show missing lines
     "--cov-report=html",            # HTML coverage report
