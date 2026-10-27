@@ -1,11 +1,11 @@
 // Regression tests for the raw-hex scanner in validate-tokens.mjs.
-// Run: node --test validate-tokens.test.mjs   (needs style-dictionary installed,
-// since validate-tokens.mjs imports it)
+// Run: node --test validate-tokens.test.mjs   (needs style-dictionary and
+// @babel/parser installed, as validate-tokens.mjs does)
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { rawHex } from "./validate-tokens.mjs";
 
-const hexes = (file, text) => rawHex(file, text).map((h) => h.hex);
+const hexes = async (file, text) => (await rawHex(file, text)).map((h) => h.hex ?? h.error);
 
 // Each case: [file name, source, hex values that must be reported].
 const cases = {
@@ -36,6 +36,15 @@ const cases = {
   "js: template argument": ["a.js", "setColor(`#abc`);", ["#abc"]],
   "js: styled call form": ["a.js", "const B = styled(Base)`\n  color: #abc;\n`;", ["#abc"]],
   "js: styled attrs selector": ["a.js", "const B = styled.div.attrs({})`\n  #abc & { color: var(--x); }\n`;", []],
+  "js: String.raw is not CSS": ["a.jsx", "const border = String.raw`1px solid #abc`;\nexport function Button() {\n  return <button style={{ border }}>OK</button>;\n}", ["#abc"]],
+  "js: interpolation in styled template": ["a.js", 'const Button = styled.button`color: ${(props) => "#fff"};`;', ["#fff"]],
+  "js: nested template in interpolation": ["a.js", "const B = styled.div`border: ${(p) => `1px solid #abc`};`;", ["#abc"]],
+  "js: hex after interpolation in declaration": ["a.js", "const B = styled.div`border: ${w}px solid #abc;`;", ["#abc"]],
+  "js: interpolation then id selector": ["a.js", "const B = styled.div`${Icon} { color: var(--x); }\n  #abc & { color: var(--y); }`;", []],
+  "ts: type assertion file": ["a.ts", 'const c = <string>"#abc";\nconst id = { id: "#add" };', ["#abc"]],
+  "tsx: typed component": ["a.tsx", 'const B = (p: { c: string }) => <div style={{ color: "#abc" }} />;', ["#abc"]],
+  "js: import path": ["a.js", 'import x from "#abc";', []],
+  "jsx: htmlFor": ["a.jsx", '<label htmlFor="#abc">x</label>', []],
   "jsx: href fragment": ["a.jsx", '<a href="#abc">top</a>', []],
   "js: querySelector": ["a.js", 'document.querySelector("#abc");', []],
   "js: hex in comment": ["a.js", '// fallback "#abc"\nconst s = { color: "var(--x)" };', []],
@@ -50,9 +59,9 @@ const cases = {
 };
 
 for (const [name, [file, source, expected]] of Object.entries(cases)) {
-  test(name, () => assert.deepEqual(hexes(file, source), expected));
+  test(name, async () => assert.deepEqual(await hexes(file, source), expected));
 }
 
-test("reports the line of a wrapped value", () => {
-  assert.equal(rawHex("a.css", ".x {\n  color:\n    #abc;\n}")[0].line, 3);
+test("reports the line of a wrapped value", async () => {
+  assert.equal((await rawHex("a.css", ".x {\n  color:\n    #abc;\n}"))[0].line, 3);
 });

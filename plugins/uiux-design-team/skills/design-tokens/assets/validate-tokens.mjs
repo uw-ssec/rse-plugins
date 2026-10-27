@@ -1,6 +1,7 @@
 // Validate design tokens. Exits 1 on any failure; prints WARN for unused tokens.
 // Usage: node scripts/validate-tokens.mjs   (Style Dictionary v4 or v5, Node 18+)
-// Run from the project root. rawHex() is exported for the regression tests in
+// Needs style-dictionary and @babel/parser (dev dependencies). Run from the
+// project root. rawHex() is exported for the regression tests in
 // validate-tokens.test.mjs (`node --test`).
 // Expects tokens/global.json, tokens/alias.json, tokens/components/*.json,
 // style-dictionary.config.mjs at the project root and components in src/components/.
@@ -28,24 +29,23 @@ function filesUnder(dir) {
 }
 
 // Raw hex colours in component sources (check 3 below).
-//    Files are tokenized by type rather than matched with regexes:
-//    - CSS/SCSS/Less and <style> blocks: hex in any declaration value
-//      (`prop: value`, wrapped lines included). Selectors such as `#abc {`
-//      and comments are skipped.
-//    - JS/TS/JSX and <script> blocks: hex in any string or template literal,
-//      except values of href/src/to/id/selector keys or attributes and
-//      arguments of DOM selector calls (querySelector("#main")). Tagged
-//      template literals (styled.div`...`, css`...`) are read as CSS.
+//    - CSS/SCSS/Less and <style> blocks: a small CSS walker checks every
+//      declaration value (wrapped lines included) and skips selectors,
+//      at-rule preludes and comments.
+//    - JS/TS/JSX and <script> blocks are parsed with @babel/parser, and every
+//      string and template piece is checked, except values of href/src/to/id/
+//      selector keys or attributes, DOM selector-call arguments and import
+//      paths. Templates tagged css`...`, styled.x`...`, styled(X)`...`,
+//      createGlobalStyle, keyframes or injectGlobal are read as CSS, with
+//      ${...} interpolations parsed as JS in their own right.
 //    - HTML/Vue/Svelte markup: style="..." declarations and :style bindings.
-//    url(...) contents are never treated as colours (url(#gradient) is an SVG
-//    fragment reference). An id string that happens to be valid hex, such as
-//    "#add", is reported when used outside those keys; rename it.
+//    url(...) contents are never colours (url(#gradient) is an SVG fragment).
+//    An id string that is also valid hex, such as "#add", is reported when
+//    used outside those keys; rename it.
 const HEX = /#[0-9a-fA-F]{3,8}\b/g;
-const NON_COLOR_KEYS = new Set(["href", "src", "to", "id", "for", "target", "selector", "xlinkHref", "xlink:href", "action"]);
-// A template is tagged when an identifier, member or call ends right before it.
-const TAGGED = /[\w$)\]]$/;
-const KEYWORD_BEFORE = /(?:^|[^\w$.])(?:return|typeof|void|await|yield|in|of|case|else|do|throw|new|delete|instanceof)$/;
-const SELECTOR_CALLS = /(?:querySelector(?:All)?|getElementById|closest|matches|\$)\s*\($/;
+const NON_COLOR_KEYS = new Set(["href", "src", "to", "id", "for", "htmlFor", "target", "selector", "xlinkHref", "xlink:href", "action"]);
+const SELECTOR_CALLS = new Set(["querySelector", "querySelectorAll", "getElementById", "closest", "matches", "$"]);
+const CSS_TAGS = new Set(["css", "styled", "createGlobalStyle", "keyframes", "injectGlobal"]);
 
 function hexInValue(value, base, hits) {
   const cleaned = value.replace(/url\(\s*(?:"[^"]*"|'[^']*'|[^)]*)\)/g, (m) => " ".repeat(m.length));
@@ -87,40 +87,79 @@ function skipString(text, i) {
   return text.length;
 }
 
-// Walk JS/TS/JSX: skip comments, check every string and template literal.
-function scanJs(text, base, hits) {
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (c === "/" && text[i + 1] === "/") {
-      const nl = text.indexOf("\n", i);
-      i = nl < 0 ? text.length : nl;
-    } else if (c === "/" && text[i + 1] === "*") {
-      const close = text.indexOf("*/", i + 2);
-      i = close < 0 ? text.length : close + 1;
-    } else if (c === '"' || c === "'" || c === "`") {
-      const end = skipString(text, i);
-      const body = text.slice(i + 1, end);
-      const before = text.slice(Math.max(0, i - 80), i).trimEnd();
-      const key = before.match(/([\w:-]+)["']?\s*[:=]$/)?.[1];
-      if (key === "style" && before.endsWith("=")) scanCss(body, base + i + 1, hits);
-      else if (!(key && NON_COLOR_KEYS.has(key)) && !SELECTOR_CALLS.test(before)) {
-        // Only a tagged template (styled.div`...`, css`...`) is a stylesheet;
-        // any other template is an ordinary string value.
-        if (c === "`" && TAGGED.test(before) && !KEYWORD_BEFORE.test(before)) scanCss(body, base + i + 1, hits);
-        else hexInValue(body, base + i + 1, hits);
+// The identifier at the root of a tag: css, styled.button, styled(Base),
+// styled.div.attrs({...}) and styled(Base).attrs(...) all resolve to their root.
+function tagRoot(node) {
+  while (node) {
+    if (node.type === "Identifier") return node.name;
+    node = node.type === "MemberExpression" ? node.object : node.type === "CallExpression" ? node.callee : null;
+  }
+  return null;
+}
+
+const keyName = (key) => key && (key.name ?? key.value);
+const jsxName = (name) => name && (name.namespace ? `${name.namespace.name}:${name.name.name}` : name.name);
+
+// Does the parent make this string something other than a colour value?
+function exempt(parent) {
+  if (!parent) return false;
+  if (parent.type === "ObjectProperty") return NON_COLOR_KEYS.has(keyName(parent.key));
+  if (parent.type === "JSXAttribute") return NON_COLOR_KEYS.has(jsxName(parent.name));
+  if (parent.type === "CallExpression") {
+    const callee = parent.callee.type === "MemberExpression" ? parent.callee.property : parent.callee;
+    return SELECTOR_CALLS.has(callee?.name);
+  }
+  return /^(Import|Export\w*)Declaration$|^ImportExpression$/.test(parent.type);
+}
+
+function walkJs(node, parent, base, src, hits) {
+  if (!node || typeof node.type !== "string") return;
+  if (node.type === "StringLiteral" && !exempt(parent)) {
+    if (parent?.type === "JSXAttribute" && jsxName(parent.name) === "style") scanCss(node.value, base + node.start + 1, hits);
+    else hexInValue(src.slice(node.start + 1, node.end - 1), base + node.start + 1, hits);
+  } else if (node.type === "TemplateLiteral" && !exempt(parent)) {
+    if (parent?.type === "TaggedTemplateExpression" && CSS_TAGS.has(tagRoot(parent.tag))) {
+      // CSS template: blank the ${...} spans so offsets hold and the CSS walker
+      // sees the declarations; the expressions are walked below as JS.
+      const first = node.quasis[0].start, last = node.quasis.at(-1).end;
+      let css = src.slice(first, last);
+      for (const e of node.expressions) {
+        const from = e.start - first - 2, to = e.end - first + 1; // include "${" and "}"
+        css = css.slice(0, from) + " ".repeat(to - from) + css.slice(to);
       }
-      i = end;
+      scanCss(css, base + first, hits);
+    } else {
+      for (const q of node.quasis) hexInValue(src.slice(q.start, q.end), base + q.start, hits);
     }
+  }
+  for (const [k, v] of Object.entries(node)) {
+    if (k === "loc" || k === "extra" || k.endsWith("Comments")) continue;
+    if (Array.isArray(v)) v.forEach((child) => walkJs(child, node, base, src, hits));
+    else if (v && typeof v.type === "string") walkJs(v, node, base, src, hits);
   }
 }
 
+async function scanJs(text, base, hits, { expression = false, file = "x.jsx" } = {}) {
+  const { parse, parseExpression } = await import("@babel/parser");
+  // .ts can't take the jsx plugin (it breaks <T>x assertions); .js/.jsx may hold JSX.
+  const plugins = /\.[mc]?ts$/.test(file) ? ["typescript"] : /\.tsx$/.test(file) ? ["jsx", "typescript"] : ["jsx"];
+  const opts = { sourceType: "module", plugins, errorRecovery: true };
+  let ast;
+  try {
+    ast = expression ? parseExpression(text, opts) : parse(text, opts);
+  } catch (err) {
+    hits.push({ error: `cannot parse: ${err.message}`, index: base + (err.pos ?? 0) });
+    return;
+  }
+  walkJs(ast, null, base, text, hits);
+}
+
 // HTML/Vue/Svelte: <style> as CSS, <script> as JS, then attributes.
-function scanMarkup(text, hits) {
+async function scanMarkup(text, hits) {
   let markup = text;
   for (const [tag, scan] of [["style", scanCss], ["script", scanJs]]) {
     for (const m of text.matchAll(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, "gi"))) {
-      const bodyStart = m.index + m[0].indexOf(">") + 1;
-      scan(m[1], bodyStart, hits);
+      await scan(m[1], m.index + m[0].indexOf(">") + 1, hits, { file: /lang=["']ts/.test(m[0]) ? "x.ts" : "x.js" });
       markup = markup.slice(0, m.index) + " ".repeat(m[0].length) + markup.slice(m.index + m[0].length);
     }
   }
@@ -128,15 +167,15 @@ function scanMarkup(text, hits) {
     const value = a[2] ?? a[3];
     const at = a.index + a[0].length - value.length - 1;
     if (a[1] === "style") scanCss(value, at, hits);
-    else if (/^(:|v-bind:)style$/.test(a[1])) scanJs(value, at, hits);
+    else if (/^(:|v-bind:)style$/.test(a[1])) await scanJs(value, at, hits, { expression: true });
   }
 }
 
-export function rawHex(file, text) {
+export async function rawHex(file, text) {
   const hits = [];
   if (/\.(css|scss|sass|less|pcss)$/.test(file)) scanCss(text, 0, hits);
-  else if (/\.(m?[jt]sx?|cjs)$/.test(file)) scanJs(text, 0, hits);
-  else if (/\.(html?|vue|svelte)$/.test(file)) scanMarkup(text, hits);
+  else if (/\.([mc]?[jt]sx?)$/.test(file)) await scanJs(text, 0, hits, { file });
+  else if (/\.(html?|vue|svelte)$/.test(file)) await scanMarkup(text, hits);
   const line = (i) => text.slice(0, i).split("\n").length;
   return [...new Map(hits.map((h) => [h.index, { ...h, line: line(h.index) }])).values()];
 }
@@ -193,7 +232,8 @@ async function main() {
   const used = new Set();
   for (const file of componentFiles) {
     const text = readFileSync(file, "utf8");
-    for (const h of rawHex(file, text)) fail(`raw hex ${h.hex} in ${file}:${h.line}`);
+    for (const h of await rawHex(file, text))
+      fail(h.error ? `scan: ${file}:${h.line}: ${h.error}` : `raw hex ${h.hex} in ${file}:${h.line}`);
     for (const m of text.matchAll(/var\(--([a-z0-9-]+)/g)) used.add(m[1]);
   }
 

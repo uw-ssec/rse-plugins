@@ -133,6 +133,7 @@ A build that exits 0 can still emit unusable output. Check that
 Run after each workflow step. Fail closed: any failure exits nonzero.
 
 ```bash
+npm install --save-dev @babel/parser   # parses JS/JSX/TS for the raw-hex check
 cp <skill>/assets/validate-tokens.mjs scripts/validate-tokens.mjs
 node scripts/validate-tokens.mjs
 ```
@@ -143,11 +144,13 @@ Dictionary v4+/v5 API and checks:
 1. **Names.** Every token path segment is lowercase kebab-case.
 2. **References and tiers.** All references resolve. Globals hold raw values,
    aliases reference globals, and components reference aliases.
-3. **No raw hex** under `src/components/`. Files are tokenized by type: CSS
-   declaration values (wrapped lines included), JS/JSX string and template
-   literals, and `style="..."` / `:style` in HTML, Vue and Svelte. ID selectors,
-   `href="#abc"`, `querySelector("#abc")` and `url(#abc)` pass. A missing directory
-   is an error, not a pass.
+3. **No raw hex** under `src/components/`. CSS declaration values are checked
+   (wrapped lines included). JS/JSX/TS is parsed with `@babel/parser`: every
+   string and template piece counts, and `css`/`styled` templates are read as
+   CSS with their `${...}` interpolations checked as JS. `style="..."` and `:style`
+   in HTML, Vue and Svelte are checked too. ID selectors, `href="#abc"`,
+   `querySelector("#abc")`, import paths and `url(#abc)` pass. A file that
+   doesn't parse, or a missing directory, is an error, not a pass.
 4. **Unused tokens** (warning only). These are component tokens that no
    `var(--…)` in `src/components/` uses, plus aliases and globals that nothing
    references.
