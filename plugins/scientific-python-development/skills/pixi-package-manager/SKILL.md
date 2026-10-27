@@ -1,9 +1,9 @@
 ---
 name: pixi-package-manager
-description: "Use when the user mentions pixi, pixi.toml, pixi.lock, pixi add/run/task, conda-forge environments, or needs reproducible scientific Python environments combining conda and PyPI packages. Manage scientific Python dependencies with pixi: create environments, add conda-forge and PyPI packages, define and run tasks, generate multi-platform lockfiles, and migrate from conda/requirements.txt. Trigger phrases: 'pixi', 'pixi.toml', 'pixi.lock', 'pixi add', 'pixi run', 'scientific computing environment', 'conda-forge', 'dependency lockfile'."
+description: "Use when the user works with pixi (pixi.toml, pixi.lock, pixi add/run/task/global/exec) or wants a reproducible scientific Python environment that mixes conda-forge and PyPI packages: creating environments, adding dependencies, defining tasks, multi-platform lockfiles, or migrating from conda environment.yml / requirements.txt. Not for pure uv/pip projects or for building and publishing packages to PyPI (use python-packaging)."
 metadata:
-  pixi-version: "0.72.1"
-  last-verified: "2026-07-08"
+  pixi-version: "0.83.0"
+  last-verified: "2026-10-27"
   assets:
     - assets/github-actions-pixi.yml
     - assets/pyproject-multi-env.toml
@@ -35,8 +35,8 @@ irm -useb https://pixi.sh/install.ps1 | iex
 # Initialize new project with pyproject.toml
 pixi init --format pyproject
 
-# Import from an existing environment.yml
-pixi init --format pyproject --import environment.yml
+# Import from an existing environment.yml (writes pixi.toml; --import and --format can't be combined)
+pixi init --import environment.yml
 ```
 
 ### Essential Commands
@@ -93,23 +93,40 @@ and pixi-vs-uv guidance, see
 
 ### 1. Unified Package Management (conda + PyPI)
 
-Conda-forge and PyPI packages resolve in one graph:
+Conda-forge and PyPI packages resolve in one graph. In a `pyproject.toml`
+manifest, `[project].dependencies` are **PyPI** requirements; conda-forge
+packages go in `[tool.pixi.dependencies]`. If a package appears in both, pixi
+installs the conda version.
 
 ```toml
 [project]
 name = "my-science-project"
+requires-python = ">=3.11"
 dependencies = [
-    "numpy>=1.24",      # from conda-forge (optimized builds)
-    "pandas>=2.0",      # from conda-forge
+    "my-custom-pkg>=1.0",   # PyPI (also what `pip install .` sees)
 ]
 
-[tool.pixi.pypi-dependencies]
-my-custom-pkg = ">=1.0"        # PyPI-only package
+[tool.pixi.dependencies]
+numpy = ">=1.24"            # conda-forge (optimized builds)
+pandas = ">=2.0"            # conda-forge
 ```
+
+`pixi add numpy` writes to `[tool.pixi.dependencies]`; `pixi add --pypi pkg`
+writes to `[project].dependencies`.
 
 ### 2. Multi-Platform Lockfiles
 
-Commit `pixi.lock` (covers linux-64, osx-64/arm64, win-64) so collaborators and CI resolve identical versions.
+Commit `pixi.lock` so collaborators and CI resolve identical versions. The
+lockfile only covers the platforms listed in the workspace, which default to
+the current machine's platform, so list every platform you support:
+
+```toml
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+```
+
+Regenerate the lockfile without installing with `pixi lock`.
 
 ### 3. Feature-Based Environments
 
@@ -120,14 +137,21 @@ Compose environments from features without duplicating dependencies:
 pytest = ">=7.0"
 pytest-cov = ">=4.0"
 
+[tool.pixi.feature.gpu.system-requirements]
+cuda = "12"                 # lets the solver pick CUDA builds
+
 [tool.pixi.feature.gpu.dependencies]
-pytorch-cuda = "11.8.*"
+pytorch-gpu = "*"           # conda-forge CUDA build of pytorch
 
 [tool.pixi.environments]
 test = ["test"]
 gpu = ["gpu"]
 gpu-test = ["gpu", "test"]  # combines features
 ```
+
+`pixi add --feature dev ...` only records dependencies on the feature. Nothing
+can use them until an environment lists the feature, for example
+`dev = ["dev"]` under `[tool.pixi.environments]`; then run `pixi run -e dev ...`.
 
 ### 4. Task Automation
 
@@ -160,8 +184,9 @@ pixi init --format pyproject
 # Add scientific stack
 pixi add python=3.11 numpy pandas matplotlib xarray
 
-# Add development tools
+# Add development tools and expose them as a `dev` environment
 pixi add --feature dev pytest ipython ruff
+pixi workspace environment add dev --feature dev
 
 # Create analysis script
 cat > analyze.py << 'EOF'
@@ -203,9 +228,9 @@ Quick fixes for the most common failures (full guide in
 - **Solver reports a conflict** → inspect with `pixi tree <pkg>`, relax pins
   (`numpy>=1.24,<2` instead of `==`) or isolate the environment with its own
   `solve-group`, then re-run `pixi install` and confirm it resolves cleanly.
-- **Lockfile didn't generate / is stale** → run `pixi install` to regenerate
-  `pixi.lock`, then verify with `ls pixi.lock`; after a git merge conflict, take
-  one side and re-run `pixi install`.
+- **Lockfile didn't generate / is stale** → run `pixi lock` (or `pixi install`)
+  to regenerate `pixi.lock`, then verify with `ls pixi.lock`; after a git merge
+  conflict, take one side and re-run `pixi lock`.
 - **Works on one OS, fails on another** → guard OS-specific deps under
   `[tool.pixi.target.<platform>.dependencies]`, confirm the platform is listed in
   `[tool.pixi.workspace].platforms`, then re-run `pixi install` on that platform.
