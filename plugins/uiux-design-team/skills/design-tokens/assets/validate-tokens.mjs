@@ -1,6 +1,7 @@
 // Validate design tokens. Exits 1 on any failure; prints WARN for unused tokens.
-// Usage: node scripts/validate-tokens.mjs   (Style Dictionary v4 or v5, Node 18+)
-// Needs style-dictionary and @babel/parser (dev dependencies). Run from the
+// Usage: node scripts/validate-tokens.mjs
+// Style Dictionary v4 (Node 18+) or v5 (Node 22+), with @babel/parser 7.
+// Needs style-dictionary and @babel/parser@^7 (dev dependencies). Run from the
 // project root. rawHex() is exported for the regression tests in
 // validate-tokens.test.mjs (`node --test`).
 // Expects tokens/global.json, tokens/alias.json, tokens/components/*.json,
@@ -100,31 +101,41 @@ function tagRoot(node) {
 const keyName = (key) => key && (key.name ?? key.value);
 const jsxName = (name) => name && (name.namespace ? `${name.namespace.name}:${name.name.name}` : name.name);
 
-// Does the parent make this string something other than a colour value?
-function exempt(parent) {
-  if (!parent) return false;
-  if (parent.type === "ObjectProperty") return NON_COLOR_KEYS.has(keyName(parent.key));
-  if (parent.type === "JSXAttribute") return NON_COLOR_KEYS.has(jsxName(parent.name));
-  if (parent.type === "CallExpression") {
-    const callee = parent.callee.type === "MemberExpression" ? parent.callee.property : parent.callee;
+// Nodes that pass a value through unchanged: the meaningful context of a
+// string inside them is their own context (href={x ? "#a" : "#b"}).
+const WRAPPERS = new Set([
+  "JSXExpressionContainer", "ConditionalExpression", "LogicalExpression", "ParenthesizedExpression",
+  "SequenceExpression", "TSAsExpression", "TSSatisfiesExpression", "TSNonNullExpression",
+  "TSTypeAssertion", "TypeCastExpression", "AwaitExpression",
+]);
+
+// Does the context make this string something other than a colour value?
+function exempt(ctx) {
+  if (!ctx) return false;
+  if (ctx.type === "ObjectProperty") return NON_COLOR_KEYS.has(keyName(ctx.key));
+  if (ctx.type === "JSXAttribute") return NON_COLOR_KEYS.has(jsxName(ctx.name));
+  if (ctx.type === "CallExpression" || ctx.type === "OptionalCallExpression") {
+    const c = ctx.callee;
+    const callee = c.type === "MemberExpression" || c.type === "OptionalMemberExpression" ? c.property : c;
     return SELECTOR_CALLS.has(callee?.name);
   }
-  return /^(Import|Export\w*)Declaration$|^ImportExpression$/.test(parent.type);
+  return /^(Import|Export\w*)Declaration$|^ImportExpression$/.test(ctx.type);
 }
 
-function walkJs(node, parent, base, src, hits) {
+function walkJs(node, parent, ctx, base, src, hits) {
   if (!node || typeof node.type !== "string") return;
-  if (node.type === "StringLiteral" && !exempt(parent)) {
-    if (parent?.type === "JSXAttribute" && jsxName(parent.name) === "style") scanCss(node.value, base + node.start + 1, hits);
+  if (node.type === "StringLiteral" && !exempt(ctx)) {
+    if (ctx?.type === "JSXAttribute" && jsxName(ctx.name) === "style") scanCss(node.value, base + node.start + 1, hits);
     else hexInValue(src.slice(node.start + 1, node.end - 1), base + node.start + 1, hits);
-  } else if (node.type === "TemplateLiteral" && !exempt(parent)) {
+  } else if (node.type === "TemplateLiteral" && !exempt(ctx)) {
     if (parent?.type === "TaggedTemplateExpression" && CSS_TAGS.has(tagRoot(parent.tag))) {
-      // CSS template: blank the ${...} spans so offsets hold and the CSS walker
-      // sees the declarations; the expressions are walked below as JS.
+      // CSS template: blank each ${...} gap between adjacent quasis (whatever
+      // whitespace, parens or comments it holds) so offsets hold and the CSS
+      // walker sees the declarations; the expressions are walked below as JS.
       const first = node.quasis[0].start, last = node.quasis.at(-1).end;
       let css = src.slice(first, last);
-      for (const e of node.expressions) {
-        const from = e.start - first - 2, to = e.end - first + 1; // include "${" and "}"
+      for (let q = 0; q + 1 < node.quasis.length; q++) {
+        const from = node.quasis[q].end - first, to = node.quasis[q + 1].start - first;
         css = css.slice(0, from) + " ".repeat(to - from) + css.slice(to);
       }
       scanCss(css, base + first, hits);
@@ -132,10 +143,11 @@ function walkJs(node, parent, base, src, hits) {
       for (const q of node.quasis) hexInValue(src.slice(q.start, q.end), base + q.start, hits);
     }
   }
+  const childCtx = WRAPPERS.has(node.type) ? ctx : node;
   for (const [k, v] of Object.entries(node)) {
-    if (k === "loc" || k === "extra" || k.endsWith("Comments")) continue;
-    if (Array.isArray(v)) v.forEach((child) => walkJs(child, node, base, src, hits));
-    else if (v && typeof v.type === "string") walkJs(v, node, base, src, hits);
+    if (k === "loc" || k === "extra" || k === "errors" || k.endsWith("Comments")) continue;
+    if (Array.isArray(v)) v.forEach((child) => walkJs(child, node, childCtx, base, src, hits));
+    else if (v && typeof v.type === "string") walkJs(v, node, childCtx, base, src, hits);
   }
 }
 
@@ -148,10 +160,13 @@ async function scanJs(text, base, hits, { expression = false, file = "x.jsx" } =
   try {
     ast = expression ? parseExpression(text, opts) : parse(text, opts);
   } catch (err) {
-    hits.push({ error: `cannot parse: ${err.message}`, index: base + (err.pos ?? 0) });
+    hits.push({ error: `cannot parse: ${err.message}`, index: base + (err.pos ?? err.loc?.index ?? 0) });
     return;
   }
-  walkJs(ast, null, base, text, hits);
+  // errorRecovery keeps parsing past some errors (e.g. a redeclared const) and
+  // collects them here instead of throwing; they still mean invalid source.
+  for (const err of ast.errors ?? []) hits.push({ error: `cannot parse: ${err.message}`, index: base + (err.pos ?? err.loc?.index ?? 0) });
+  walkJs(ast, null, null, base, text, hits);
 }
 
 // HTML/Vue/Svelte: <style> as CSS, <script> as JS, then attributes.

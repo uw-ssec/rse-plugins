@@ -45,6 +45,14 @@ const cases = {
   "tsx: typed component": ["a.tsx", 'const B = (p: { c: string }) => <div style={{ color: "#abc" }} />;', ["#abc"]],
   "js: import path": ["a.js", 'import x from "#abc";', []],
   "jsx: htmlFor": ["a.jsx", '<label htmlFor="#abc">x</label>', []],
+  "js: spaced interpolation then hex": ["a.js", "const B = styled.div`border: ${ width }px solid #abc;`;", ["#abc"]],
+  "js: parenthesized interpolation then hex": ["a.js", "const B = styled.div`border: ${(width)}px solid #abc;`;", ["#abc"]],
+  "js: commented interpolation then hex": ["a.js", "const B = styled.div`border: ${ /* w */ width }px solid #abc;`;", ["#abc"]],
+  "jsx: href expression": ["a.jsx", '<a href={"#abc"}>top</a>', []],
+  "jsx: conditional href": ["a.jsx", '<a href={open ? "#abc" : "#def"}>x</a>', []],
+  "jsx: conditional style value": ["a.jsx", '<div style={{ color: dark ? "#fff" : "#000" }} />', ["#fff", "#000"]],
+  "js: optional querySelector": ["a.js", 'document.querySelector?.("#abc");', []],
+  "js: style value through a call": ["a.jsx", '<div style={{ color: shade("#abc") }} />', ["#abc"]],
   "jsx: href fragment": ["a.jsx", '<a href="#abc">top</a>', []],
   "js: querySelector": ["a.js", 'document.querySelector("#abc");', []],
   "js: hex in comment": ["a.js", '// fallback "#abc"\nconst s = { color: "var(--x)" };', []],
@@ -60,6 +68,16 @@ const cases = {
 
 for (const [name, [file, source, expected]] of Object.entries(cases)) {
   test(name, async () => assert.deepEqual(await hexes(file, source), expected));
+}
+
+for (const [name, source] of Object.entries({
+  "redeclared const": "const width = 1; const width = 2;",
+  "malformed JSX": 'export const B = () => <div style={{ color: "#abc" }>;',
+})) {
+  test(`parse error is a failure: ${name}`, async () => {
+    const hits = await rawHex("a.jsx", source);
+    assert.ok(hits.some((h) => h.error?.startsWith("cannot parse")), JSON.stringify(hits));
+  });
 }
 
 test("reports the line of a wrapped value", async () => {

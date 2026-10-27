@@ -85,7 +85,7 @@ only literals allowed are keywords such as `transparent` or `none`.
 
 ## Style Dictionary Config (`style-dictionary.config.mjs`)
 
-Targets Style Dictionary v4 or v5 (ESM, async API). v3 used a different API
+Targets Style Dictionary v4 (Node 18+) or v5 (Node 22+), both ESM with an async API. v3 used a different API
 (`require(...).extend()`, synchronous builds); pin `style-dictionary@^5` or
 `@^4` in `package.json`.
 
@@ -133,7 +133,7 @@ A build that exits 0 can still emit unusable output. Check that
 Run after each workflow step. Fail closed: any failure exits nonzero.
 
 ```bash
-npm install --save-dev @babel/parser   # parses JS/JSX/TS for the raw-hex check
+npm install --save-dev @babel/parser@^7   # parses JS/JSX/TS for the raw-hex check (Node 18+)
 cp <skill>/assets/validate-tokens.mjs scripts/validate-tokens.mjs
 node scripts/validate-tokens.mjs
 ```
