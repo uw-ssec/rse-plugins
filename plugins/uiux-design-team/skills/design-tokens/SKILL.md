@@ -142,9 +142,10 @@ Dictionary v4+/v5 API and checks:
 1. **Names.** Every token path segment is lowercase kebab-case.
 2. **References and tiers.** All references resolve. Globals hold raw values,
    aliases reference globals, and components reference aliases.
-3. **No raw hex** in property values under `src/components/` (`color: #abc`).
-   ID selectors and `#fragment` links pass. A missing directory is an error,
-   not a pass.
+3. **No raw hex** in declaration values under `src/components/` (`color: #abc`,
+   including values wrapped across lines, `style="..."` and JSX style objects).
+   ID selectors, `href="#abc"` links and `url(#abc)` references pass. A missing
+   directory is an error, not a pass.
 4. **Unused tokens** (warning only). These are component tokens that no
    `var(--…)` in `src/components/` uses, plus aliases and globals that nothing
    references.

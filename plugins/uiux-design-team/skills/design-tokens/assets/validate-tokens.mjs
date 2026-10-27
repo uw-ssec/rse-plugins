@@ -64,15 +64,25 @@ for (const token of allTokens) {
     fail(`tier: component "${path}" must reference alias tokens, got ${JSON.stringify(token.original.value)}`);
 }
 
-// 3. No raw hex colours in components (tokens only). A hex counts only in a
-//    value position: after a ":" on the same line, and not in a selector
-//    (one followed by "{"). `#abc {` selectors and href="#abc" links pass.
-function hexValues(line) {
-  return [...line.matchAll(/#[0-9a-fA-F]{3,8}\b/g)].filter((m) => {
-    const before = line.slice(0, m.index).match(/[{};:=](?=[^{};:=]*$)/)?.[0];
-    const after = line.slice(m.index).match(/[{};]/)?.[0];
-    return before === ":" && after !== "{";
-  });
+// 3. No raw hex colours in components (tokens only). Hex counts only inside a
+//    declaration value: CSS `prop: value` (values may wrap across lines) or a
+//    JS/JSX style property `prop: "#abc"`. Selectors (`#abc {`), href="#abc"
+//    links and url(#abc) fragment references pass.
+const blank = (m) => m.replace(/[^\n]/g, " "); // keep offsets and line numbers
+const HEX = /#[0-9a-fA-F]{3,8}\b/g;
+function rawHex(text) {
+  const src = text.replace(/\/\*[\s\S]*?\*\//g, blank).replace(/url\([^)]*\)/g, blank);
+  const hits = [];
+  // CSS declarations: start after { ; or a quote (style="..."), end at ; } or a quote.
+  for (const d of src.matchAll(/(?<=^|[{;"'`])\s*[-\w]+\s*:([^;{}"'`]*)(?=[;}"'`])/g)) {
+    const start = d.index + d[0].length - d[1].length;
+    for (const h of d[1].matchAll(HEX)) hits.push({ hex: h[0], index: start + h.index });
+  }
+  // JS/JSX style objects: color: "#abc"
+  for (const d of src.matchAll(/[-\w]+["']?\s*:\s*["'`](#[0-9a-fA-F]{3,8})\b/g))
+    hits.push({ hex: d[1], index: d.index + d[0].length - d[1].length });
+  const line = (i) => src.slice(0, i).split("\n").length;
+  return [...new Map(hits.map((h) => [h.index, { ...h, line: line(h.index) }])).values()];
 }
 
 let componentFiles = [];
@@ -84,8 +94,7 @@ try {
 const used = new Set();
 for (const file of componentFiles) {
   const text = readFileSync(file, "utf8");
-  text.split("\n").forEach((line, i) =>
-    hexValues(line).forEach((m) => fail(`raw hex ${m[0]} in ${file}:${i + 1}`)));
+  for (const h of rawHex(text)) fail(`raw hex ${h.hex} in ${file}:${h.line}`);
   for (const m of text.matchAll(/var\(--([a-z0-9-]+)/g)) used.add(m[1]);
 }
 
