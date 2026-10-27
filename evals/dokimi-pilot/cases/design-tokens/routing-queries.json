@@ -1,0 +1,10 @@
+[
+ "We repeat the same colors and spacing in four apps. Help me introduce primitives, semantic aliases and component tokens without tying components to palette numbers.",
+ "Set up Style Dictionary to build CSS variables, Swift constants and Android resources from our token JSON.",
+ "Our token build succeeds but the Android package is missing semantic colors. Can you audit the aliases and output config?",
+ "Button padding currently references spacing.4 directly. Introduce a semantic spacing layer so we can switch density without editing every component.",
+ "Audit this design token JSON for unresolved aliases, cycles and inconsistent names before we publish it.",
+ "Our design token validation prints FAIL but CI stays green. Make invalid names, raw component colors and broken references fail the build.",
+ "Migrate this existing Style Dictionary token pipeline to its v4 API and preserve CSS references in the generated output.",
+ "Review a three-tier design token setup and rename the component aliases so their meaning survives a brand palette change."
+]

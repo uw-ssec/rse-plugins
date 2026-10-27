@@ -1,0 +1,77 @@
+[
+ {
+  "id": "pos-01",
+  "prompt": "My test comparing two float arrays fails on CI but passes locally. How should I compare numerical results?",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-02",
+  "prompt": "Write tests for a function that computes the trapezoidal integral of sampled data.",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-03",
+  "prompt": "How do I parametrize a pytest test over float32 and float64 inputs?",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-04",
+  "prompt": "Add property-based tests with Hypothesis for my normalize() function that rescales arrays to [0, 1].",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-05",
+  "prompt": "My tests using random numbers are flaky. How do I make them deterministic?",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-06",
+  "prompt": "Set up a conftest.py with shared fixtures for a small synthetic dataset.",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-07",
+  "prompt": "What's a good pytest configuration in pyproject.toml for a scientific package, including coverage?",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "pos-08",
+  "prompt": "How do I test that my function warns with a DeprecationWarning and raises ValueError on negative input?",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "near-01",
+  "prompt": "Set up ruff and pre-commit to lint my test files.",
+  "expected_skill": "code-quality-tools"
+ },
+ {
+  "id": "near-02",
+  "prompt": "Add a pixi task that runs the tests and a separate test environment.",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "near-03",
+  "prompt": "Validate that my reimplementation of the paper's algorithm reproduces the published figures.",
+  "expected_skill": "validating-implementations"
+ },
+ {
+  "id": "near-04",
+  "prompt": "Design an A/B test for our sign-up page and compute the needed sample size.",
+  "expected_skill": "ab-testing-strategy"
+ },
+ {
+  "id": "neg-01",
+  "prompt": "Write a function that reads a CSV file into a pandas DataFrame.",
+  "expected_skill": null
+ },
+ {
+  "id": "neg-02",
+  "prompt": "What's the time complexity of Python's sort?",
+  "expected_skill": null
+ },
+ {
+  "id": "neg-03",
+  "prompt": "How do I set up Jest for a TypeScript React project?",
+  "expected_skill": null
+ }
+]

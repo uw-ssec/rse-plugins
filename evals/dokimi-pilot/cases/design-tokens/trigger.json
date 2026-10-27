@@ -1,0 +1,77 @@
+[
+ {
+  "id": "positive-01",
+  "prompt": "We repeat the same colors and spacing in four apps. Help me introduce primitives, semantic aliases and component tokens without tying components to palette numbers.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-02",
+  "prompt": "Set up Style Dictionary to build CSS variables, Swift constants and Android resources from our token JSON.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-03",
+  "prompt": "Our token build succeeds but the Android package is missing semantic colors. Can you audit the aliases and output config?",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-04",
+  "prompt": "Button padding currently references spacing.4 directly. Introduce a semantic spacing layer so we can switch density without editing every component.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-05",
+  "prompt": "Audit this design token JSON for unresolved aliases, cycles and inconsistent names before we publish it.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-06",
+  "prompt": "Our design token validation prints FAIL but CI stays green. Make invalid names, raw component colors and broken references fail the build.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-07",
+  "prompt": "Migrate this existing Style Dictionary token pipeline to its v4 API and preserve CSS references in the generated output.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "positive-08",
+  "prompt": "Review a three-tier design token setup and rename the component aliases so their meaning survives a brand palette change.",
+  "expected_skill": "design-tokens"
+ },
+ {
+  "id": "near-miss-01",
+  "prompt": "Starting from a blank product, plan a complete design system with component governance, contribution rules, Storybook and release ownership.",
+  "expected_skill": "design-system-creation"
+ },
+ {
+  "id": "near-miss-02",
+  "prompt": "Generate an accessible brand color scale from 50 to 950 and check contrast for text and background pairs.",
+  "expected_skill": "color-systems"
+ },
+ {
+  "id": "near-miss-03",
+  "prompt": "Build a shared React button with CVA variants, Storybook interaction stories and accessibility coverage using our existing tokens.",
+  "expected_skill": "component-library"
+ },
+ {
+  "id": "near-miss-04",
+  "prompt": "Choose a font pairing and a fluid clamp-based type scale with readable line length and line height.",
+  "expected_skill": "typography-systems"
+ },
+ {
+  "id": "negative-01",
+  "prompt": "Write a short poem about collecting arcade tokens.",
+  "expected_skill": null
+ },
+ {
+  "id": "negative-02",
+  "prompt": "What is 17 multiplied by 23?",
+  "expected_skill": null
+ },
+ {
+  "id": "negative-03",
+  "prompt": "Translate 'the meeting starts tomorrow' into French.",
+  "expected_skill": null
+ }
+]
