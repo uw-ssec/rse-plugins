@@ -57,13 +57,24 @@ for (const token of allTokens) {
   const refTiers = refs.map((r) => tierOf(byPath.get(r)?.filePath ?? ""));
   if (tier === "unknown") fail(`tier: "${path}" is in ${token.filePath}, outside global/alias/components`);
   if (tier === "global" && refs.length) fail(`tier: global "${path}" references other tokens`);
-  if (tier === "alias" && refTiers.some((t) => t !== "global")) fail(`tier: alias "${path}" must reference globals`);
   const keyword = KEYWORDS.has(String(token.original.value));
+  if (tier === "alias" && ((!refs.length && !keyword) || refTiers.some((t) => t !== "global")))
+    fail(`tier: alias "${path}" must reference globals, got ${JSON.stringify(token.original.value)}`);
   if (tier === "component" && ((!refs.length && !keyword) || refTiers.some((t) => t !== "alias")))
     fail(`tier: component "${path}" must reference alias tokens, got ${JSON.stringify(token.original.value)}`);
 }
 
-// 3. No raw hex colours in components (tokens only).
+// 3. No raw hex colours in components (tokens only). A hex counts only in a
+//    value position: after a ":" on the same line, and not in a selector
+//    (one followed by "{"). `#abc {` selectors and href="#abc" links pass.
+function hexValues(line) {
+  return [...line.matchAll(/#[0-9a-fA-F]{3,8}\b/g)].filter((m) => {
+    const before = line.slice(0, m.index).match(/[{};:=](?=[^{};:=]*$)/)?.[0];
+    const after = line.slice(m.index).match(/[{};]/)?.[0];
+    return before === ":" && after !== "{";
+  });
+}
+
 let componentFiles = [];
 try {
   componentFiles = filesUnder("src/components");
@@ -73,7 +84,8 @@ try {
 const used = new Set();
 for (const file of componentFiles) {
   const text = readFileSync(file, "utf8");
-  for (const m of text.matchAll(/#[0-9a-fA-F]{3,8}\b/g)) fail(`raw hex ${m[0]} in ${file}`);
+  text.split("\n").forEach((line, i) =>
+    hexValues(line).forEach((m) => fail(`raw hex ${m[0]} in ${file}:${i + 1}`)));
   for (const m of text.matchAll(/var\(--([a-z0-9-]+)/g)) used.add(m[1]);
 }
 
