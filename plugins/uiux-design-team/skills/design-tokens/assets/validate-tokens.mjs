@@ -34,14 +34,17 @@ function filesUnder(dir) {
 //      and comments are skipped.
 //    - JS/TS/JSX and <script> blocks: hex in any string or template literal,
 //      except values of href/src/to/id/selector keys or attributes and
-//      arguments of DOM selector calls (querySelector("#main")). Template
-//      literals are also read as CSS (styled-components, css``).
+//      arguments of DOM selector calls (querySelector("#main")). Tagged
+//      template literals (styled.div`...`, css`...`) are read as CSS.
 //    - HTML/Vue/Svelte markup: style="..." declarations and :style bindings.
 //    url(...) contents are never treated as colours (url(#gradient) is an SVG
 //    fragment reference). An id string that happens to be valid hex, such as
 //    "#add", is reported when used outside those keys; rename it.
 const HEX = /#[0-9a-fA-F]{3,8}\b/g;
 const NON_COLOR_KEYS = new Set(["href", "src", "to", "id", "for", "target", "selector", "xlinkHref", "xlink:href", "action"]);
+// A template is tagged when an identifier, member or call ends right before it.
+const TAGGED = /[\w$)\]]$/;
+const KEYWORD_BEFORE = /(?:^|[^\w$.])(?:return|typeof|void|await|yield|in|of|case|else|do|throw|new|delete|instanceof)$/;
 const SELECTOR_CALLS = /(?:querySelector(?:All)?|getElementById|closest|matches|\$)\s*\($/;
 
 function hexInValue(value, base, hits) {
@@ -101,8 +104,9 @@ function scanJs(text, base, hits) {
       const key = before.match(/([\w:-]+)["']?\s*[:=]$/)?.[1];
       if (key === "style" && before.endsWith("=")) scanCss(body, base + i + 1, hits);
       else if (!(key && NON_COLOR_KEYS.has(key)) && !SELECTOR_CALLS.test(before)) {
-        // A template outside a property value is CSS-in-JS (styled.div`...`).
-        if (c === "`" && !before.endsWith(":")) scanCss(body, base + i + 1, hits);
+        // Only a tagged template (styled.div`...`, css`...`) is a stylesheet;
+        // any other template is an ordinary string value.
+        if (c === "`" && TAGGED.test(before) && !KEYWORD_BEFORE.test(before)) scanCss(body, base + i + 1, hits);
         else hexInValue(body, base + i + 1, hits);
       }
       i = end;
