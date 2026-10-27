@@ -44,6 +44,7 @@ const cases = {
   "ts: type assertion file": ["a.ts", 'const c = <string>"#abc";\nconst id = { id: "#add" };', ["#abc"]],
   "tsx: typed component": ["a.tsx", 'const B = (p: { c: string }) => <div style={{ color: "#abc" }} />;', ["#abc"]],
   "js: import path": ["a.js", 'import x from "#abc";', []],
+  "js: dynamic import path": ["a.jsx", 'const Button = lazy(() => import("#abc"));', []],
   "jsx: htmlFor": ["a.jsx", '<label htmlFor="#abc">x</label>', []],
   "js: spaced interpolation then hex": ["a.js", "const B = styled.div`border: ${ width }px solid #abc;`;", ["#abc"]],
   "js: parenthesized interpolation then hex": ["a.js", "const B = styled.div`border: ${(width)}px solid #abc;`;", ["#abc"]],

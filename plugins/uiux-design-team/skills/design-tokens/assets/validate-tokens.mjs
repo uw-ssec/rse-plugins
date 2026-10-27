@@ -155,7 +155,8 @@ async function scanJs(text, base, hits, { expression = false, file = "x.jsx" } =
   const { parse, parseExpression } = await import("@babel/parser");
   // .ts can't take the jsx plugin (it breaks <T>x assertions); .js/.jsx may hold JSX.
   const plugins = /\.[mc]?ts$/.test(file) ? ["typescript"] : /\.tsx$/.test(file) ? ["jsx", "typescript"] : ["jsx"];
-  const opts = { sourceType: "module", plugins, errorRecovery: true };
+  // createImportExpressions: Babel 7 otherwise emits import("x") as a CallExpression.
+  const opts = { sourceType: "module", plugins, errorRecovery: true, createImportExpressions: true };
   let ast;
   try {
     ast = expression ? parseExpression(text, opts) : parse(text, opts);
