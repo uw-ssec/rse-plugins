@@ -6,6 +6,7 @@ metadata:
    last-verified: "2026-10-27"
    assets:
    - assets/validate-tokens.mjs
+   - assets/validate-tokens.test.mjs
    references:
    - references/naming-conventions.md
    - references/platform-output.md
@@ -142,15 +143,18 @@ Dictionary v4+/v5 API and checks:
 1. **Names.** Every token path segment is lowercase kebab-case.
 2. **References and tiers.** All references resolve. Globals hold raw values,
    aliases reference globals, and components reference aliases.
-3. **No raw hex** in declaration values under `src/components/` (`color: #abc`,
-   including values wrapped across lines, `style="..."` and JSX style objects).
-   ID selectors, `href="#abc"` links and `url(#abc)` references pass. A missing
-   directory is an error, not a pass.
+3. **No raw hex** under `src/components/`. Files are tokenized by type: CSS
+   declaration values (wrapped lines included), JS/JSX string and template
+   literals, and `style="..."` / `:style` in HTML, Vue and Svelte. ID selectors,
+   `href="#abc"`, `querySelector("#abc")` and `url(#abc)` pass. A missing directory
+   is an error, not a pass.
 4. **Unused tokens** (warning only). These are component tokens that no
    `var(--…)` in `src/components/` uses, plus aliases and globals that nothing
    references.
 
-Pass criteria: the script exits 0 and the build succeeds. Test the checks
+Pass criteria: the script exits 0 and the build succeeds. The scanner's
+regression cases live in [`assets/validate-tokens.test.mjs`](assets/validate-tokens.test.mjs)
+(`node --test`); add a case there when you change what counts as a raw colour. Test the checks
 themselves by injecting a bad name, a broken reference, a literal value in
 an alias and a raw hex value; each must make the script exit 1.
 
