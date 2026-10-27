@@ -19,8 +19,9 @@ to commit `b226dba`; Harbor is pinned to 0.25.0.
   8 positives, 4 near-misses that belong to a sibling skill and 3 negatives
   (`expected_skill: null`).
 - `cases/<skill>/routing-queries.json`: the positives only, for `novelty routing`.
-- `cases/design-tokens/quality-extra.json`: quality cases for design-tokens,
-  which has none in rse-plugins-testcases.
+- `cases/<skill>/quality-extra.json`: extra quality cases. design-tokens has
+  none in rse-plugins-testcases. pixi and python-testing get 2 each to reach 7,
+  above dokimi's 6-pair minimum for significance tests.
 - `testcases_to_dokimi.py`: converts rse-plugins-testcases YAML (`prompt`,
   `criteria`, `expect_skill`) into a skill-creator `evals.json` (quality) and a
   skill-reach query set (trigger). `expect_skill: false` cases join the trigger
