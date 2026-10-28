@@ -1,0 +1,101 @@
+name: Skill quality check
+
+# Replaces the Tessl PR skill review. Runs SkillEvaluator's keyless
+# `quality-check` (Tier 1 quality score only; no API key, no network calls
+# beyond installing the tool) on every skill a pull request changes, and fails
+# the check when a skill scores below MIN_SCORE.
+#
+# This is a quality-score gate, not full Tier 1 validation: `skillevaluator
+# validate` (schema, PII, licence and the Semgrep/SkillSpector/Gitleaks security
+# scanners) is tracked separately in #235.
+on:
+  pull_request:
+    paths:
+      - "plugins/*/skills/**"
+      - "community-plugins/*/skills/**"
+      - ".github/workflows/skill-quality-check.yml"
+      - ".github/scripts/skill-quality.py"
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  # NVIDIA/SkillEvaluator v0.6.0. Bump deliberately: scores can shift between releases.
+  SKILLEVALUATOR_REF: 5320d9329c36ecc72bc94c4f58cc813d6b54224b
+  # Every skill on main scored 80.0-89.8 (grade B) at v0.6.0 when this gate was added.
+  MIN_SCORE: "70"
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          python-version: "3.13"
+
+      - name: Select changed skills
+        id: select
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python3 .github/scripts/skill-quality.py select --base "$BASE_SHA" --head "$HEAD_SHA" > "$RUNNER_TEMP/skills.txt"
+          echo "count=$(grep -c . "$RUNNER_TEMP/skills.txt" || true)" >> "$GITHUB_OUTPUT"
+          cat "$RUNNER_TEMP/skills.txt"
+
+      - name: Install SkillEvaluator
+        if: steps.select.outputs.count != '0'
+        run: uv tool install --python 3.13 "skillevaluator @ git+https://github.com/NVIDIA/SkillEvaluator.git@${SKILLEVALUATOR_REF}"
+
+      - name: Run quality-check
+        if: steps.select.outputs.count != '0'
+        run: |
+          # Reports go to a fresh directory outside the checkout, so a report
+          # committed in the PR can't stand in for a run that crashed.
+          rm -rf "$RUNNER_TEMP/reports" && mkdir -p "$RUNNER_TEMP/reports"
+          : > "$RUNNER_TEMP/exits.tsv"
+          while IFS= read -r skill; do
+            out="$RUNNER_TEMP/reports/$(printf '%s' "$skill" | sed 's|/|__|g')"
+            echo "::group::$skill"
+            # Keep going past a failure so every skill is scored; the summary
+            # step fails the job on any non-zero exit or failing report.
+            code=0
+            skillevaluator quality-check "$skill" --min-score "$MIN_SCORE" -r cli,json -o "$out" || code=$?
+            printf '%s\t%s\n' "$skill" "$code" >> "$RUNNER_TEMP/exits.tsv"
+            echo "::endgroup::"
+          done < "$RUNNER_TEMP/skills.txt"
+
+      - name: Summarize
+        run: |
+          set +e
+          touch "$RUNNER_TEMP/exits.tsv"
+          python3 .github/scripts/skill-quality.py summarize --reports "$RUNNER_TEMP/reports" \
+            --skills "$RUNNER_TEMP/skills.txt" --exits "$RUNNER_TEMP/exits.tsv" \
+            --min-score "$MIN_SCORE" > "$RUNNER_TEMP/summary.md"
+          status=$?
+          set -e
+          cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/summary.md"
+          if [ "$status" -ne 0 ]; then
+            echo "::error::One or more skills failed quality-check (score below ${MIN_SCORE}, checker error or no report); see the job summary."
+          fi
+          exit "$status"
+
+      - name: Upload reports
+        if: always() && steps.select.outputs.count != '0'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: skill-quality-reports
+          path: ${{ runner.temp }}/reports/
+          if-no-files-found: ignore
