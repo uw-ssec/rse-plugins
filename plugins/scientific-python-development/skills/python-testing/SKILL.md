@@ -66,8 +66,8 @@ def test_mean_bounded(arr):
 
 ```toml
 [tool.pytest.ini_options]
-minversion = "7.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+minversion = "8.0"
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--import-mode=importlib"]
 testpaths = ["tests"]
 markers = [
     "slow: mark test as slow",
@@ -96,7 +96,7 @@ my-package/
 └── pyproject.toml
 ```
 
-No `__init__.py` in `tests/`. Install with `pip install -e .` so tests run against the installed package.
+No `__init__.py` in `tests/`; `--import-mode=importlib` (above) lets test files in different directories share a basename. Install the package in editable mode so tests run against it: with pixi, add it as an editable PyPI dependency and run `pixi run pytest`; otherwise `pip install -e .`.
 
 ---
 
@@ -110,7 +110,7 @@ No `__init__.py` in `tests/`. Install with `pip install -e .` so tests run again
 
 Non-obvious gotchas:
 - **`approx` vs `assert_allclose`**: `pytest.approx` is cleaner for most cases; use `numpy.testing.assert_allclose` when you need different `rtol`/`atol` per element or need better error messages for large arrays.
-- **`abs` tolerance near zero**: `approx(0.0)` with default relative tolerance always passes — always pass `abs=` when the expected value is or could be zero.
+- **`abs` tolerance near zero**: relative tolerance is scaled by the expected value, so `approx(0.0)` falls back to the default `abs=1e-12` and fails for ordinary round-off (`1e-9 == approx(0.0)` is `False`). Pass an explicit `abs=` sized to your numerics whenever the expected value is or could be zero.
 - **`--strict-markers`**: add it from day one; it turns typo'd marker names into errors rather than silent no-ops.
 - **Fixture scope**: `scope="session"` fixtures are shared across the whole run — any mutation bleeds into other tests. Use `scope="module"` for read-only shared data; keep mutable fixtures at `scope="function"`.
 - **Random seeds**: prefer `np.random.default_rng(42)` over `np.random.seed(42)`; the latter sets global state and can interact with other tests.
@@ -180,5 +180,5 @@ Minimal workflow step:
   run: pytest --cov=src --cov-report=xml
 
 - name: Upload coverage
-  uses: codecov/codecov-action@v4
+  uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5  # v7.1.1 (pin to a full SHA)
 ```
