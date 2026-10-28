@@ -2,7 +2,7 @@ import json
 import subprocess
 
 import pytest
-from conftest import _load
+from conftest import SCRIPTS, _load, run_step, workflow_step
 
 
 @pytest.fixture(scope="session")
@@ -57,6 +57,31 @@ def test_selects_skills_with_changed_files_including_nested_references(sq, repo)
     assert selected(sq, repo, base, head) == ["community-plugins/c/skills/three", "plugins/a/skills/one"]
 
 
+def move(repo, src, dst):
+    base = git(repo, "rev-parse", "HEAD")
+    (repo / dst).parent.mkdir(parents=True, exist_ok=True)
+    git(repo, "mv", src, dst)
+    git(repo, "commit", "-q", "-m", "move")
+    return base, git(repo, "rev-parse", "HEAD")
+
+
+def test_move_between_skills_selects_both(sq, repo):
+    commit(repo, {"plugins/a/skills/one/references/guide.md": "guide\n"})
+    base, head = move(repo, "plugins/a/skills/one/references/guide.md", "plugins/a/skills/two/references/guide.md")
+    assert selected(sq, repo, base, head) == ["plugins/a/skills/one", "plugins/a/skills/two"]
+
+
+def test_move_out_of_a_skill_selects_the_surviving_source(sq, repo):
+    commit(repo, {"plugins/a/skills/one/references/guide.md": "guide\n"})
+    base, head = move(repo, "plugins/a/skills/one/references/guide.md", "docs/guide.md")
+    assert selected(sq, repo, base, head) == ["plugins/a/skills/one"]
+
+
+def test_moving_a_whole_skill_selects_its_new_location(sq, repo):
+    base, head = move(repo, "plugins/a/skills/two", "plugins/a/skills/renamed")
+    assert selected(sq, repo, base, head) == ["plugins/a/skills/renamed"]
+
+
 def test_ignores_non_skill_paths(sq, repo):
     base, head = commit(repo, {"README.md": "x\n", "plugins/a/README.md": "x\n", "plugins/a/agents/x.md": "x\n"})
     assert selected(sq, repo, base, head) == []
@@ -98,9 +123,12 @@ def write_report(reports, skill, sq, score, passed):
     (d / "skillevaluator-quality.json").write_text(json.dumps(payload), encoding="utf-8")
 
 
+OK = {"plugins/a/skills/one": 0, "plugins/a/skills/two": 0}
+
+
 def test_summary_passes_when_every_skill_passes(sq, tmp_path):
     write_report(tmp_path, "plugins/a/skills/one", sq, 85.0, True)
-    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70)
+    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70, OK)
     assert ok
     assert "| `plugins/a/skills/one` | 85.0 | B | ✅ pass |" in table
 
@@ -108,13 +136,27 @@ def test_summary_passes_when_every_skill_passes(sq, tmp_path):
 def test_summary_fails_on_a_failing_skill(sq, tmp_path):
     write_report(tmp_path, "plugins/a/skills/one", sq, 85.0, True)
     write_report(tmp_path, "plugins/a/skills/two", sq, 61.0, False)
-    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one", "plugins/a/skills/two"], 70)
+    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one", "plugins/a/skills/two"], 70, {**OK, "plugins/a/skills/two": 1})
     assert not ok
     assert "❌ below min score" in table
 
 
+def test_summary_fails_when_the_checker_crashed_next_to_a_passing_report(sq, tmp_path):
+    write_report(tmp_path, "plugins/a/skills/one", sq, 85.0, True)
+    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70, {"plugins/a/skills/one": 2})
+    assert not ok
+    assert "❌ checker exited 2" in table
+
+
+def test_summary_fails_when_the_checker_did_not_run(sq, tmp_path):
+    write_report(tmp_path, "plugins/a/skills/one", sq, 85.0, True)
+    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70, {})
+    assert not ok
+    assert "❌ checker did not run" in table
+
+
 def test_summary_fails_on_a_missing_report(sq, tmp_path):
-    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70)
+    table, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70, OK)
     assert not ok
     assert "no readable report" in table
 
@@ -123,12 +165,12 @@ def test_summary_fails_on_a_malformed_report(sq, tmp_path):
     d = tmp_path / sq.report_name("plugins/a/skills/one")
     d.mkdir()
     (d / "skillevaluator-quality.json").write_text('{"overall_passed": true}', encoding="utf-8")
-    _, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70)
+    _, ok = sq.summarize(tmp_path, ["plugins/a/skills/one"], 70, OK)
     assert not ok
 
 
 def test_summary_with_no_skills_passes(sq, tmp_path):
-    table, ok = sq.summarize(tmp_path, [], 70)
+    table, ok = sq.summarize(tmp_path, [], 70, {})
     assert ok
     assert "no skills changed" in table
 
@@ -141,4 +183,54 @@ def test_summarize_cli_exit_code(sq, tmp_path):
     write_report(tmp_path, "plugins/a/skills/two", sq, 61.0, False)
     skills = tmp_path / "skills.txt"
     skills.write_text("plugins/a/skills/two\n", encoding="utf-8")
-    assert sq.main(["summarize", "--reports", str(tmp_path), "--skills", str(skills), "--min-score", "70"]) == 1
+    exits = tmp_path / "exits.tsv"
+    exits.write_text("plugins/a/skills/two\t1\n", encoding="utf-8")
+    args = ["summarize", "--reports", str(tmp_path), "--skills", str(skills), "--exits", str(exits), "--min-score", "70"]
+    assert sq.main(args) == 1
+
+
+# The run and summary steps of skill-quality-check.yml, run as the runner would,
+# with a stub `skillevaluator` standing in for the pinned checker.
+
+PASSING_REPORT = json.dumps({"overall_passed": True, "quality_summary": [{"overall_score": 85.0, "grade": "B"}]})
+STUB_PASS = (
+    'while [ $# -gt 0 ]; do [ "$1" = -o ] && out=$2; shift; done\n'
+    'mkdir -p "$out" && printf "%s" "$PASSING_REPORT" > "$out/skillevaluator-quality.json"\n'
+)
+STUB_CRASH = 'echo "UnicodeDecodeError: invalid start byte" >&2\nexit 1\n'
+
+
+def run_gate(tmp_path, stub):
+    work = tmp_path / "pr"
+    (work / ".github/scripts").mkdir(parents=True)
+    (work / ".github/scripts/skill-quality.py").write_text((SCRIPTS / "skill-quality.py").read_text(encoding="utf-8"))
+    skill = "plugins/a/skills/broken"
+    (work / skill).mkdir(parents=True)
+    (work / skill / "SKILL.md").write_bytes(b"\xff\xfe not utf-8\n")
+    # A passing report committed in the PR, where 333dc8b used to write reports.
+    stale = work / "reports" / skill.replace("/", "__")
+    stale.mkdir(parents=True)
+    (stale / "skillevaluator-quality.json").write_text(PASSING_REPORT, encoding="utf-8")
+    temp = tmp_path / "runner-temp"
+    temp.mkdir()
+    (temp / "skills.txt").write_text(skill + "\n", encoding="utf-8")
+    env = {"RUNNER_TEMP": str(temp), "MIN_SCORE": "70", "GITHUB_STEP_SUMMARY": str(temp / "step-summary.md"),
+           "PASSING_REPORT": PASSING_REPORT}
+    run, _ = run_step(workflow_step("skill-quality-check.yml", "Run quality-check"), work, env, {"skillevaluator": stub})
+    summary, _ = run_step(workflow_step("skill-quality-check.yml", "Summarize"), work, env)
+    return run, summary
+
+
+def test_gate_fails_when_the_checker_crashes_despite_a_stale_report(tmp_path):
+    run, summary = run_gate(tmp_path, STUB_CRASH)
+    assert run.returncode == 0, run.stderr  # the run step keeps going; the summary decides
+    assert summary.returncode == 1
+    assert "no readable report (checker exit 1)" in summary.stdout
+    assert "::error::" in summary.stdout
+
+
+def test_gate_passes_when_the_checker_writes_a_passing_report(tmp_path):
+    run, summary = run_gate(tmp_path, STUB_PASS)
+    assert run.returncode == 0, run.stderr
+    assert summary.returncode == 0, summary.stdout
+    assert "✅ pass" in summary.stdout

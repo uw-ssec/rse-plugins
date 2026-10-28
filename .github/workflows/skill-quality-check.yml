@@ -61,26 +61,34 @@ jobs:
       - name: Run quality-check
         if: steps.select.outputs.count != '0'
         run: |
-          mkdir -p reports
+          # Reports go to a fresh directory outside the checkout, so a report
+          # committed in the PR can't stand in for a run that crashed.
+          rm -rf "$RUNNER_TEMP/reports" && mkdir -p "$RUNNER_TEMP/reports"
+          : > "$RUNNER_TEMP/exits.tsv"
           while IFS= read -r skill; do
-            out="reports/$(printf '%s' "$skill" | sed 's|/|__|g')"
+            out="$RUNNER_TEMP/reports/$(printf '%s' "$skill" | sed 's|/|__|g')"
             echo "::group::$skill"
-            # The summary step judges pass/fail from each report, so keep going past a failure.
-            skillevaluator quality-check "$skill" --min-score "$MIN_SCORE" -r cli,json -o "$out" || true
+            # Keep going past a failure so every skill is scored; the summary
+            # step fails the job on any non-zero exit or failing report.
+            code=0
+            skillevaluator quality-check "$skill" --min-score "$MIN_SCORE" -r cli,json -o "$out" || code=$?
+            printf '%s\t%s\n' "$skill" "$code" >> "$RUNNER_TEMP/exits.tsv"
             echo "::endgroup::"
           done < "$RUNNER_TEMP/skills.txt"
 
       - name: Summarize
         run: |
           set +e
-          python3 .github/scripts/skill-quality.py summarize --reports reports \
-            --skills "$RUNNER_TEMP/skills.txt" --min-score "$MIN_SCORE" > "$RUNNER_TEMP/summary.md"
+          touch "$RUNNER_TEMP/exits.tsv"
+          python3 .github/scripts/skill-quality.py summarize --reports "$RUNNER_TEMP/reports" \
+            --skills "$RUNNER_TEMP/skills.txt" --exits "$RUNNER_TEMP/exits.tsv" \
+            --min-score "$MIN_SCORE" > "$RUNNER_TEMP/summary.md"
           status=$?
           set -e
           cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$RUNNER_TEMP/summary.md"
           if [ "$status" -ne 0 ]; then
-            echo "::error::One or more skills scored below ${MIN_SCORE} or produced no report; see the job summary."
+            echo "::error::One or more skills failed quality-check (score below ${MIN_SCORE}, checker error or no report); see the job summary."
           fi
           exit "$status"
 
@@ -89,5 +97,5 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: skill-quality-reports
-          path: reports/
+          path: ${{ runner.temp }}/reports/
           if-no-files-found: ignore
