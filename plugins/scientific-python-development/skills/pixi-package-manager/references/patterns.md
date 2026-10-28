@@ -33,8 +33,8 @@ while IFS= read -r package; do
     pixi add "$package" 2>/dev/null || pixi add --pypi "$package"
 done < requirements.txt
 
-# From environment.yml
-pixi init --format pyproject --import environment.yml
+# From environment.yml (--import writes pixi.toml; it cannot be combined with --format)
+pixi init --import environment.yml
 
 # Verify installation
 pixi install
