@@ -1,0 +1,23 @@
+# Separate workspace so the eval tooling never touches the root pixi.lock.
+# intel/dokimi is alpha with no stable release, so it is pinned to a commit.
+[workspace]
+name = "rse-plugins-dokimi-pilot"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64"]
+
+[dependencies]
+python = "3.12.*"
+pyyaml = "*"
+
+[pypi-dependencies]
+dokimi = { git = "https://github.com/intel/dokimi.git", rev = "b226dba220f60a143707b03662e636447f4e5eac", subdirectory = "dokimi" }
+harbor = "==0.25.0"
+# litellm imports mcp on its tool-calling path; the skill-catalog: arm fails every query without it.
+mcp = ">=1.0"
+
+[tasks]
+# Usage: pixi run convert <path to a uw-ssec/rse-plugins-testcases checkout>
+convert = "bash convert.sh"
+catalog-scan = "dokimi catalog scan --root ../../plugins --kind skills --strict && dokimi catalog scan --root ../../community-plugins --kind skills --strict"
+routing-bm25 = "bash routing.sh"
+harbor-lint = "harbor lint harbor-tasks/python-testing-numlib"

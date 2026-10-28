@@ -1,0 +1,10 @@
+[
+ "I have an environment.yml for my lab's analysis code. Can you turn it into something with a lockfile that works on both my Mac and the Linux cluster?",
+ "How do I add both gdal from conda-forge and a package that's only on PyPI to the same project environment?",
+ "Set up a pixi project for a climate analysis repo with numpy, xarray and a separate test environment.",
+ "My pixi run test task can't find pytest even though I added it with --feature dev. What's wrong?",
+ "pixi.lock has a merge conflict after rebasing. What's the right way to resolve it?",
+ "I want a GPU environment with pytorch and CUDA alongside my normal CPU environment, sharing the same project file.",
+ "Write a GitHub Actions workflow that installs the project with pixi and runs the test task.",
+ "Replace our requirements.txt plus conda setup with a single reproducible environment manager for a scientific Python package."
+]

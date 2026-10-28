@@ -1,0 +1,22 @@
+[
+ {
+  "id": "pixi-extra-01-platforms",
+  "prompt": "My collaborator on Windows can't install our pixi project, but it works on my Linux laptop and the pixi.lock is committed. What's likely wrong and how do I fix it so the lockfile covers both of us?",
+  "criteria": [
+   "Explains that the lockfile only covers the platforms listed in the workspace platforms setting",
+   "Shows adding win-64 (and other needed platforms) to the platforms list",
+   "Says to re-lock (pixi lock or pixi install) and commit the updated pixi.lock",
+   "Mentions handling platform-specific dependencies (target tables) if a package isn't available on Windows"
+  ]
+ },
+ {
+  "id": "pixi-extra-02-pyproject-deps",
+  "prompt": "In my pyproject.toml-based pixi project I want numpy and scipy from conda-forge but requests from PyPI. Where does each go, and what happens if I list numpy in both places?",
+  "criteria": [
+   "Puts conda-forge packages under [tool.pixi.dependencies]",
+   "Puts PyPI packages under [project].dependencies (or [tool.pixi.pypi-dependencies])",
+   "States that when a package is listed in both, pixi uses the conda package",
+   "Gives the matching pixi add / pixi add --pypi commands"
+  ]
+ }
+]

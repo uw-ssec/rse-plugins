@@ -1,0 +1,10 @@
+[
+ "My test comparing two float arrays fails on CI but passes locally. How should I compare numerical results?",
+ "Write tests for a function that computes the trapezoidal integral of sampled data.",
+ "How do I parametrize a pytest test over float32 and float64 inputs?",
+ "Add property-based tests with Hypothesis for my normalize() function that rescales arrays to [0, 1].",
+ "My tests using random numbers are flaky. How do I make them deterministic?",
+ "Set up a conftest.py with shared fixtures for a small synthetic dataset.",
+ "What's a good pytest configuration in pyproject.toml for a scientific package, including coverage?",
+ "How do I test that my function warns with a DeprecationWarning and raises ValueError on negative input?"
+]

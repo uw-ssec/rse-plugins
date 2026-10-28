@@ -1,0 +1,23 @@
+schema_version = "1.3"
+
+[metadata]
+skill = "python-testing"
+author_name = "rse-plugins pilot (#230)"
+difficulty = "medium"
+difficulty_explanation = "Tests must pass on correct numerics and catch planted off-by-one, scaling and tolerance bugs"
+category = "testing"
+tags = ["python", "pytest", "numpy", "scientific-testing"]
+
+[verifier]
+timeout_sec = 180.0
+
+[agent]
+timeout_sec = 600.0
+
+[environment]
+build_timeout_sec = 600.0
+network_mode = "no-network"
+cpus = 2
+memory_mb = 2048
+storage_mb = 4096
+gpus = 0

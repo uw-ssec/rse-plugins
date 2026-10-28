@@ -1,0 +1,77 @@
+[
+ {
+  "id": "pos-01",
+  "prompt": "I have an environment.yml for my lab's analysis code. Can you turn it into something with a lockfile that works on both my Mac and the Linux cluster?",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-02",
+  "prompt": "How do I add both gdal from conda-forge and a package that's only on PyPI to the same project environment?",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-03",
+  "prompt": "Set up a pixi project for a climate analysis repo with numpy, xarray and a separate test environment.",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-04",
+  "prompt": "My pixi run test task can't find pytest even though I added it with --feature dev. What's wrong?",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-05",
+  "prompt": "pixi.lock has a merge conflict after rebasing. What's the right way to resolve it?",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-06",
+  "prompt": "I want a GPU environment with pytorch and CUDA alongside my normal CPU environment, sharing the same project file.",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-07",
+  "prompt": "Write a GitHub Actions workflow that installs the project with pixi and runs the test task.",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "pos-08",
+  "prompt": "Replace our requirements.txt plus conda setup with a single reproducible environment manager for a scientific Python package.",
+  "expected_skill": "pixi-package-manager"
+ },
+ {
+  "id": "near-01",
+  "prompt": "Help me configure hatchling and publish my package to PyPI with trusted publishing.",
+  "expected_skill": "python-packaging"
+ },
+ {
+  "id": "near-02",
+  "prompt": "Write pytest fixtures for testing my xarray-based regridding function.",
+  "expected_skill": "python-testing"
+ },
+ {
+  "id": "near-03",
+  "prompt": "Set up ruff and mypy as pre-commit hooks for my Python repo.",
+  "expected_skill": "code-quality-tools"
+ },
+ {
+  "id": "near-04",
+  "prompt": "Our CI should fail if a dependency has a known CVE. How do I audit the lockfile for vulnerable packages?",
+  "expected_skill": "supply-chain-dependency-security"
+ },
+ {
+  "id": "neg-01",
+  "prompt": "How do I make a uv workspace with two member packages?",
+  "expected_skill": null
+ },
+ {
+  "id": "neg-02",
+  "prompt": "What's the difference between a Python list and a tuple?",
+  "expected_skill": null
+ },
+ {
+  "id": "neg-03",
+  "prompt": "How do I lock R package versions for a project with renv?",
+  "expected_skill": null
+ }
+]

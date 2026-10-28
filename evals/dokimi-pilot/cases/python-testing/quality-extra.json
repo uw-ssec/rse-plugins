@@ -1,0 +1,22 @@
+[
+ {
+  "id": "testing-extra-01-near-zero",
+  "prompt": "My test asserts that a computed residual equals approx(0.0) and it fails even though the residual is 3e-10. Why, and how should I write the assertion?",
+  "criteria": [
+   "Explains relative tolerance scales with the expected value, so approx(0.0) only allows the default absolute tolerance of 1e-12",
+   "Recommends passing an explicit abs= tolerance sized to the numerics",
+   "Gives a corrected assertion, e.g. approx(0.0, abs=1e-8)",
+   "Does not claim approx(0.0) always passes"
+  ]
+ },
+ {
+  "id": "testing-extra-02-flaky-random",
+  "prompt": "A test for my bootstrap resampling function fails about 1 in 20 runs in CI. How should I make it reliable without hiding real bugs?",
+  "criteria": [
+   "Uses a seeded local generator such as np.random.default_rng(seed) rather than global np.random.seed",
+   "Suggests passing the generator into the function under test",
+   "Distinguishes deterministic seeded tests from statistical tests with tolerances",
+   "Avoids recommending blanket retries or skipping the test as the fix"
+  ]
+ }
+]

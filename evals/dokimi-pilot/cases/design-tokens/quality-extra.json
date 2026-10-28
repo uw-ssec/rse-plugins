@@ -1,0 +1,101 @@
+[
+ {
+  "id": "quality-01-native-completeness",
+  "prompt": "Using Style Dictionary 4.4.0, create a minimal three-tier token project for blue and gray colors plus button padding. Generate CSS, Swift and Android outputs. Semantic color resources must be usable by Android consumers.",
+  "criteria": [
+   "Declares compatible setup and a runnable build command.",
+   "Specifies color type metadata for semantic aliases in the chosen source format.",
+   "Places the Swift class name in the supported options location.",
+   "Provides every referenced primitive and alias.",
+   "Generated Swift declares a named class; Android exposes semantic as well as component colors."
+  ],
+  "artifact_checks": [
+   "Build exits 0 in a clean isolated project.",
+   "Swift frontend syntax parser succeeds when available; record separately from an iOS compile.",
+   "Parse colors.xml and assert the expected semantic resource names exist.",
+   "Assert generated CSS references resolve."
+  ]
+ },
+ {
+  "id": "quality-02-density-layer",
+  "prompt": "We have spacing.2=0.5rem and spacing.4=1rem. Button padding-x and padding-y currently reference these globals directly. Refactor to a strict primitive -> semantic -> component architecture supporting compact and comfortable density.",
+  "criteria": [
+   "Adds purpose-based semantic spacing aliases.",
+   "Component padding references semantic names only.",
+   "Density changes alter the semantic mapping without renaming components.",
+   "All reference paths resolve and the generated values differ as intended between density modes."
+  ],
+  "artifact_checks": [
+   "Walk the reference graph and reject component-to-primitive edges.",
+   "Build both density configurations and compare component padding values."
+  ]
+ },
+ {
+  "id": "quality-03-name-linter",
+  "prompt": "Write a token-name validator for nested JSON. It must accept {\"color\":{\"blue\":{\"500\":{\"value\":\"#3b82f6\",\"type\":\"color\"}}}} and reject {\"Bad Name\":{\"value\":\"#fff\",\"type\":\"color\"}}. Use exit 0 for valid input and nonzero for malformed input or invalid names.",
+  "criteria": [
+   "Parses nested keys into token paths rather than searching for dotted string literals.",
+   "Distinguishes metadata fields from token path segments.",
+   "Allows numeric scale leaves such as 500.",
+   "Reports the invalid path and returns a failure status.",
+   "Malformed JSON and missing input files fail visibly."
+  ],
+  "artifact_checks": [
+   "Run valid, invalid-name, malformed-JSON and missing-file fixtures and capture actual exit codes."
+  ]
+ },
+ {
+  "id": "quality-04-raw-color-gate",
+  "prompt": "Our CI runs rg '#[0-9a-fA-F]{3,8}\\b' src/components/ && echo 'FAIL: raw hex in components'. It prints FAIL yet CI passes. Replace it with a reliable check that allows var(--button-bg), rejects a #123456 literal, and treats an unreadable or missing required source directory as an error.",
+  "criteria": [
+   "Explains why echo makes the matching branch return success.",
+   "Uses explicit nonzero status when a violation exists.",
+   "Returns success for a valid component fixture.",
+   "Does not silently treat scanning errors as clean results."
+  ],
+  "artifact_checks": [
+   "Execute clean, raw-color and missing-directory fixtures; check statuses rather than diagnostic substrings alone."
+  ]
+ },
+ {
+  "id": "quality-05-reference-validator",
+  "prompt": "Fix this validator for Style Dictionary 4.4.0: const sd = require('style-dictionary').extend('./style-dictionary.config.js'); try { sd.buildAllPlatforms(); } catch(e) { process.exit(1); }. It must build a valid project and fail for a missing token reference or a reference cycle.",
+  "criteria": [
+   "Uses the supported import and constructor API.",
+   "Awaits the build within error handling.",
+   "Valid input succeeds; broken and cyclic references fail.",
+   "Setup and module file extensions agree with the project module mode."
+  ],
+  "artifact_checks": [
+   "Execute valid, missing-reference and cycle fixtures under the declared package version."
+  ]
+ },
+ {
+  "id": "quality-06-used-token-audit",
+  "prompt": "A generated CSS file declares --button-bg and --unused. src/components/button.css uses var(--button-bg). Write an audit that reports --unused without reporting --button-bg just because rg prefixes a file path.",
+  "criteria": [
+   "Compares normalized token names without filename prefixes.",
+   "Distinguishes declarations from uses.",
+   "Explains treatment of tokens referenced transitively by other generated tokens.",
+   "Reports scan errors separately from an empty usage set."
+  ],
+  "artifact_checks": [
+   "Assert exactly --unused is reported for the minimal fixture.",
+   "Add a second source file and confirm filenames do not alter results."
+  ]
+ },
+ {
+  "id": "quality-07-themed-css",
+  "prompt": "Create a small light/dark token setup with a semantic primary color and a button background token. Show the palette definitions, reference chain and where the theme selector must be applied so toggling it changes the rendered button.",
+  "criteria": [
+   "Defines every palette value it references, including dark-theme targets.",
+   "Maintains the chosen primitive/semantic/component architecture.",
+   "Uses theme scoping that actually updates component styles through CSS custom-property computation.",
+   "Includes a concrete verification of the rendered or computed button color before and after toggling."
+  ],
+  "artifact_checks": [
+   "Check reference completeness.",
+   "When a browser runner is available, compare computed button background colors before and after toggling at the documented element."
+  ]
+ }
+]
