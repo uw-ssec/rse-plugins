@@ -61,6 +61,31 @@ dokimi tasks run --tasks-root harbor-tasks --tasks python-testing-numlib \
   --baseline-harness docker-claude --model <model>
 ```
 
+## Gateway notes (llmoxie LiteLLM)
+
+These were learned running the pilot:
+
+- **Routing:** route through the OpenAI-compatible endpoint with
+  `--provider openai`, `OPENAI_BASE_URL=<gateway>/v1` and `OPENAI_API_KEY`. Use
+  the gateway's model aliases (`ssec-claude-haiku-5-5`, `ssec-claude-sonnet-5-5`,
+  `ssec-gpt-6.1-sol`).
+- **Pricing:** `--max-usd` stops on a model with no known price. Register the
+  aliases with `litellm.register_model`, copying the underlying model's list
+  prices, e.g. from a `sitecustomize.py` on `PYTHONPATH`.
+- **Sampling params:** the Claude aliases reject `--temperature` and `--seed`
+  in `arms run`. dokimi's pre-flight probe refuses the run before spending
+  anything.
+- **Catalog-arm cost:** the `skill-catalog:` arm sends all 76 skill listings
+  on every turn. It costs about $0.09 per skill on Haiku 5.5 and about $2 per
+  skill on Sonnet 5.5.
+- **Harbor agent on macOS:** dokimi's `docker-claude` harness copies the host
+  `claude` binary into the container, so it needs a Linux host. On macOS, use
+  `harbor run -a claude-code --skill <dir>` with `ANTHROPIC_BASE_URL` /
+  `ANTHROPIC_API_KEY` pointed at the gateway.
+- **Reports:** `dokimi report model-compare --regular-runs <haiku.json>
+  <sonnet.json> --run-ids haiku,sonnet` is the report for `arms run` output.
+  `report generate` and `report eval` read a different schema.
+
 ## Notes
 
 - `network_mode = "no-network"` in `task.toml` needs Harbor's kernel egress

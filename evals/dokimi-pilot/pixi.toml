@@ -12,6 +12,8 @@ pyyaml = "*"
 [pypi-dependencies]
 dokimi = { git = "https://github.com/intel/dokimi.git", rev = "b226dba220f60a143707b03662e636447f4e5eac", subdirectory = "dokimi" }
 harbor = "==0.25.0"
+# litellm imports mcp on its tool-calling path; the skill-catalog: arm fails every query without it.
+mcp = ">=1.0"
 
 [tasks]
 # Usage: pixi run convert <path to a uw-ssec/rse-plugins-testcases checkout>
