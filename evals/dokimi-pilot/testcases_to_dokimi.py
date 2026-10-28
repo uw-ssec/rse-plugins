@@ -11,7 +11,10 @@ testcases join it as ``expected_skill: null`` negatives.
 
 Usage:
   python testcases_to_dokimi.py --testcases DIR --skill-path plugins/x/skills/y \
-      [--extra-quality extra.json] [--trigger trigger.json] --out OUTDIR
+      [--no-testcases] [--extra-quality extra.json] [--trigger trigger.json] --out OUTDIR
+
+A skill must have testcases under <testcases>/<skill path>/evals/ unless
+--no-testcases says it has none on purpose.
 """
 
 import argparse
@@ -21,9 +24,16 @@ from pathlib import Path
 import yaml
 
 
-def load_testcases(root: Path, skill_path: str) -> list[dict]:
+def load_testcases(root: Path, skill_path: str, allow_missing: bool) -> list[dict]:
+    evals = root / skill_path / "evals"
+    files = sorted(evals.glob("*.y*ml"))
+    if not files:
+        # A missing or empty directory would silently shrink the evaluation.
+        if allow_missing:
+            return []
+        raise SystemExit(f"{evals}: no testcases (pass --no-testcases if the skill has none)")
     cases = []
-    for path in sorted((root / skill_path / "evals").glob("*.y*ml")):
+    for path in files:
         case = yaml.safe_load(path.read_text())
         missing = {"prompt", "criteria", "expect_skill"} - set(case)
         if missing:
@@ -36,13 +46,15 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--testcases", type=Path, required=True)
     ap.add_argument("--skill-path", required=True)
+    ap.add_argument("--no-testcases", action="store_true",
+                    help="the skill has no rse-plugins-testcases cases; use --extra-quality only")
     ap.add_argument("--extra-quality", type=Path)
     ap.add_argument("--trigger", type=Path)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
 
     skill = Path(args.skill_path).name
-    cases = load_testcases(args.testcases, args.skill_path)
+    cases = load_testcases(args.testcases, args.skill_path, args.no_testcases)
     if args.extra_quality:
         cases += [{**c, "expect_skill": True} for c in json.loads(args.extra_quality.read_text())]
 

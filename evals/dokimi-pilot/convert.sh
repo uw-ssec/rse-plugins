@@ -11,7 +11,9 @@ trap 'rm -rf "$catalog"' EXIT
 cp -R ../../plugins ../../community-plugins "$catalog/"
 while read -r skill path; do
   extra=()
-  [ -f "cases/$skill/quality-extra.json" ] && extra=(--extra-quality "cases/$skill/quality-extra.json")
+  if [ -f "cases/$skill/quality-extra.json" ]; then extra=(--extra-quality "cases/$skill/quality-extra.json"); fi
+  # design-tokens has no rse-plugins-testcases cases; its quality set is extras only.
+  if [ "$skill" = design-tokens ]; then extra+=(--no-testcases); fi
   python testcases_to_dokimi.py --testcases "$testcases" --skill-path "$path" \
     --trigger "cases/$skill/trigger.json" ${extra[@]+"${extra[@]}"} --out "out/$skill"
   dokimi questions import "out/$skill/evals.json" -o "out/$skill/questions.v2.json"

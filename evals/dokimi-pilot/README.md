@@ -29,7 +29,11 @@ to commit `b226dba`; Harbor is pinned to 0.25.0.
 - `harbor-tasks/python-testing-numlib`: a Harbor task. The agent writes a
   pytest suite for a small numerical package. The verifier scores it by
   mutation: the suite must pass on the reference code, and the reward is the
-  fraction of 5 planted bugs it catches.
+  fraction of 5 planted bugs it catches. Each run starts from a fresh copy of
+  the submitted workspace and its own `TMPDIR`, so a suite that leaves state
+  behind can't fail every mutant and fake a perfect score.
+  `check_harbor_task.sh` holds the controls: oracle 1.0, no tests 0, a smoke
+  suite 0.0, and stateful suites 0.0.
 
 ## Running
 
@@ -39,7 +43,12 @@ pixi run catalog-scan                      # free: strict load of all 76 skills
 pixi run convert ../../../rse-plugins-testcases   # writes out/<skill>/
 pixi run routing-bm25                      # free lexical routing floor
 pixi run harbor-lint
+./check_harbor_task.sh [image]                 # verifier regression controls (Docker, no LLM)
 ```
+
+`convert` fails if a skill has no rse-plugins-testcases cases, so a wrong
+checkout path can't silently shrink the evaluation. design-tokens has none on
+purpose and passes `--no-testcases`.
 
 Model-backed runs need gateway credentials (`LITELLM_PROXY_URL` /
 `LITELLM_API_KEY`). Each command takes `--model`/`--provider`; set `--max-usd`
