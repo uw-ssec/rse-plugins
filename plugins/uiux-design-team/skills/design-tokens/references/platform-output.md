@@ -290,12 +290,14 @@ This format can be consumed by Figma plugins, Sketch libraries, or custom design
 ### Custom Formatters
 
 ```js
-const StyleDictionary = require('style-dictionary');
+// Style Dictionary v4+ is ESM: `format` replaces v3's `formatter`,
+// and `dictionary.allTokens` replaces `allProperties`.
+import StyleDictionary from 'style-dictionary';
 
 StyleDictionary.registerFormat({
   name: 'typescript/module',
-  formatter: ({ dictionary }) => {
-    const lines = dictionary.allProperties.map((token) => {
+  format: ({ dictionary }) => {
+    const lines = dictionary.allTokens.map((token) => {
       const name = token.name
         .split('-')
         .map((s, i) => (i === 0 ? s : s[0].toUpperCase() + s.slice(1)))
@@ -308,9 +310,9 @@ StyleDictionary.registerFormat({
 
 StyleDictionary.registerFormat({
   name: 'css/theme-variables',
-  formatter: ({ dictionary, options }) => {
+  format: ({ dictionary, options }) => {
     const selector = options.selector || ':root';
-    const vars = dictionary.allProperties
+    const vars = dictionary.allTokens
       .map((token) => `  --${token.name}: ${token.value};`)
       .join('\n');
     return `${selector} {\n${vars}\n}`;
