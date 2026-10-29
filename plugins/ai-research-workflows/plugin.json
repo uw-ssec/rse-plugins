@@ -1,0 +1,25 @@
+{
+    "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    "name": "ai-research-workflows",
+    "version": "0.2.0",
+    "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, plan, experiment, implement, validate, reproduce, harden, and handoff — interactive when you want collaboration, direct when you don't.",
+    "author": {
+        "name": "SSEC Research Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "ai-workflows",
+        "research",
+        "implementation-planning",
+        "code-exploration",
+        "structured-development",
+        "experimentation",
+        "validation",
+        "skills",
+        "reproducibility",
+        "research-software"
+    ]
+}
