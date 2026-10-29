@@ -41,20 +41,27 @@ Package checks, for every plugin:
   skills are copied on their own, so a link to ../sibling breaks);
 - a plugin with a Claude ``.mcp.json`` also ships a portable ``mcp.json``
   (once root plugin.json exists, Codex reads only mcp.json), and mcp.json
-  follows the closed MCP schema.
+  follows the closed MCP schema. A stdio ``command`` that is a path and every
+  ``cwd`` stay inside the plugin root (or the plugin data directory), after
+  ``..`` and symlinks are resolved;
+- an agent's ``skills`` frontmatter is a list. Copilot CLI silently drops an
+  agent whose ``skills`` is a plain string, while Claude Code accepts it.
 
-Standard library only.
+Needs PyYAML, so frontmatter is read the way clients read it.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 PLUGIN_PARENTS = ("plugins", "community-plugins")
@@ -283,6 +290,11 @@ def check_mcp(pdir: Path, root: Path, errors: list[str]) -> None:
             cmd = server.get("command")
             if not isinstance(cmd, str) or not cmd or " " in cmd or "${" in cmd:
                 errors.append(f"{where}: command must be one executable token with no placeholders")
+            elif cmd.startswith("./"):
+                if not inside(pdir / cmd, pdir):
+                    errors.append(f"{where}: command {cmd!r} resolves outside the plugin root")
+            elif "/" in cmd or "\\" in cmd:
+                errors.append(f"{where}: command must be a bare executable name or a ./ plugin-relative path")
             if not all(isinstance(a, str) for a in server.get("args", [])):
                 errors.append(f"{where}: args must be strings")
             env = server.get("env", {})
@@ -290,8 +302,12 @@ def check_mcp(pdir: Path, root: Path, errors: list[str]) -> None:
                 errors.append(f"{where}: env must map names to strings")
             elif {"PLUGIN_ROOT", "PLUGIN_DATA"} & set(env):
                 errors.append(f"{where}: env must not set PLUGIN_ROOT or PLUGIN_DATA")
-            if "cwd" in server and not (isinstance(server["cwd"], str) and CWD.match(server["cwd"])):
-                errors.append(f"{where}: cwd must start with ./, ${{PLUGIN_ROOT}} or ${{PLUGIN_DATA}}")
+            if "cwd" in server:
+                cwd = server["cwd"]
+                if not (isinstance(cwd, str) and CWD.match(cwd)):
+                    errors.append(f"{where}: cwd must start with ./, ${{PLUGIN_ROOT}} or ${{PLUGIN_DATA}}")
+                elif not cwd_contained(cwd, pdir):
+                    errors.append(f"{where}: cwd {cwd!r} resolves outside the plugin root or data directory")
             texts = [*server.get("args", []), *env.values(), server.get("cwd", "")]
             for t in texts:
                 for var in re.findall(r"\$\{([^}]*)\}", t if isinstance(t, str) else ""):
@@ -299,23 +315,27 @@ def check_mcp(pdir: Path, root: Path, errors: list[str]) -> None:
                         errors.append(f"{where}: ${{{var}}} is never expanded by Agent Plugins clients")
 
 
-def frontmatter(text: str) -> dict[str, str] | None:
-    """Top-level keys of SKILL.md frontmatter (plain and block scalars), or None if absent."""
+def cwd_contained(cwd: str, pdir: Path) -> bool:
+    """Whether a stdio cwd stays inside the root its form names, after `..` and symlinks."""
+    if cwd.startswith("${PLUGIN_DATA}"):
+        # The data directory is created by the client, so only `..` can escape it here.
+        data = Path("/plugin-data")
+        return Path(os.path.normpath(data / cwd[len("${PLUGIN_DATA}"):].lstrip("/"))).is_relative_to(data)
+    rest = cwd[len("${PLUGIN_ROOT}"):] if cwd.startswith("${PLUGIN_ROOT}") else cwd
+    return inside(pdir / rest.lstrip("/"), pdir)
+
+
+def frontmatter(text: str):
+    """The parsed YAML frontmatter, None if absent, or the YAMLError if it doesn't parse."""
     if not text.startswith("---\n"):
         return None
-    end = text.find("\n---", 4)
+    end = text.find("\n---", 3)
     if end < 0:
         return None
-    out: dict[str, str] = {}
-    key = None
-    for line in text[4:end].splitlines():
-        m = re.match(r"^([A-Za-z_][\w-]*):\s*(.*)$", line)
-        if m:
-            key, value = m.group(1), m.group(2).strip()
-            out[key] = "" if value in (">", "|", ">-", "|-", ">+", "|+") else value.strip("\"'")
-        elif key and line.startswith((" ", "\t")):
-            out[key] = (out[key] + " " + line.strip()).strip()
-    return out
+    try:
+        return yaml.safe_load(text[4:end + 1]) or {}
+    except yaml.YAMLError as e:
+        return e
 
 
 def link_targets(text: str):
@@ -355,12 +375,22 @@ def check_skills(pdir: Path, root: Path, errors: list[str]) -> None:
         if fm is None:
             errors.append(f"{srel}/SKILL.md: no YAML frontmatter")
             continue
+        if not isinstance(fm, dict):
+            errors.append(f"{srel}/SKILL.md: frontmatter is not a YAML mapping ({fm})")
+            continue
         if fm.get("name") != skill.name or not SKILL_NAME.match(skill.name):
             errors.append(f"{srel}/SKILL.md: name {fm.get('name')!r} must equal the lowercase-hyphenated"
                           f" directory name {skill.name!r}")
-        if not 1 <= len(fm.get("description", "")) <= 1024:
-            errors.append(f"{srel}/SKILL.md: description must be 1-1024 characters")
-        for k in sorted(set(fm) - SKILL_FIELDS):
+        desc = fm.get("description")
+        if not isinstance(desc, str) or not 1 <= len(desc) <= 1024:
+            errors.append(f"{srel}/SKILL.md: description must be a string of 1-1024 characters")
+        for k in ("license", "compatibility", "allowed-tools"):
+            if k in fm and not isinstance(fm[k], str):
+                errors.append(f"{srel}/SKILL.md: {k} must be a string")
+        # The spec wants string values; this repo's skills list their references under metadata.
+        if not isinstance(fm.get("metadata", {}), dict):
+            errors.append(f"{srel}/SKILL.md: metadata must be a mapping")
+        for k in sorted(set(fm) - SKILL_FIELDS, key=str):
             errors.append(f"{srel}/SKILL.md: frontmatter field {k!r} is not in the Agent Skills spec")
         for f in sorted(skill.rglob("*")):
             frel = f.relative_to(root)
@@ -386,6 +416,21 @@ def check_skills(pdir: Path, root: Path, errors: list[str]) -> None:
                     errors.append(f"{frel}:{n}: link {target!r} points at nothing")
 
 
+def check_agents(pdir: Path, root: Path, errors: list[str]) -> None:
+    for md in sorted((pdir / "agents").glob("*.md")):
+        rel = md.relative_to(root)
+        fm = frontmatter(md.read_text(encoding="utf-8"))
+        if fm is None:
+            continue
+        if not isinstance(fm, dict):
+            errors.append(f"{rel}: frontmatter is not a YAML mapping ({fm})")
+            continue
+        skills = fm.get("skills")
+        if skills is not None and not (isinstance(skills, list) and all(isinstance(x, str) for x in skills)):
+            errors.append(f"{rel}: skills must be a YAML list of names; Copilot CLI silently skips an agent"
+                          " whose skills is a single string")
+
+
 def check(root: Path, run_claude: bool) -> list[str]:
     errors: list[str] = []
     catalog = load(root / CATALOG)
@@ -398,6 +443,7 @@ def check(root: Path, run_claude: bool) -> list[str]:
         check_manifest(pdir, root, errors)
         check_mcp(pdir, root, errors)
         check_skills(pdir, root, errors)
+        check_agents(pdir, root, errors)
     try:
         for path, text in expected_files(root).items():
             if not path.is_file() or path.read_text(encoding="utf-8") != text:

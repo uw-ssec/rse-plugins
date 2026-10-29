@@ -29,6 +29,7 @@ jobs:
           # Fails on manifest drift (run .github/scripts/agent_plugins.py sync),
           # a plugin missing from the catalog, an invalid plugin.json or mcp.json,
           # and skill files or links that leave their skill directory.
+          python -m pip install 'pyyaml==6.0.3'
           python3 .github/scripts/agent_plugins.py check
 
       - name: Validate against the official Agent Plugins schemas
@@ -222,10 +223,11 @@ jobs:
           fi
 
           # Check for base64 encoded content (potential obfuscation)
-          # Exclude the GitHub contents API decode idiom (`gh api .../contents/...
-          # --jq '.content' | base64 -d`), which incident-response runbooks use to
-          # read a workflow file at a given commit.
-          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null | grep -v -E "\.content'\s*\|\s*base64\s+-d"; then
+          # Exempt only a line that is exactly `--jq '.content' | base64 -d`: the
+          # continuation of `gh api .../contents/...` that incident-response
+          # runbooks use to print a workflow file. Anything after the decode,
+          # such as `| sh`, is still flagged.
+          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null | grep -v -E "^[^:]+:[[:space:]]*--jq '\.content' \| base64 -d[[:space:]]*$"; then
             echo "⚠️  WARNING: base64 decoding detected - potential obfuscation"
             FOUND_ISSUES=1
           fi
