@@ -222,7 +222,10 @@ jobs:
           fi
 
           # Check for base64 encoded content (potential obfuscation)
-          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null; then
+          # Exclude the GitHub contents API decode idiom (`gh api .../contents/...
+          # --jq '.content' | base64 -d`), which incident-response runbooks use to
+          # read a workflow file at a given commit.
+          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null | grep -v -E "\.content'\s*\|\s*base64\s+-d"; then
             echo "⚠️  WARNING: base64 decoding detected - potential obfuscation"
             FOUND_ISSUES=1
           fi
