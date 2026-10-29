@@ -496,8 +496,8 @@ The migration can be gradual because build-time and runtime CSS-in-JS coexist in
 - [[bem-guide.md]] -- Traditional CSS naming convention as an alternative to CSS-in-JS
 - [[tailwind-patterns.md]] -- Utility-first CSS compared to Panda CSS and styled approaches
 - [[css-modules-guide.md]] -- Build-time scoped CSS without a JS authoring layer
-- [[../../frontend-components/references/react-patterns.md]] -- React patterns that commonly use CSS-in-JS
-- [[../../design-system-creation/references/theming-patterns.md]] -- Theme implementation across CSS-in-JS approaches
-- [[../../design-tokens/references/platform-output.md]] -- Token output formats consumed by CSS-in-JS theme objects
+- `react-patterns.md` (`references/react-patterns.md` in the `frontend-components` skill) -- React patterns that commonly use CSS-in-JS
+- `theming-patterns.md` (`references/theming-patterns.md` in the `design-system-creation` skill) -- Theme implementation across CSS-in-JS approaches
+- `platform-output.md` (`references/platform-output.md` in the `design-tokens` skill) -- Token output formats consumed by CSS-in-JS theme objects
 
 **Back to:** [CSS Architecture Skill](../SKILL.md)

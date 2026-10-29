@@ -495,9 +495,9 @@ The `ElementInternals` API provides access to form state, validation, and access
 - [[react-patterns.md]] -- React-specific patterns and using Web Components in React applications
 - [[vue-patterns.md]] -- Vue integration with Web Components
 - [[svelte-patterns.md]] -- Svelte integration with Web Components
-- [[../../design-system-creation/references/token-architecture.md]] -- Token architecture that Web Components consume via CSS custom properties
-- [[../../css-architecture/references/css-in-js-patterns.md]] -- Comparing Shadow DOM encapsulation with CSS-in-JS approaches
-- [[../../accessibility-audit/references/aria-patterns.md]] -- ARIA patterns for building accessible custom elements
+- `token-architecture.md` (`references/token-architecture.md` in the `design-system-creation` skill) -- Token architecture that Web Components consume via CSS custom properties
+- `css-in-js-patterns.md` (`references/css-in-js-patterns.md` in the `css-architecture` skill) -- Comparing Shadow DOM encapsulation with CSS-in-JS approaches
+- `aria-patterns.md` (`references/aria-patterns.md` in the `accessibility-audit` skill) -- ARIA patterns for building accessible custom elements
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
 

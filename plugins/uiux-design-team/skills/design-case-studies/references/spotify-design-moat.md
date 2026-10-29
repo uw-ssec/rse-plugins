@@ -271,4 +271,4 @@ Spotify did not win with better technology, a bigger catalog, or more marketing 
 - [Apple's Four Design Principles](apple-design-principles.md) -- Ecosystem consistency and strategic reduction as design moat, the same Comfort Trap strategy at the hardware level
 - [Psychological Design Engines](psychological-design-engines.md) -- Feedback loops and habit formation mechanics underlying the Trojan Horse principle
 - [Peak-End Rule in Product Design](peak-end-rule-design.md) -- Designing memorable moments, related to Wrapped's annual peak experience
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Don Norman's three levels of emotional design underlying all three of Spotify's principles
+- Design Philosophies (the `design-philosophies` skill) -- Don Norman's three levels of emotional design underlying all three of Spotify's principles

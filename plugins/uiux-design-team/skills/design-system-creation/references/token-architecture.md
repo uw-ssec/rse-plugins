@@ -1,4 +1,4 @@
-[Back to Design System Creation](../index.md)
+[Back to Design System Creation](../SKILL.md)
 
 # Design Token Architecture
 

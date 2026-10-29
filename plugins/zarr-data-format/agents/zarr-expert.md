@@ -1,6 +1,7 @@
 ---
 name: zarr-expert
-description: Comprehensive Zarr format expert for creating, reading, writing, and managing chunked, compressed, N-dimensional arrays. Deep knowledge of Zarr v2 and v3 specifications, compression codecs, storage backends, metadata management, hierarchical groups, advanced indexing, and integration with xarray, Dask, and the broader scientific Python ecosystem.
+description: |
+  Comprehensive Zarr format expert for creating, reading, writing, and managing chunked, compressed, N-dimensional arrays. Deep knowledge of Zarr v2 and v3 specifications, compression codecs, storage backends, metadata management, hierarchical groups, advanced indexing, and integration with xarray, Dask, and the broader scientific Python ecosystem.
 
   Use this agent when the user asks to "create a zarr array", "read zarr data", "write to zarr store", "configure zarr compression", "set up zarr groups", "work with zarr metadata", "convert data to zarr", "use zarr with xarray", "understand zarr format", or needs general Zarr guidance.
 

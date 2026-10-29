@@ -267,6 +267,6 @@ Apply Raycast's four strategies to your own product:
 ## See Also
 
 - [SaaS Dashboards](saas-dashboards.md) -- Stripe and Linear case studies with related patterns around data clarity and keyboard-first design
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Dieter Rams' principles and progressive disclosure theory that Raycast applies
-- [Usability Evaluation](../usability-evaluation/SKILL.md) -- Nielsen's heuristics referenced in the principle mapping
-- [Motion Design](../motion-design/SKILL.md) -- Performance-first animation approach that Raycast exemplifies
+- Design Philosophies (the `design-philosophies` skill) -- Dieter Rams' principles and progressive disclosure theory that Raycast applies
+- Usability Evaluation (the `usability-evaluation` skill) -- Nielsen's heuristics referenced in the principle mapping
+- Motion Design (the `motion-design` skill) -- Performance-first animation approach that Raycast exemplifies

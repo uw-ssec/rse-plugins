@@ -375,8 +375,8 @@ Onboarding text guides new users through setup and first use.
 
 - [[error-message-patterns.md]] -- Deep dive into error message types, tone calibration, and localization
 - [[voice-tone-guide.md]] -- How to define and maintain consistent voice across all microcopy
-- [[../../design-philosophies/references/emotional-design.md]] -- How microcopy contributes to behavioral and reflective emotional design
-- [[../../design-case-studies/references/saas-dashboards.md]] -- Microcopy patterns in Stripe, Linear, and Notion
-- [[../../wireframing/references/wireframe-patterns.md]] -- Wireframe annotations that specify microcopy requirements
+- `emotional-design.md` (`references/emotional-design.md` in the `design-philosophies` skill) -- How microcopy contributes to behavioral and reflective emotional design
+- `saas-dashboards.md` (`references/saas-dashboards.md` in the `design-case-studies` skill) -- Microcopy patterns in Stripe, Linear, and Notion
+- `wireframe-patterns.md` (`references/wireframe-patterns.md` in the `wireframing` skill) -- Wireframe annotations that specify microcopy requirements
 
 **Back to:** [UX Writing Skill](../SKILL.md)

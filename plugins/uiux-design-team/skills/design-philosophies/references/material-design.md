@@ -280,8 +280,8 @@ The most practical approach for many teams: use Material's **system architecture
 - [[apple-hig.md]] -- Compare Material's approach to Apple's Human Interface Guidelines for platform-specific decisions
 - [[dieter-rams-principles.md]] -- Material Design operationalizes many of Rams' principles at component level
 - [[gestalt-principles.md]] -- Material's spatial model relies on Gestalt figure-ground and common region
-- [[../../design-case-studies/references/mobile-apps.md]] -- Case studies of Material Design implemented in production apps
-- [[../../design-case-studies/references/design-systems-in-practice.md]] -- Compare Material to other production design systems
-- [[../../responsive-design/references/breakpoint-strategy.md]] -- Material's responsive layout grid and breakpoint system
+- `mobile-apps.md` (`references/mobile-apps.md` in the `design-case-studies` skill) -- Case studies of Material Design implemented in production apps
+- `design-systems-in-practice.md` (`references/design-systems-in-practice.md` in the `design-case-studies` skill) -- Compare Material to other production design systems
+- `breakpoint-strategy.md` (`references/breakpoint-strategy.md` in the `responsive-design` skill) -- Material's responsive layout grid and breakpoint system
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)

@@ -274,7 +274,7 @@ In a world where every product has the same access to technology, the thing that
 ## See Also
 
 - [SaaS Dashboards](saas-dashboards.md) -- Stripe's progressive disclosure and Linear's keyboard-first speed, which share Raycast's clarity-over-features philosophy
-- [Motion Design](../motion-design/SKILL.md) -- Animation principles, easing functions, and performance budgets for implementing emotional design
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Don Norman's emotional design framework in full theoretical depth
-- [Visual Design](../visual-design/SKILL.md) -- Aesthetic direction library and the visceral design layer
-- [Color Systems](../color-systems/SKILL.md) -- Warm vs cool palettes and their emotional impact
+- Motion Design (the `motion-design` skill) -- Animation principles, easing functions, and performance budgets for implementing emotional design
+- Design Philosophies (the `design-philosophies` skill) -- Don Norman's emotional design framework in full theoretical depth
+- Visual Design (the `visual-design` skill) -- Aesthetic direction library and the visceral design layer
+- Color Systems (the `color-systems` skill) -- Warm vs cool palettes and their emotional impact

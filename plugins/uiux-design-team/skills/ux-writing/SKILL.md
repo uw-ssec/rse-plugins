@@ -105,7 +105,7 @@ If any item fails → revise and re-validate.
 
 ## Next Steps
 
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)**: Verify copy works with screen readers
-- **[User Research](../user-research/SKILL.md)**: Test copy effectiveness with users
-- **[Information Architecture](../information-architecture/SKILL.md)**: Align copy with navigation labels
-- **[Design System Creation](../design-system-creation/SKILL.md)**: Document voice and tone in the system
+- **Accessibility Audit (the `accessibility-audit` skill)**: Verify copy works with screen readers
+- **User Research (the `user-research` skill)**: Test copy effectiveness with users
+- **Information Architecture (the `information-architecture` skill)**: Align copy with navigation labels
+- **Design System Creation (the `design-system-creation` skill)**: Document voice and tone in the system

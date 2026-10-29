@@ -264,8 +264,8 @@ Radix is an open-source project maintained by WorkOS:
 
 - [[saas-dashboards.md]] -- Products built with these design systems (Stripe, Linear, Notion)
 - [[brand-experiences.md]] -- How design systems support brand consistency across touchpoints
-- [[../../design-philosophies/references/dieter-rams-principles.md]] -- Design systems operationalize Rams' principles at scale
-- [[../../design-philosophies/references/material-design.md]] -- Material Design as the most widely adopted design system
-- [[../../responsive-design/references/breakpoint-strategy.md]] -- How design systems define and manage breakpoints
+- `dieter-rams-principles.md` (`references/dieter-rams-principles.md` in the `design-philosophies` skill) -- Design systems operationalize Rams' principles at scale
+- `material-design.md` (`references/material-design.md` in the `design-philosophies` skill) -- Material Design as the most widely adopted design system
+- `breakpoint-strategy.md` (`references/breakpoint-strategy.md` in the `responsive-design` skill) -- How design systems define and manage breakpoints
 
 **Back to:** [Design Case Studies Skill](../SKILL.md)

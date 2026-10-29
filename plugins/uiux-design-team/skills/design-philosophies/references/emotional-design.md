@@ -215,8 +215,8 @@ Use this checklist to evaluate the emotional design quality of an interface.
 - [[design-thinking.md]] -- Emotional design assessment integrates into the testing phase of Design Thinking
 - [[gestalt-principles.md]] -- Gestalt organization is the structural foundation for the visceral response
 - [[dieter-rams-principles.md]] -- "Good design is aesthetic" and "Good design is honest" connect directly to visceral and reflective levels
-- [[../../design-case-studies/references/brand-experiences.md]] -- Brand case studies demonstrate emotional design at scale
-- [[../../ux-writing/references/voice-tone-guide.md]] -- Voice and tone are the primary tools for reflective-level emotional design
+- `brand-experiences.md` (`references/brand-experiences.md` in the `design-case-studies` skill) -- Brand case studies demonstrate emotional design at scale
+- `voice-tone-guide.md` (`references/voice-tone-guide.md` in the `ux-writing` skill) -- Voice and tone are the primary tools for reflective-level emotional design
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
 

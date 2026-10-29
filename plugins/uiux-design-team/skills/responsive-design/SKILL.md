@@ -128,7 +128,7 @@ Pass: "Tap targets are sized appropriately" score = 100.
 
 ## Next Steps
 
-- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: Grid/Flexbox patterns for responsive structures
-- **[CSS Architecture](../css-architecture/SKILL.md)**: Organize responsive styles
-- **[Wireframing](../wireframing/SKILL.md)**: Design responsive wireframes
-- **[Design Tokens](../design-tokens/SKILL.md)**: Store breakpoints and fluid values as tokens
+- **Grid Layout Systems (the `grid-layout-systems` skill)**: Grid/Flexbox patterns for responsive structures
+- **CSS Architecture (the `css-architecture` skill)**: Organize responsive styles
+- **Wireframing (the `wireframing` skill)**: Design responsive wireframes
+- **Design Tokens (the `design-tokens` skill)**: Store breakpoints and fluid values as tokens

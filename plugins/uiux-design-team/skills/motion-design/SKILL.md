@@ -119,4 +119,4 @@ Chrome DevTools → Performance panel → CPU: 4× slowdown → Record interacti
 
 ## Next Steps
 
-[visual-design](../visual-design/SKILL.md) · [design-tokens](../design-tokens/SKILL.md) · [frontend-components](../frontend-components/SKILL.md) · [accessibility-audit](../accessibility-audit/SKILL.md)
+visual-design (the `visual-design` skill) · design-tokens (the `design-tokens` skill) · frontend-components (the `frontend-components` skill) · accessibility-audit (the `accessibility-audit` skill)

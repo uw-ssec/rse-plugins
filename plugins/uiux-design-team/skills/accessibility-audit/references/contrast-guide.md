@@ -258,8 +258,8 @@ Test contrast in every theme variation. A color that passes in light mode may fa
 - [[wcag-checklist.md]] -- WCAG 1.4.3 and 1.4.11 criteria in the full compliance checklist
 - [[inclusive-design.md]] -- Designing for low vision and color vision deficiency beyond contrast ratios
 - [[keyboard-nav-guide.md]] -- Focus indicator contrast requirements
-- [[../../color-systems/references/contrast-requirements.md]] -- Building color systems with contrast baked in
-- [[../../design-tokens/references/token-taxonomy.md]] -- Color tokens organized for contrast compliance
-- [[../../design-system-creation/references/theming-patterns.md]] -- Theme switching with contrast preservation
+- `contrast-requirements.md` (`references/contrast-requirements.md` in the `color-systems` skill) -- Building color systems with contrast baked in
+- `token-taxonomy.md` (`references/token-taxonomy.md` in the `design-tokens` skill) -- Color tokens organized for contrast compliance
+- `theming-patterns.md` (`references/theming-patterns.md` in the `design-system-creation` skill) -- Theme switching with contrast preservation
 
 **Back to:** [Accessibility Audit Skill](../SKILL.md)

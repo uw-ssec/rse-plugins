@@ -203,7 +203,7 @@ Quiet, warm, literary. The color palette is derived from Aesop's signature brown
 - [[saas-dashboards.md]] -- Contrast e-commerce patterns with data-driven SaaS dashboard design
 - [[brand-experiences.md]] -- Apple.com and Aesop as brand experience case studies
 - [[content-platforms.md]] -- Editorial commerce patterns in Glossier mirror content platform design
-- [[../../design-philosophies/references/emotional-design.md]] -- Framework for analyzing the emotional design choices in each case study
-- [[../../ux-writing/references/voice-tone-guide.md]] -- How each brand's voice shapes the commerce experience
+- `emotional-design.md` (`references/emotional-design.md` in the `design-philosophies` skill) -- Framework for analyzing the emotional design choices in each case study
+- `voice-tone-guide.md` (`references/voice-tone-guide.md` in the `ux-writing` skill) -- How each brand's voice shapes the commerce experience
 
 **Back to:** [Design Case Studies Skill](../SKILL.md)

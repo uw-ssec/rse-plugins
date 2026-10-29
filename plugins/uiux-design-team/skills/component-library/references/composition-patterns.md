@@ -468,9 +468,9 @@ When using polymorphic components, ensure the rendered element is semantically a
 
 - [[variant-systems.md]] -- CVA and variant patterns that compose with these structural patterns
 - [[state-management.md]] -- State management for the five UI states that compound components must handle
-- [[../../frontend-components/references/react-patterns.md]] -- React-specific implementation of these patterns
-- [[../../frontend-components/references/vue-patterns.md]] -- Vue-specific implementation with provide/inject and scoped slots
-- [[../../frontend-components/references/svelte-patterns.md]] -- Svelte-specific implementation with context and actions
-- [[../../accessibility-audit/references/aria-patterns.md]] -- ARIA patterns that compound components must implement
+- `react-patterns.md` (`references/react-patterns.md` in the `frontend-components` skill) -- React-specific implementation of these patterns
+- `vue-patterns.md` (`references/vue-patterns.md` in the `frontend-components` skill) -- Vue-specific implementation with provide/inject and scoped slots
+- `svelte-patterns.md` (`references/svelte-patterns.md` in the `frontend-components` skill) -- Svelte-specific implementation with context and actions
+- `aria-patterns.md` (`references/aria-patterns.md` in the `accessibility-audit` skill) -- ARIA patterns that compound components must implement
 
 **Back to:** [Component Library Skill](../SKILL.md)

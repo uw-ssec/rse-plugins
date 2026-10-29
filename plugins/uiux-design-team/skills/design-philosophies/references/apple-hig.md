@@ -225,7 +225,7 @@ Each level is appropriate depending on context. The key is intentional choice, n
 - [[material-design.md]] -- Compare Apple's philosophy with Material Design for cross-platform decisions
 - [[dieter-rams-principles.md]] -- Apple HIG is the most direct digital descendant of Rams' design philosophy
 - [[emotional-design.md]] -- Apple excels at all three levels of Norman's emotional design model
-- [[../../design-case-studies/references/mobile-apps.md]] -- Case studies of HIG applied in production iOS apps
-- [[../../design-case-studies/references/brand-experiences.md]] -- Apple.com as a case study in brand-forward design
+- `mobile-apps.md` (`references/mobile-apps.md` in the `design-case-studies` skill) -- Case studies of HIG applied in production iOS apps
+- `brand-experiences.md` (`references/brand-experiences.md` in the `design-case-studies` skill) -- Apple.com as a case study in brand-forward design
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)

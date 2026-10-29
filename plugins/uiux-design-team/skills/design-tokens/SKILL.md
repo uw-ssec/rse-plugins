@@ -182,7 +182,7 @@ Theme overrides happen only at the alias tier:
 
 ## Next Steps
 
-- **[Design System Creation](../design-system-creation/SKILL.md)**: Use tokens as the foundation of the full design system
-- **[Component Library](../component-library/SKILL.md)**: Consume tokens in component implementations
-- **[Color Systems](../color-systems/SKILL.md)**: Define color token scales, semantic mapping, and contrast requirements
-- **[Typography Systems](../typography-systems/SKILL.md)**: Implement type scale tokens and fluid typography
+- **Design System Creation (the `design-system-creation` skill)**: Use tokens as the foundation of the full design system
+- **Component Library (the `component-library` skill)**: Consume tokens in component implementations
+- **Color Systems (the `color-systems` skill)**: Define color token scales, semantic mapping, and contrast requirements
+- **Typography Systems (the `typography-systems` skill)**: Implement type scale tokens and fluid typography

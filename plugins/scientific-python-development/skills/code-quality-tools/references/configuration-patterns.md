@@ -14,7 +14,7 @@
 
 ## Pattern 1: Basic Ruff Configuration
 
-Configure ruff in `pyproject.toml` for your scientific Python project. See [assets/pyproject-ruff-mypy.toml](assets/pyproject-ruff-mypy.toml) for complete example.
+Configure ruff in `pyproject.toml` for your scientific Python project. See [assets/pyproject-ruff-mypy.toml](../assets/pyproject-ruff-mypy.toml) for complete example.
 
 **Key settings:**
 ```toml
@@ -50,7 +50,7 @@ ignore_missing_imports = true
 
 ## Pattern 3: Pre-commit Configuration
 
-Set up pre-commit hooks to automatically enforce quality standards. See [assets/pre-commit-config.yaml](assets/pre-commit-config.yaml) for complete example.
+Set up pre-commit hooks to automatically enforce quality standards. See [assets/pre-commit-config.yaml](../assets/pre-commit-config.yaml) for complete example.
 
 **Setup:**
 ```bash

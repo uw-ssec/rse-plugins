@@ -125,7 +125,7 @@ All five gates green → mark the Figma frame "Implemented" and close the handof
 
 ## Next Steps
 
-- **[Design System Creation](../design-system-creation/SKILL.md)**: ensure tokens behind the handoff are complete
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)**: full a11y review
-- **[Component Library](../component-library/SKILL.md)**: verify component code matches spec
-- **[CSS Architecture](../css-architecture/SKILL.md)**: enforce token architecture in CSS
+- **Design System Creation (the `design-system-creation` skill)**: ensure tokens behind the handoff are complete
+- **Accessibility Audit (the `accessibility-audit` skill)**: full a11y review
+- **Component Library (the `component-library` skill)**: verify component code matches spec
+- **CSS Architecture (the `css-architecture` skill)**: enforce token architecture in CSS

@@ -112,5 +112,5 @@ Full questionnaire, alternative scales (SEQ, NASA-TLX, SUPR-Q), scorecards: [sco
 
 ## Next Steps
 
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)** — extend to WCAG 2.2
-- **[User Research](../user-research/SKILL.md)** — validate suspected issues with users
+- **Accessibility Audit (the `accessibility-audit` skill)** — extend to WCAG 2.2
+- **User Research (the `user-research` skill)** — validate suspected issues with users

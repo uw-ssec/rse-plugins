@@ -244,7 +244,7 @@ After completing all interviews (not after each one individually), synthesize th
 - [[persona-templates.md]] -- Build personas from the behavioral clusters that emerge during interview synthesis
 - [[synthesis-methods.md]] -- Full affinity mapping, empathy mapping, and How Might We framing processes
 - [[jtbd-framework.md]] -- Use the JTBD lens during interviews to uncover the jobs users are hiring your product to do
-- [[journey-template.md]] -- Map the journeys described in interviews into visual journey maps
+- `journey-template.md` (`references/journey-template.md` in the `user-journey-mapping` skill) -- Map the journeys described in interviews into visual journey maps
 
 **Back to:** [User Research Skill](../SKILL.md)
 

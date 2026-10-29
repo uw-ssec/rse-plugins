@@ -146,7 +146,7 @@ metadata:
 
 ## Next Steps
 
-- **[Typography Systems](../typography-systems/SKILL.md)**: Align type to baseline grid
-- **[Responsive Design](../responsive-design/SKILL.md)**: Broader responsive strategy
-- **[CSS Architecture](../css-architecture/SKILL.md)**: Organize grid utilities
-- **[Design Tokens](../design-tokens/SKILL.md)**: Encode spacing and breakpoints as tokens
+- **Typography Systems (the `typography-systems` skill)**: Align type to baseline grid
+- **Responsive Design (the `responsive-design` skill)**: Broader responsive strategy
+- **CSS Architecture (the `css-architecture` skill)**: Organize grid utilities
+- **Design Tokens (the `design-tokens` skill)**: Encode spacing and breakpoints as tokens

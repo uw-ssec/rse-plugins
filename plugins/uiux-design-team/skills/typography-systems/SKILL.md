@@ -120,7 +120,7 @@ Full tables, tokens, and dyslexia/dark-mode guidance in [reading-optimization.md
 
 ## Next Steps
 
-- **[Visual Design](../visual-design/SKILL.md)**: typography within visual design
-- **[Design Tokens](../design-tokens/SKILL.md)**: encode typography as tokens
-- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: align typography to grid
-- **[Responsive Design](../responsive-design/SKILL.md)**: typography in responsive layout
+- **Visual Design (the `visual-design` skill)**: typography within visual design
+- **Design Tokens (the `design-tokens` skill)**: encode typography as tokens
+- **Grid Layout Systems (the `grid-layout-systems` skill)**: align typography to grid
+- **Responsive Design (the `responsive-design` skill)**: typography in responsive layout

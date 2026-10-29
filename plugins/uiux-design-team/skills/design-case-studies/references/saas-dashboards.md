@@ -170,8 +170,8 @@ Despite their different domains, these four products share several design princi
 
 - [[e-commerce.md]] -- Contrast SaaS patterns with conversion-driven e-commerce design
 - [[design-systems-in-practice.md]] -- Study the design systems that power these products (Polaris, Carbon, etc.)
-- [[../../design-philosophies/references/dieter-rams-principles.md]] -- The principles these products most consistently apply
-- [[../../design-philosophies/references/emotional-design.md]] -- Analyze which emotional levels each product targets
-- [[../../wireframing/references/wireframe-patterns.md]] -- Dashboard wireframe patterns derived from these case studies
+- `dieter-rams-principles.md` (`references/dieter-rams-principles.md` in the `design-philosophies` skill) -- The principles these products most consistently apply
+- `emotional-design.md` (`references/emotional-design.md` in the `design-philosophies` skill) -- Analyze which emotional levels each product targets
+- `wireframe-patterns.md` (`references/wireframe-patterns.md` in the `wireframing` skill) -- Dashboard wireframe patterns derived from these case studies
 
 **Back to:** [Design Case Studies Skill](../SKILL.md)

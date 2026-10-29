@@ -141,7 +141,7 @@ Re-run `node check-contrast.js --theme=dark` (extend script to swap to dark var 
 
 ## Next Steps
 
-- **[Visual Design](../visual-design/SKILL.md)**: Apply color systems within a broader aesthetic framework
-- **[Typography Systems](../typography-systems/SKILL.md)**: Ensure text colors work with the typographic system
-- **[Motion Design](../motion-design/SKILL.md)**: Color transitions and animated color states
-- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: Surface colors that define layout zones
+- **Visual Design (the `visual-design` skill)**: Apply color systems within a broader aesthetic framework
+- **Typography Systems (the `typography-systems` skill)**: Ensure text colors work with the typographic system
+- **Motion Design (the `motion-design` skill)**: Color transitions and animated color states
+- **Grid Layout Systems (the `grid-layout-systems` skill)**: Surface colors that define layout zones

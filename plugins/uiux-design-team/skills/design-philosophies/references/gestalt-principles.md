@@ -304,9 +304,9 @@ legend { font-weight: 600; padding: 0 0.5rem; }
 - [[design-thinking.md]] -- Gestalt principles inform prototyping and layout decisions during the ideation and testing phases
 - [[emotional-design.md]] -- Gestalt organization contributes to the visceral response layer of emotional design
 - [[dieter-rams-principles.md]] -- "Good design makes a product understandable" relies heavily on Gestalt-based visual clarity
-- [[../../wireframing/references/content-hierarchy.md]] -- Content hierarchy leverages Gestalt proximity and similarity for scanning optimization
-- [[../../visual-design/references/visual-hierarchy.md]] -- Visual hierarchy builds directly on Gestalt principles for weight and emphasis
-- [[../../wireframing/references/layout-systems.md]] -- Layout systems apply Gestalt continuation and symmetry to structural patterns
+- `content-hierarchy.md` (`references/content-hierarchy.md` in the `wireframing` skill) -- Content hierarchy leverages Gestalt proximity and similarity for scanning optimization
+- `visual-hierarchy.md` (`references/visual-hierarchy.md` in the `visual-design` skill) -- Visual hierarchy builds directly on Gestalt principles for weight and emphasis
+- `layout-systems.md` (`references/layout-systems.md` in the `wireframing` skill) -- Layout systems apply Gestalt continuation and symmetry to structural patterns
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
 

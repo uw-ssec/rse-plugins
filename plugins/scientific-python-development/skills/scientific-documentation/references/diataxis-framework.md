@@ -458,7 +458,7 @@ Illuminate concepts, provide context, and deepen understanding.
 ### Scientific Python Example: Architecture Explanation
 
 **Good Explanation:**
-```markdown
+````markdown
 # Understanding NumPy's Array Architecture
 
 ## Why NumPy Arrays Exist
@@ -598,7 +598,7 @@ Understanding this architecture explains why:
 - [NumPy Paper (2011)](https://doi.org/10.1109/MCSE.2011.37)
 - [Guide to NumPy](https://web.mit.edu/dvp/Public/numpybook.pdf)
 - [Memory layout tutorial](../tutorials/memory-layout.md)
-```
+````
 
 **Why This Works:**
 - Explains the "why" not just "how"

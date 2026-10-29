@@ -80,8 +80,8 @@ Long lists (>100 rows): use `react-window` / `vue-virtual-scroller` / `svelte-vi
 
 ## Next Steps
 
-- **[Component Library](../component-library/SKILL.md)**: docs, testing, versioning
-- **[CSS Architecture](../css-architecture/SKILL.md)**: styling strategy
-- **[Design System Creation](../design-system-creation/SKILL.md)**: tokens + governance
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)**: WCAG 2.2 AA
-- **[Motion Design](../motion-design/SKILL.md)**: purposeful animation
+- **Component Library (the `component-library` skill)**: docs, testing, versioning
+- **CSS Architecture (the `css-architecture` skill)**: styling strategy
+- **Design System Creation (the `design-system-creation` skill)**: tokens + governance
+- **Accessibility Audit (the `accessibility-audit` skill)**: WCAG 2.2 AA
+- **Motion Design (the `motion-design` skill)**: purposeful animation

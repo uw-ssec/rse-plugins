@@ -111,7 +111,7 @@ export function FeatureRow({ items }: { items: { title: string; body: string }[]
 
 ## Next Steps
 
-- **[Color Systems](../color-systems/SKILL.md)**: palettes, contrast, semantic tokens, dark mode
-- **[Typography Systems](../typography-systems/SKILL.md)**: scales, pairing, fluid type
-- **[Motion Design](../motion-design/SKILL.md)**: choreography, performance
-- **[Grid Layout Systems](../grid-layout-systems/SKILL.md)**: column grids, spacing scales
+- **Color Systems (the `color-systems` skill)**: palettes, contrast, semantic tokens, dark mode
+- **Typography Systems (the `typography-systems` skill)**: scales, pairing, fluid type
+- **Motion Design (the `motion-design` skill)**: choreography, performance
+- **Grid Layout Systems (the `grid-layout-systems` skill)**: column grids, spacing scales

@@ -88,7 +88,7 @@ sources:
       sales: ./data/sales.csv
 ```
 
-**See**: [Data Sources Reference](../../references/lumen-dashboards/sources.md)
+**See**: [Data Sources Reference](references/sources.md)
 
 ### 2. Pipelines
 
@@ -145,7 +145,7 @@ transforms:
       total: {revenue: sum}
 ```
 
-**See**: [Data Transforms Reference](../../references/lumen-dashboards/transforms.md)
+**See**: [Data Transforms Reference](references/transforms.md)
 
 ### 5. Views
 
@@ -170,7 +170,7 @@ views:
     page_size: 20
 ```
 
-**See**: [Views Reference](../../references/lumen-dashboards/views.md)
+**See**: [Views Reference](references/views.md)
 
 ### 6. Layouts
 
@@ -185,7 +185,7 @@ layouts:
         # View configs...
 ```
 
-**See**: [Layouts Reference](../../references/lumen-dashboards/layouts.md)
+**See**: [Layouts Reference](references/layouts.md)
 
 ## Common Patterns
 
@@ -274,7 +274,7 @@ transforms:
       ORDER BY total_revenue DESC
 ```
 
-**See**: [Examples](../../references/lumen-dashboards/examples.md) for complete dashboard examples.
+**See**: [Examples](references/examples.md) for complete dashboard examples.
 
 ## Python API
 
@@ -293,7 +293,7 @@ dashboard = Dashboard(pipelines={'main': pipeline}, layouts=[view])
 dashboard.servable()
 ```
 
-**See**: [Python API Reference](../../references/lumen-dashboards/python-api.md)
+**See**: [Python API Reference](references/python-api.md)
 
 ## Configuration
 
@@ -354,7 +354,7 @@ COPY dashboard.yaml data/ ./
 CMD ["lumen", "serve", "dashboard.yaml", "--port", "5006", "--address", "0.0.0.0"]
 ```
 
-**See**: [Deployment Guide](../../references/lumen-dashboards/deployment.md)
+**See**: [Deployment Guide](references/deployment.md)
 
 ## Best Practices
 
@@ -436,20 +436,20 @@ lumen serve dashboard.yaml --log-level=debug
 - Check table names match YAML config
 - Ensure columns referenced exist in data
 
-**See**: [Troubleshooting Guide](../../references/lumen-dashboards/troubleshooting.md)
+**See**: [Troubleshooting Guide](references/troubleshooting.md)
 
 ## Resources
 
 ### Reference Documentation
 
-- **[Data Sources Reference](../../references/lumen-dashboards/sources.md)** - All source types
-- **[Data Transforms Reference](../../references/lumen-dashboards/transforms.md)** - Complete transform reference
-- **[Views Reference](../../references/lumen-dashboards/views.md)** - All visualization types
-- **[Layouts Reference](../../references/lumen-dashboards/layouts.md)** - Layout patterns
-- **[Python API Reference](../../references/lumen-dashboards/python-api.md)** - Programmatic creation
-- **[Examples](../../references/lumen-dashboards/examples.md)** - Complete dashboard examples
-- **[Deployment Guide](../../references/lumen-dashboards/deployment.md)** - Production deployment
-- **[Troubleshooting Guide](../../references/lumen-dashboards/troubleshooting.md)** - Common issues
+- **[Data Sources Reference](references/sources.md)** - All source types
+- **[Data Transforms Reference](references/transforms.md)** - Complete transform reference
+- **[Views Reference](references/views.md)** - All visualization types
+- **[Layouts Reference](references/layouts.md)** - Layout patterns
+- **[Python API Reference](references/python-api.md)** - Programmatic creation
+- **[Examples](references/examples.md)** - Complete dashboard examples
+- **[Deployment Guide](references/deployment.md)** - Production deployment
+- **[Troubleshooting Guide](references/troubleshooting.md)** - Common issues
 
 ### External Links
 
@@ -467,12 +467,12 @@ Lumen enables rapid dashboard development through declarative YAML specification
 **Ideal for**: Fixed dashboard layouts, standard data patterns, non-programmer dashboard creators, rapid prototyping.
 
 **Consider alternatives when**:
-- Need custom application logic → [Panel Dashboards](../panel-dashboards/SKILL.md)
-- Need ad-hoc exploration → [Lumen AI](../lumen-ai/SKILL.md)
-- Building novel interactions → [Panel Dashboards](../panel-dashboards/SKILL.md)
+- Need custom application logic → Panel Dashboards (the `panel-dashboards` skill)
+- Need ad-hoc exploration → Lumen AI (the `lumen-ai` skill)
+- Building novel interactions → Panel Dashboards (the `panel-dashboards` skill)
 
 ## Related Skills
 
-- **[Lumen AI](../lumen-ai/SKILL.md)** - Conversational data exploration
-- **[Panel Dashboards](../panel-dashboards/SKILL.md)** - Custom Python dashboards
-- **[Plotting Fundamentals](../plotting-fundamentals/SKILL.md)** - Quick plotting with hvPlot
+- **Lumen AI (the `lumen-ai` skill)** - Conversational data exploration
+- **Panel Dashboards (the `panel-dashboards` skill)** - Custom Python dashboards
+- **Plotting Fundamentals (the `plotting-fundamentals` skill)** - Quick plotting with hvPlot

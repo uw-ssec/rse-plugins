@@ -1,4 +1,4 @@
-[Back to Design Tokens](../index.md)
+[Back to Design Tokens](../SKILL.md)
 
 # Design Token Naming Conventions
 

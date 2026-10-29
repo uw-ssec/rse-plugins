@@ -546,5 +546,5 @@ class RobustAgent(Agent):
 ## Related Resources
 
 - [Custom Agents Guide](custom-agents.md) - Build your own agents
-- [Custom Tools Guide](custom-tools.md) - Extend agent capabilities
-- [Memory and Context](memory-context.md) - Understanding the memory system
+- Custom Tools Guide - Extend agent capabilities
+- Memory and Context - Understanding the memory system

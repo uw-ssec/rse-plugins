@@ -177,8 +177,8 @@ Colors are classified by their position on the color wheel:
 
 - [[palette-generation.md]] - Algorithmic methods for generating palettes from color theory
 - [[contrast-requirements.md]] - WCAG contrast standards that constrain color choices
-- [[../../visual-design/references/aesthetic-principles.md]] - How color choices support aesthetic direction
-- [[../../visual-design/references/brand-alignment.md]] - Color within brand identity systems
+- `aesthetic-principles.md` (`references/aesthetic-principles.md` in the `visual-design` skill) - How color choices support aesthetic direction
+- `brand-alignment.md` (`references/brand-alignment.md` in the `visual-design` skill) - Color within brand identity systems
 
 ## Color Theory Fundamentals (Moved from SKILL.md)
 

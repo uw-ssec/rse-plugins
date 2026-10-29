@@ -59,4 +59,4 @@ Details: [navigation-guide.md](references/navigation-guide.md).
 
 ## Next Steps
 
-[wireframing](../wireframing/SKILL.md) · [user-research](../user-research/SKILL.md) · [ux-writing](../ux-writing/SKILL.md)
+wireframing (the `wireframing` skill) · user-research (the `user-research` skill) · ux-writing (the `ux-writing` skill)

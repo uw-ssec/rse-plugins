@@ -561,9 +561,9 @@ async function open() {
 - [[react-patterns.md]] -- React hooks and patterns for cross-framework comparison
 - [[svelte-patterns.md]] -- Svelte reactive patterns and how they compare to Vue's Composition API
 - [[web-components.md]] -- Using Web Components in Vue applications
-- [[../../component-library/references/composition-patterns.md]] -- Framework-agnostic composition patterns
-- [[../../accessibility-audit/references/aria-patterns.md]] -- Complete ARIA widget implementations
-- [[../../css-architecture/references/css-modules-guide.md]] -- CSS Modules integration with Vue SFCs
+- `composition-patterns.md` (`references/composition-patterns.md` in the `component-library` skill) -- Framework-agnostic composition patterns
+- `aria-patterns.md` (`references/aria-patterns.md` in the `accessibility-audit` skill) -- Complete ARIA widget implementations
+- `css-modules-guide.md` (`references/css-modules-guide.md` in the `css-architecture` skill) -- CSS Modules integration with Vue SFCs
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
 

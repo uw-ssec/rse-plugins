@@ -351,9 +351,9 @@ for (const intent of intents) {
 
 - [[composition-patterns.md]] -- Structural patterns that variant systems style
 - [[state-management.md]] -- UI states that extend variant definitions
-- [[../../css-architecture/references/tailwind-patterns.md]] -- Tailwind configuration feeding CVA variant classes
-- [[../../css-architecture/references/css-in-js-patterns.md]] -- Vanilla Extract recipes and runtime variants
-- [[../../design-tokens/references/naming-conventions.md]] -- Token naming aligned with variant naming
-- [[../../design-system-creation/references/component-api-guide.md]] -- API design for variant props
+- `tailwind-patterns.md` (`references/tailwind-patterns.md` in the `css-architecture` skill) -- Tailwind configuration feeding CVA variant classes
+- `css-in-js-patterns.md` (`references/css-in-js-patterns.md` in the `css-architecture` skill) -- Vanilla Extract recipes and runtime variants
+- `naming-conventions.md` (`references/naming-conventions.md` in the `design-tokens` skill) -- Token naming aligned with variant naming
+- `component-api-guide.md` (`references/component-api-guide.md` in the `design-system-creation` skill) -- API design for variant props
 
 **Back to:** [Component Library Skill](../SKILL.md)

@@ -430,8 +430,8 @@ This keeps imports clean: `import { Button } from '@/components/Button'` rather 
 - [[bem-guide.md]] -- BEM naming within CSS Modules for additional structure and readability
 - [[tailwind-patterns.md]] -- Utility-first alternative to CSS Modules
 - [[css-in-js-patterns.md]] -- Runtime and build-time alternatives with component-level co-location
-- [[../../frontend-components/references/react-patterns.md]] -- React component patterns that consume CSS Modules
-- [[../../frontend-components/references/vue-patterns.md]] -- Vue SFC integration with CSS Modules
-- [[../../design-system-creation/references/theming-patterns.md]] -- Theming strategies that CSS Modules support
+- `react-patterns.md` (`references/react-patterns.md` in the `frontend-components` skill) -- React component patterns that consume CSS Modules
+- `vue-patterns.md` (`references/vue-patterns.md` in the `frontend-components` skill) -- Vue SFC integration with CSS Modules
+- `theming-patterns.md` (`references/theming-patterns.md` in the `design-system-creation` skill) -- Theming strategies that CSS Modules support
 
 **Back to:** [CSS Architecture Skill](../SKILL.md)

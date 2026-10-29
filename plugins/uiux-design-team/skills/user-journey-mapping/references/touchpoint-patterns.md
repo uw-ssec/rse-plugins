@@ -1,4 +1,4 @@
-[Back to User Journey Mapping](../user-journey-mapping.md)
+[Back to User Journey Mapping](../SKILL.md)
 
 # Touchpoint Analysis Patterns
 

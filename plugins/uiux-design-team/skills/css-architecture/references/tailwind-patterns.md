@@ -440,8 +440,8 @@ module.exports = plugin(function({ addUtilities, theme }) {
 - [[bem-guide.md]] -- BEM naming convention that can complement Tailwind for structural styling
 - [[css-modules-guide.md]] -- Scoped CSS alternative to Tailwind's utility approach
 - [[css-in-js-patterns.md]] -- Runtime and build-time styling approaches compared to Tailwind
-- [[../../component-library/references/variant-systems.md]] -- CVA and variant patterns in depth
-- [[../../design-tokens/references/naming-conventions.md]] -- Token naming that maps to Tailwind theme keys
-- [[../../design-system-creation/references/token-architecture.md]] -- Three-tier token system that feeds Tailwind configuration
+- `variant-systems.md` (`references/variant-systems.md` in the `component-library` skill) -- CVA and variant patterns in depth
+- `naming-conventions.md` (`references/naming-conventions.md` in the `design-tokens` skill) -- Token naming that maps to Tailwind theme keys
+- `token-architecture.md` (`references/token-architecture.md` in the `design-system-creation` skill) -- Three-tier token system that feeds Tailwind configuration
 
 **Back to:** [CSS Architecture Skill](../SKILL.md)

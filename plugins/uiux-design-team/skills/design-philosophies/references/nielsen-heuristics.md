@@ -1,4 +1,4 @@
-[Back to Design Philosophies](../../design-philosophies.md)
+[Back to Design Philosophies](../SKILL.md)
 
 # Nielsen's Heuristics: A Design Philosophy Perspective
 

@@ -189,9 +189,9 @@ Set the pairing against a dark background. Some fonts with thin strokes (Didone 
 
 - [[type-scale-theory.md]] -- Select scale ratios that complement your font pairing's personality
 - [[reading-optimization.md]] -- Ensure your chosen fonts meet readability and accessibility standards
-- [[../../visual-design/references/brand-alignment.md]] -- Align font pairing with brand identity and voice
-- [[../../design-tokens/SKILL.md]] -- Encode font family, weight, and size tokens for the chosen pairing
-- [[../../color-systems/references/contrast-requirements.md]] -- Verify text contrast ratios for both fonts
+- `brand-alignment.md` (`references/brand-alignment.md` in the `visual-design` skill) -- Align font pairing with brand identity and voice
+- `SKILL.md` (the `design-tokens` skill) -- Encode font family, weight, and size tokens for the chosen pairing
+- `contrast-requirements.md` (`references/contrast-requirements.md` in the `color-systems` skill) -- Verify text contrast ratios for both fonts
 
 **Back to:** [Typography Systems Skill](../SKILL.md)
 

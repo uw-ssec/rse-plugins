@@ -295,5 +295,5 @@ The same shift that killed BlackBerry is happening right now in software. Interf
 - [SaaS Dashboards](saas-dashboards.md) -- Stripe and Linear's dashboard design, representing the current paradigm that outcome-first AI will transform
 - [Psychological Design Engines](psychological-design-engines.md) -- Perplexity's feedback loops as an example of AI-native interaction design
 - [Emotional Design as Growth Engine](emotional-design-growth.md) -- Experience-focused design that remains important when the interface IS the value
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Hick's Law and cognitive load theory, the theoretical foundations for why collapsing flows works
-- [Information Architecture](../information-architecture/SKILL.md) -- Navigation and content structure patterns that outcome-first design may fundamentally reshape
+- Design Philosophies (the `design-philosophies` skill) -- Hick's Law and cognitive load theory, the theoretical foundations for why collapsing flows works
+- Information Architecture (the `information-architecture` skill) -- Navigation and content structure patterns that outcome-first design may fundamentally reshape

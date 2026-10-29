@@ -389,8 +389,8 @@ Use Tab to navigate through the interface. Every interactive element must show a
 - [[wcag-checklist.md]] -- WCAG criteria for keyboard accessibility (2.1.1, 2.1.2, 2.4.3, 2.4.7)
 - [[aria-patterns.md]] -- ARIA widget patterns with their expected keyboard interactions
 - [[contrast-guide.md]] -- Contrast requirements for focus indicators
-- [[../../frontend-components/references/react-patterns.md]] -- React focus management with useRef and useEffect
-- [[../../frontend-components/references/svelte-patterns.md]] -- Svelte actions for focus trapping and keyboard handling
-- [[../../component-library/references/composition-patterns.md]] -- Component patterns that implement keyboard navigation
+- `react-patterns.md` (`references/react-patterns.md` in the `frontend-components` skill) -- React focus management with useRef and useEffect
+- `svelte-patterns.md` (`references/svelte-patterns.md` in the `frontend-components` skill) -- Svelte actions for focus trapping and keyboard handling
+- `composition-patterns.md` (`references/composition-patterns.md` in the `component-library` skill) -- Component patterns that implement keyboard navigation
 
 **Back to:** [Accessibility Audit Skill](../SKILL.md)

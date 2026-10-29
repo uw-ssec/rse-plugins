@@ -244,9 +244,9 @@ Post these visibly at the start of every workshop:
 
 - [[gestalt-principles.md]] -- Visual organization principles applied during prototyping and layout decisions
 - [[emotional-design.md]] -- Evaluate visceral, behavioral, and reflective impact during testing phases
-- [[../../design-case-studies/references/saas-dashboards.md]] -- Real-world examples of Design Thinking applied to complex product design
-- [[../../user-research/references/interview-guide.md]] -- Detailed interview methodology for the empathy phase
-- [[../../user-research/references/synthesis-methods.md]] -- Affinity mapping and synthesis techniques for the define phase
+- `saas-dashboards.md` (`references/saas-dashboards.md` in the `design-case-studies` skill) -- Real-world examples of Design Thinking applied to complex product design
+- `interview-guide.md` (`references/interview-guide.md` in the `user-research` skill) -- Detailed interview methodology for the empathy phase
+- `synthesis-methods.md` (`references/synthesis-methods.md` in the `user-research` skill) -- Affinity mapping and synthesis techniques for the define phase
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
 

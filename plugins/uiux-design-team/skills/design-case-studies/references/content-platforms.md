@@ -229,7 +229,7 @@ Structured, purposeful, knowledge-focused. The interface is organized around hig
 - [[saas-dashboards.md]] -- Contrast content platform patterns with data-dense SaaS design
 - [[e-commerce.md]] -- Editorial commerce patterns in Glossier and Aesop mirror content platform design approaches
 - [[brand-experiences.md]] -- How content platforms translate brand into reading experience
-- [[../../design-philosophies/references/gestalt-principles.md]] -- Content hierarchy relies heavily on Gestalt proximity and similarity
-- [[../../ux-writing/references/microcopy-guide.md]] -- Microcopy patterns that support the reading experience
+- `gestalt-principles.md` (`references/gestalt-principles.md` in the `design-philosophies` skill) -- Content hierarchy relies heavily on Gestalt proximity and similarity
+- `microcopy-guide.md` (`references/microcopy-guide.md` in the `ux-writing` skill) -- Microcopy patterns that support the reading experience
 
 **Back to:** [Design Case Studies Skill](../SKILL.md)

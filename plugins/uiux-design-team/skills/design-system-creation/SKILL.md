@@ -78,4 +78,4 @@ Pass criteria per checkpoint: (1) exits clean, (2) zero a11y violations on built
 
 ## Next Steps
 
-[design-tokens](../design-tokens/SKILL.md) · [component-library](../component-library/SKILL.md) · [visual-design](../visual-design/SKILL.md) · [design-handoff](../design-handoff/SKILL.md)
+design-tokens (the `design-tokens` skill) · component-library (the `component-library` skill) · visual-design (the `visual-design` skill) · design-handoff (the `design-handoff` skill)

@@ -531,9 +531,9 @@ function SearchStatus({ count, isLoading }) {
 - [[vue-patterns.md]] -- Vue 3 Composition API patterns for comparison and cross-framework understanding
 - [[svelte-patterns.md]] -- Svelte reactive patterns and how they differ from React's hooks model
 - [[web-components.md]] -- Using React with Web Components and building framework-agnostic components
-- [[../../component-library/references/composition-patterns.md]] -- Framework-agnostic compound component and headless patterns
-- [[../../accessibility-audit/references/aria-patterns.md]] -- Complete ARIA widget implementations for common components
-- [[../../css-architecture/references/css-in-js-patterns.md]] -- Styling approaches commonly used with React components
+- `composition-patterns.md` (`references/composition-patterns.md` in the `component-library` skill) -- Framework-agnostic compound component and headless patterns
+- `aria-patterns.md` (`references/aria-patterns.md` in the `accessibility-audit` skill) -- Complete ARIA widget implementations for common components
+- `css-in-js-patterns.md` (`references/css-in-js-patterns.md` in the `css-architecture` skill) -- Styling approaches commonly used with React components
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
 

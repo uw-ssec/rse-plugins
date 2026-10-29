@@ -1,4 +1,4 @@
-[Back to Design Handoff](../../design-handoff.md)
+[Back to Design Handoff](../SKILL.md)
 
 # Design QA Process
 

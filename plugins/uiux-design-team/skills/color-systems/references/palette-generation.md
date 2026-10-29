@@ -290,5 +290,5 @@ When combining colors from different palettes (e.g., white text on a success-gre
 
 - [[color-theory.md]] - Color science foundations for understanding palette relationships
 - [[contrast-requirements.md]] - WCAG standards that validate palette accessibility
-- [[../../visual-design/references/brand-alignment.md]] - Brand-driven palette requirements
-- [[../../visual-design/references/aesthetic-principles.md]] - Aesthetic tone influences palette character
+- `brand-alignment.md` (`references/brand-alignment.md` in the `visual-design` skill) - Brand-driven palette requirements
+- `aesthetic-principles.md` (`references/aesthetic-principles.md` in the `visual-design` skill) - Aesthetic tone influences palette character
