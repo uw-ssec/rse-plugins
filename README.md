@@ -45,7 +45,7 @@ Each plugin follows the [Agent Plugins](https://agent-plugins.org/specification)
 | GitHub Copilot CLI | marketplace | yes | yes | yes (untested) | yes |
 | VS Code (Copilot) | marketplace setting | yes (untested) | untested | untested | untested |
 | Codex | marketplace | yes | no | no | yes |
-| Cursor | local folder | yes (untested) | yes (untested) | yes (untested) | yes (untested) |
+| Cursor | local folder | yes (untested) | no | no | yes (untested) |
 | OpenCode | copied skills | yes | no | no | add it to `opencode.json` |
 
 "Untested" rows follow the client's documentation but haven't been run against this repository. For MCP, "yes" means the client found the server configuration; the server itself wasn't started.
@@ -68,7 +68,7 @@ copilot plugin marketplace add uw-ssec/rse-plugins
 copilot plugin install scientific-python-development@rse-plugins
 ```
 
-Copilot reads the root `plugin.json` and the marketplace in `.claude-plugin/marketplace.json`. It loads agents and commands from each plugin's `com.github.copilot/` directory. Agents are tested. Commands follow GitHub's [plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference) but haven't been tested yet. The [Codespace](#github-codespaces) installs every plugin this way.
+Copilot reads the root `plugin.json` and the marketplace in `.claude-plugin/marketplace.json`. It loads agents and commands from each plugin's `com.github.copilot/` directory, which holds generated copies of `agents/` and `commands/`. Agents are tested. Commands follow GitHub's [plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference) but haven't been tested yet. The [Codespace](#github-codespaces) installs every plugin this way.
 
 ### Codex
 
@@ -89,7 +89,7 @@ mkdir -p ~/.cursor/plugins/local
 cp -R rse-plugins/plugins/scientific-python-development ~/.cursor/plugins/local/
 ```
 
-Then restart Cursor (or run **Developer: Reload Window**), and check the plugin's skills and agents under **Customize**. Cursor reads `.cursor-plugin/plugin.json`. Teams and Enterprise plans can also add the repository to a team marketplace instead. See [Cursor plugins](https://cursor.com/docs/plugins). These steps follow Cursor's documentation; they haven't been tested.
+Then restart Cursor (or run **Developer: Reload Window**), and check the plugin's skills and MCP servers under **Customize**. Cursor loads each plugin as an Agent Plugin, which means skills and MCP servers only. Our agents and commands use Claude Code's format, so Cursor doesn't load them. Teams and Enterprise plans can also add the repository to a team marketplace (`.cursor-plugin/marketplace.json`) instead of copying. See [Cursor plugins](https://cursor.com/docs/plugins). These steps follow Cursor's documentation; they haven't been tested.
 
 ### OpenCode
 
@@ -109,7 +109,7 @@ The same copy works for any client that reads a skills directory, such as `~/.ag
   "mcp": {
     "holoviz-mcp": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "-v", "/path/to/holoviz-mcp-data:/root/.holoviz-mcp", "ghcr.io/marcskovmadsen/holoviz-mcp:latest"]
+      "command": ["docker", "run", "-i", "--rm", "-v", "holoviz-mcp:/root/.holoviz-mcp", "ghcr.io/marcskovmadsen/holoviz-mcp:latest"]
     }
   }
 }
@@ -263,14 +263,21 @@ Browse the [plugins directory](plugins/) and [community-plugins directory](commu
 ```
 rse-plugins/
 ├── .claude-plugin/
-│   └── marketplace.json                                # Claude plugin marketplace configuration
+│   └── marketplace.json                                # Plugin catalog (Claude Code, Copilot CLI, Codex)
+├── .agents/plugins/
+│   └── marketplace.json                                # Codex marketplace (generated)
+├── .cursor-plugin/
+│   └── marketplace.json                                # Cursor marketplace (generated)
 ├── plugins/                                            # Main plugin collection
 │   ├── scientific-python-development/                  # Scientific Python development plugin
+│   │   ├── plugin.json                                 # Agent Plugins manifest (edit this one)
 │   │   ├── .claude-plugin/
-│   │   │   └── plugin.json
+│   │   │   └── plugin.json                             # Claude Code manifest (generated)
+│   │   ├── com.github.copilot/                         # Copilot copies of agents/ and commands/ (generated)
 │   │   ├── agents/
 │   │   │   ├── scientific-python-expert.md
 │   │   │   └── scientific-docs-architect.md
+│   │   ├── commands/
 │   │   └── skills/
 │   │       ├── pixi-package-manager/
 │   │       ├── python-packaging/
