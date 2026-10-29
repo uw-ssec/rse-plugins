@@ -37,15 +37,83 @@ This repository provides specialized agents and skills that understand the uniqu
 
 ## Installation
 
+Each plugin follows the [Agent Plugins](https://agent-plugins.org/specification) v1.0.0 format. It has a portable `plugin.json` at the plugin root, plus client-specific files for the clients that need them. Skills work in every client below. Agents, commands and MCP servers are client-specific, and not every client loads them:
+
+| Client | Install from | Skills | Agents | Commands | HoloViz MCP |
+| --- | --- | --- | --- | --- | --- |
+| Claude Code | marketplace | yes | yes | yes | yes |
+| GitHub Copilot CLI | marketplace | yes | yes | yes (untested) | yes |
+| VS Code (Copilot) | marketplace setting | yes (untested) | untested | untested | untested |
+| Codex | marketplace | yes | no | no | yes |
+| Cursor | local folder | yes (untested) | yes (untested) | yes (untested) | yes (untested) |
+| OpenCode | copied skills | yes | no | no | add it to `opencode.json` |
+
+"Untested" rows follow the client's documentation but haven't been run against this repository. For MCP, "yes" means the client found the server configuration; the server itself wasn't started.
+
+Replace `scientific-python-development` in the examples below with any plugin from [Available Plugins](#available-plugins).
+
 ### Claude Code
 
-To use these agents and skills in Claude Code, add this repository to your plugin marketplace:
-
 ```bash
-/plugin marketplace add uw-ssec/rse-plugins
+claude plugin marketplace add uw-ssec/rse-plugins
+claude plugin install scientific-python-development@rse-plugins
 ```
 
-Once installed, the agents and skills will be available in your Claude Code environment and can be invoked when working on scientific software projects.
+Inside Claude Code, the same commands are `/plugin marketplace add uw-ssec/rse-plugins` and `/plugin install scientific-python-development@rse-plugins`. Claude Code reads `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
+
+### GitHub Copilot CLI
+
+```bash
+copilot plugin marketplace add uw-ssec/rse-plugins
+copilot plugin install scientific-python-development@rse-plugins
+```
+
+Copilot reads the root `plugin.json` and the marketplace in `.claude-plugin/marketplace.json`. It loads agents and commands from each plugin's `com.github.copilot/` directory. Agents are tested. Commands follow GitHub's [plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference) but haven't been tested yet. The [Codespace](#github-codespaces) installs every plugin this way.
+
+### Codex
+
+```bash
+codex plugin marketplace add uw-ssec/rse-plugins
+codex plugin add scientific-python-development@rse-plugins
+```
+
+Codex loads skills and MCP servers. It doesn't load agents or commands.
+
+### Cursor
+
+Cursor's public marketplace is curated, so this repository isn't listed there. To use a plugin, copy it into Cursor's local plugin folder. Cursor skips symlinks that point outside that folder, so copy rather than link:
+
+```bash
+git clone https://github.com/uw-ssec/rse-plugins.git
+mkdir -p ~/.cursor/plugins/local
+cp -R rse-plugins/plugins/scientific-python-development ~/.cursor/plugins/local/
+```
+
+Then restart Cursor (or run **Developer: Reload Window**), and check the plugin's skills and agents under **Customize**. Cursor reads `.cursor-plugin/plugin.json`. Teams and Enterprise plans can also add the repository to a team marketplace instead. See [Cursor plugins](https://cursor.com/docs/plugins). These steps follow Cursor's documentation; they haven't been tested.
+
+### OpenCode
+
+OpenCode doesn't install plugin packages, but it discovers skills. Copy the skills you want into a skills directory, either globally (`~/.config/opencode/skills/`) or in a project (`.agents/skills/` or `.opencode/skills/`):
+
+```bash
+git clone https://github.com/uw-ssec/rse-plugins.git
+mkdir -p ~/.config/opencode/skills
+cp -R rse-plugins/plugins/scientific-python-development/skills/* ~/.config/opencode/skills/
+```
+
+The same copy works for any client that reads a skills directory, such as `~/.agents/skills/`. Agents and commands aren't available in OpenCode. To use the HoloViz MCP server, add it to your `opencode.json` yourself:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "holoviz-mcp": {
+      "type": "local",
+      "command": ["docker", "run", "-i", "--rm", "-v", "/path/to/holoviz-mcp-data:/root/.holoviz-mcp", "ghcr.io/marcskovmadsen/holoviz-mcp:latest"]
+    }
+  }
+}
+```
 
 ### VS Code
 
