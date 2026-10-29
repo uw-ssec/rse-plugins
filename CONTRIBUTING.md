@@ -140,7 +140,7 @@ Plugins follow the [Agent Plugins](https://agent-plugins.org/specification) v1.0
 | `<plugin>/agents/` and `<plugin>/commands/` | `<plugin>/com.github.copilot/` (Copilot's copies of agents and commands) |
 | `<plugin>/mcp.json` and `<plugin>/.mcp.json` | `.agents/plugins/marketplace.json` (Codex) and `.cursor-plugin/marketplace.json` (Cursor) |
 
-After changing a source, regenerate the rest and check the result. CI runs the same `check`:
+After changing a source, regenerate the rest and check the result. The script needs PyYAML (`pip install pyyaml`). CI runs the same `check`:
 
 ```bash
 python3 .github/scripts/agent_plugins.py sync
@@ -152,6 +152,7 @@ Some rules matter to clients other than Claude Code:
 - **A new plugin** needs a root `plugin.json` and an entry in `.claude-plugin/marketplace.json`. `check` fails on a plugin directory that isn't in the catalog. `plugin.json` has a closed schema: only `$schema`, `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`, `keywords` and `extensions` are allowed.
 - **Keep each skill self-contained.** OpenCode and other skills-only clients install a skill directory on its own, so every file and relative link in a skill must stay inside that skill's directory. Link to a sibling skill by naming it (for example "see the `design-tokens` skill"), not with `../design-tokens/SKILL.md`. Put shared material in each skill's `references/`.
 - **MCP servers** need both files. `.mcp.json` is for Claude Code. `mcp.json` is the portable version that Codex, Copilot and Cursor read: it has the Agent Plugins `$schema`, an explicit `type` on each server, and no other top-level fields. Cursor doesn't expand `${PLUGIN_ROOT}` or `${PLUGIN_DATA}`, so avoid them in `mcp.json`.
+- **Agent `skills:`** must be a YAML list (`skills:` then `  - name`), even for one skill. Copilot CLI silently skips an agent whose `skills` is a plain string.
 
 ## 📊 Evaluating Skills
 
