@@ -218,7 +218,7 @@ This near-absence of motion is the design. In a web landscape of animated hero s
 - [[e-commerce.md]] -- Apple Store and Aesop as e-commerce case studies with conversion analysis
 - [[saas-dashboards.md]] -- Contrast brand-forward marketing with data-driven product design
 - [[content-platforms.md]] -- Editorial brand experiences in content platform contexts
-- [[../../design-philosophies/references/emotional-design.md]] -- Norman's three levels applied to brand experience analysis
-- [[../../design-philosophies/references/dieter-rams-principles.md]] -- Muji as the purest digital expression of Rams' "less but better"
+- `emotional-design.md` (`references/emotional-design.md` in the `design-philosophies` skill) -- Norman's three levels applied to brand experience analysis
+- `dieter-rams-principles.md` (`references/dieter-rams-principles.md` in the `design-philosophies` skill) -- Muji as the purest digital expression of Rams' "less but better"
 
 **Back to:** [Design Case Studies Skill](../SKILL.md)

@@ -88,7 +88,7 @@ Specialized components that handle specific tasks:
 - **VegaLiteAgent**: Publication-quality charts
 - **AnalysisAgent**: Custom domain-specific analyses
 
-**See**: [Built-in Agents Reference](../../references/lumen-ai/agents-reference.md)
+**See**: [Built-in Agents Reference](references/agents-reference.md)
 
 ### 2. LLM Providers
 
@@ -99,7 +99,7 @@ Specialized components that handle specific tasks:
 | High volume | OpenAI | gpt-4o-mini |
 | Sensitive data | Ollama | llama3.1 |
 
-**See**: [LLM Provider Configuration](../../references/lumen-ai/llm-providers.md)
+**See**: [LLM Provider Configuration](references/llm-providers.md)
 
 ### 3. Memory and Tools
 
@@ -157,7 +157,7 @@ class SentimentAgent(Agent):
 ui = lmai.ExplorerUI(source=source, agents=[SentimentAgent, lmai.agents.ChatAgent])
 ```
 
-**See**: [Custom Agents Guide](../../references/lumen-ai/custom-agents.md)
+**See**: [Custom Agents Guide](references/custom-agents.md)
 
 ### Pattern 4: Custom Analysis
 
@@ -289,7 +289,7 @@ COPY app.py data/ ./
 CMD ["panel", "serve", "app.py", "--port", "5006", "--address", "0.0.0.0"]
 ```
 
-**See**: [Deployment Guide](../../references/lumen-ai/deployment.md)
+**See**: [Deployment Guide](references/deployment.md)
 
 ## Troubleshooting
 
@@ -321,10 +321,10 @@ for agent in ui.agents:
 
 ### Reference Documentation
 
-- **[LLM Provider Configuration](../../references/lumen-ai/llm-providers.md)** - Setup for all providers
-- **[Built-in Agents Reference](../../references/lumen-ai/agents-reference.md)** - Complete agent documentation
-- **[Custom Agents Guide](../../references/lumen-ai/custom-agents.md)** - Build specialized agents
-- **[Deployment Guide](../../references/lumen-ai/deployment.md)** - Production deployment
+- **[LLM Provider Configuration](references/llm-providers.md)** - Setup for all providers
+- **[Built-in Agents Reference](references/agents-reference.md)** - Complete agent documentation
+- **[Custom Agents Guide](references/custom-agents.md)** - Build specialized agents
+- **[Deployment Guide](references/deployment.md)** - Production deployment
 
 ### External Links
 
@@ -341,12 +341,12 @@ Lumen AI transforms data exploration through natural language interfaces powered
 **Ideal for**: Ad-hoc exploration, non-technical users, rapid insights, self-service analytics.
 
 **Consider alternatives when**:
-- Fixed dashboards needed → [Lumen Dashboards](../lumen-dashboards/SKILL.md)
+- Fixed dashboards needed → Lumen Dashboards (the `lumen-dashboards` skill)
 - No LLM budget → Traditional BI tools
-- Highly custom logic → [Panel Dashboards](../panel-dashboards/SKILL.md)
+- Highly custom logic → Panel Dashboards (the `panel-dashboards` skill)
 
 ## Related Skills
 
-- **[Lumen Dashboards](../lumen-dashboards/SKILL.md)** - Declarative YAML dashboards
-- **[Panel Dashboards](../panel-dashboards/SKILL.md)** - Interactive dashboard development
-- **[Plotting Fundamentals](../plotting-fundamentals/SKILL.md)** - Quick plotting with hvPlot
+- **Lumen Dashboards (the `lumen-dashboards` skill)** - Declarative YAML dashboards
+- **Panel Dashboards (the `panel-dashboards` skill)** - Interactive dashboard development
+- **Plotting Fundamentals (the `plotting-fundamentals` skill)** - Quick plotting with hvPlot

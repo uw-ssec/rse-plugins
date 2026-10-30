@@ -180,7 +180,7 @@ If any answer is "no," reconsider the decision.
 - [[gestalt-principles.md]] -- Principle 4 (understandable) relies on Gestalt-based visual organization
 - [[material-design.md]] -- Material Design's component system operationalizes many of Rams' principles at scale
 - [[apple-hig.md]] -- Apple's HIG is the most direct digital descendant of Rams' philosophy
-- [[../../design-case-studies/references/design-systems-in-practice.md]] -- Design systems are the mechanism for applying Rams' principles consistently across products
+- `design-systems-in-practice.md` (`references/design-systems-in-practice.md` in the `design-case-studies` skill) -- Design systems are the mechanism for applying Rams' principles consistently across products
 
 **Back to:** [Design Philosophies Skill](../SKILL.md)
 

@@ -396,9 +396,9 @@ function ProgressBar({ value, max = 100, label }) {
 
 - [[composition-patterns.md]] -- Component structures that contain and manage these states
 - [[variant-systems.md]] -- Variant definitions for different state appearances
-- [[../../accessibility-audit/references/aria-patterns.md]] -- ARIA live regions for announcing state changes
-- [[../../frontend-components/references/react-patterns.md]] -- React Suspense and error boundaries
-- [[../../design-handoff/references/qa-process.md]] -- QA process for verifying all state implementations
+- `aria-patterns.md` (`references/aria-patterns.md` in the `accessibility-audit` skill) -- ARIA live regions for announcing state changes
+- `react-patterns.md` (`references/react-patterns.md` in the `frontend-components` skill) -- React Suspense and error boundaries
+- `qa-process.md` (`references/qa-process.md` in the `design-handoff` skill) -- QA process for verifying all state implementations
 
 **Back to:** [Component Library Skill](../SKILL.md)
 

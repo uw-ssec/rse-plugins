@@ -1,4 +1,4 @@
-[Back to Responsive Design](../index.md)
+[Back to Responsive Design](../SKILL.md)
 
 # Breakpoint Strategy Reference
 

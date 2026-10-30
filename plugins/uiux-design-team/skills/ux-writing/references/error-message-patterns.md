@@ -273,8 +273,8 @@ Use this checklist to evaluate every error message in your product:
 
 - [[microcopy-guide.md]] -- Comprehensive patterns for all UI text types including non-error messages
 - [[voice-tone-guide.md]] -- How brand voice adapts to error contexts
-- [[../../design-philosophies/references/dieter-rams-principles.md]] -- Principle 6 (honest) and Principle 8 (thorough) applied to error states
-- [[../../design-philosophies/references/emotional-design.md]] -- Error messages as behavioral-level emotional design
-- [[../../design-handoff/references/annotation-guide.md]] -- How to annotate error states in design handoff documentation
+- `dieter-rams-principles.md` (`references/dieter-rams-principles.md` in the `design-philosophies` skill) -- Principle 6 (honest) and Principle 8 (thorough) applied to error states
+- `emotional-design.md` (`references/emotional-design.md` in the `design-philosophies` skill) -- Error messages as behavioral-level emotional design
+- `annotation-guide.md` (`references/annotation-guide.md` in the `design-handoff` skill) -- How to annotate error states in design handoff documentation
 
 **Back to:** [UX Writing Skill](../SKILL.md)

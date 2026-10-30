@@ -223,6 +223,6 @@ These common mistakes reduce persona effectiveness and can actively mislead the 
 - [[interview-guide.md]] -- Structure interviews that generate the data needed to build strong personas
 - [[synthesis-methods.md]] -- Synthesize interview data into the clusters that become personas
 - [[jtbd-framework.md]] -- Define the jobs that give personas their purpose and design relevance
-- [[journey-template.md]] -- Map the journey each persona takes through your product
+- `journey-template.md` (`references/journey-template.md` in the `user-journey-mapping` skill) -- Map the journey each persona takes through your product
 
 **Back to:** [User Research Skill](../SKILL.md)

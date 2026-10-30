@@ -284,9 +284,9 @@ Font loading can cause Cumulative Layout Shift (CLS) when the custom font has di
 
 - [[type-scale-theory.md]] -- Ensure scale sizes remain legible at the smallest steps
 - [[font-pairing-guide.md]] -- Select fonts with the accessibility characteristics described here
-- [[../../color-systems/references/contrast-requirements.md]] -- Detailed WCAG contrast ratio calculations and testing tools
-- [[../../accessibility-audit/SKILL.md]] -- Full accessibility evaluation methodology including typography checks
-- [[../../design-tokens/SKILL.md]] -- Encode reading-optimized values as tokens for consistent application
+- `contrast-requirements.md` (`references/contrast-requirements.md` in the `color-systems` skill) -- Detailed WCAG contrast ratio calculations and testing tools
+- `SKILL.md` (the `accessibility-audit` skill) -- Full accessibility evaluation methodology including typography checks
+- `SKILL.md` (the `design-tokens` skill) -- Encode reading-optimized values as tokens for consistent application
 
 **Back to:** [Typography Systems Skill](../SKILL.md)
 

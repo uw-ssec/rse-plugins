@@ -589,6 +589,6 @@ stats.print_stats(20)
 
 ## Related Resources
 
-- [Security Best Practices](../best-practices.md#security)
-- [Performance Optimization](../best-practices.md#performance)
-- [Troubleshooting Guide](troubleshooting.md)
+- Security Best Practices
+- Performance Optimization
+- Troubleshooting Guide

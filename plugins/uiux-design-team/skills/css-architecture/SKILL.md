@@ -136,7 +136,7 @@ gzip -c dist/assets/*.css | wc -c
 
 ## Next Steps
 
-- **[Design Tokens](../design-tokens/SKILL.md)**: Token layer feeding the architecture
-- **[Frontend Components](../frontend-components/SKILL.md)**: Components consuming the styling
-- **[Design System Creation](../design-system-creation/SKILL.md)**: Tie architecture to components
-- **[Responsive Design](../responsive-design/SKILL.md)**: Responsive strategies within the chosen approach
+- **Design Tokens (the `design-tokens` skill)**: Token layer feeding the architecture
+- **Frontend Components (the `frontend-components` skill)**: Components consuming the styling
+- **Design System Creation (the `design-system-creation` skill)**: Tie architecture to components
+- **Responsive Design (the `responsive-design` skill)**: Responsive strategies within the chosen approach

@@ -145,7 +145,7 @@ Before sign-off:
 
 ## Next Steps
 
-- **[Design Case Studies](../design-case-studies/SKILL.md)**: Study how real products apply these philosophies
-- **[Usability Evaluation](../usability-evaluation/SKILL.md)**: Use Nielsen's heuristics as the foundation for systematic usability review
-- **[Visual Design](../visual-design/SKILL.md)**: Apply emotional design and Gestalt principles to create distinctive interfaces
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)**: Implement inclusive design through thorough accessibility evaluation
+- **Design Case Studies (the `design-case-studies` skill)**: Study how real products apply these philosophies
+- **Usability Evaluation (the `usability-evaluation` skill)**: Use Nielsen's heuristics as the foundation for systematic usability review
+- **Visual Design (the `visual-design` skill)**: Apply emotional design and Gestalt principles to create distinctive interfaces
+- **Accessibility Audit (the `accessibility-audit` skill)**: Implement inclusive design through thorough accessibility evaluation

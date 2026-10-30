@@ -294,8 +294,8 @@ For each chosen attribute, document what it means, what you do, and what you avo
 
 - [[microcopy-guide.md]] -- Practical patterns for every UI text type, informed by voice and tone decisions
 - [[error-message-patterns.md]] -- Error-specific tone calibration and message templates
-- [[../../design-philosophies/references/emotional-design.md]] -- Voice and tone as reflective-level emotional design tools
-- [[../../design-case-studies/references/e-commerce.md]] -- How Glossier, Aesop, and Apple use voice as a brand differentiator
-- [[../../design-case-studies/references/brand-experiences.md]] -- Brand voice as a design material across digital experiences
+- `emotional-design.md` (`references/emotional-design.md` in the `design-philosophies` skill) -- Voice and tone as reflective-level emotional design tools
+- `e-commerce.md` (`references/e-commerce.md` in the `design-case-studies` skill) -- How Glossier, Aesop, and Apple use voice as a brand differentiator
+- `brand-experiences.md` (`references/brand-experiences.md` in the `design-case-studies` skill) -- Brand voice as a design material across digital experiences
 
 **Back to:** [UX Writing Skill](../SKILL.md)

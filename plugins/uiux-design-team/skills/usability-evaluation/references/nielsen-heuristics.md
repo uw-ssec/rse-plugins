@@ -285,9 +285,9 @@ An extended reference for Jakob Nielsen's 10 usability heuristics. Each heuristi
 
 - [[walkthrough-guide.md]] -- Use cognitive walkthroughs to evaluate specific task flows against these heuristics
 - [[scoring-methods.md]] -- Quantify usability severity using the SUS questionnaire and severity rating scales
-- [[../../user-research/references/interview-guide.md]] -- Conduct user interviews to validate heuristic evaluation findings
-- [[../../accessibility-audit/SKILL.md]] -- Extend heuristic evaluation to include accessibility criteria
-- [[../../information-architecture/references/navigation-guide.md]] -- Navigation patterns that support H1, H4, and H6
+- `interview-guide.md` (`references/interview-guide.md` in the `user-research` skill) -- Conduct user interviews to validate heuristic evaluation findings
+- `SKILL.md` (the `accessibility-audit` skill) -- Extend heuristic evaluation to include accessibility criteria
+- `navigation-guide.md` (`references/navigation-guide.md` in the `information-architecture` skill) -- Navigation patterns that support H1, H4, and H6
 
 **Back to:** [Usability Evaluation Skill](../SKILL.md)
 

@@ -6,9 +6,13 @@ on:
       - 'plugins/**'
       - 'community-plugins/**'
       - '.claude-plugin/**'
+      - '.agents/plugins/**'
+      - '.cursor-plugin/**'
       - 'marketplace/**'
       - '.github/workflows/validate-plugins.yml'
       - '.github/scripts/**'
+      - 'pixi.toml'
+      - 'pixi.lock'
   push:
     branches: [ main ]
 
@@ -18,11 +22,41 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - uses: prefix-dev/setup-pixi@ad1da6449d9e506fd127fd67ab2d054a769f6a94 # v0.11.2
+        with:
+          pixi-version: v0.82.0
+          environments: ci
+          locked: true
+
+      - name: Check Agent Plugins manifests and skills
+        run: |
+          # Fails on manifest drift (run `pixi run plugins-sync`),
+          # a plugin missing from the catalog, an invalid plugin.json or mcp.json,
+          # and skill files or links that leave their skill directory.
+          pixi run plugins-check
+
+      - name: Validate against the official Agent Plugins schemas
+        run: |
+          pixi run -e ci check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/plugin.schema.json \
+            plugins/*/plugin.json community-plugins/*/plugin.json
+          mcp=$(ls plugins/*/mcp.json community-plugins/*/mcp.json 2>/dev/null || true)
+          if [ -n "$mcp" ]; then
+            pixi run -e ci check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json $mcp
+          fi
+
+      - name: Validate with Claude Code
+        run: |
+          # agent_plugins.py --claude fails when Claude finds no manifest, even
+          # though `claude plugin validate` itself exits 0 in that case.
+          npm install -g '@anthropic-ai/claude-code@2.1.312'
+          pixi run plugins-check-claude
+
       - name: Validate JSON files
         run: |
           echo "Validating JSON files..."
-          # Exclude tsconfig*.json files as they use JSONC (JSON with Comments)
-          find . -name "*.json" -not -name "tsconfig*.json" -type f -exec sh -c '
+          # Exclude tsconfig*.json files as they use JSONC (JSON with Comments),
+          # and the .pixi environment that setup-pixi installs in the checkout.
+          find . -path ./.pixi -prune -o -name "*.json" -not -name "tsconfig*.json" -type f -exec sh -c '
             for file; do
               echo "Checking $file"
               if ! jq empty "$file" 2>/dev/null; then
@@ -39,7 +73,7 @@ jobs:
           # value), so a duplicated key silently collapses two objects into one.
           # In marketplace.json that can drop a plugin from the catalog — and thus
           # from the catalog-driven scans below — with no validation error.
-          python3 .github/scripts/check_duplicate_json_keys.py .
+          pixi run -e ci python .github/scripts/check_duplicate_json_keys.py .
 
       - name: Check plugin structure
         run: |
@@ -192,7 +226,11 @@ jobs:
           fi
 
           # Check for base64 encoded content (potential obfuscation)
-          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null; then
+          # Exempt only a line that is exactly `--jq '.content' | base64 -d`: the
+          # continuation of `gh api .../contents/...` that incident-response
+          # runbooks use to print a workflow file. Anything after the decode,
+          # such as `| sh`, is still flagged.
+          if grep -r -E "base64\s+-d" $PLUGIN_DIRS 2>/dev/null | grep -v -E "^[^:]+:[[:space:]]*--jq '\.content' \| base64 -d[[:space:]]*$"; then
             echo "⚠️  WARNING: base64 decoding detected - potential obfuscation"
             FOUND_ISSUES=1
           fi

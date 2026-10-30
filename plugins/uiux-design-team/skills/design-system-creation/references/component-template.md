@@ -176,6 +176,6 @@ src/
 - [[component-api-guide.md]] — prop naming conventions, variant API design, TypeScript patterns
 - [[atomic-design-guide.md]] — where this component fits in the atoms → organisms hierarchy
 - [[token-architecture.md]] — three-tier token system feeding the CSS custom properties used here
-- [[../../component-library/SKILL.md]] — Storybook visual regression and a11y audit workflows
+- `SKILL.md` (the `component-library` skill) — Storybook visual regression and a11y audit workflows
 
 **Back to:** [Design System Creation Skill](../SKILL.md)

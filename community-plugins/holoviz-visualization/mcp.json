@@ -1,0 +1,17 @@
+{
+    "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+    "mcpServers": {
+        "holoviz-mcp": {
+            "type": "stdio",
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-v",
+                "holoviz-mcp:/root/.holoviz-mcp",
+                "ghcr.io/marcskovmadsen/holoviz-mcp:latest"
+            ]
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    "name": "holoviz-visualization",
+    "version": "0.1.0",
+    "description": "Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem including Panel, hvPlot, HoloViews, Datashader, GeoViews, Colorcet, and Lumen.",
+    "author": {
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "holoviz",
+        "panel",
+        "hvplot",
+        "holoviews",
+        "datashader",
+        "geoviews",
+        "colorcet",
+        "lumen",
+        "visualization",
+        "dashboards",
+        "interactive",
+        "geospatial"
+    ]
+}

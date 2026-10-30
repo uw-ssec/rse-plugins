@@ -324,8 +324,8 @@ Regardless of whether the test wins, loses, or shows no difference, document the
 
 - [[test-design-guide.md]] -- Design the test architecture after forming your hypothesis
 - [[analysis-methods.md]] -- Analyze results using statistical methods once the test completes
-- [[../../user-research/references/interview-guide.md]] -- Conduct the research that provides hypothesis rationale
-- [[../../usability-evaluation/references/nielsen-heuristics.md]] -- Use heuristic violations to generate hypothesis ideas
-- [[../../user-journey-mapping/references/journey-template.md]] -- Identify journey pain points that become test hypotheses
+- `interview-guide.md` (`references/interview-guide.md` in the `user-research` skill) -- Conduct the research that provides hypothesis rationale
+- `nielsen-heuristics.md` (`references/nielsen-heuristics.md` in the `usability-evaluation` skill) -- Use heuristic violations to generate hypothesis ideas
+- `journey-template.md` (`references/journey-template.md` in the `user-journey-mapping` skill) -- Identify journey pain points that become test hypotheses
 
 **Back to:** [A/B Testing Strategy Skill](../SKILL.md)

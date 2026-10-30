@@ -1,4 +1,4 @@
-[Back to Information Architecture](../information-architecture.md)
+[Back to Information Architecture](../SKILL.md)
 
 # Card Sorting Methodology
 

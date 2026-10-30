@@ -258,9 +258,9 @@ Progressively remove visual hierarchy tools (color, then size differences, then 
 
 - [[aesthetic-principles.md]] - How aesthetic choices create and reinforce hierarchy
 - [[brand-alignment.md]] - Ensuring hierarchy decisions align with brand priorities
-- [[../../../typography-systems/references/type-scale-guide.md]] - Typographic hierarchy through modular scales
-- [[../../../grid-layout-systems/references/grid-types.md]] - Structural hierarchy through grid systems
-- [[../../../color-systems/references/contrast-requirements.md]] - Contrast ratios that ensure readable hierarchy
+- `type-scale-guide.md` (`references/type-scale-guide.md` in the `typography-systems` skill) - Typographic hierarchy through modular scales
+- `grid-types.md` (`references/grid-types.md` in the `grid-layout-systems` skill) - Structural hierarchy through grid systems
+- `contrast-requirements.md` (`references/contrast-requirements.md` in the `color-systems` skill) - Contrast ratios that ensure readable hierarchy
 
 ## Hierarchy Tools (moved from SKILL.md)
 

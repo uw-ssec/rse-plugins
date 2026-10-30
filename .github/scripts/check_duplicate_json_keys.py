@@ -23,7 +23,7 @@ import pathlib
 import sys
 
 # Directories that never contain first-party JSON worth validating.
-SKIP_DIR_PARTS = {".git", "node_modules"}
+SKIP_DIR_PARTS = {".git", ".pixi", "node_modules"}
 
 
 def reject_duplicates(pairs):

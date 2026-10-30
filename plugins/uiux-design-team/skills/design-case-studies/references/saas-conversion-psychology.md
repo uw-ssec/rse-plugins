@@ -464,5 +464,5 @@ SaaS conversion is not a feature problem. It is a psychology problem. The compan
 - [Psychological Design Engines](psychological-design-engines.md) -- Perplexity, Apple Fitness, Waze, Headspace, Discord, and Stompers applying behavioral psychology to retention and engagement
 - [Emotional Design as Growth Engine](emotional-design-growth.md) -- Duolingo, Phantom, and Revolut using emotional design for habit formation, trust, and premium positioning
 - [E-commerce](e-commerce.md) -- Shopify, Apple Store, Glossier, and Aesop conversion patterns in purchase-driven interfaces
-- [UX Writing](../ux-writing/SKILL.md) -- Microcopy principles, CTA writing, and the framing techniques behind Headspace's "guest pass"
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Hick's Law, Fitts's Law, and cognitive load theory in full depth
+- UX Writing (the `ux-writing` skill) -- Microcopy principles, CTA writing, and the framing techniques behind Headspace's "guest pass"
+- Design Philosophies (the `design-philosophies` skill) -- Hick's Law, Fitts's Law, and cognitive load theory in full depth

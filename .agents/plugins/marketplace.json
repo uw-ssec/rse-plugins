@@ -1,0 +1,152 @@
+{
+    "name": "rse-plugins",
+    "interface": {
+        "displayName": "rse-plugins"
+    },
+    "plugins": [
+        {
+            "name": "scientific-domain-applications",
+            "source": {
+                "source": "local",
+                "path": "./plugins/scientific-domain-applications"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Data Science"
+        },
+        {
+            "name": "scientific-python-development",
+            "source": {
+                "source": "local",
+                "path": "./plugins/scientific-python-development"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Development"
+        },
+        {
+            "name": "holoviz-visualization",
+            "source": {
+                "source": "local",
+                "path": "./community-plugins/holoviz-visualization"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Data Science"
+        },
+        {
+            "name": "ai-research-workflows",
+            "source": {
+                "source": "local",
+                "path": "./plugins/ai-research-workflows"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Development"
+        },
+        {
+            "name": "project-management",
+            "source": {
+                "source": "local",
+                "path": "./plugins/project-management"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Development"
+        },
+        {
+            "name": "gaia-data-downloader",
+            "source": {
+                "source": "local",
+                "path": "./community-plugins/gaia-data-downloader"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Data Science"
+        },
+        {
+            "name": "zarr-chunk-optimization",
+            "source": {
+                "source": "local",
+                "path": "./plugins/zarr-chunk-optimization"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Data Science"
+        },
+        {
+            "name": "zarr-data-format",
+            "source": {
+                "source": "local",
+                "path": "./plugins/zarr-data-format"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Data Science"
+        },
+        {
+            "name": "research-software-design",
+            "source": {
+                "source": "local",
+                "path": "./plugins/research-software-design"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Research"
+        },
+        {
+            "name": "uiux-design-team",
+            "source": {
+                "source": "local",
+                "path": "./plugins/uiux-design-team"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Design"
+        },
+        {
+            "name": "containerization",
+            "source": {
+                "source": "local",
+                "path": "./plugins/containerization"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Development"
+        },
+        {
+            "name": "supply-chain-security",
+            "source": {
+                "source": "local",
+                "path": "./plugins/supply-chain-security"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Security"
+        }
+    ]
+}

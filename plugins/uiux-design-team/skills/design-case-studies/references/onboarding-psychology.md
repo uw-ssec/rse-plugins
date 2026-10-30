@@ -379,6 +379,6 @@ Apps lose 77% of users within 3 days, and the fix is not better features or bett
 - [Psychological Design Engines](psychological-design-engines.md) -- Apple Fitness's Hick's Law activation and Stompers' Zeigarnik progress loops in broader behavioral context
 - [Emotional Design as Growth Engine](emotional-design-growth.md) -- Duolingo's emotional feedback loops and Headspace's emotional anchoring, related to eureka moments and emotional onboarding
 - [SaaS Conversion Psychology](saas-conversion-psychology.md) -- Slopes' one-tap trial start and Blinkist's progressive disclosure, related to reducing onboarding friction
-- [UX Writing](../ux-writing/SKILL.md) -- Microcopy for onboarding flows, empty states, and progressive disclosure messaging
-- [Information Architecture](../information-architecture/SKILL.md) -- Progressive disclosure and content hierarchy for structuring onboarding sequences
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Hick's Law, Fitts's Law, and cognitive load theory underlying these onboarding strategies
+- UX Writing (the `ux-writing` skill) -- Microcopy for onboarding flows, empty states, and progressive disclosure messaging
+- Information Architecture (the `information-architecture` skill) -- Progressive disclosure and content hierarchy for structuring onboarding sequences
+- Design Philosophies (the `design-philosophies` skill) -- Hick's Law, Fitts's Law, and cognitive load theory underlying these onboarding strategies

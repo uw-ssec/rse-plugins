@@ -372,8 +372,8 @@ The relative difference matters more than the absolute values. If inter-paragrap
 
 - [[grid-patterns.md]] -- Layout patterns that use spacing tokens for gap and padding
 - [[responsive-strategies.md]] -- How spacing adapts across viewport sizes
-- [[../../typography-systems/references/type-scale-theory.md]] -- Aligning type scale with baseline spacing
-- [[../../design-tokens/SKILL.md]] -- Encoding spacing values as cross-platform design tokens
-- [[../../visual-design/references/visual-hierarchy.md]] -- Using spacing to create and reinforce visual hierarchy
+- `type-scale-theory.md` (`references/type-scale-theory.md` in the `typography-systems` skill) -- Aligning type scale with baseline spacing
+- `SKILL.md` (the `design-tokens` skill) -- Encoding spacing values as cross-platform design tokens
+- `visual-hierarchy.md` (`references/visual-hierarchy.md` in the `visual-design` skill) -- Using spacing to create and reinforce visual hierarchy
 
 **Back to:** [Grid Layout Systems Skill](../SKILL.md)

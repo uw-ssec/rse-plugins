@@ -202,8 +202,8 @@ Touch targets must be large enough for imprecise finger input. Standards and bes
 
 - [[saas-dashboards.md]] -- Contrast mobile patterns with desktop-first SaaS dashboard design
 - [[design-systems-in-practice.md]] -- Polaris, Carbon, and Atlassian design systems include mobile-specific guidance
-- [[../../design-philosophies/references/apple-hig.md]] -- The philosophical foundation for Apple native app patterns
-- [[../../design-philosophies/references/material-design.md]] -- Material Design 3 system that powers Google's app patterns
-- [[../../responsive-design/references/breakpoint-strategy.md]] -- Mobile-first breakpoint strategy for responsive mobile web
+- `apple-hig.md` (`references/apple-hig.md` in the `design-philosophies` skill) -- The philosophical foundation for Apple native app patterns
+- `material-design.md` (`references/material-design.md` in the `design-philosophies` skill) -- Material Design 3 system that powers Google's app patterns
+- `breakpoint-strategy.md` (`references/breakpoint-strategy.md` in the `responsive-design` skill) -- Mobile-first breakpoint strategy for responsive mobile web
 
 **Back to:** [Design Case Studies Skill](../SKILL.md)

@@ -336,6 +336,6 @@ Content must be robust enough to be interpreted by assistive technologies.
 - [[keyboard-nav-guide.md]] -- Focus management, roving tabindex, and keyboard interaction patterns
 - [[contrast-guide.md]] -- Color contrast ratios, testing tools, and fix strategies
 - [[inclusive-design.md]] -- Designing beyond compliance for the widest range of users
-- [[../../design-handoff/references/qa-process.md]] -- Design QA process including accessibility verification
+- `qa-process.md` (`references/qa-process.md` in the `design-handoff` skill) -- Design QA process including accessibility verification
 
 **Back to:** [Accessibility Audit Skill](../SKILL.md)

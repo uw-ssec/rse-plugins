@@ -37,15 +37,85 @@ This repository provides specialized agents and skills that understand the uniqu
 
 ## Installation
 
+Each plugin follows the [Agent Plugins](https://agent-plugins.org/specification) v1.0.0 format. It has a portable `plugin.json` at the plugin root, plus client-specific files for the clients that need them. Skills work in every client below. Agents, commands and MCP servers are client-specific, and not every client loads them:
+
+| Client | Install from | Skills | Agents | Commands | HoloViz MCP |
+| --- | --- | --- | --- | --- | --- |
+| Claude Code | marketplace | ✅ | ✅ | ✅ | ✅ |
+| GitHub Copilot CLI | marketplace | ✅ | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | ✅ |
+| VS Code (Copilot) | marketplace setting | 🟡 | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | ❔ |
+| Codex | marketplace | ✅ | ❌ | ❌ | ✅ |
+| Cursor | local folder | 🟡 | ❌ | ❌ | 🟡 |
+| OpenCode | copied skills | ✅ | ❌ | ❌ | 🔧 `opencode.json` |
+
+✅ Verified · 🟡 Expected, untested · ❔ Unknown · 🚧 Planned ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) · ❌ Unsupported · 🔧 Manual setup
+
+🟡 cells follow the client's documentation but haven't been run against this repository. For MCP, ✅ means the client found the server configuration; the server itself wasn't started.
+
+Replace `scientific-python-development` in the examples below with any plugin from [Available Plugins](#available-plugins).
+
 ### Claude Code
 
-To use these agents and skills in Claude Code, add this repository to your plugin marketplace:
-
 ```bash
-/plugin marketplace add uw-ssec/rse-plugins
+claude plugin marketplace add uw-ssec/rse-plugins
+claude plugin install scientific-python-development@rse-plugins
 ```
 
-Once installed, the agents and skills will be available in your Claude Code environment and can be invoked when working on scientific software projects.
+Inside Claude Code, the same commands are `/plugin marketplace add uw-ssec/rse-plugins` and `/plugin install scientific-python-development@rse-plugins`. Claude Code reads `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
+
+### GitHub Copilot CLI
+
+```bash
+copilot plugin marketplace add uw-ssec/rse-plugins
+copilot plugin install scientific-python-development@rse-plugins
+```
+
+Copilot reads the root `plugin.json` and the marketplace in `.claude-plugin/marketplace.json`, and loads each plugin's skills and MCP servers. It doesn't load our agents or commands yet: those are written for Claude Code, and Copilot-format versions for Copilot CLI and VS Code are tracked in [#240](https://github.com/uw-ssec/rse-plugins/issues/240). The [Codespace](#github-codespaces) installs every plugin this way.
+
+### Codex
+
+```bash
+codex plugin marketplace add uw-ssec/rse-plugins
+codex plugin add scientific-python-development@rse-plugins
+```
+
+Codex loads skills and MCP servers. It doesn't load agents or commands.
+
+### Cursor
+
+Cursor's public marketplace is curated, so this repository isn't listed there. To use a plugin, copy it into Cursor's local plugin folder. Cursor skips symlinks that point outside that folder, so copy rather than link:
+
+```bash
+git clone https://github.com/uw-ssec/rse-plugins.git
+mkdir -p ~/.cursor/plugins/local
+cp -R rse-plugins/plugins/scientific-python-development ~/.cursor/plugins/local/
+```
+
+Then restart Cursor (or run **Developer: Reload Window**), and check the plugin's skills and MCP servers under **Customize**. Cursor loads each plugin as an Agent Plugin, which means skills and MCP servers only. Our agents and commands use Claude Code's format, so Cursor doesn't load them. Teams and Enterprise plans can also add the repository to a team marketplace (`.cursor-plugin/marketplace.json`) instead of copying. See [Cursor plugins](https://cursor.com/docs/plugins). These steps follow Cursor's documentation; they haven't been tested.
+
+### OpenCode
+
+OpenCode doesn't install plugin packages, but it discovers skills. Copy the skills you want into a skills directory, either globally (`~/.config/opencode/skills/`) or in a project (`.agents/skills/` or `.opencode/skills/`):
+
+```bash
+git clone https://github.com/uw-ssec/rse-plugins.git
+mkdir -p ~/.config/opencode/skills
+cp -R rse-plugins/plugins/scientific-python-development/skills/* ~/.config/opencode/skills/
+```
+
+The same copy works for any client that reads a skills directory, such as `~/.agents/skills/`. Agents and commands aren't available in OpenCode. To use the HoloViz MCP server, add it to your `opencode.json` yourself:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "holoviz-mcp": {
+      "type": "local",
+      "command": ["docker", "run", "-i", "--rm", "-v", "holoviz-mcp:/root/.holoviz-mcp", "ghcr.io/marcskovmadsen/holoviz-mcp:latest"]
+    }
+  }
+}
+```
 
 ### VS Code
 
@@ -195,14 +265,20 @@ Browse the [plugins directory](plugins/) and [community-plugins directory](commu
 ```
 rse-plugins/
 ├── .claude-plugin/
-│   └── marketplace.json                                # Claude plugin marketplace configuration
+│   └── marketplace.json                                # Plugin catalog (Claude Code, Copilot CLI, Codex)
+├── .agents/plugins/
+│   └── marketplace.json                                # Codex marketplace (generated)
+├── .cursor-plugin/
+│   └── marketplace.json                                # Cursor marketplace (generated)
 ├── plugins/                                            # Main plugin collection
 │   ├── scientific-python-development/                  # Scientific Python development plugin
+│   │   ├── plugin.json                                 # Agent Plugins manifest (edit this one)
 │   │   ├── .claude-plugin/
-│   │   │   └── plugin.json
+│   │   │   └── plugin.json                             # Claude Code manifest (generated)
 │   │   ├── agents/
 │   │   │   ├── scientific-python-expert.md
 │   │   │   └── scientific-docs-architect.md
+│   │   ├── commands/
 │   │   └── skills/
 │   │       ├── pixi-package-manager/
 │   │       ├── python-packaging/

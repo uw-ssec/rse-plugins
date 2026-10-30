@@ -103,7 +103,7 @@ Pass: zero serious/critical violations. Track moderate violations in issue track
 
 ## Next Steps
 
-- **[Design System Creation](../design-system-creation/SKILL.md)**: Ensure the library aligns with the broader design system governance
-- **[Design Tokens](../design-tokens/SKILL.md)**: Consume tokens correctly and contribute component tokens back to the system
-- **[Frontend Components](../frontend-components/SKILL.md)**: Implementation-specific guidance for React, Vue, and Svelte components
-- **[Accessibility Audit](../accessibility-audit/SKILL.md)**: Validate component accessibility with automated and manual testing
+- **Design System Creation (the `design-system-creation` skill)**: Ensure the library aligns with the broader design system governance
+- **Design Tokens (the `design-tokens` skill)**: Consume tokens correctly and contribute component tokens back to the system
+- **Frontend Components (the `frontend-components` skill)**: Implementation-specific guidance for React, Vue, and Svelte components
+- **Accessibility Audit (the `accessibility-audit` skill)**: Validate component accessibility with automated and manual testing

@@ -389,5 +389,5 @@ The most successful products are not the ones with the most features or the best
 - [Emotional Design as Growth Engine](emotional-design-growth.md) -- Duolingo, Phantom, and Revolut using emotional design for habit formation, trust building, and premium positioning
 - [SaaS Dashboards](saas-dashboards.md) -- Stripe's progressive disclosure and Linear's keyboard-first speed demonstrate behavioral design in data-rich contexts
 - [Mobile Apps](mobile-apps.md) -- Platform-specific patterns for gesture-heavy UIs and touch target design
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Don Norman's emotional design framework and Hick's Law in full theoretical depth
-- [Motion Design](../motion-design/SKILL.md) -- Animation principles and performance budgets for implementing feedback loops and emotional transitions
+- Design Philosophies (the `design-philosophies` skill) -- Don Norman's emotional design framework and Hick's Law in full theoretical depth
+- Motion Design (the `motion-design` skill) -- Animation principles and performance budgets for implementing feedback loops and emotional transitions

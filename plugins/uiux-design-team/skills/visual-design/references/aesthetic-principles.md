@@ -169,8 +169,8 @@ Concrete descriptions of how each tone manifests in a landing page for a project
 
 - [[brand-alignment.md]] - Brand audit process and design language documentation
 - [[visual-hierarchy.md]] - Gestalt principles, scanning patterns, and visual weight
-- [[../../../color-systems/references/color-theory.md]] - Color psychology and perceptual color spaces
-- [[../../../typography-systems/references/font-pairing.md]] - Distinctive font alternatives and pairing principles
+- `color-theory.md` (`references/color-theory.md` in the `color-systems` skill) - Color psychology and perceptual color spaces
+- `font-pairing.md` (`references/font-pairing.md` in the `typography-systems` skill) - Distinctive font alternatives and pairing principles
 
 ## Norman's Three Levels (moved from SKILL.md)
 

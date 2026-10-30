@@ -229,9 +229,9 @@ body { font-size: type-scale(0); } // 1rem
 
 - [[font-pairing-guide.md]] -- Pair fonts at appropriate scale steps for heading and body roles
 - [[reading-optimization.md]] -- Ensure type scale sizes meet reading comfort and accessibility thresholds
-- [[../../grid-layout-systems/references/spacing-systems.md]] -- Align type scale with spacing system for vertical rhythm
-- [[../../visual-design/references/visual-hierarchy.md]] -- Use type scale as the primary driver of visual hierarchy
-- [[../../design-tokens/SKILL.md]] -- Encode type scale values as design tokens for cross-platform consistency
+- `spacing-systems.md` (`references/spacing-systems.md` in the `grid-layout-systems` skill) -- Align type scale with spacing system for vertical rhythm
+- `visual-hierarchy.md` (`references/visual-hierarchy.md` in the `visual-design` skill) -- Use type scale as the primary driver of visual hierarchy
+- `SKILL.md` (the `design-tokens` skill) -- Encode type scale values as design tokens for cross-platform consistency
 
 **Back to:** [Typography Systems Skill](../SKILL.md)
 

@@ -132,5 +132,5 @@ Full worked examples and repository structure: [synthesis-methods.md](references
 
 ## Next Steps
 
-- **[User Journey Mapping](../user-journey-mapping/SKILL.md)** — map end-to-end experience per persona
-- **[Usability Evaluation](../usability-evaluation/SKILL.md)** — evaluate designs against heuristics
+- **User Journey Mapping (the `user-journey-mapping` skill)** — map end-to-end experience per persona
+- **Usability Evaluation (the `usability-evaluation` skill)** — evaluate designs against heuristics

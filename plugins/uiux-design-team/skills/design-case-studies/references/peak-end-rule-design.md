@@ -309,5 +309,5 @@ Our brains compress experiences into two moments: the peak and the end. Everythi
 - [Onboarding Psychology](onboarding-psychology.md) -- Breathwork's eureka effect and Marathon's goal gradient as peak-end applications in first-use experiences
 - [Psychological Design Engines](psychological-design-engines.md) -- Headspace's emotional anchoring and Discord's social proof as techniques for engineering peak moments
 - [SaaS Conversion Psychology](saas-conversion-psychology.md) -- Blinkist's progressive disclosure and Headspace's framing as peak-end strategies for trial flows
-- [Motion Design](../motion-design/SKILL.md) -- Animation principles for implementing celebration screens, micro-animations, and transition moments
-- [UX Writing](../ux-writing/SKILL.md) -- Microcopy for endings, success states, and the gentle encouragement that closes experiences well
+- Motion Design (the `motion-design` skill) -- Animation principles for implementing celebration screens, micro-animations, and transition moments
+- UX Writing (the `ux-writing` skill) -- Microcopy for endings, success states, and the gentle encouragement that closes experiences well

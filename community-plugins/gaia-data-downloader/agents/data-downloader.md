@@ -29,7 +29,8 @@ description: >
 
 model: inherit
 color: cyan
-skills: download-script-dev
+skills:
+  - download-script-dev
 allowed-tools: All tools
 ---
 

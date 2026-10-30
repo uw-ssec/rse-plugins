@@ -553,9 +553,9 @@ Expose styling hooks via CSS custom properties, allowing consumers to customize 
 - [[react-patterns.md]] -- React patterns for cross-framework comparison
 - [[vue-patterns.md]] -- Vue Composition API patterns and how they compare to Svelte's reactivity
 - [[web-components.md]] -- Integrating Web Components with Svelte applications
-- [[../../component-library/references/composition-patterns.md]] -- Framework-agnostic composition patterns
-- [[../../accessibility-audit/references/keyboard-nav-guide.md]] -- Keyboard navigation patterns that Svelte actions implement
-- [[../../css-architecture/references/css-modules-guide.md]] -- CSS scoping approaches compared to Svelte's built-in scoping
+- `composition-patterns.md` (`references/composition-patterns.md` in the `component-library` skill) -- Framework-agnostic composition patterns
+- `keyboard-nav-guide.md` (`references/keyboard-nav-guide.md` in the `accessibility-audit` skill) -- Keyboard navigation patterns that Svelte actions implement
+- `css-modules-guide.md` (`references/css-modules-guide.md` in the `css-architecture` skill) -- CSS scoping approaches compared to Svelte's built-in scoping
 
 **Back to:** [Frontend Components Skill](../SKILL.md)
 

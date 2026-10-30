@@ -406,8 +406,8 @@ Use `aria-live="polite"` with `role="log"` for sequential updates like chat mess
 - [[wcag-checklist.md]] -- WCAG criteria that these ARIA patterns help satisfy
 - [[keyboard-nav-guide.md]] -- Keyboard interaction patterns referenced in each widget
 - [[inclusive-design.md]] -- Inclusive design principles that inform accessible widget design
-- [[../../frontend-components/references/react-patterns.md]] -- React accessibility patterns using these ARIA implementations
-- [[../../frontend-components/references/web-components.md]] -- ARIA in custom elements and Shadow DOM
-- [[../../component-library/references/composition-patterns.md]] -- Component patterns that implement these ARIA widgets
+- `react-patterns.md` (`references/react-patterns.md` in the `frontend-components` skill) -- React accessibility patterns using these ARIA implementations
+- `web-components.md` (`references/web-components.md` in the `frontend-components` skill) -- ARIA in custom elements and Shadow DOM
+- `composition-patterns.md` (`references/composition-patterns.md` in the `component-library` skill) -- Component patterns that implement these ARIA widgets
 
 **Back to:** [Accessibility Audit Skill](../SKILL.md)

@@ -116,6 +116,7 @@ Before submitting your PR, ensure:
 - [ ] Agent has been tested with Claude Code (or equivalent)
 - [ ] README.md is updated if adding a new agent
 - [ ] Commit messages are clear and descriptive
+- [ ] `pixi run plugins-check` passes (run `pixi run plugins-sync` first if you changed a manifest or the catalog)
 - [ ] No sensitive information or credentials are included
 
 ## 🧪 Testing Your Agent
@@ -127,6 +128,30 @@ To test your agent:
 3. Verify that the agent provides appropriate guidance
 4. Check that the agent stays within its defined scope
 5. Ensure the agent promotes best practices for scientific software
+
+## 📦 Plugin Manifests and Other Clients
+
+Plugins follow the [Agent Plugins](https://agent-plugins.org/specification) v1.0.0 format, so they install in Claude Code, GitHub Copilot, Codex, Cursor and OpenCode (see [Installation](README.md#installation)). Each client reads different files. Most of those files are generated, so edit only the sources:
+
+| Edit | Don't edit (generated) |
+| --- | --- |
+| `<plugin>/plugin.json`: name, version, description, author, license, keywords | `<plugin>/.claude-plugin/plugin.json` |
+| `.claude-plugin/marketplace.json`: the plugin list, each entry's `source`, `category` and `strict` | the other fields of each `.claude-plugin/marketplace.json` entry |
+| `<plugin>/mcp.json` and `<plugin>/.mcp.json` | `.agents/plugins/marketplace.json` (Codex) and `.cursor-plugin/marketplace.json` (Cursor) |
+
+After changing a source, regenerate the rest and check the result. The tasks run in the `ci` [pixi](https://pixi.sh) environment, which locks Python, PyYAML and the other tools, so you don't need a system Python. CI runs the same tasks:
+
+```bash
+pixi run plugins-sync
+pixi run plugins-check           # or plugins-check-claude to also run `claude plugin validate --strict`
+```
+
+Some rules matter to clients other than Claude Code:
+
+- **A new plugin** needs a root `plugin.json` and an entry in `.claude-plugin/marketplace.json`. `check` fails on a plugin directory that isn't in the catalog. `plugin.json` has a closed schema: only `$schema`, `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`, `keywords` and `extensions` are allowed.
+- **Keep each skill self-contained.** OpenCode and other skills-only clients install a skill directory on its own, so every file and relative link in a skill must stay inside that skill's directory. Link to a sibling skill by naming it (for example "see the `design-tokens` skill"), not with `../design-tokens/SKILL.md`. Put shared material in each skill's `references/`.
+- **MCP servers** need both files. `.mcp.json` is for Claude Code. `mcp.json` is the portable version that Codex, Copilot and Cursor read: it has the Agent Plugins `$schema`, an explicit `type` on each server, and no other top-level fields. Cursor doesn't expand `${PLUGIN_ROOT}` or `${PLUGIN_DATA}`, so avoid them in `mcp.json`.
+- **Agent `skills:`** must be a YAML list (`skills:` then `  - name`), even for one skill. Claude Code accepts a string, but Copilot CLI silently skips an agent whose `skills` is a plain string, so `check` requires a list.
 
 ## 📊 Evaluating Skills
 
@@ -149,7 +174,7 @@ Two manually triggered workflows measure skills (**Actions → workflow → Run 
 | `TESSL_TOKEN` (optional secret) | Evaluate All Skills | Turns on the Tessl review |
 | `TESSL_WORKSPACE` (optional variable) | Evaluate All Skills | Tessl workspace to use when the token can see more than one |
 
-Run the unit tests for these workflows' scripts with `pixi exec --spec python=3.12 --spec pytest --spec pyyaml pytest .github/scripts/tests -q`.
+Run the unit tests for these workflows' scripts with `pixi run test-scripts`.
 
 ## 📋 Code of Conduct
 

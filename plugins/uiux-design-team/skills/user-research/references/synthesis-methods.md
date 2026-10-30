@@ -234,7 +234,7 @@ Research findings only matter if they change decisions. Presenting to non-resear
 - [[persona-templates.md]] -- Use synthesis outputs to build and validate personas
 - [[interview-guide.md]] -- The interviews that produce the raw data for synthesis
 - [[jtbd-framework.md]] -- Apply JTBD framing to insight statements and HMW questions
-- [[journey-template.md]] -- Translate synthesized insights into visual journey maps
+- `journey-template.md` (`references/journey-template.md` in the `user-journey-mapping` skill) -- Translate synthesized insights into visual journey maps
 
 **Back to:** [User Research Skill](../SKILL.md)
 

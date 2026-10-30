@@ -366,4 +366,4 @@ Tinder did not win with a better algorithm, more features, or a bigger marketing
 - [SaaS Conversion Psychology](saas-conversion-psychology.md) -- Loss aversion, framing effects, and contextual monetization in trial and upgrade flows
 - [Onboarding Psychology](onboarding-psychology.md) -- Five onboarding strategies including the eureka effect and progressive disclosure
 - [Mobile Apps](mobile-apps.md) -- Gesture-heavy UIs and touch target design, the physical layer underlying Tinder's swipe mechanic
-- [Motion Design](../motion-design/SKILL.md) -- Animation principles for implementing victory celebrations and micro-interaction feedback
+- Motion Design (the `motion-design` skill) -- Animation principles for implementing victory celebrations and micro-interaction feedback

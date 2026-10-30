@@ -222,6 +222,6 @@ Every interaction should support at least two input modalities:
 - [[aria-patterns.md]] -- ARIA implementations that enable assistive technology access
 - [[keyboard-nav-guide.md]] -- Keyboard navigation for motor-inclusive design
 - [[contrast-guide.md]] -- Visual contrast for vision-inclusive design
-- [[../../ux-writing/SKILL.md]] -- Clear, accessible writing for cognitive inclusion
+- `SKILL.md` (the `ux-writing` skill) -- Clear, accessible writing for cognitive inclusion
 
 **Back to:** [Accessibility Audit Skill](../SKILL.md)

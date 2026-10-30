@@ -639,11 +639,11 @@ class MyAgent(Agent):
 
 ## Complete Example
 
-See [Examples Guide](examples.md) for a complete end-to-end example of a custom agent in a production application.
+See Examples Guide for a complete end-to-end example of a custom agent in a production application.
 
 ## Related Resources
 
 - [Built-in Agents Reference](agents-reference.md)
-- [Custom Tools Guide](custom-tools.md)
-- [Custom Analyses Guide](custom-analyses.md)
-- [Memory System](memory-context.md)
+- Custom Tools Guide
+- Custom Analyses Guide
+- Memory System

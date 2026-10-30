@@ -270,8 +270,8 @@ Headings typically qualify as large text. Body text, labels, and UI element text
 
 - [[color-theory.md]] - Color science underlying contrast perception
 - [[palette-generation.md]] - Building palettes that meet contrast requirements by design
-- [[../../visual-design/references/visual-hierarchy.md]] - How contrast drives visual hierarchy
-- [[../../visual-design/references/aesthetic-principles.md]] - Balancing aesthetics with accessibility requirements
+- `visual-hierarchy.md` (`references/visual-hierarchy.md` in the `visual-design` skill) - How contrast drives visual hierarchy
+- `aesthetic-principles.md` (`references/aesthetic-principles.md` in the `visual-design` skill) - Balancing aesthetics with accessibility requirements
 
 ## Dark Mode Testing Checklist (Moved from SKILL.md)
 

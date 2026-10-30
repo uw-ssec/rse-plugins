@@ -67,7 +67,7 @@ data.hvplot('x', 'y', c='category', cmap=cc.palette['tab10'])
 data.hvplot('x', 'y', c='angle', cmap=cm['cet_cyclic_c1'])
 ```
 
-**See**: [Colormap Reference](../../references/colormaps/colormap-reference.md) for complete catalog
+**See**: [Colormap Reference](references/colormap-reference.md) for complete catalog
 
 ### 2. Accessibility
 
@@ -86,7 +86,7 @@ cmap=cm['cet_t10']
 cmap=cm['cet_gray_r']
 ```
 
-**See**: [Accessibility Guide](../../references/colormaps/accessibility.md) for comprehensive guidelines
+**See**: [Accessibility Guide](references/accessibility.md) for comprehensive guidelines
 
 ### 3. Colormap Selection Guide
 
@@ -121,7 +121,7 @@ scatter.opts(
 )
 ```
 
-**See**: [HoloViews Styling](../../references/colormaps/holoviews-styling.md) for advanced customization
+**See**: [HoloViews Styling](references/holoviews-styling.md) for advanced customization
 
 ### 5. Panel Themes
 
@@ -141,7 +141,7 @@ template = pn.template.FastListTemplate(
 )
 ```
 
-**See**: [Panel Themes](../../references/colormaps/panel-themes.md) for theme customization
+**See**: [Panel Themes](references/panel-themes.md) for theme customization
 
 ## Common Patterns
 
@@ -378,7 +378,7 @@ print(pn.config.theme)  # 'default' or 'dark'
 
 **Resources**:
 - Quick Start (this doc)
-- [Colormap Reference](../../references/colormaps/colormap-reference.md)
+- [Colormap Reference](references/colormap-reference.md)
 
 ### Level 2: Accessibility
 1. Understand colormap categories
@@ -386,7 +386,7 @@ print(pn.config.theme)  # 'default' or 'dark'
 3. Test for colorblindness
 
 **Resources**:
-- [Accessibility Guide](../../references/colormaps/accessibility.md)
+- [Accessibility Guide](references/accessibility.md)
 
 ### Level 3: Advanced Styling
 1. Customize HoloViews opts
@@ -394,16 +394,16 @@ print(pn.config.theme)  # 'default' or 'dark'
 3. Consistent branding
 
 **Resources**:
-- [HoloViews Styling](../../references/colormaps/holoviews-styling.md)
-- [Panel Themes](../../references/colormaps/panel-themes.md)
+- [HoloViews Styling](references/holoviews-styling.md)
+- [Panel Themes](references/panel-themes.md)
 
 ## Additional Resources
 
 ### Documentation
-- **[Colormap Reference](../../references/colormaps/colormap-reference.md)** - Complete colormap catalog
-- **[Accessibility Guide](../../references/colormaps/accessibility.md)** - Colorblind-friendly design
-- **[HoloViews Styling](../../references/colormaps/holoviews-styling.md)** - Advanced customization
-- **[Panel Themes](../../references/colormaps/panel-themes.md)** - Theme and branding
+- **[Colormap Reference](references/colormap-reference.md)** - Complete colormap catalog
+- **[Accessibility Guide](references/accessibility.md)** - Colorblind-friendly design
+- **[HoloViews Styling](references/holoviews-styling.md)** - Advanced customization
+- **[Panel Themes](references/panel-themes.md)** - Theme and branding
 
 ### External Links
 - [Colorcet Documentation](https://colorcet.holoviz.org/)
@@ -462,6 +462,6 @@ Colorcet provides perceptually uniform, accessible colormaps for scientific visu
 
 ## Related Skills
 
-- **[Data Visualization](../data-visualization/SKILL.md)** - HoloViews visualization patterns
-- **[Panel Dashboards](../panel-dashboards/SKILL.md)** - Dashboard styling and themes
-- **[Plotting Fundamentals](../plotting-fundamentals/SKILL.md)** - Basic plotting with hvPlot
+- **Data Visualization (the `data-visualization` skill)** - HoloViews visualization patterns
+- **Panel Dashboards (the `panel-dashboards` skill)** - Dashboard styling and themes
+- **Plotting Fundamentals (the `plotting-fundamentals` skill)** - Basic plotting with hvPlot

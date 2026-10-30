@@ -1,4 +1,4 @@
-[Back to AB Testing Strategy](../ab-testing-strategy.md)
+[Back to AB Testing Strategy](../SKILL.md)
 
 # A/B Test Design Guide
 

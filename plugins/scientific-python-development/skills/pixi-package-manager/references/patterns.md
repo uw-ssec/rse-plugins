@@ -48,7 +48,7 @@ pixi run python -c "import numpy, pandas, scipy; print('Success!')"
 
 ## Pattern 2: Multi-Environment Scientific Workflow
 
-See [assets/pyproject-multi-env.toml](assets/pyproject-multi-env.toml) for a complete example of multi-environment configuration.
+See [assets/pyproject-multi-env.toml](../assets/pyproject-multi-env.toml) for a complete example of multi-environment configuration.
 
 **Key concepts:**
 - Use features to organize dependencies by purpose (dev, test, gpu, etc.)

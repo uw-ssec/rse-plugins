@@ -106,6 +106,6 @@ Automation catches ~30% of WCAG issues. The rest needs human judgment.
 ## Next Steps
 
 - **[Inclusive Design](references/inclusive-design.md)**: Move beyond compliance to broad-spectrum inclusion
-- **[UX Writing](../ux-writing/SKILL.md)**: Error messages and microcopy
-- **[Color Systems](../color-systems/SKILL.md)**: Bake contrast into the palette
-- **[Frontend Components](../frontend-components/SKILL.md)**: Accessible component implementations
+- **UX Writing (the `ux-writing` skill)**: Error messages and microcopy
+- **Color Systems (the `color-systems` skill)**: Bake contrast into the palette
+- **Frontend Components (the `frontend-components` skill)**: Accessible component implementations

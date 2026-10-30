@@ -434,4 +434,4 @@ All four steps share a common insight: **the product itself is the growth engine
 - [SaaS Conversion Psychology](saas-conversion-psychology.md) -- Psychology-informed paywall and upgrade flow design at critical conversion moments
 - [Netflix: Behavioral Design Weapons](netflix-behavioral-design.md) -- Microfriction erasure, algorithmic intimacy, and viral UX as Netflix's $400 billion growth weapons
 - [Psychological Design Engines](psychological-design-engines.md) -- Feedback loops, Hick's Law, and Fitts's Law applied across ordinary apps that feel extraordinary
-- [Visual Design](../visual-design/SKILL.md) -- The design fundamentals behind the 3-second trust test
+- Visual Design (the `visual-design` skill) -- The design fundamentals behind the 3-second trust test

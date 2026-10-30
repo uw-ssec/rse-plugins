@@ -396,7 +396,7 @@ Blocks can be nested in the DOM, but they do not own each other in BEM. Each blo
 - [[tailwind-patterns.md]] -- Utility-first approach that complements or replaces BEM
 - [[css-modules-guide.md]] -- Scoped CSS approach that can incorporate BEM naming for readability
 - [[css-in-js-patterns.md]] -- Runtime and build-time styling alternatives to BEM
-- [[../../design-tokens/references/naming-conventions.md]] -- Token naming conventions that parallel BEM's structured naming
-- [[../../component-library/references/composition-patterns.md]] -- Component patterns that BEM styles support
+- `naming-conventions.md` (`references/naming-conventions.md` in the `design-tokens` skill) -- Token naming conventions that parallel BEM's structured naming
+- `composition-patterns.md` (`references/composition-patterns.md` in the `component-library` skill) -- Component patterns that BEM styles support
 
 **Back to:** [CSS Architecture Skill](../SKILL.md)

@@ -135,7 +135,7 @@ Document at 375 / 768 / 1280px:
 
 ## Next Steps
 
-- **[Information Architecture](../information-architecture/SKILL.md)**: align wireframe structure with IA
-- **[Visual Design](../visual-design/SKILL.md)**: apply style/color/type to wireframes
-- **[Responsive Design](../responsive-design/SKILL.md)**: implement fluid layouts in code
-- **[Design Handoff](../design-handoff/SKILL.md)**: annotate for engineering
+- **Information Architecture (the `information-architecture` skill)**: align wireframe structure with IA
+- **Visual Design (the `visual-design` skill)**: apply style/color/type to wireframes
+- **Responsive Design (the `responsive-design` skill)**: implement fluid layouts in code
+- **Design Handoff (the `design-handoff` skill)**: annotate for engineering

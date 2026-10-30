@@ -344,4 +344,4 @@ Use this checklist to evaluate whether your product applies Netflix's three weap
 - [Emotional Design as Growth Engine](emotional-design-growth.md) -- Animation, character design, and micro-interactions as deliberate business strategy
 - [Peak-End Rule in Product Design](peak-end-rule-design.md) -- Designing the moments users actually remember to drive retention
 - [SaaS Conversion Psychology](saas-conversion-psychology.md) -- Psychology-informed design changes at critical conversion moments
-- [Design Philosophies](../design-philosophies/SKILL.md) -- The theoretical foundations behind behavioral design decisions
+- Design Philosophies (the `design-philosophies` skill) -- The theoretical foundations behind behavioral design decisions

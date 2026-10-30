@@ -338,8 +338,8 @@ These "in-between" states reveal the breakpoints you are missing.
 
 - [[grid-patterns.md]] -- Layout patterns that demonstrate responsive behavior
 - [[spacing-systems.md]] -- Spacing values that adapt across viewport sizes
-- [[../../typography-systems/references/type-scale-theory.md]] -- Responsive type scale ratio strategies
-- [[../../responsive-design/SKILL.md]] -- Broader responsive design skill covering all aspects
-- [[../../design-tokens/SKILL.md]] -- Encoding breakpoints and fluid values as tokens
+- `type-scale-theory.md` (`references/type-scale-theory.md` in the `typography-systems` skill) -- Responsive type scale ratio strategies
+- `SKILL.md` (the `responsive-design` skill) -- Broader responsive design skill covering all aspects
+- `SKILL.md` (the `design-tokens` skill) -- Encoding breakpoints and fluid values as tokens
 
 **Back to:** [Grid Layout Systems Skill](../SKILL.md)

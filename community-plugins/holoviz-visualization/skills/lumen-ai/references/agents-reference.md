@@ -175,7 +175,7 @@ Generates and executes SQL queries from natural language.
 
 ### Example Output
 
-```
+````
 📊 Generated SQL:
 ```sql
 SELECT region, SUM(revenue) as total_sales
@@ -193,7 +193,7 @@ Results (4 rows):
 | East      | $987,450    |
 | South     | $876,230    |
 | North     | $654,100    |
-```
+````
 
 ### SQL Generation Best Practices
 
@@ -332,7 +332,7 @@ Automatically invoked when:
 
 ### Custom Analyses
 
-See [Custom Analyses Guide](custom-analyses.md) for creating domain-specific analyses like:
+See [Pattern 4: Custom Analysis](../SKILL.md#pattern-4-custom-analysis) for creating domain-specific analyses like:
 - Customer segmentation
 - Cohort analysis
 - Churn prediction
@@ -546,5 +546,5 @@ class RobustAgent(Agent):
 ## Related Resources
 
 - [Custom Agents Guide](custom-agents.md) - Build your own agents
-- [Custom Tools Guide](custom-tools.md) - Extend agent capabilities
-- [Memory and Context](memory-context.md) - Understanding the memory system
+- Custom Tools Guide - Extend agent capabilities
+- Memory and Context - Understanding the memory system

@@ -96,7 +96,7 @@ Apply in order. Each layer feeds the next.
 
 ## Next Steps
 
-- **[Design Philosophies](../design-philosophies/SKILL.md)**: theoretical foundations
-- **[Visual Design](../visual-design/SKILL.md)**: apply aesthetic lessons
-- **[Component Library](../component-library/SKILL.md)**: build components from observed patterns
-- **[Design System Creation](../design-system-creation/SKILL.md)**: your own system using Polaris/Carbon/Radix lessons
+- **Design Philosophies (the `design-philosophies` skill)**: theoretical foundations
+- **Visual Design (the `visual-design` skill)**: apply aesthetic lessons
+- **Component Library (the `component-library` skill)**: build components from observed patterns
+- **Design System Creation (the `design-system-creation` skill)**: your own system using Polaris/Carbon/Radix lessons

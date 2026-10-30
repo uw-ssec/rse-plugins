@@ -319,6 +319,6 @@ Apple's design feels like magic because it is not one thing done well. It is fou
 - [Developer Tools](developer-tools.md) -- Raycast's opinionated UX and keyboard-first design as strategic reduction in developer tools
 - [Mobile Apps](mobile-apps.md) -- Apple HIG in practice, gesture-heavy UIs, and platform-specific design patterns
 - [Design Systems in Practice](design-systems-in-practice.md) -- Polaris, Carbon, Atlassian, and Radix as examples of systematic design consistency
-- [Motion Design](../motion-design/SKILL.md) -- Animation principles, spring physics, and performance budgets for implementing physics-based interactions
-- [Design Philosophies](../design-philosophies/SKILL.md) -- Dieter Rams' principles, Don Norman's emotional design levels, and Hick's Law in theoretical depth
-- [Grid Layout Systems](../grid-layout-systems/SKILL.md) -- Mathematical spacing scales and proportional systems for achieving Apple-level visual harmony
+- Motion Design (the `motion-design` skill) -- Animation principles, spring physics, and performance budgets for implementing physics-based interactions
+- Design Philosophies (the `design-philosophies` skill) -- Dieter Rams' principles, Don Norman's emotional design levels, and Hick's Law in theoretical depth
+- Grid Layout Systems (the `grid-layout-systems` skill) -- Mathematical spacing scales and proportional systems for achieving Apple-level visual harmony

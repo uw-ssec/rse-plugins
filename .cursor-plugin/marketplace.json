@@ -1,0 +1,72 @@
+{
+    "name": "rse-plugins",
+    "owner": {
+        "name": "UW SSEC Team",
+        "url": "https://github.com/uw-ssec"
+    },
+    "metadata": {
+        "description": "Custom Coding Agents Plugins for Research Software Engineering (RSE) and Scientific Computing tasks"
+    },
+    "plugins": [
+        {
+            "name": "scientific-domain-applications",
+            "source": "./plugins/scientific-domain-applications",
+            "description": "Domain-specific scientific computing agents and skills for astronomy, astrophysics, and multidimensional data analysis with AstroPy and Xarray."
+        },
+        {
+            "name": "scientific-python-development",
+            "source": "./plugins/scientific-python-development",
+            "description": "Agents and skills for Scientific Python development following community best practices. Covers packaging, testing, code quality, environment management with pixi, and documentation architecture."
+        },
+        {
+            "name": "holoviz-visualization",
+            "source": "./community-plugins/holoviz-visualization",
+            "description": "Expert agents and comprehensive skills for interactive data visualization using the HoloViz ecosystem including Panel, hvPlot, HoloViews, Datashader, GeoViews, Colorcet, and Lumen."
+        },
+        {
+            "name": "ai-research-workflows",
+            "source": "./plugins/ai-research-workflows",
+            "description": "Skills-first research workflows for Research Software Engineers and Researchers: research, plan, experiment, implement, validate, reproduce, harden, and handoff — interactive when you want collaboration, direct when you don't."
+        },
+        {
+            "name": "project-management",
+            "source": "./plugins/project-management",
+            "description": "Project lifecycle management for research software. Covers onboarding, documentation quality, handoff readiness, and community health file generation for open-source projects."
+        },
+        {
+            "name": "gaia-data-downloader",
+            "source": "./community-plugins/gaia-data-downloader",
+            "description": "Generate and develop hydroclimatological data download scripts for GAIA geoscience research"
+        },
+        {
+            "name": "zarr-chunk-optimization",
+            "source": "./plugins/zarr-chunk-optimization",
+            "description": "Benchmarking and optimization tools for Zarr chunking strategies on cloud object stores. Measures performance across access patterns and generates recommendations based on Nguyen et al. (2023) methodology."
+        },
+        {
+            "name": "zarr-data-format",
+            "source": "./plugins/zarr-data-format",
+            "description": "Comprehensive agents and skills for working with the Zarr array storage format — creation, compression, cloud backends, xarray integration, and data migration"
+        },
+        {
+            "name": "research-software-design",
+            "source": "./plugins/research-software-design",
+            "description": "Agents and skills for Research-Through-Design approach to research software design"
+        },
+        {
+            "name": "uiux-design-team",
+            "source": "./plugins/uiux-design-team",
+            "description": "Comprehensive UI/UX design team simulation with 10 specialized agents covering the full design lifecycle. Includes user research with personas and JTBD, information architecture, interaction design, visual design with Claude's frontend-design aesthetic guidance, motion design, design systems with token architecture and component libraries, accessibility auditing with WCAG 2.2 compliance, UX writing, responsive design, CSS architecture, frontend component patterns for React/Vue/Svelte, usability evaluation with Nielsen's heuristics, design philosophies including Gestalt principles and emotional design, design case studies, user journey mapping, A/B testing strategy, design handoff, and design review orchestration."
+        },
+        {
+            "name": "containerization",
+            "source": "./plugins/containerization",
+            "description": "Language-agnostic containerization for research software. Covers Dockerfile best practices, Podman, Singularity/Apptainer, Docker Compose, GPU containers, devcontainers, container registries, and container security scanning."
+        },
+        {
+            "name": "supply-chain-security",
+            "source": "./plugins/supply-chain-security",
+            "description": "Supply-chain security plugin for research software. 2 agents (lead expert + incident responder), 5 commands (audit, incident, lockfile-check, pin-actions, harden-workflow), 6 skills covering hardened CI/CD, dependency security, threat awareness, SBOM/provenance, incident response, and ecosystem-specific quirks (npm, PyPI, conda/pixi, cargo, Go). Covers 2025-2026 campaigns: Shai-Hulud, TeamPCP, axios, LiteLLM .pth persistence."
+        }
+    ]
+}

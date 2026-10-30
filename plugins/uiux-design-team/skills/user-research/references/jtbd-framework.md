@@ -260,7 +260,7 @@ One JTBD can generate many user stories. The JTBD "When I am preparing for the M
 - [[persona-templates.md]] -- Integrate JTBD into persona profiles for richer, behavior-driven archetypes
 - [[interview-guide.md]] -- Use JTBD interview techniques (switch interviews, timeline) during user research
 - [[synthesis-methods.md]] -- Apply JTBD framing when generating insight statements and HMW questions
-- [[journey-template.md]] -- Map jobs to specific stages in the user journey
+- `journey-template.md` (`references/journey-template.md` in the `user-journey-mapping` skill) -- Map jobs to specific stages in the user journey
 
 **Back to:** [User Research Skill](../SKILL.md)
 

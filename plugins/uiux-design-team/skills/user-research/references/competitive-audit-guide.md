@@ -132,6 +132,6 @@ Structure the audit report in three parts:
 
 - [[interview-guide.md]] — Interview techniques for qualitative competitive context (user interviews about competitor products)
 - [[synthesis-methods.md]] — Affinity mapping and insight synthesis applied to audit findings
-- [[../../usability-evaluation/SKILL.md]] — Heuristic evaluation that can be applied alongside competitive audit
+- `SKILL.md` (the `usability-evaluation` skill) — Heuristic evaluation that can be applied alongside competitive audit
 
 **Back to:** [User Research Skill](../SKILL.md)
