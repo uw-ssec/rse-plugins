@@ -4,8 +4,8 @@
     "version": "0.1.0",
     "description": "Generate and develop hydroclimatological data download scripts for GAIA geoscience research",
     "author": {
-        "name": "SSEC Engineering Team",
-        "url": "https://escience.washington.edu/software-engineering/ssec/"
+        "name": "GAIA HazLab",
+        "url": "https://github.com/gaia-hazlab"
     },
     "repository": "https://github.com/uw-ssec/rse-plugins",
     "license": "BSD-3-Clause",
