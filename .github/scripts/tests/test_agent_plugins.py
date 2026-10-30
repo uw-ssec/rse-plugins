@@ -1,5 +1,7 @@
 import json
 import os
+import shutil
+import tomllib
 
 import pytest
 from conftest import SCRIPTS, _load, run_step, workflow_step
@@ -256,11 +258,6 @@ def test_claude_component_error_fails_and_warning_is_reported(ap, tmp_path, monk
     assert "CLAUDE.md: not loaded" in capsys.readouterr().err
 
 
-def test_workflow_runs_the_check(tmp_path):
-    script = workflow_step("validate-plugins.yml", "Check Agent Plugins manifests and skills")
-    assert "agent_plugins.py check" in script
-
-
 def test_repository_is_in_sync(ap):
     assert ap.check(SCRIPTS.parents[1], run_claude=False) == []
 
@@ -316,3 +313,27 @@ def test_dangerous_pattern_scan_exempts_only_the_decode_only_line(tmp_path, body
     proc, _ = run_step(script, tmp_path, {})
     assert (proc.returncode != 0) == flagged, proc.stdout + proc.stderr
     assert ("No dangerous patterns detected" in proc.stdout) != flagged
+
+
+def test_ci_runs_the_script_through_pixi_tasks():
+    tasks = tomllib.loads((SCRIPTS.parents[1] / "pixi.toml").read_text(encoding="utf-8"))["feature"]["ci"]["tasks"]
+    assert tasks["plugins-check"]["cmd"] == "python .github/scripts/agent_plugins.py check"
+    assert tasks["plugins-check-claude"]["cmd"] == "python .github/scripts/agent_plugins.py check --claude"
+    assert "pixi run plugins-check\n" in workflow_step("validate-plugins.yml", "Check Agent Plugins manifests and skills")
+    assert "pixi run plugins-check-claude" in workflow_step("validate-plugins.yml", "Validate with Claude Code")
+
+
+@pytest.mark.skipif(shutil.which("jq") is None, reason="needs jq")
+def test_json_scans_skip_the_pixi_environment(tmp_path):
+    # setup-pixi installs the environment in .pixi/ inside the checkout; its packages aren't ours to validate.
+    (tmp_path / ".pixi/envs/ci").mkdir(parents=True)
+    (tmp_path / ".pixi/envs/ci/vendored.json").write_text('{"a": 1, "a": 2', encoding="utf-8")
+    write(tmp_path / "plugins/p/plugin.json", {"name": "p"})
+    proc, _ = run_step(workflow_step("validate-plugins.yml", "Validate JSON files"), tmp_path, {})
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "plugin.json" in proc.stdout and ".pixi" not in proc.stdout
+    dup = _load("check_duplicate_json_keys")
+    assert list(dup.iter_json_files([tmp_path])) == [tmp_path / "plugins/p/plugin.json"]
+    (tmp_path / "plugins/p/plugin.json").write_text("{", encoding="utf-8")
+    proc, _ = run_step(workflow_step("validate-plugins.yml", "Validate JSON files"), tmp_path, {})
+    assert proc.returncode != 0

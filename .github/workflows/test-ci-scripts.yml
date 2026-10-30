@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/scripts/**'
       - '.github/workflows/test-ci-scripts.yml'
+      - 'pixi.toml'
+      - 'pixi.lock'
       - '.github/workflows/evaluate-all-skills.yml'
       - '.github/workflows/evaluate-per-model.yml'
       - '.github/workflows/generate-testcases.yml'
@@ -16,6 +18,8 @@ on:
     paths:
       - '.github/scripts/**'
       - '.github/workflows/test-ci-scripts.yml'
+      - 'pixi.toml'
+      - 'pixi.lock'
       - '.github/workflows/evaluate-all-skills.yml'
       - '.github/workflows/evaluate-per-model.yml'
       - '.github/workflows/generate-testcases.yml'
@@ -35,12 +39,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: prefix-dev/setup-pixi@ad1da6449d9e506fd127fd67ab2d054a769f6a94 # v0.11.2
         with:
-          python-version: '3.12'
-
-      - name: Install test dependencies
-        run: python -m pip install 'pytest==9.1.1' 'pyyaml==6.0.3'
+          pixi-version: v0.82.0
+          environments: ci
+          locked: true
 
       - name: Run tests
-        run: python -m pytest .github/scripts/tests -q
+        run: pixi run test-scripts

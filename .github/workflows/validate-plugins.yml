@@ -11,6 +11,8 @@ on:
       - 'marketplace/**'
       - '.github/workflows/validate-plugins.yml'
       - '.github/scripts/**'
+      - 'pixi.toml'
+      - 'pixi.lock'
   push:
     branches: [ main ]
 
@@ -20,26 +22,26 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: prefix-dev/setup-pixi@ad1da6449d9e506fd127fd67ab2d054a769f6a94 # v0.11.2
         with:
-          python-version: '3.12'
+          pixi-version: v0.82.0
+          environments: ci
+          locked: true
 
       - name: Check Agent Plugins manifests and skills
         run: |
-          # Fails on manifest drift (run .github/scripts/agent_plugins.py sync),
+          # Fails on manifest drift (run `pixi run plugins-sync`),
           # a plugin missing from the catalog, an invalid plugin.json or mcp.json,
           # and skill files or links that leave their skill directory.
-          python -m pip install 'pyyaml==6.0.3'
-          python3 .github/scripts/agent_plugins.py check
+          pixi run plugins-check
 
       - name: Validate against the official Agent Plugins schemas
         run: |
-          python -m pip install 'check-jsonschema==0.38.2'
-          check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/plugin.schema.json \
+          pixi run -e ci check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/plugin.schema.json \
             plugins/*/plugin.json community-plugins/*/plugin.json
           mcp=$(ls plugins/*/mcp.json community-plugins/*/mcp.json 2>/dev/null || true)
           if [ -n "$mcp" ]; then
-            check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json $mcp
+            pixi run -e ci check-jsonschema --schemafile https://agent-plugins.org/schemas/1.0.0/mcp.schema.json $mcp
           fi
 
       - name: Validate with Claude Code
@@ -47,13 +49,14 @@ jobs:
           # agent_plugins.py --claude fails when Claude finds no manifest, even
           # though `claude plugin validate` itself exits 0 in that case.
           npm install -g '@anthropic-ai/claude-code@2.1.312'
-          python3 .github/scripts/agent_plugins.py check --claude
+          pixi run plugins-check-claude
 
       - name: Validate JSON files
         run: |
           echo "Validating JSON files..."
-          # Exclude tsconfig*.json files as they use JSONC (JSON with Comments)
-          find . -name "*.json" -not -name "tsconfig*.json" -type f -exec sh -c '
+          # Exclude tsconfig*.json files as they use JSONC (JSON with Comments),
+          # and the .pixi environment that setup-pixi installs in the checkout.
+          find . -path ./.pixi -prune -o -name "*.json" -not -name "tsconfig*.json" -type f -exec sh -c '
             for file; do
               echo "Checking $file"
               if ! jq empty "$file" 2>/dev/null; then
@@ -70,7 +73,7 @@ jobs:
           # value), so a duplicated key silently collapses two objects into one.
           # In marketplace.json that can drop a plugin from the catalog — and thus
           # from the catalog-driven scans below — with no validation error.
-          python3 .github/scripts/check_duplicate_json_keys.py .
+          pixi run -e ci python .github/scripts/check_duplicate_json_keys.py .
 
       - name: Check plugin structure
         run: |

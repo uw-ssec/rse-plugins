@@ -116,7 +116,7 @@ Before submitting your PR, ensure:
 - [ ] Agent has been tested with Claude Code (or equivalent)
 - [ ] README.md is updated if adding a new agent
 - [ ] Commit messages are clear and descriptive
-- [ ] `python3 .github/scripts/agent_plugins.py check` passes (run `sync` first if you changed a manifest, agent or command)
+- [ ] `pixi run plugins-check` passes (run `pixi run plugins-sync` first if you changed a manifest, agent or command)
 - [ ] No sensitive information or credentials are included
 
 ## 🧪 Testing Your Agent
@@ -140,11 +140,11 @@ Plugins follow the [Agent Plugins](https://agent-plugins.org/specification) v1.0
 | `<plugin>/agents/` and `<plugin>/commands/` | `<plugin>/com.github.copilot/` (Copilot's copies of agents and commands) |
 | `<plugin>/mcp.json` and `<plugin>/.mcp.json` | `.agents/plugins/marketplace.json` (Codex) and `.cursor-plugin/marketplace.json` (Cursor) |
 
-After changing a source, regenerate the rest and check the result. The script needs PyYAML (`pip install pyyaml`). CI runs the same `check`:
+After changing a source, regenerate the rest and check the result. The tasks run in the `ci` [pixi](https://pixi.sh) environment, which locks Python, PyYAML and the other tools, so you don't need a system Python. CI runs the same tasks:
 
 ```bash
-python3 .github/scripts/agent_plugins.py sync
-python3 .github/scripts/agent_plugins.py check           # add --claude to also run `claude plugin validate --strict`
+pixi run plugins-sync
+pixi run plugins-check           # or plugins-check-claude to also run `claude plugin validate --strict`
 ```
 
 Some rules matter to clients other than Claude Code:
@@ -175,7 +175,7 @@ Two manually triggered workflows measure skills (**Actions → workflow → Run 
 | `TESSL_TOKEN` (optional secret) | Evaluate All Skills | Turns on the Tessl review |
 | `TESSL_WORKSPACE` (optional variable) | Evaluate All Skills | Tessl workspace to use when the token can see more than one |
 
-Run the unit tests for these workflows' scripts with `pixi exec --spec python=3.12 --spec pytest --spec pyyaml pytest .github/scripts/tests -q`.
+Run the unit tests for these workflows' scripts with `pixi run test-scripts`.
 
 ## 📋 Code of Conduct
 

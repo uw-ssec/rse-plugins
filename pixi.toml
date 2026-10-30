@@ -9,3 +9,20 @@ platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 zarr = ">=3.1.5,<4"
 
 [tasks]
+
+# Repository tooling: the Agent Plugins manifest script and the CI script tests.
+# Kept out of the default environment so it doesn't pull in zarr.
+[feature.ci.dependencies]
+python = "3.12.*"
+pyyaml = "6.0.3.*"
+pytest = "9.2.0.*"
+check-jsonschema = "0.38.2.*"
+
+[feature.ci.tasks]
+plugins-sync = { cmd = "python .github/scripts/agent_plugins.py sync", description = "Regenerate the generated plugin manifests and Copilot copies" }
+plugins-check = { cmd = "python .github/scripts/agent_plugins.py check", description = "Check plugin manifests, skills and links (CI gate)" }
+plugins-check-claude = { cmd = "python .github/scripts/agent_plugins.py check --claude", description = "Run plugins-check plus `claude plugin validate --strict`" }
+test-scripts = { cmd = "pytest .github/scripts/tests -q", description = "Run the CI script tests" }
+
+[environments]
+ci = { features = ["ci"], no-default-feature = true }

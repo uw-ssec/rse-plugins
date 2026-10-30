@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Keep the plugins installable across clients, following Agent Plugins v1.0.0.
 
-Usage:
+Usage (through pixi: `pixi run plugins-sync`, `plugins-check`, `plugins-check-claude`):
     agent_plugins.py sync            # regenerate every derived manifest from the sources
     agent_plugins.py check           # fail on drift or on a broken package (CI runs this)
     agent_plugins.py check --claude  # also run `claude plugin validate --strict`
@@ -447,16 +447,16 @@ def check(root: Path, run_claude: bool) -> list[str]:
     try:
         for path, text in expected_files(root).items():
             if not path.is_file() or path.read_text(encoding="utf-8") != text:
-                errors.append(f"{path.relative_to(root)}: out of date; run .github/scripts/agent_plugins.py sync")
+                errors.append(f"{path.relative_to(root)}: out of date; run `pixi run plugins-sync`")
     except (ValueError, KeyError) as e:
         errors.append(str(e))
     stale, extra = copy_problems(root)
     for path in stale:
         errors.append(f"{path.relative_to(root)}: missing or differs from its original; Copilot CLI loads agents"
-                      " and commands only from com.github.copilot/. Run .github/scripts/agent_plugins.py sync")
+                      " and commands only from com.github.copilot/. Run `pixi run plugins-sync`")
     for path in extra:
         errors.append(f"{path.relative_to(root)}: copies nothing in agents/ or commands/; run"
-                      " .github/scripts/agent_plugins.py sync")
+                      " `pixi run plugins-sync`")
     if run_claude:
         errors += claude_validate([*plugin_dirs(root), root])
     return errors
