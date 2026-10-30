@@ -41,14 +41,16 @@ Each plugin follows the [Agent Plugins](https://agent-plugins.org/specification)
 
 | Client | Install from | Skills | Agents | Commands | HoloViz MCP |
 | --- | --- | --- | --- | --- | --- |
-| Claude Code | marketplace | yes | yes | yes | yes |
-| GitHub Copilot CLI | marketplace | yes | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | yes |
-| VS Code (Copilot) | marketplace setting | yes (untested) | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | untested |
-| Codex | marketplace | yes | no | no | yes |
-| Cursor | local folder | yes (untested) | no | no | yes (untested) |
-| OpenCode | copied skills | yes | no | no | add it to `opencode.json` |
+| Claude Code | marketplace | ✅ | ✅ | ✅ | ✅ |
+| GitHub Copilot CLI | marketplace | ✅ | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | ✅ |
+| VS Code (Copilot) | marketplace setting | 🟡 | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | 🚧 [#240](https://github.com/uw-ssec/rse-plugins/issues/240) | ❔ |
+| Codex | marketplace | ✅ | ❌ | ❌ | ✅ |
+| Cursor | local folder | 🟡 | ❌ | ❌ | 🟡 |
+| OpenCode | copied skills | ✅ | ❌ | ❌ | 🔧 `opencode.json` |
 
-"Untested" rows follow the client's documentation but haven't been run against this repository. For MCP, "yes" means the client found the server configuration; the server itself wasn't started.
+✅ Verified · 🟡 Expected, untested · ❔ Unknown · 🚧 Planned ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) · ❌ Unsupported · 🔧 Manual setup
+
+🟡 cells follow the client's documentation but haven't been run against this repository. For MCP, ✅ means the client found the server configuration; the server itself wasn't started.
 
 Replace `scientific-python-development` in the examples below with any plugin from [Available Plugins](#available-plugins).
 
