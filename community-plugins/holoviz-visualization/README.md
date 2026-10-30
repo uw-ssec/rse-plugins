@@ -4,7 +4,7 @@
 
 The definitive Claude Code plugin for mastering the HoloViz ecosystem. Get strategic guidance, production-ready code patterns, and deep expertise in Panel, HoloViews, hvPlot, GeoViews, Datashader, Lumen, Param, and Colorcet.
 
-**Version**: 0.1.0 | **Status**: Production Ready | **License**: BSD-3-Clause
+**Version**: 0.1.0 | **Status**: Production Ready | **License**: MIT
 
 ---
 
@@ -348,7 +348,7 @@ plugins/holoviz-expert/                       # Self-contained plugin
 │   ├── holoviz-ecosystem.md                 # 326 lines
 │   └── library-matrix.md                    # 276 lines
 ├── .mcp.json                                 # MCP server configuration
-├── LICENSE                                   # BSD-3-Clause
+├── LICENSE                                   # MIT
 └── README.md                                 # This file
 ```
 
@@ -648,7 +648,7 @@ The MCP server enables:
 - ✅ Best practices integrated
 - ✅ Accessibility considered
 - ✅ Performance optimization guidance
-- ✅ License appropriate (BSD-3-Clause)
+- ✅ License appropriate (MIT)
 - ✅ Compatible with Claude Code marketplace
 
 ### Expert-Level Indicators
@@ -731,7 +731,7 @@ This plugin is part of the HoloViz ecosystem. To contribute:
 
 ## License
 
-BSD 3-Clause License - See LICENSE file for details
+MIT License - See LICENSE file for details
 
 ---
 
@@ -769,7 +769,7 @@ If you use this plugin in your research, please cite HoloViz:
   - Core references: ecosystem, library matrix, best practices, patterns, troubleshooting
   - Specialized references: colormaps (4 files), Lumen Dashboards (8 files), Lumen AI (4 files)
 - MCP server integration with Docker support
-- BSD-3-Clause license
+- MIT license
 - Total: 16,600+ lines of expert content across 35 markdown files
 
 ---

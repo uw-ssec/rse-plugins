@@ -76,7 +76,7 @@
             },
             "homepage": "https://github.com/uw-ssec/rse-plugins",
             "repository": "https://github.com/uw-ssec/rse-plugins",
-            "license": "BSD-3-Clause",
+            "license": "MIT",
             "keywords": [
                 "holoviz",
                 "panel",
