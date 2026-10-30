@@ -4,8 +4,8 @@
     "version": "1.0.0",
     "description": "Comprehensive UI/UX design team simulation with 10 specialized agents covering the full design lifecycle. Includes user research with personas and JTBD, information architecture, interaction design, visual design with Claude's frontend-design aesthetic guidance, motion design, design systems with token architecture and component libraries, accessibility auditing with WCAG 2.2 compliance, UX writing, responsive design, CSS architecture, frontend component patterns for React/Vue/Svelte, usability evaluation with Nielsen's heuristics, design philosophies including Gestalt principles and emotional design, design case studies, user journey mapping, A/B testing strategy, design handoff, and design review orchestration.",
     "author": {
-        "name": "SSEC Research Team",
-        "url": "https://github.com/uw-ssec"
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
     },
     "homepage": "https://github.com/uw-ssec/rse-plugins",
     "repository": "https://github.com/uw-ssec/rse-plugins",

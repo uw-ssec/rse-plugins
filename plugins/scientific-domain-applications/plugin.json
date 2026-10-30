@@ -4,8 +4,8 @@
     "version": "0.1.0",
     "description": "Domain-specific scientific computing agents and skills for astronomy, astrophysics, and multidimensional data analysis with AstroPy and Xarray.",
     "author": {
-        "name": "SSEC Research Team",
-        "url": "https://github.com/uw-ssec"
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
     },
     "homepage": "https://github.com/uw-ssec/rse-plugins",
     "repository": "https://github.com/uw-ssec/rse-plugins",

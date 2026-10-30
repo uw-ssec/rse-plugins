@@ -4,8 +4,8 @@
     "version": "0.1.0",
     "description": "Agents and skills for Scientific Python development following community best practices. Covers packaging, testing, code quality, environment management with pixi, and documentation architecture.",
     "author": {
-        "name": "SSEC Research Team",
-        "url": "https://github.com/uw-ssec"
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
     },
     "homepage": "https://github.com/uw-ssec/rse-plugins",
     "repository": "https://github.com/uw-ssec/rse-plugins",

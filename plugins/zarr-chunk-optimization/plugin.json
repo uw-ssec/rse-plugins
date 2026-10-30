@@ -4,8 +4,8 @@
     "version": "0.1.0",
     "description": "Benchmarking and optimization tools for Zarr chunking strategies on cloud object stores. Measures performance across access patterns and generates recommendations based on Nguyen et al. (2023) methodology.",
     "author": {
-        "name": "SSEC Research Team",
-        "url": "https://github.com/uw-ssec"
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
     },
     "homepage": "https://github.com/uw-ssec/rse-plugins",
     "repository": "https://github.com/uw-ssec/rse-plugins",

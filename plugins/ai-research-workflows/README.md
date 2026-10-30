@@ -217,4 +217,4 @@ This plugin is part of the RSE Plugins project. See [LICENSE](LICENSE) file for 
 
 ## Authors
 
-SSEC Research Team — [https://github.com/uw-ssec](https://github.com/uw-ssec)
+SSEC Engineering Team — [https://escience.washington.edu/software-engineering/ssec/](https://escience.washington.edu/software-engineering/ssec/)

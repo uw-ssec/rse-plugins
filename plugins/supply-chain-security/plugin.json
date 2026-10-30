@@ -4,8 +4,8 @@
     "version": "0.2.0",
     "description": "Supply-chain security plugin for research software. 2 agents (lead expert + incident responder), 5 commands (audit, incident, lockfile-check, pin-actions, harden-workflow), 6 skills covering hardened CI/CD, dependency security, threat awareness, SBOM/provenance, incident response, and ecosystem-specific quirks (npm, PyPI, conda/pixi, cargo, Go). Covers 2025-2026 campaigns: Shai-Hulud, TeamPCP, axios, LiteLLM .pth persistence.",
     "author": {
-        "name": "SSEC Research Team",
-        "url": "https://github.com/uw-ssec"
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
     },
     "homepage": "https://github.com/uw-ssec/rse-plugins",
     "repository": "https://github.com/uw-ssec/rse-plugins",
