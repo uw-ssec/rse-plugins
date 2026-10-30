@@ -19,7 +19,7 @@ pytest = "9.2.0.*"
 check-jsonschema = "0.38.2.*"
 
 [feature.ci.tasks]
-plugins-sync = { cmd = "python .github/scripts/agent_plugins.py sync", description = "Regenerate the generated plugin manifests and Copilot copies" }
+plugins-sync = { cmd = "python .github/scripts/agent_plugins.py sync", description = "Regenerate the generated plugin manifests and marketplaces" }
 plugins-check = { cmd = "python .github/scripts/agent_plugins.py check", description = "Check plugin manifests, skills and links (CI gate)" }
 plugins-check-claude = { cmd = "python .github/scripts/agent_plugins.py check --claude", description = "Run plugins-check plus `claude plugin validate --strict`" }
 test-scripts = { cmd = "pytest .github/scripts/tests -q", description = "Run the CI script tests" }

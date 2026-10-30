@@ -42,8 +42,8 @@ Each plugin follows the [Agent Plugins](https://agent-plugins.org/specification)
 | Client | Install from | Skills | Agents | Commands | HoloViz MCP |
 | --- | --- | --- | --- | --- | --- |
 | Claude Code | marketplace | yes | yes | yes | yes |
-| GitHub Copilot CLI | marketplace | yes | yes | yes (untested) | yes |
-| VS Code (Copilot) | marketplace setting | yes (untested) | untested | untested | untested |
+| GitHub Copilot CLI | marketplace | yes | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | yes |
+| VS Code (Copilot) | marketplace setting | yes (untested) | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | not yet ([#240](https://github.com/uw-ssec/rse-plugins/issues/240)) | untested |
 | Codex | marketplace | yes | no | no | yes |
 | Cursor | local folder | yes (untested) | no | no | yes (untested) |
 | OpenCode | copied skills | yes | no | no | add it to `opencode.json` |
@@ -68,7 +68,7 @@ copilot plugin marketplace add uw-ssec/rse-plugins
 copilot plugin install scientific-python-development@rse-plugins
 ```
 
-Copilot reads the root `plugin.json` and the marketplace in `.claude-plugin/marketplace.json`. It loads agents and commands from each plugin's `com.github.copilot/` directory, which holds generated copies of `agents/` and `commands/`. Agents are tested. Commands follow GitHub's [plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference) but haven't been tested yet. The [Codespace](#github-codespaces) installs every plugin this way.
+Copilot reads the root `plugin.json` and the marketplace in `.claude-plugin/marketplace.json`, and loads each plugin's skills and MCP servers. It doesn't load our agents or commands yet: those are written for Claude Code, and Copilot-format versions for Copilot CLI and VS Code are tracked in [#240](https://github.com/uw-ssec/rse-plugins/issues/240). The [Codespace](#github-codespaces) installs every plugin this way.
 
 ### Codex
 
@@ -273,7 +273,6 @@ rse-plugins/
 │   │   ├── plugin.json                                 # Agent Plugins manifest (edit this one)
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json                             # Claude Code manifest (generated)
-│   │   ├── com.github.copilot/                         # Copilot copies of agents/ and commands/ (generated)
 │   │   ├── agents/
 │   │   │   ├── scientific-python-expert.md
 │   │   │   └── scientific-docs-architect.md

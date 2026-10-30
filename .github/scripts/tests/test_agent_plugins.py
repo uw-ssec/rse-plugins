@@ -221,7 +221,7 @@ def test_skill_frontmatter_is_read_as_yaml(ap, repo, frontmatter):
     ("skills:\n  one: x\n", False),
 ])
 def test_agent_skills_must_be_a_list(ap, repo, skills, ok):
-    # Copilot CLI silently skips an agent whose skills is a string; Claude Code accepts it.
+    # Claude Code accepts a string, but Copilot CLI silently skips the agent, so check requires a list.
     write(repo / "plugins/alpha/agents/a.md", f"---\nname: a\ndescription: d\n{skills}---\nbody\n")
     ap.sync(repo)
     errs = problems(ap, repo)
@@ -262,36 +262,14 @@ def test_repository_is_in_sync(ap):
     assert ap.check(SCRIPTS.parents[1], run_claude=False) == []
 
 
-def test_copilot_copies_are_generated_and_required(ap, repo):
-    # Copilot CLI reads agents/commands only from com.github.copilot/ once plugin.json exists.
+def test_agents_and_commands_need_no_generated_copies(ap, repo):
+    # Copilot-format agents and commands are tracked in #240; sync writes only the manifests.
     write(repo / "plugins/alpha/agents/a.md", "---\nname: a\ndescription: d\n---\n")
-    copy = repo / "plugins/alpha/com.github.copilot/agents/a.md"
-    assert any("com.github.copilot/agents/a.md: missing" in e for e in problems(ap, repo))
+    write(repo / "plugins/alpha/commands/c.md", "---\ndescription: d\n---\n")
+    before = {p for p in repo.rglob("*") if p.is_file()}
     ap.sync(repo)
-    assert copy.read_text() == (repo / "plugins/alpha/agents/a.md").read_text() and not copy.is_symlink()
-    assert not (repo / "plugins/alpha/com.github.copilot/commands").exists()
-    assert problems(ap, repo) == []
-
-    write(repo / "plugins/alpha/agents/a.md", "---\nname: a\ndescription: changed\n---\n")
-    assert any("a.md: missing or differs" in e for e in problems(ap, repo))
-    ap.sync(repo)
-    assert "changed" in copy.read_text()
-
-    write(repo / "plugins/alpha/com.github.copilot/agents/old.md", "x")
-    assert any("old.md: copies nothing" in e for e in problems(ap, repo))
-    ap.sync(repo)
-    assert problems(ap, repo) == []
-
-
-def test_copilot_symlink_checked_out_as_file_fails_and_sync_repairs(ap, repo):
-    # Without core.symlinks a directory symlink becomes a text file holding its target.
-    write(repo / "plugins/alpha/agents/a.md", "agent\n")
-    write(repo / "plugins/alpha/com.github.copilot/agents", "../agents")
-    errs = problems(ap, repo)
-    assert any("agents/a.md: missing or differs" in e for e in errs)
-    assert any("com.github.copilot/agents: copies nothing" in e for e in errs)
-    ap.sync(repo)
-    assert (repo / "plugins/alpha/com.github.copilot/agents/a.md").read_text() == "agent\n"
+    written = {p for p in repo.rglob("*") if p.is_file()} - before
+    assert written <= set(ap.expected_files(repo))
     assert problems(ap, repo) == []
 
 

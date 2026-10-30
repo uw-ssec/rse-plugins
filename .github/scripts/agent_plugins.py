@@ -24,12 +24,13 @@ Generated from them (``sync`` writes, ``check`` compares):
 - ``.cursor-plugin/marketplace.json`` (Cursor). There is deliberately no
   ``.cursor-plugin/plugin.json``: without one, Cursor loads each package as an
   Agent Plugin (skills and MCP only) instead of parsing the Claude-format
-  agents and commands as Cursor components;
-- ``<plugin>/com.github.copilot/{agents,commands}``: copies of the plugin's
-  ``agents/`` and ``commands/``. Once root plugin.json exists, Copilot CLI
-  loads agents and commands only from its ``com.github.copilot/`` extension
-  directory. Edit the originals; ``sync`` refreshes the copies and removes
-  stale ones.
+  agents and commands as Cursor components.
+
+GitHub Copilot (CLI and VS Code) gets no generated files. With a root
+plugin.json, Copilot reads agents and commands only from its own extension
+directory, which this repo doesn't ship, so it loads skills and MCP only.
+Copilot-format agents and commands are tracked in
+https://github.com/uw-ssec/rse-plugins/issues/240.
 
 Package checks, for every plugin:
 
@@ -44,8 +45,9 @@ Package checks, for every plugin:
   follows the closed MCP schema. A stdio ``command`` that is a path and every
   ``cwd`` stay inside the plugin root (or the plugin data directory), after
   ``..`` and symlinks are resolved;
-- an agent's ``skills`` frontmatter is a list. Copilot CLI silently drops an
-  agent whose ``skills`` is a plain string, while Claude Code accepts it.
+- an agent's ``skills`` frontmatter is a list. Claude Code accepts a list or
+  a string; the rule exists for Copilot CLI, which silently drops an agent
+  whose ``skills`` is a plain string.
 
 Needs PyYAML, so frontmatter is read the way clients read it.
 """
@@ -68,12 +70,6 @@ PLUGIN_PARENTS = ("plugins", "community-plugins")
 CATALOG = Path(".claude-plugin/marketplace.json")
 CODEX_CATALOG = Path(".agents/plugins/marketplace.json")
 CURSOR_CATALOG = Path(".cursor-plugin/marketplace.json")
-# With a root plugin.json, Copilot CLI reads agents and commands only from its
-# extension directory, so each gets a generated copy of the Claude Code files.
-# Copies, not symlinks: a checkout without core.symlinks (the Windows default)
-# turns a symlink into a one-line text file.
-COPILOT_DIR = "com.github.copilot"
-COPILOT_COMPONENTS = ("agents", "commands")
 
 PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
@@ -173,53 +169,12 @@ def expected_files(root: Path) -> dict[Path, str]:
     return out
 
 
-def expected_copies(root: Path) -> dict[Path, Path]:
-    """Every Copilot extension copy and the file it copies."""
-    out = {}
-    for pdir in plugin_dirs(root):
-        for c in COPILOT_COMPONENTS:
-            src = pdir / c
-            if src.is_dir():
-                out.update({pdir / COPILOT_DIR / c / f.relative_to(src): f
-                            for f in src.rglob("*") if f.is_file() and "__pycache__" not in f.parts})
-    return out
-
-
-def copy_problems(root: Path) -> tuple[list[Path], list[Path]]:
-    """(copies that are missing or differ, files in the extension directories that copy nothing)."""
-    want = expected_copies(root)
-    stale = [p for p, src in want.items()
-             if p.is_symlink() or not p.is_file() or p.read_bytes() != src.read_bytes()]
-    extra = [f for pdir in plugin_dirs(root) if (pdir / COPILOT_DIR).exists()
-             for f in sorted((pdir / COPILOT_DIR).rglob("*"))
-             if (f.is_file() or f.is_symlink()) and f not in want]
-    return stale, extra
-
-
 def sync(root: Path) -> int:
     for path, text in expected_files(root).items():
         if not path.exists() or path.read_text(encoding="utf-8") != text:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(text, encoding="utf-8")
             print(f"wrote {path.relative_to(root)}")
-    stale, extra = copy_problems(root)
-    want = expected_copies(root)
-    for path in extra:
-        path.unlink()
-        print(f"removed {path.relative_to(root)}")
-    for path in stale:
-        for parent in [path, *path.parents]:  # a symlinked file or directory on the way
-            if parent.is_symlink():
-                parent.unlink()
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(want[path].read_bytes())
-        print(f"copied {path.relative_to(root)}")
-    for pdir in plugin_dirs(root):  # drop directories the removals emptied
-        for d in sorted((pdir / COPILOT_DIR).rglob("*"), reverse=True) if (pdir / COPILOT_DIR).is_dir() else []:
-            if d.is_dir() and not any(d.iterdir()):
-                d.rmdir()
-        if (pdir / COPILOT_DIR).is_dir() and not any((pdir / COPILOT_DIR).iterdir()):
-            (pdir / COPILOT_DIR).rmdir()
     return 0
 
 
@@ -425,6 +380,7 @@ def check_agents(pdir: Path, root: Path, errors: list[str]) -> None:
         if not isinstance(fm, dict):
             errors.append(f"{rel}: frontmatter is not a YAML mapping ({fm})")
             continue
+        # Claude Code accepts a string or a list; the list rule is for Copilot CLI.
         skills = fm.get("skills")
         if skills is not None and not (isinstance(skills, list) and all(isinstance(x, str) for x in skills)):
             errors.append(f"{rel}: skills must be a YAML list of names; Copilot CLI silently skips an agent"
@@ -450,13 +406,6 @@ def check(root: Path, run_claude: bool) -> list[str]:
                 errors.append(f"{path.relative_to(root)}: out of date; run `pixi run plugins-sync`")
     except (ValueError, KeyError) as e:
         errors.append(str(e))
-    stale, extra = copy_problems(root)
-    for path in stale:
-        errors.append(f"{path.relative_to(root)}: missing or differs from its original; Copilot CLI loads agents"
-                      " and commands only from com.github.copilot/. Run `pixi run plugins-sync`")
-    for path in extra:
-        errors.append(f"{path.relative_to(root)}: copies nothing in agents/ or commands/; run"
-                      " `pixi run plugins-sync`")
     if run_claude:
         errors += claude_validate([*plugin_dirs(root), root])
     return errors
