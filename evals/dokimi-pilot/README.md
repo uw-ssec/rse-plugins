@@ -8,6 +8,7 @@ on three skills before deciding whether to use it for all 76:
 | `design-tokens` | knowledge | trigger, quality, novelty |
 | `pixi-package-manager` | procedural | trigger, quality |
 | `python-testing` | artifact | trigger, quality, Harbor task |
+| `security-audit` (plugin) | artifact | trigger, quality, Harbor task |
 
 This directory is its own pixi workspace, so the eval tooling never touches
 the root `pixi.lock`. dokimi is alpha with no stable release, so it is pinned
@@ -34,6 +35,22 @@ to commit `b226dba`; Harbor is pinned to 0.25.0.
   behind can't fail every mutant and fake a perfect score.
   `check_harbor_task.sh` holds the controls: oracle 1.0, no tests 0, a smoke
   suite 0.0, and stateful suites 0.0.
+- `harbor-tasks/security-recon-configdrift`: a Harbor task for the
+  security-audit plugin's recon phase (verifier controls need no network and
+  no LLM). The agent audits a synthetic deploy repo (two environments,
+  planted git history) after a written incident and writes an audit report.
+  Five findings are planted: un-rotated master key (ciphertext identical
+  across history), six-month version lag on a critical advisory, prod
+  missing the salt key that staging has, a mutable `:latest` image tag, and
+  a shared master-key secret between staging services. Partial credit for
+  the rotation finding requires citing the ciphertext/env-file evidence,
+  not just the claim. Its `check_harbor_task.sh` controls: oracle 1.0, no
+  report 0, vague report 0, partial 0.8, claim-without-evidence 0.7.
+- `cases/security-audit/`: trigger queries for the four security-audit
+  skills (12 positives across the skills, 4 near-misses that belong to
+  supply-chain-security skills, 3 negatives) plus quality cases covering
+  the two behaviors that matter most: the live-testing scope gate and the
+  ciphertext-based rotation check.
 
 ## Running
 

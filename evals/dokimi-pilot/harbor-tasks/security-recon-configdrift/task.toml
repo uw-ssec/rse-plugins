@@ -1,0 +1,24 @@
+schema_version = "1.3"
+
+[metadata]
+skill = "security-recon"
+author_name = "rse-plugins security-audit plugin"
+difficulty = "medium"
+difficulty_explanation = "Requires reading configs, diffing environments, checking git history for the un-rotated secret, and connecting the advisory timeline to the version lag"
+category = "security"
+tags = ["security-audit", "recon", "config-drift", "secret-rotation", "git-history"]
+
+[verifier]
+timeout_sec = 120.0
+environment_mode = "separate"
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 300.0
+network_mode = "no-network"
+cpus = 2
+memory_mb = 2048
+storage_mb = 4096
+gpus = 0

@@ -1,0 +1,15 @@
+# Production environment
+project:
+  name: sample-gateway
+  environment: prod
+
+services:
+  gateway:
+    image: registry.example.org/team/gateway:2026.10.30   # gateway v2.9.2
+    port: 8080
+    min_replicas: 2
+    key_vault_secret_refs:
+      DATABASE_URL: "db-connection-string"
+      GATEWAY_MASTER_KEY: "gateway-master-key"
+      CLOUD_API_KEY: "cloud-api-key"
+      # NOTE: no GATEWAY_SALT_KEY here (staging has one — see drift)
