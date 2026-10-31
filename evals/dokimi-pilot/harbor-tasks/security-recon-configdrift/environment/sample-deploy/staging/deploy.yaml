@@ -1,0 +1,22 @@
+# Staging environment
+project:
+  name: sample-gateway
+  environment: staging
+
+services:
+  gateway:
+    image: registry.example.org/team/gateway:2026.10.30   # gateway v2.9.2
+    port: 8080
+    min_replicas: 1
+    key_vault_secret_refs:
+      DATABASE_URL: "db-connection-string-staging"
+      GATEWAY_MASTER_KEY: "gateway-master-key-staging"
+      GATEWAY_SALT_KEY: "gateway-salt-key-staging"
+      CLOUD_API_KEY: "cloud-api-key-staging"
+
+  # Dev-only convenience mirror kept in staging after the team moved dev here
+  dev-mirror:
+    image: registry.example.org/team/gateway:latest      # mutable tag
+    port: 8081
+    key_vault_secret_refs:
+      GATEWAY_MASTER_KEY: "gateway-master-key-staging"   # SAME secret as main service

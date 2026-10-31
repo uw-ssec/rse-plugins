@@ -5,6 +5,18 @@
     },
     "plugins": [
         {
+            "name": "security-audit",
+            "source": {
+                "source": "local",
+                "path": "./plugins/security-audit"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Security"
+        },
+        {
             "name": "scientific-domain-applications",
             "source": {
                 "source": "local",

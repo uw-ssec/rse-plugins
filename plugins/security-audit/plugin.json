@@ -1,0 +1,32 @@
+{
+    "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    "name": "security-audit",
+    "version": "0.1.0",
+    "description": "Infrastructure security audit plugin derived from a real post-incident engagement (SQLi -> JWT -> cloud API-key theft). 4 skills (recon, exploit lab, live verification, findings reports), 2 agents (security-auditor lead + exploit-lab-operator), 5 commands covering the full audit loop: repo/IaC/git-history recon, CVE/OSV matching, isolated Docker exploit labs with A/B patch verification, non-destructive live-endpoint probe suites, and per-finding report generation.",
+    "author": {
+        "name": "SSEC Engineering Team",
+        "url": "https://escience.washington.edu/software-engineering/ssec/"
+    },
+    "homepage": "https://github.com/uw-ssec/rse-plugins",
+    "repository": "https://github.com/uw-ssec/rse-plugins",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "security-audit",
+        "penetration-testing",
+        "vulnerability-assessment",
+        "cve",
+        "ghsa",
+        "osv",
+        "sql-injection",
+        "exploit-lab",
+        "incident-response",
+        "threat-modeling",
+        "infrastructure-security",
+        "llm-security",
+        "litellm",
+        "azure",
+        "docker",
+        "forensics",
+        "security-hardening"
+    ]
+}

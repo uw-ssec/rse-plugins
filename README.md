@@ -135,6 +135,26 @@ Here's an example that can be added to the `settings.json` file.
 
 The repository provides Claude Code plugins organized by domain. Each plugin contains agents (specialized AI personas) and skills (reusable knowledge modules).
 
+### Security Audit Plugin
+
+Infrastructure security audits derived from a real post-incident engagement (SQLi → JWT → cloud API-key theft). Runs the full loop: recon → isolated exploit lab → non-destructive live verification → per-finding reports.
+
+**Agents:**
+- **Security Auditor** - Lead agent: scope, authorization gates, phase sequencing, findings ledger; read-only against production
+- **Exploit Lab Operator** - Isolated Docker labs only: chain reproduction, A/B patch verification, evidence capture, teardown
+
+**Skills:**
+- **security-recon** - Repo/git-history/IaC review, secret-rotation checks, config drift analysis, CVE/OSV matching
+- **exploit-lab** - Isolated Docker labs (localhost, fake credentials): attack-chain reproduction, A/B verification, statement-log evidence
+- **live-verification** - Non-destructive probe suites against user-authorized endpoints: payload rejection, auth gating, headers, rate limiting
+- **findings-reports** - Per-finding reports (severity, files, evidence, fixes), verification records, executive summary
+
+**Commands:** `/security-audit`, `/security-recon`, `/exploit-lab`, `/live-verify`, `/findings-report`
+
+**Safety model:** full exploitation only in isolated local labs; live systems get verification-only probes with per-endpoint consent; incident evidence (spend/error logs) is preserved for billing disputes and forensics.
+
+**When to use:** post-incident reviews ("are they still in?"), pre-deployment hardening checks, patch-verification, advisory triage for deployed versions
+
 ### Scientific Python Development Plugin
 
 Expert agents and comprehensive skills for modern Scientific Python development.

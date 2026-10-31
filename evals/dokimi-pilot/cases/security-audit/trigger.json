@@ -1,0 +1,102 @@
+[
+    {
+        "id": "pos-01",
+        "prompt": "Our team got breached through our API gateway and a cloud key was stolen. Can you audit all our infra repos and tell us where we're still vulnerable?",
+        "expected_skill": "security-audit"
+    },
+    {
+        "id": "pos-02",
+        "prompt": "We just upgraded LiteLLM after that SQL injection advisory. Verify the fix is actually live on our production endpoint.",
+        "expected_skill": "live-verification"
+    },
+    {
+        "id": "pos-03",
+        "prompt": "I want to reproduce the CVE-2026-42208 attack chain locally to prove to my team our old deployment was really exploitable.",
+        "expected_skill": "exploit-lab"
+    },
+    {
+        "id": "pos-04",
+        "prompt": "Check whether the master key in our SOPS-encrypted env file was ever rotated after the incident last month.",
+        "expected_skill": "security-recon"
+    },
+    {
+        "id": "pos-05",
+        "prompt": "Write up the security findings from this audit as individual reports with severity, affected files, and proposed fixes, plus an executive summary.",
+        "expected_skill": "findings-reports"
+    },
+    {
+        "id": "pos-06",
+        "prompt": "Diff our prod and staging gateway configs — I suspect prod is missing a hardening flag that staging has.",
+        "expected_skill": "security-recon"
+    },
+    {
+        "id": "pos-07",
+        "prompt": "Someone reported a GHSA against a pinned dependency in our docker image. Figure out if our deployed version is actually affected and what the exposure window was.",
+        "expected_skill": "security-recon"
+    },
+    {
+        "id": "pos-08",
+        "prompt": "Fire the payloads that worked before the patch at our live endpoint to confirm they're blocked now. We own the endpoint and authorize the test.",
+        "expected_skill": "live-verification"
+    },
+    {
+        "id": "pos-09",
+        "prompt": "Build a vulnerable test environment in Docker so we can A/B test our old image against the patched one with the same payloads.",
+        "expected_skill": "exploit-lab"
+    },
+    {
+        "id": "pos-10",
+        "prompt": "Did we leave any secrets in the git history of this deployment repo, and is anything still unrotated since the breach?",
+        "expected_skill": "security-recon"
+    },
+    {
+        "id": "pos-11",
+        "prompt": "Full security review please: repos, deployment configs, and the live endpoints. We want per-finding reports at the end.",
+        "expected_skill": "security-audit"
+    },
+    {
+        "id": "pos-12",
+        "prompt": "Our audit found six issues. Turn the findings ledger into a report set — one file per finding and an exec summary indexing them.",
+        "expected_skill": "findings-reports"
+    },
+    {
+        "id": "near-01",
+        "prompt": "Bump our locked dependencies to clear the Dependabot alerts on the lockfile.",
+        "expected_skill": "supply-chain-dependency-security"
+    },
+    {
+        "id": "near-02",
+        "prompt": "A GHSA was published for a package we use. Walk the lockfile -> CI cache -> secrets -> persistence check for it.",
+        "expected_skill": "supply-chain-incident-response"
+    },
+    {
+        "id": "near-03",
+        "prompt": "Harden our GitHub Actions workflows: pin actions to SHAs and set minimal permissions.",
+        "expected_skill": "supply-chain-hardened-ci-cd"
+    },
+    {
+        "id": "near-04",
+        "prompt": "Add an SBOM and Sigstore signing to our release pipeline.",
+        "expected_skill": "supply-chain-sbom-provenance"
+    },
+    {
+        "id": "near-05",
+        "prompt": "Scan our Docker images for vulnerabilities with Trivy and set up the scan in CI.",
+        "expected_skill": "container-security"
+    },
+    {
+        "id": "neg-01",
+        "prompt": "Set up password authentication with JWT tokens for our Flask app.",
+        "expected_skill": null
+    },
+    {
+        "id": "neg-02",
+        "prompt": "Why is my docker-compose service failing its healthcheck on startup?",
+        "expected_skill": null
+    },
+    {
+        "id": "neg-03",
+        "prompt": "Review this PR for code quality and style issues.",
+        "expected_skill": null
+    }
+]

@@ -9,6 +9,11 @@
     },
     "plugins": [
         {
+            "name": "security-audit",
+            "source": "./plugins/security-audit",
+            "description": "Infrastructure security audit plugin derived from a real post-incident engagement (SQLi -> JWT -> cloud API-key theft). 4 skills (recon, exploit lab, live verification, findings reports), 2 agents (security-auditor lead + exploit-lab-operator), 5 commands covering the full audit loop: repo/IaC/git-history recon, CVE/OSV matching, isolated Docker exploit labs with A/B patch verification, non-destructive live-endpoint probe suites, and per-finding report generation."
+        },
+        {
             "name": "scientific-domain-applications",
             "source": "./plugins/scientific-domain-applications",
             "description": "Domain-specific scientific computing agents and skills for astronomy, astrophysics, and multidimensional data analysis with AstroPy and Xarray."
