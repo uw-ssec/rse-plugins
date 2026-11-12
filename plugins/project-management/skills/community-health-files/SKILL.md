@@ -2,17 +2,8 @@
 name: community-health-files
 description: Generates and configures open-source project files including README, CONTRIBUTING, LICENSE, CODE_OF_CONDUCT, SECURITY, and CITATION.cff, and sets up GitHub issue/PR templates following community best practices. Use when the user asks about setting up a new open-source project, creating README/CONTRIBUTING/LICENSE/CODE_OF_CONDUCT/SECURITY/CITATION.cff files, adding GitHub issue or PR templates, or improving repository community standards.
 metadata:
-  references:
-    - references/license-guide.md
-    - references/citation-format.md
-    - references/github-templates.md
-    - references/setup-workflow.md
-  assets:
-    - assets/readme-template.md
-    - assets/contributing-template.md
-    - assets/code-of-conduct-template.md
-    - assets/security-template.md
-    - assets/citation-template.cff
+  references: "references/license-guide.md, references/citation-format.md, references/github-templates.md, references/setup-workflow.md"
+  assets: "assets/readme-template.md, assets/contributing-template.md, assets/code-of-conduct-template.md, assets/security-template.md, assets/citation-template.cff"
 ---
 
 # Community Health Files

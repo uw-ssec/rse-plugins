@@ -2,12 +2,8 @@
 name: performance-reporting
 description: Generates structured benchmark reports with configuration comparison tables, performance bias analysis, ranked recommendations, and trade-off explanations from Zarr chunking benchmark results. Use when the user has Zarr chunking benchmark data to analyze, needs to compare chunk configurations, wants performance recommendations for Zarr storage, or needs to present chunking strategy results to stakeholders.
 metadata:
-  references:
-    - references/report-generation.md
-    - references/visualization-patterns.md
-  assets:
-    - assets/comparison-table-template.md
-    - assets/recommendation-template.md
+  references: "references/report-generation.md, references/visualization-patterns.md"
+  assets: "assets/comparison-table-template.md, assets/recommendation-template.md"
 ---
 
 # Performance Reporting

@@ -2,13 +2,8 @@
 name: podman
 description: Use when the user asks about Podman, rootless containers, Quadlet/systemd units, Podman Compose, or migrating Docker workflows to Podman. Creates and manages rootless Podman containers, maps Docker commands, configures podman run/build/compose flows, and sets up systemd-managed services.
 metadata:
-  references:
-    - references/rootless-containers.md
-    - references/docker-compatibility.md
-    - references/operations-and-troubleshooting.md
-  assets:
-    - assets/podman-compose-example.yml
-    - assets/quadlet-example.container
+  references: "references/rootless-containers.md, references/docker-compatibility.md, references/operations-and-troubleshooting.md"
+  assets: "assets/podman-compose-example.yml, assets/quadlet-example.container"
 ---
 
 # Podman

@@ -196,6 +196,10 @@ def test_symlink_out_of_skill_fails(ap, repo):
     ("name: one\ndescription: [d]\n", "description must be a string"),
     ("name: one\ndescription: d\nlicense: [MIT]\n", "license must be a string"),
     ("name: one\ndescription: d\nmetadata: x\n", "metadata must be a mapping"),
+    ("name: one\ndescription: d\nmetadata:\n  references:\n    - references/two.md\n",
+     "metadata must map string keys to string values"),
+    ("name: one\ndescription: d\nmetadata:\n  references: references/two.md\n  count: 2\n",
+     "metadata must map string keys to string values"),
     ("name: one\ndescription: 'a: b\n", "frontmatter is not a YAML mapping"),
     ("- one\n", "frontmatter is not a YAML mapping"),
 ])
@@ -207,7 +211,7 @@ def test_skill_frontmatter(ap, repo, frontmatter, message):
 @pytest.mark.parametrize("frontmatter", [
     "name: one # a YAML comment\ndescription: d\n",
     "name: 'one'\ndescription: 'Has a # inside quotes'\n",
-    "name: one\ndescription: >-\n  Folded\n  text.\nmetadata:\n  references:\n    - references/two.md\n",
+    "name: one\ndescription: >-\n  Folded\n  text.\nmetadata:\n  references: references/two.md\n",
 ])
 def test_skill_frontmatter_is_read_as_yaml(ap, repo, frontmatter):
     write(repo / "plugins/alpha/skills/one/SKILL.md", f"---\n{frontmatter}---\nbody\n")

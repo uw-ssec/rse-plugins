@@ -2,14 +2,8 @@
 name: python-testing
 description: Use when writing or organizing tests for scientific Python code, or when the user mentions pytest, test fixtures, parametrization, numerical assertions, or property-based testing. Write and organize tests for scientific Python packages using pytest. Covers fixtures, parametrization, numerical testing with NumPy utilities, property-based testing with Hypothesis, and CI integration.
 metadata:
-  assets:
-    - assets/conftest-example.py
-    - assets/github-actions-tests.yml
-    - assets/pyproject-pytest.toml
-  references:
-    - references/common-pitfalls.md
-    - references/scientific-patterns.md
-    - references/test-patterns.md
+  assets: "assets/conftest-example.py, assets/github-actions-tests.yml, assets/pyproject-pytest.toml"
+  references: "references/common-pitfalls.md, references/scientific-patterns.md, references/test-patterns.md"
 ---
 
 # Scientific Python Testing with pytest

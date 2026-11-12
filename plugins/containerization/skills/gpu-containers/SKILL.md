@@ -2,13 +2,8 @@
 name: gpu-containers
 description: Use when the user needs to configure Docker/container environments for GPU workloads, mentions CUDA, ROCm, GPU passthrough, or asks about running PyTorch/TensorFlow in containers. Configures NVIDIA/AMD GPU runtime access, selects compatible base images, and validates single/multi-GPU container execution.
 metadata:
-  references:
-    - references/nvidia-cuda-setup.md
-    - references/amd-rocm-setup.md
-    - references/gpu-validation-and-operations.md
-  assets:
-    - assets/cuda-dockerfile.dockerfile
-    - assets/rocm-dockerfile.dockerfile
+  references: "references/nvidia-cuda-setup.md, references/amd-rocm-setup.md, references/gpu-validation-and-operations.md"
+  assets: "assets/cuda-dockerfile.dockerfile, assets/rocm-dockerfile.dockerfile"
 ---
 
 # GPU Containers

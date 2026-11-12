@@ -2,13 +2,8 @@
 name: documentation-validation
 description: "Use when the user wants to validate documentation quality, check for broken links, lint prose or Markdown, test code examples, verify setup instructions, or set up CI for documentation testing. Covers prose linting with Vale, Markdown/RST syntax checking (markdownlint, doc8), link validation (HTMLProofer, lychee, markdown-link-check), code example testing (pytest doctest, cargo test --doc), notebook validation (nbval), container-based instruction testing, and GitHub Actions CI integration for research software projects. Trigger phrases: check my docs, broken links, doc quality, documentation errors, spelling/grammar in docs, test documentation, validate README, link check, prose linting, doc CI."
 metadata:
-  references:
-    - references/vale-configuration.md
-    - references/documentation-standards.md
-    - references/validation-tools.md
-  assets:
-    - assets/vale-config.ini
-    - assets/validation-checklist.md
+  references: "references/vale-configuration.md, references/documentation-standards.md, references/validation-tools.md"
+  assets: "assets/vale-config.ini, assets/validation-checklist.md"
 ---
 
 # Documentation Validation

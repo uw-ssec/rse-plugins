@@ -2,14 +2,8 @@
 name: devcontainers
 description: Use when the user asks to create, configure, or troubleshoot dev containers, devcontainer.json files, or GitHub Codespaces setups. Creates and configures devcontainer.json, adds features and lifecycle hooks, supports Docker Compose dev environments, and validates container setup for reproducible development.
 metadata:
-  references:
-    - references/devcontainer-json.md
-    - references/features-and-customization.md
-    - references/validation-and-troubleshooting.md
-  assets:
-    - assets/python-devcontainer.json
-    - assets/rust-devcontainer.json
-    - assets/node-devcontainer.json
+  references: "references/devcontainer-json.md, references/features-and-customization.md, references/validation-and-troubleshooting.md"
+  assets: "assets/python-devcontainer.json, assets/rust-devcontainer.json, assets/node-devcontainer.json"
 ---
 
 # Dev Containers

@@ -2,10 +2,7 @@
 name: data-migration
 description: Migrates data between formats with a focus on converting HDF5 and NetCDF datasets to Zarr. Covers xarray-based conversion, direct zarr.copy operations, VirtualiZarr for reference-based virtual Zarr stores, kerchunk for legacy workflows, validation strategies, and batch migration pipelines. Use when the user asks about converting HDF5 or NetCDF files to Zarr, migrating scientific datasets, or working with VirtualiZarr or kerchunk for virtual stores.
 metadata:
-  references:
-    - references/patterns.md
-    - references/examples.md
-    - references/common-issues.md
+  references: "references/patterns.md, references/examples.md, references/common-issues.md"
 ---
 
 # Data Migration to Zarr

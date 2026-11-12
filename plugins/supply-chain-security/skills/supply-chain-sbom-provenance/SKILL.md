@@ -2,11 +2,8 @@
 name: supply-chain-sbom-provenance
 description: SBOM generation and provenance verification for research software releases. Use when reviewing or writing release workflows that publish to PyPI, npm, GHCR, or similar registries; when verifying a downstream artifact's signatures or attestations; or when evaluating SLSA level for a release pipeline. Covers CycloneDX/SPDX SBOM generation with syft, Sigstore keyless signing with cosign, npm provenance, and SLSA build levels.
 metadata:
-  references:
-    - references/sigstore-cookbook.md
-    - references/slsa-levels.md
-  assets:
-    - assets/sbom-workflow.yml
+  references: "references/sigstore-cookbook.md, references/slsa-levels.md"
+  assets: "assets/sbom-workflow.yml"
 ---
 
 # Supply Chain SBOM and Provenance

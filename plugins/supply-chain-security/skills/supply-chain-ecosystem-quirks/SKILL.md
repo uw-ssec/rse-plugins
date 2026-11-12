@@ -2,11 +2,7 @@
 name: supply-chain-ecosystem-quirks
 description: Ecosystem-specific supply-chain gotchas for npm, PyPI, conda/pixi, cargo, and Go. Use when reviewing package.json + .npmrc, pyproject.toml + setup.py, pixi.toml + conda-lock.yml, Cargo.toml + .cargo/config.toml, or go.mod + GOPROXY config — any time a supply-chain recommendation depends on which ecosystem you're in. Loads ecosystem-specific reference docs on demand.
 metadata:
-  references:
-    - references/npm-quirks.md
-    - references/pypi-quirks.md
-    - references/conda-pixi-quirks.md
-    - references/cargo-go-quirks.md
+  references: "references/npm-quirks.md, references/pypi-quirks.md, references/conda-pixi-quirks.md, references/cargo-go-quirks.md"
 ---
 
 # Supply Chain Ecosystem Quirks

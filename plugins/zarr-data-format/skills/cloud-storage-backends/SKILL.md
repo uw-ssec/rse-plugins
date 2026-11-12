@@ -2,10 +2,7 @@
 name: cloud-storage-backends
 description: Configures Zarr stores on cloud object storage, covering S3, GCS, and Azure Blob backends via fsspec (s3fs, gcsfs, adlfs), the high-performance Rust-based obstore library, and Icechunk for versioned cloud storage. Covers authentication patterns, caching strategies, and performance tuning for remote I/O. Use when the user asks about reading or writing Zarr data on S3, GCS, or Azure, or mentions fsspec, obstore, or Icechunk for remote Zarr access.
 metadata:
-  references:
-    - references/patterns.md
-    - references/examples.md
-    - references/common-issues.md
+  references: "references/patterns.md, references/examples.md, references/common-issues.md"
 ---
 
 # Cloud Storage Backends for Zarr

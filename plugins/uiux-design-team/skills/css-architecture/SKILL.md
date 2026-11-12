@@ -2,11 +2,7 @@
 name: css-architecture
 description: Recommends CSS architecture approaches, compares methodologies, generates migration plans, and produces stylelint configs and cascade layer structures. Use when starting a new frontend project and choosing a CSS approach, refactoring inconsistent CSS, hitting specificity wars, integrating a component library, adding theming/dark mode, or deciding between BEM, Tailwind, CSS Modules, or CSS-in-JS.
 metadata:
-   references:
-   - references/bem-guide.md
-   - references/css-in-js-patterns.md
-   - references/css-modules-guide.md
-   - references/tailwind-patterns.md
+  references: "references/bem-guide.md, references/css-in-js-patterns.md, references/css-modules-guide.md, references/tailwind-patterns.md"
 ---
 
 # CSS Architecture

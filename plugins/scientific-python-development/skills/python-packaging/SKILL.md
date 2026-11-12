@@ -2,20 +2,9 @@
 name: python-packaging
 description: Create and publish distributable scientific Python packages following Scientific Python community best practices. Covers pyproject.toml, src layout, Hatchling, metadata, CLI entry points, and PyPI publishing. Use when the user wants to create a new Python package, set up pyproject.toml, configure Hatchling, publish to PyPI, or follow Scientific Python packaging standards.
 metadata:
-  assets:
-    - assets/pyproject-minimal.toml
-    - assets/pyproject-full-featured.toml
-    - assets/readme-template.md
-    - assets/github-actions-publish.yml
-    - assets/sphinx-conf.py
-    - assets/.gitignore
-  references:
-    - references/common-issues.md
-    - references/docstrings.md
-    - references/metadata.md
-    - references/patterns.md
-  scripts:
-    - scripts/cli-example.py
+  assets: "assets/pyproject-minimal.toml, assets/pyproject-full-featured.toml, assets/readme-template.md, assets/github-actions-publish.yml, assets/sphinx-conf.py"
+  references: "references/common-issues.md, references/docstrings.md, references/metadata.md, references/patterns.md"
+  scripts: "scripts/cli-example.py"
 ---
 
 # Scientific Python Packaging

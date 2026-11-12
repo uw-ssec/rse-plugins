@@ -2,12 +2,9 @@
 name: synthetic-data
 description: Generates synthetic Zarr datasets with configurable dimensions, shapes, data types, and compression for controlled chunking benchmarks. Supports local and cloud storage backends (S3, GCS). Use when the user needs to create test Zarr datasets for benchmarking, generate synthetic array data for performance testing, or create reproducible benchmark inputs without access to production data.
 metadata:
-  references:
-    - references/dataset-design.md
-  scripts:
-    - scripts/synthetic_data.py
-  assets:
-    - assets/synthetic-config-example.json
+  references: "references/dataset-design.md"
+  scripts: "scripts/synthetic_data.py"
+  assets: "assets/synthetic-config-example.json"
 ---
 
 # Synthetic Data Generation for Chunking Benchmarks

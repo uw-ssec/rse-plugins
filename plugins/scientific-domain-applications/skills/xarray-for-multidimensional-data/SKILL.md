@@ -2,10 +2,7 @@
 name: xarray-for-multidimensional-data
 description: Use when the user asks about Xarray, xarray datasets, NetCDF files, multidimensional labeled arrays, or scientific/climate data analysis in Python. Work with labeled multidimensional arrays for scientific data analysis using Xarray. Covers NetCDF/HDF5/Zarr I/O, Dask integration for large datasets, DataTree, and geospatial raster operations with rioxarray.
 metadata:
-  references:
-    - references/common-issues.md
-    - references/examples.md
-    - references/patterns.md
+  references: "references/common-issues.md, references/examples.md, references/patterns.md"
 ---
 
 # Xarray for Multidimensional Data

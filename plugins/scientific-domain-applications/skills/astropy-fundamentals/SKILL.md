@@ -2,10 +2,7 @@
 name: astropy-fundamentals
 description: Use when the user asks about astronomical data, FITS files, celestial coordinates, photometry, spectroscopy, or references AstroPy. Work with astronomical data using AstroPy for FITS file I/O, coordinate transformations, physical units, precise time handling, catalog cross-matching, photutils photometry, and specutils spectroscopy.
 metadata:
-  references:
-    - references/common-issues.md
-    - references/examples.md
-    - references/patterns.md
+  references: "references/common-issues.md, references/examples.md, references/patterns.md"
 ---
 
 # Astropy Fundamentals

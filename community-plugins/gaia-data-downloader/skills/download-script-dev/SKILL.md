@@ -2,10 +2,7 @@
 name: download-script-dev
 description: Use this skill when users ask to "develop a download script", "debug data download", "fix download error", "create data pipeline template", "download template", "GAIA data pipeline", "download from S3", "access Zarr store", "cloud data access", or mention sources like CONUS404, HRRR, WRF, PRISM, Stage IV, USGS, ORNL, DEM, Synoptic, or IRIS. Generates CONFIG-at-top Python download scripts, validates source-specific configuration (auth, endpoint/path, date range, variables, AOI/CRS, and output format), and diagnoses common failures (403/auth, timeout/retry, CRS mismatch, missing binaries, and partial downloads).
 metadata:
-  references:
-    - references/DOWNLOAD_PATTERNS.md
-    - references/CONFIGURATION.md
-    - references/DATA_SOURCES.md
+  references: "references/DOWNLOAD_PATTERNS.md, references/CONFIGURATION.md, references/DATA_SOURCES.md"
 ---
 
 # Download Script Development Skill

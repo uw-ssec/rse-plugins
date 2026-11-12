@@ -2,10 +2,7 @@
 name: design-handoff
 description: Bridges design and development by generating component spec sheets, running five-gate visual QA checks, producing asset export packages, and writing redline annotations. Use when packaging a design for developer implementation, writing component specifications, running design QA against a built UI, exporting assets from Figma, or resolving design-vs-code drift before a release.
 metadata:
-   references:
-   - references/annotation-guide.md
-   - references/handoff-checklist.md
-   - references/qa-process.md
+  references: "references/annotation-guide.md, references/handoff-checklist.md, references/qa-process.md"
 ---
 
 # Design Handoff

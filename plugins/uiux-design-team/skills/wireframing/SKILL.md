@@ -2,10 +2,7 @@
 name: wireframing
 description: Creates wireframe layouts and structural diagrams for UI screens, defining content hierarchy, component placement, responsive behavior, and grid structure. Use when sketching or producing a wireframe, mockup, or lo-fi page layout for a new screen; when restructuring an existing page's content priority; when validating UI structure or page layout with engineering; or when communicating responsive behavior across breakpoints.
 metadata:
-   references:
-   - references/content-hierarchy.md
-   - references/layout-systems.md
-   - references/wireframe-patterns.md
+  references: "references/content-hierarchy.md, references/layout-systems.md, references/wireframe-patterns.md"
 ---
 
 # Wireframing

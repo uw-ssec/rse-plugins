@@ -2,16 +2,8 @@
 name: dockerfile-patterns
 description: Use when the user asks about writing, optimizing, or debugging Dockerfiles, containerizing applications, or building Docker images with docker build. Covers multi-stage builds, layer caching, base image selection, security hardening, and language-specific patterns for Python, Node, Rust, R, Go, Julia, and C/C++.
 metadata:
-  references:
-    - references/multi-stage-builds.md
-    - references/layer-caching.md
-    - references/base-image-selection.md
-    - references/build-validation-and-ops.md
-  assets:
-    - assets/python-dockerfile.dockerfile
-    - assets/node-dockerfile.dockerfile
-    - assets/rust-dockerfile.dockerfile
-    - assets/r-dockerfile.dockerfile
+  references: "references/multi-stage-builds.md, references/layer-caching.md, references/base-image-selection.md, references/build-validation-and-ops.md"
+  assets: "assets/python-dockerfile.dockerfile, assets/node-dockerfile.dockerfile, assets/rust-dockerfile.dockerfile, assets/r-dockerfile.dockerfile"
 ---
 
 # Dockerfile Patterns

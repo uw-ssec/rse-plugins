@@ -4,15 +4,8 @@ description: "Use when the user works with pixi (pixi.toml, pixi.lock, pixi add/
 metadata:
   pixi-version: "0.83.0"
   last-verified: "2026-10-27"
-  assets:
-    - assets/github-actions-pixi.yml
-    - assets/pyproject-multi-env.toml
-    - assets/pyproject-pixi-example.toml
-  references:
-    - references/best-practices.md
-    - references/common-issues.md
-    - references/manifest-and-tooling.md
-    - references/patterns.md
+  assets: "assets/github-actions-pixi.yml, assets/pyproject-multi-env.toml, assets/pyproject-pixi-example.toml"
+  references: "references/best-practices.md, references/common-issues.md, references/manifest-and-tooling.md, references/patterns.md"
 ---
 
 # Pixi Package Manager for Scientific Python

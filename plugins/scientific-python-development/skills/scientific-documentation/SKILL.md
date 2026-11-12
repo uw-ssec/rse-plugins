@@ -2,21 +2,9 @@
 name: scientific-documentation
 description: Use when the user asks about setting up docs for a Python package, configuring Sphinx or MkDocs, writing NumPy-style docstrings, or deploying to Read the Docs. Set up and maintain documentation for scientific Python packages. Covers Sphinx, MkDocs, NumPy-style docstrings, Diataxis framework, accessibility standards, and documentation hosting with Read the Docs.
 metadata:
-  assets:
-    - assets/sphinx-conf-scientific.py
-    - assets/mkdocs-scientific.yml
-    - assets/noxfile-docs.py
-    - assets/readthedocs.yaml
-    - assets/index-template.md
-  references:
-    - references/accessible-documentation.md
-    - references/common-issues.md
-    - references/diataxis-framework.md
-    - references/docstring-examples.md
-    - references/notebook-integration.md
-    - references/sphinx-extensions.md
-  scripts:
-    - scripts/generate-api-docs.py
+  assets: "assets/sphinx-conf-scientific.py, assets/mkdocs-scientific.yml, assets/noxfile-docs.py, assets/readthedocs.yaml, assets/index-template.md"
+  references: "references/accessible-documentation.md, references/common-issues.md, references/diataxis-framework.md, references/docstring-examples.md, references/notebook-integration.md, references/sphinx-extensions.md"
+  scripts: "scripts/generate-api-docs.py"
 ---
 
 # Scientific Python Documentation

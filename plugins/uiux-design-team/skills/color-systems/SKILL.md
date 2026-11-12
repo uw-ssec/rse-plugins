@@ -2,10 +2,7 @@
 name: color-systems
 description: Generates comprehensive color systems including brand palette shade scales (50–950), semantic CSS custom property token mappings, dark mode variants, and WCAG contrast validation — delivered as ready-to-use CSS and design tokens. Use when defining a brand color palette, generating accessible shade scales, mapping semantic color tokens, building dark mode variants, or validating WCAG contrast compliance across a color system.
 metadata:
-   references:
-   - references/color-theory.md
-   - references/contrast-requirements.md
-   - references/palette-generation.md
+  references: "references/color-theory.md, references/contrast-requirements.md, references/palette-generation.md"
 ---
 
 # Color Systems

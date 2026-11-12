@@ -2,15 +2,8 @@
 name: singularity-apptainer
 description: Use when the user asks about Singularity, Apptainer, HPC containers, running containers on clusters, or converting Docker images for HPC environments. Creates definition files, builds and validates .sif images, configures MPI/GPU execution, and integrates container runs with Slurm.
 metadata:
-  references:
-    - references/definition-files.md
-    - references/mpi-containers.md
-    - references/hpc-workflow-patterns.md
-    - references/validation-and-recovery.md
-  assets:
-    - assets/basic-definition.def
-    - assets/mpi-definition.def
-    - assets/gpu-definition.def
+  references: "references/definition-files.md, references/mpi-containers.md, references/hpc-workflow-patterns.md, references/validation-and-recovery.md"
+  assets: "assets/basic-definition.def, assets/mpi-definition.def, assets/gpu-definition.def"
 ---
 
 # Singularity/Apptainer

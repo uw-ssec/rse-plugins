@@ -2,12 +2,8 @@
 name: access-pattern-analysis
 description: Identifies, formalizes, and prioritizes data access patterns for multi-dimensional Zarr datasets, translating user workflow descriptions into weighted, benchmark-ready pattern definitions with xarray operation mappings. Use when defining or optimizing access patterns before benchmarking chunk configurations, when translating informal user workflow descriptions ("I make maps", "I need time series") into xarray operations, when assigning weights to mixed access patterns for a shared dataset, or when diagnosing slow reads caused by a mismatch between chunk layout and access pattern.
 metadata:
-  references:
-    - references/pattern-identification.md
-    - references/workflow-mapping.md
-  assets:
-    - assets/pattern-definitions-template.json
-    - assets/workflow-questionnaire.md
+  references: "references/pattern-identification.md, references/workflow-mapping.md"
+  assets: "assets/pattern-definitions-template.json, assets/workflow-questionnaire.md"
 ---
 
 # Access Pattern Analysis
