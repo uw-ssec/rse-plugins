@@ -353,7 +353,8 @@ def create_synthetic_zarr(
         shape=shape,
         chunks=chunks,
         dtype=dtype,
-        codecs=codec_chain
+        codecs=codec_chain,
+        dimension_names=dimension_names
     )
 
     # Add dimension metadata
