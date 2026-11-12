@@ -147,21 +147,21 @@ Docs cross-link with relative markdown links so plan → research, implement →
 validation → plan+implement, and handoff → all of them form a navigable graph.
 Each skill states its own naming and cross-reference rules.
 
-## Cross-plugin deferral
+## Deferral
 
-Some concerns are better handled by specialist plugins. Hand off to them rather
-than re-implementing their guidance here.
+Some concerns are better handled by specialist skills or plugins. Hand off to
+them rather than re-implementing their guidance here.
 
 | Concern | Defer to |
 |---|---|
 | Environments (pixi) | `scientific-python-development:pixi-package-manager` |
-| Environments (uv) | `python-development:uv-package-manager` |
+| Environments (uv) | commit `uv.lock`, install with `uv sync --frozen` (no dedicated skill here) |
 | Tests | `scientific-python-development:python-testing` |
 | Packaging | `scientific-python-development:python-packaging` |
 | Documentation | `scientific-python-development:scientific-documentation` |
 | Community / handoff readiness | `project-management:community-health-files` |
-| Project handoff | `project-management:project-handoff` |
-| Heavy multi-source research | `deep-research` |
+| Project handoff | `creating-handoffs` (this plugin); `/project-handoff` command in `project-management` |
+| Heavy multi-source research | a `deep-research` skill if your client provides one (not bundled here) |
 
 ## Common Mistakes
 

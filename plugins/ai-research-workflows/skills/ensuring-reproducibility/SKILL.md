@@ -79,7 +79,8 @@ This skill decides **what** provenance to record; separate skills handle
 
 - **conda + PyPI, multi-platform lockfiles** → defer to
   `scientific-python-development:pixi-package-manager`
-- **PyPI-only lockfiles** → defer to `python-development:uv-package-manager`
+- **PyPI-only lockfiles** → commit `uv.lock` and install with `uv sync --frozen`
+  (no dedicated skill here)
 
 This skill is language-agnostic at the strategy level. Apply the same
 provenance principles to R, Julia, Rust, or any other runtime.
