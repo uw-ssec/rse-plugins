@@ -2,10 +2,7 @@
 name: compression-codecs
 description: Configures and optimizes compression for Zarr arrays. Covers all numcodecs compressors (Blosc, Zstd, LZ4, Gzip, LZMA, BZ2), pre-compression filters (Delta, Quantize, FixedScaleOffset, PackBits), codec pipelines, Blosc thread safety, and the trade-offs between compression speed and ratio. Use when the user asks about configuring compression for Zarr arrays, choosing numcodecs compressors, optimizing compression settings for chunked array storage, or debugging codec-related corruption or performance issues.
 metadata:
-  references:
-    - references/patterns.md
-    - references/examples.md
-    - references/common-issues.md
+  references: "references/patterns.md, references/examples.md, references/common-issues.md"
 ---
 
 # Compression Codecs for Zarr

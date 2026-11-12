@@ -2,10 +2,7 @@
 name: motion-design
 description: Recommends easing functions and durations, generates CSS and Framer Motion animation code, and audits motion for performance and prefers-reduced-motion compliance. Use when adding or fixing UI animation, choosing duration/easing for a transition, debugging janky motion, implementing micro-interactions or page transitions, or auditing motion for prefers-reduced-motion compliance.
 metadata:
-   references:
-   - references/animation-principles.md
-   - references/easing-functions.md
-   - references/scroll-animations.md
+  references: "references/animation-principles.md, references/easing-functions.md, references/scroll-animations.md"
 ---
 
 # Motion Design

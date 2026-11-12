@@ -2,13 +2,9 @@
 name: rechunking
 description: Safely applies chunking configurations to Zarr datasets with validation, progress reporting, memory-bounded execution, and rollback safety. Supports local, S3, and GCS storage backends. Use when the user needs to rechunk a .zarr dataset, change chunk sizes, optimize Zarr storage layout, or apply a chunk configuration identified by benchmarking.
 metadata:
-  references:
-    - references/rechunking-strategies.md
-    - references/validation-safety.md
-  scripts:
-    - scripts/rechunk.py
-  assets:
-    - assets/rechunk-config-example.json
+  references: "references/rechunking-strategies.md, references/validation-safety.md"
+  scripts: "scripts/rechunk.py"
+  assets: "assets/rechunk-config-example.json"
 ---
 
 # Rechunking Zarr Datasets

@@ -2,10 +2,7 @@
 name: component-library
 description: Use when implementing or extending a shared component library — scaffolding new components with CVA variants, writing Storybook stories, wiring visual regression, or auditing existing components for state and a11y coverage.
 metadata:
-   references:
-   - references/composition-patterns.md
-   - references/state-management.md
-   - references/variant-systems.md
+  references: "references/composition-patterns.md, references/state-management.md, references/variant-systems.md"
 ---
 
 # Component Library

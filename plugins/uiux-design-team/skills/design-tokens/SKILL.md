@@ -2,15 +2,10 @@
 name: design-tokens
 description: Guides design token architecture and Style Dictionary configuration, generates token files for web CSS variables, iOS, and Android, and audits token naming and reference integrity. Use when implementing or refactoring design tokens, setting up Style Dictionary, defining a three-tier token architecture, wiring multi-platform output (web/iOS/Android), or auditing existing tokens for naming and reference integrity.
 metadata:
-   style-dictionary-version: "4.x / 5.x"
-   last-verified: "2026-10-27"
-   assets:
-   - assets/validate-tokens.mjs
-   - assets/validate-tokens.test.mjs
-   references:
-   - references/naming-conventions.md
-   - references/platform-output.md
-   - references/token-taxonomy.md
+  style-dictionary-version: "4.x / 5.x"
+  last-verified: "2026-10-27"
+  assets: "assets/validate-tokens.mjs, assets/validate-tokens.test.mjs"
+  references: "references/naming-conventions.md, references/platform-output.md, references/token-taxonomy.md"
 ---
 
 # Design Tokens

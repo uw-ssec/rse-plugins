@@ -2,10 +2,7 @@
 name: information-architecture
 description: Designs information architecture by generating sitemaps, navigation hierarchies, and content taxonomies, running card sort and tree test analyses, and auditing navigation labels against findability criteria. Use when structuring a new site/app's content, when users report "I can't find anything," when running a card sort or tree test, or when auditing navigation labels and taxonomy for an existing product.
 metadata:
-   references:
-   - references/card-sorting-methods.md
-   - references/navigation-guide.md
-   - references/sitemap-patterns.md
+  references: "references/card-sorting-methods.md, references/navigation-guide.md, references/sitemap-patterns.md"
 ---
 
 # Information Architecture

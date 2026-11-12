@@ -2,10 +2,7 @@
 name: zarr-fundamentals
 description: Work with the Zarr array storage format for chunked, compressed, N-dimensional arrays. Covers array creation, hierarchical groups, metadata/attributes, advanced indexing modes, data types, thread/process safety, sharding, and Zarr v2 vs v3 differences. Use when the user asks about Zarr arrays, .zarr files, zarr-python, zarr stores, chunked array storage, or cloud-optimized scientific array storage.
 metadata:
-  references:
-    - references/patterns.md
-    - references/examples.md
-    - references/common-issues.md
+  references: "references/patterns.md, references/examples.md, references/common-issues.md"
 ---
 
 # Zarr Fundamentals

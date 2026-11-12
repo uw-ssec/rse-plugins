@@ -2,12 +2,7 @@
 name: user-research
 description: Guides UX research and discovery workflows including interview planning, persona development, JTBD job stories, competitive audits, and insight synthesis. Use when planning or running user interviews, building personas or JTBD job stories, designing a competitive audit, synthesizing research data, or framing insights and How-Might-We questions for ideation.
 metadata:
-   references:
-   - references/competitive-audit-guide.md
-   - references/interview-guide.md
-   - references/jtbd-framework.md
-   - references/persona-templates.md
-   - references/synthesis-methods.md
+  references: "references/competitive-audit-guide.md, references/interview-guide.md, references/jtbd-framework.md, references/persona-templates.md, references/synthesis-methods.md"
 ---
 
 # User Research

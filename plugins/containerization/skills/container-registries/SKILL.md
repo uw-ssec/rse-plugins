@@ -2,13 +2,8 @@
 name: container-registries
 description: Use when the user needs to publish or push container images, set up Docker registry authentication, configure CI/CD pipelines for container deployment, or work with GHCR, Docker Hub, ECR, or ACR. Creates and updates publishing workflows, tagging strategy, and multi-architecture build pipelines with post-push validation.
 metadata:
-  references:
-    - references/ghcr-publishing.md
-    - references/ci-image-publishing.md
-    - references/registry-operations.md
-  assets:
-    - assets/ghcr-publish-workflow.yml
-    - assets/docker-hub-publish-workflow.yml
+  references: "references/ghcr-publishing.md, references/ci-image-publishing.md, references/registry-operations.md"
+  assets: "assets/ghcr-publish-workflow.yml, assets/docker-hub-publish-workflow.yml"
 ---
 
 # Container Registries

@@ -2,10 +2,7 @@
 name: zarr-xarray-integration
 description: Integrates Zarr with xarray and Dask for labeled, multi-dimensional scientific data workflows. Covers reading and writing Zarr stores with xarray, append and region-write operations, multi-file virtual datasets, Dask chunk alignment with Zarr chunks, encoding configuration, consolidated metadata, and performance optimization. Use when the user asks about reading or writing Zarr stores with xarray, aligning Dask chunks with Zarr arrays, or optimizing large-scale multi-dimensional data pipelines.
 metadata:
-  references:
-    - references/patterns.md
-    - references/examples.md
-    - references/common-issues.md
+  references: "references/patterns.md, references/examples.md, references/common-issues.md"
 ---
 
 # Zarr + xarray Integration

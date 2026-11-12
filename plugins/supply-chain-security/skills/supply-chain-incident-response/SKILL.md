@@ -2,12 +2,8 @@
 name: supply-chain-incident-response
 description: Incident-response runbook for supply-chain compromises. Use when an advisory, CVE, GHSA, or campaign report names a dependency or GitHub Action this project uses; when responding to a Shai-Hulud-style maintainer takeover; or when a TeamPCP-style tag hijack is reported. Walks the lockfile-check → CI-cache-check → secret-rotation → persistence-artifact-hunt 4-point check end-to-end.
 metadata:
-  references:
-    - references/runbook-account-takeover.md
-    - references/runbook-tag-hijack.md
-    - references/secret-rotation.md
-  assets:
-    - assets/incident-report-template.md
+  references: "references/runbook-account-takeover.md, references/runbook-tag-hijack.md, references/secret-rotation.md"
+  assets: "assets/incident-report-template.md"
 ---
 
 # Supply Chain Incident Response

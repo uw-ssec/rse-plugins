@@ -2,18 +2,9 @@
 name: chunking-strategy
 description: Benchmarks and optimizes Zarr chunking strategies for multi-dimensional scientific datasets, measuring wall-clock time, peak memory, and I/O metrics across spatial, time-series, and spectral access patterns following Nguyen et al. (2023) methodology. Use when the user asks about Zarr chunk sizing, storage layout optimization, benchmarking array access patterns, or choosing chunk configurations for scientific data on S3, GCS, or local storage.
 metadata:
-  references:
-    - references/access-patterns.md
-    - references/memory-constraints.md
-    - references/nguyen-2023.md
-    - references/benchmarking-methodology.md
-    - references/cloud-storage-patterns.md
-    - references/performance-interpretation.md
-  scripts:
-    - scripts/benchmark_runner.py
-  assets:
-    - assets/benchmark-config-example.json
-    - assets/report-template.md
+  references: "references/access-patterns.md, references/memory-constraints.md, references/nguyen-2023.md, references/benchmarking-methodology.md, references/cloud-storage-patterns.md, references/performance-interpretation.md"
+  scripts: "scripts/benchmark_runner.py"
+  assets: "assets/benchmark-config-example.json, assets/report-template.md"
 ---
 
 # Chunking Strategy Benchmarking

@@ -2,12 +2,7 @@
 name: supply-chain-threat-awareness
 description: Supply chain threat posture assessment for projects and packages. Use when reviewing a project's .github/workflows/*.yml, package.json, pyproject.toml, requirements.txt, pixi.toml, or lockfiles for exposure to active 2025–2026 campaigns. Covers Shai-Hulud (500+ npm packages), TeamPCP (Trivy, Checkmarx, LiteLLM, Bitwarden CLI, SAP CAP via tag hijacking), axios (100M weekly downloads), and LiteLLM .pth persistence — all attack patterns CVE scanners miss.
 metadata:
-  references:
-    - references/campaigns/shai-hulud.md
-    - references/campaigns/teampcp.md
-    - references/campaigns/axios.md
-    - references/campaigns/litellm-pth.md
-    - references/posture-report-template.md
+  references: "references/campaigns/shai-hulud.md, references/campaigns/teampcp.md, references/campaigns/axios.md, references/campaigns/litellm-pth.md, references/posture-report-template.md"
 ---
 
 # Supply Chain Threat Awareness

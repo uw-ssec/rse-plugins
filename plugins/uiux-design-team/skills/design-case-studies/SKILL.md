@@ -2,25 +2,7 @@
 name: design-case-studies
 description: Produces structured teardown documents, principle-to-application comparison matrices, and pattern libraries by applying a five-layer analysis framework to real products. Use when analyzing a product's UI/UX to extract transferable patterns, benchmarking your own design against a category leader, looking up how a specific product (Stripe, Linear, Notion, Apple, Spotify, Netflix, Tinder, Airbnb, etc.) solves a design problem, or building a competitive teardown.
 metadata:
-   references:
-   - references/brand-experiences.md
-   - references/content-platforms.md
-   - references/design-systems-in-practice.md
-   - references/developer-tools.md
-   - references/e-commerce.md
-   - references/mobile-apps.md
-   - references/saas-dashboards.md
-   - references/emotional-design-growth.md
-   - references/psychological-design-engines.md
-   - references/saas-conversion-psychology.md
-   - references/onboarding-psychology.md
-   - references/tinder-dopamine-design.md
-   - references/outcome-first-ai-design.md
-   - references/peak-end-rule-design.md
-   - references/apple-design-principles.md
-   - references/spotify-design-moat.md
-   - references/netflix-behavioral-design.md
-   - references/product-led-growth-funnel.md
+  references: "references/brand-experiences.md, references/content-platforms.md, references/design-systems-in-practice.md, references/developer-tools.md, references/e-commerce.md, references/mobile-apps.md, references/saas-dashboards.md, references/emotional-design-growth.md, references/psychological-design-engines.md, references/saas-conversion-psychology.md, references/onboarding-psychology.md, references/tinder-dopamine-design.md, references/outcome-first-ai-design.md, references/peak-end-rule-design.md, references/apple-design-principles.md, references/spotify-design-moat.md, references/netflix-behavioral-design.md, references/product-led-growth-funnel.md"
 ---
 
 # Design Case Studies

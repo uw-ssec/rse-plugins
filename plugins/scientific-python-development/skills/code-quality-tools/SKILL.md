@@ -2,13 +2,8 @@
 name: code-quality-tools
 description: Use when the user asks about setting up linting, type checking, code formatting, or pre-commit hooks for Python projects, or mentions ruff, mypy, or pre-commit configuration. Configure and use automated code quality tools (ruff, mypy, pre-commit) for scientific Python projects. Covers linting rules, type checking configuration, formatting, and CI integration.
 metadata:
-  assets:
-    - assets/pre-commit-config.yaml
-    - assets/pyproject-ruff-mypy.toml
-  references:
-    - references/common-issues.md
-    - references/configuration-patterns.md
-    - references/type-hints.md
+  assets: "assets/pre-commit-config.yaml, assets/pyproject-ruff-mypy.toml"
+  references: "references/common-issues.md, references/configuration-patterns.md, references/type-hints.md"
 ---
 
 # Code Quality Tools for Scientific Python

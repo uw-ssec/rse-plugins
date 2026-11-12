@@ -2,14 +2,8 @@
 name: container-security
 description: Use when the user asks about container image vulnerabilities, scanning Docker images, generating SBOMs, signing images with cosign, hardening container images, or adding security checks in CI/CD. Performs scan -> triage -> remediate/suppress -> re-scan -> sign -> verify workflow using Trivy/Grype/syft/cosign.
 metadata:
-  references:
-    - references/image-scanning.md
-    - references/hardening-guide.md
-    - references/supply-chain-security.md
-    - references/security-operations.md
-  assets:
-    - assets/trivy-config.yaml
-    - assets/security-scan-workflow.yml
+  references: "references/image-scanning.md, references/hardening-guide.md, references/supply-chain-security.md, references/security-operations.md"
+  assets: "assets/trivy-config.yaml, assets/security-scan-workflow.yml"
 ---
 
 # Container Security

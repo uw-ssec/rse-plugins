@@ -2,13 +2,8 @@
 name: compose-orchestration
 description: Use when the user asks about Docker Compose configuration, docker-compose.yml/compose.yml files, multi-container setups, container networking, or local container orchestration for development. Creates and configures Compose stacks for web APIs, databases, message queues, workers, and Jupyter workflows; sets up service dependencies and health checks; and troubleshoots startup/connectivity issues.
 metadata:
-  references:
-    - references/compose-patterns.md
-    - references/networking-volumes.md
-  assets:
-    - assets/web-app-compose.yml
-    - assets/research-stack-compose.yml
-    - assets/development-compose.yml
+  references: "references/compose-patterns.md, references/networking-volumes.md"
+  assets: "assets/web-app-compose.yml, assets/research-stack-compose.yml, assets/development-compose.yml"
 ---
 
 # Docker Compose Orchestration

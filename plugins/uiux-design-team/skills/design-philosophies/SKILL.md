@@ -2,14 +2,7 @@
 name: design-philosophies
 description: Conducts structured design evaluations against Gestalt, Nielsen, and Rams principles, produces heuristic evaluation reports with severity-rated findings, and recommends design improvements. Use when running a heuristic evaluation, structuring a design critique, selecting which design framework to apply for a given project context, or auditing a UI against Gestalt/Nielsen/Rams principles.
 metadata:
-   references:
-   - references/apple-hig.md
-   - references/design-thinking.md
-   - references/dieter-rams-principles.md
-   - references/emotional-design.md
-   - references/gestalt-principles.md
-   - references/material-design.md
-   - references/nielsen-heuristics.md
+  references: "references/apple-hig.md, references/design-thinking.md, references/dieter-rams-principles.md, references/emotional-design.md, references/gestalt-principles.md, references/material-design.md, references/nielsen-heuristics.md"
 ---
 
 # Design Philosophies

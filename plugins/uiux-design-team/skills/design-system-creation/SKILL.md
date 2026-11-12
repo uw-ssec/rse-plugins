@@ -2,12 +2,7 @@
 name: design-system-creation
 description: Scaffolds design system infrastructure, generates Style Dictionary token configs, produces component templates and Storybook setups, and creates UI audit reports. Use when bootstrapping a new design system from scratch, auditing an existing UI for systemization, setting up Storybook + Style Dictionary scaffolding, or defining governance and versioning for a shared component system.
 metadata:
-   references:
-   - references/atomic-design-guide.md
-   - references/component-api-guide.md
-   - references/component-template.md
-   - references/theming-patterns.md
-   - references/token-architecture.md
+  references: "references/atomic-design-guide.md, references/component-api-guide.md, references/component-template.md, references/theming-patterns.md, references/token-architecture.md"
 ---
 
 # Design System Creation

@@ -36,7 +36,8 @@ Package checks, for every plugin:
 
 - plugin.json follows the closed manifest schema and its name is the directory;
 - every directory under plugins/ and community-plugins/ is in the catalog;
-- each skills/<dir>/SKILL.md has Agent Skills frontmatter whose name is <dir>;
+- each skills/<dir>/SKILL.md has Agent Skills frontmatter whose name is <dir>
+  and whose metadata maps string keys to string values;
 - no file, symlink or relative Markdown/wiki link inside a skill resolves
   outside that skill, and every relative link resolves to a file (installed
   skills are copied on their own, so a link to ../sibling breaks);
@@ -342,9 +343,17 @@ def check_skills(pdir: Path, root: Path, errors: list[str]) -> None:
         for k in ("license", "compatibility", "allowed-tools"):
             if k in fm and not isinstance(fm[k], str):
                 errors.append(f"{srel}/SKILL.md: {k} must be a string")
-        # The spec wants string values; this repo's skills list their references under metadata.
-        if not isinstance(fm.get("metadata", {}), dict):
+        # Agent Skills v1: metadata is a map from string keys to string values. A nested list
+        # (the old metadata.references/assets/scripts form) is rejected by strict clients,
+        # including Hermes, which skips the whole skill.
+        meta = fm.get("metadata", {})
+        if not isinstance(meta, dict):
             errors.append(f"{srel}/SKILL.md: metadata must be a mapping")
+        else:
+            for k, v in meta.items():
+                if not isinstance(k, str) or not isinstance(v, str):
+                    errors.append(f"{srel}/SKILL.md: metadata must map string keys to string values"
+                                  f" ({k!r}: {v!r}); join a list into one comma-separated string")
         for k in sorted(set(fm) - SKILL_FIELDS, key=str):
             errors.append(f"{srel}/SKILL.md: frontmatter field {k!r} is not in the Agent Skills spec")
         for f in sorted(skill.rglob("*")):
