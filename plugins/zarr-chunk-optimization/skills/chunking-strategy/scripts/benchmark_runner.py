@@ -50,8 +50,10 @@ import time
 import tracemalloc
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+import dask.array as da
 import numpy as np
 import xarray as xr
+import zarr
 
 
 # Configure logging
@@ -86,6 +88,35 @@ def clear_fsspec_cache():
         logger.debug("fsspec cache cleared")
     except ImportError:
         logger.warning("fsspec not available, skipping cache clear")
+
+
+def open_dataset(dataset_path: str, chunks: str = 'auto') -> xr.Dataset:
+    """
+    Open a Zarr store as an xarray Dataset, whether it holds a group or a bare array.
+
+    ``xr.open_zarr`` only accepts group stores. ``synthetic_data.py`` writes a
+    single array at the store root, so opening its output raised
+    ``ContainsArrayError``. Array stores are wrapped here, using the array's
+    ``dimension_names`` metadata when present.
+
+    Parameters
+    ----------
+    dataset_path : str
+        Path or URL of the Zarr store.
+    chunks : str
+        Chunking passed to the group opener; array stores keep their stored chunks.
+
+    Returns
+    -------
+    xr.Dataset
+    """
+    node = zarr.open(dataset_path, mode='r')
+    if isinstance(node, zarr.Array):
+        names = getattr(node.metadata, 'dimension_names', None)
+        dims = list(names) if names else [f'dim_{i}' for i in range(node.ndim)]
+        name = dataset_path.rstrip('/').rsplit('/', 1)[-1].replace('.zarr', '') or 'data'
+        return xr.Dataset({name: xr.DataArray(da.from_array(node, chunks=node.chunks), dims=dims)})
+    return xr.open_zarr(dataset_path, chunks=chunks)
 
 
 def get_dimension_names(ds: xr.Dataset) -> List[str]:
@@ -379,7 +410,7 @@ def run_benchmark(
         import s3fs  # noqa: F401
 
     # Open dataset
-    ds = xr.open_zarr(dataset_path, chunks='auto')
+    ds = open_dataset(dataset_path, chunks='auto')
     dims = get_dimension_names(ds)
     var_name = list(ds.data_vars)[0]
 
@@ -457,6 +488,10 @@ def run_benchmark(
 
     for metric in metric_names:
         values = [run[metric] for run in all_metrics]
+        if any(v is None for v in values):
+            # ttfb and chunk_utilization are documented as not-yet-measured
+            # (None); averaging them raised TypeError and failed every run.
+            continue
         statistics[metric] = {
             'mean': float(np.mean(values)),
             'std': float(np.std(values)),
@@ -522,7 +557,7 @@ def run_all_benchmarks(
         Complete benchmark results for all combinations
     """
     # Determine dataset dimensionality
-    ds = xr.open_zarr(dataset_path, chunks='auto')
+    ds = open_dataset(dataset_path, chunks='auto')
     dims = get_dimension_names(ds)
     num_dims = len(dims)
 
