@@ -60,11 +60,12 @@ Generate filename from the topic slug (`plan-<slug>.md`). Read the template:
 2. Current State Analysis — existing code with `file:line` references
 3. Desired End State — observable success outcomes
 4. What We're NOT Doing — explicit scope boundaries
-5. Implementation Approach — technical strategy and key decisions
-6. Implementation Phases — phased tasks with file paths and verification steps
-7. Success Criteria — split into Automated and Manual (see below)
-8. Testing Strategy — unit, integration, manual
-9. References — research docs, files analyzed, external docs
+5. Assumptions — beliefs the plan relies on but has not confirmed (see below)
+6. Implementation Approach — technical strategy and key decisions
+7. Implementation Phases — phased tasks with file paths and verification steps
+8. Success Criteria — split into Automated and Manual (see below)
+9. Testing Strategy — unit, integration, manual
+10. References — research docs, files analyzed, external docs
 
 Each phase needs: a clear objective, tasks with `path/to/file.ext:lines`,
 dependencies on prior phases, and verification steps.
@@ -102,6 +103,29 @@ ship any of these — resolve each before saving:
 
 **Manual Verification** — steps requiring human judgment (UI behavior, UX, edge
 cases, performance under real conditions).
+
+#### Assumptions
+
+List the beliefs the plan relies on but you have not confirmed by reading code
+or running something. Place everything else where it belongs:
+
+- Confirmed in code → Current State Analysis.
+- A setup step (install a package, fetch a dataset) → Testing Strategy.
+- A deliberate choice → Implementation Approach.
+- Not yet decided → an open question; resolve it before saving (see below).
+
+In research code, look for assumptions about:
+
+- **Library behavior** — a fixed random seed makes GPU training runs repeatable
+- **Concurrency and isolation** — each MPI rank reads only its own slice of the input
+- **Data characteristics** — every station file reports temperature in kelvin
+- **Environment** — compute nodes can reach the internet to fetch reference data
+- **External contracts** — the data portal's API returns complete results without paging
+
+Record each one with its basis, impact if wrong, and how to verify it (see the
+template). If you confirmed every belief, write "None" and list what you
+checked. The implementer checks these before starting; if one proves false,
+revise the plan with `ai-research-workflows:iterating-plans`.
 
 #### Blocking rule: NO open questions
 
@@ -150,5 +174,6 @@ Before completing the plan verify:
 - [ ] Success criteria split into Automated and Manual
 - [ ] Criteria are measurable and concrete
 - [ ] "What We're NOT Doing" section is filled out
+- [ ] Assumptions holds only unconfirmed beliefs, each with a way to verify it, or says "None" and what was checked
 - [ ] NO open questions remain
 - [ ] References section links to research and experiment docs

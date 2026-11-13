@@ -447,6 +447,7 @@ For plan documents:
 - [ ] Current state is documented with file references
 - [ ] Desired end state is described
 - [ ] "What We're NOT Doing" section is filled out
+- [ ] Assumptions documented with basis and impact if wrong (or "None" with what was checked)
 - [ ] Implementation approach explains key decisions
 - [ ] Phases have specific tasks with file:line references
 - [ ] Success criteria split into Automated and Manual
